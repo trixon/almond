@@ -1,0 +1,4 @@
+nmc
+===
+
+NetBeans Module Collection
