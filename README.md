@@ -1,4 +1,4 @@
-nmc
+Almond
 ===
 
-NetBeans Module Collection
+A NetBeans Platform Module Collection
