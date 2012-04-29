@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+AutoUpdate-Show-In-Client: false
+OpenIDE-Module: se.trixon.almond.util
+OpenIDE-Module-Localizing-Bundle: se/trixon/almond/util/Bundle.properties
+OpenIDE-Module-Specification-Version: 0.1
+
