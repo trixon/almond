@@ -32,11 +32,11 @@ public final class About implements ActionListener {
   public void actionPerformed(ActionEvent e) {
     try {
       if (aboutBundle == null) {
-        aboutBundle = ResourceBundle.getBundle("se/trixon/almond/about/About");
+        aboutBundle = ResourceBundle.getBundle("se/trixon/almond/about/about");
       }
 
       if (licenseBundle == null) {
-        licenseBundle = ResourceBundle.getBundle("se/trixon/almond/about/License");
+        licenseBundle = ResourceBundle.getBundle("se/trixon/almond/about/license");
       }
 
       if (imageIcon == null) {
