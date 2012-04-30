@@ -4,6 +4,7 @@
 *.jar
 *.war
 *.ear
+.DS_Store
 /build/
 /dist/
 /modules/nmc_util/build/
