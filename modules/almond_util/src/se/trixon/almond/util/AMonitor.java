@@ -1,6 +1,7 @@
 package se.trixon.almond.util;
 
-import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import org.openide.windows.IOProvider;
 import org.openide.windows.InputOutput;
 import org.openide.windows.OutputWriter;
@@ -19,18 +20,27 @@ public class AMonitor {
   public AMonitor(String tag, boolean newIO, boolean useTimestamps) {
     this.useTimestamps = useTimestamps;
     io = IOProvider.getDefault().getIO(tag, newIO);
-    out = io.getOut();
-    err = io.getErr();
   }
 
   public void errln(String aMessage) {
+    err = io.getErr();
     printDate(err);
     err.println(aMessage);
+    err.close();
   }
 
   public void outln(String aMessage) {
+    out = io.getOut();
     printDate(out);
     out.println(aMessage);
+    out.close();
+  }
+
+  public void outlnEvent(String aMessage) {
+    out = io.getOut();
+    printDate(out);
+    out.println(aMessage);
+    out.close();
   }
 
   public boolean isUseTimestamps() {
@@ -42,9 +52,10 @@ public class AMonitor {
   }
 
   private void printDate(OutputWriter anOutputWriter) {
-    Date date = new Date();
     if (useTimestamps) {
-      anOutputWriter.print(date + ": ");
+      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH.mm.ss");
+      Calendar calendar = Calendar.getInstance();
+      anOutputWriter.print(sdf.format(calendar.getTime()) + ": ");
     }
   }
 }
