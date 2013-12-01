@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+OpenIDE-Module: se.trixon.almond.actions
+OpenIDE-Module-Localizing-Bundle: se/trixon/almond/actions/Bundle.properties
+OpenIDE-Module-Specification-Version: 1.0
+
