@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE filesystem PUBLIC "-//NetBeans//DTD Filesystem 1.2//EN" "http://www.netbeans.org/dtds/filesystem-1_2.dtd">
+<filesystem>
+    <folder name="Shortcuts">
+        <file name="D-X.shadow">
+            <attr name="originalFile" stringvalue="Actions/Edit/org-openide-actions-CutAction.instance"/>
+        </file>
+        <file name="D-C.shadow">
+            <attr name="originalFile" stringvalue="Actions/Edit/org-openide-actions-CopyAction.instance"/>
+        </file>
+        <file name="D-V.shadow">
+            <attr name="originalFile" stringvalue="Actions/Edit/org-openide-actions-PasteAction.instance"/>
+        </file>
+        <file name="D-F.shadow">
+            <attr name="originalFile" stringvalue="Actions/Edit/org-openide-actions-FindAction.instance"/>
+        </file>
+        <file name="D-Z.shadow">
+            <attr name="originalFile" stringvalue="Actions/Edit/org-openide-actions-UndoAction.instance"/>
+        </file>
+        <file name="DS-Z.shadow">
+            <attr name="originalFile" stringvalue="Actions/Edit/org-openide-actions-RedoAction.instance"/>
+        </file>
+    </folder>
+</filesystem> 
