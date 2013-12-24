@@ -1,9 +1,10 @@
 package se.trixon.almond.swing;
 
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import javax.swing.*;
+import javax.swing.Action;
+import javax.swing.Icon;
+import javax.swing.JButton;
+import se.trixon.almond.util.AGraphics;
 
 /**
  *
@@ -11,51 +12,55 @@ import javax.swing.*;
  */
 public class AColorChooserButton extends JButton {
 
-  private JLabel label = new JLabel();
-  private JPanel panel = new JPanel();
+    private static final String COLOR_SYMBOL = "█";
 
-  public AColorChooserButton() {
-    init();
-  }
+    private Color mColor = Color.BLACK;
+    private String mText;
+    private Color mTextColor = Color.BLACK;
 
-  public AColorChooserButton(String text) {
-    init();
-    label.setText(text);
-  }
+    public AColorChooserButton() {
+        super();
+    }
 
-  public AColorChooserButton(Action anAction) {
-    super(anAction);
-    init();
-  }
+    public AColorChooserButton(String text) {
+        super(text);
+    }
 
-  public AColorChooserButton(Icon anIcon) {
-    super(anIcon);
-    init();
-  }
+    public AColorChooserButton(Action action) {
+        super(action);
+    }
 
-  public AColorChooserButton(String aText, Icon anIcon) {
-    super(aText, anIcon);
-    init();
-  }
+    public AColorChooserButton(Icon icon) {
+        super(icon);
+    }
 
-  public Color getColor() {
-    return panel.getBackground();
-  }
+    public AColorChooserButton(String text, Icon icon) {
+        super(text, icon);
+    }
 
-  public void setColor(Color aColor) {
-    panel.setBackground(aColor);
-  }
+    public Color getColor() {
+        return mColor;
+    }
 
-  @Override
-  public void setText(String aText) {
-    label.setText(aText);
-  }
+    public Color getTextColor() {
+        return mTextColor;
+    }
 
-  private void init() {
-    panel.setMinimumSize(new Dimension(15, 0));
-    panel.setBackground(Color.BLACK);
-    setLayout(new FlowLayout(FlowLayout.LEFT, 10, 0));
-    add(panel);
-    add(label);
-  }
+    public void setColor(Color color) {
+        mColor = color;
+        setText(mText);
+    }
+
+    @Override
+    public void setText(String text) {
+        mText = text;
+        String color = AGraphics.colorToHex(mColor);
+        String textColor = AGraphics.colorToHex(mTextColor);
+        super.setText(String.format("<html><font color=%s>%s <font color=%s>%s</html>", color, COLOR_SYMBOL, textColor, text));
+    }
+
+    public void setTextColor(Color textColor) {
+        mTextColor = textColor;
+    }
+
 }
