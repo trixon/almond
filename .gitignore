@@ -30,3 +30,11 @@
 /modules/almond_resources/build/
 /modules/almond_resources/nbproject/private/
 /modules/almond_actions/nbproject/private/
+/modules/se.trixon.almond.actions/nbproject/private/
+/modules/se.trixon.almond.actions.osx/nbproject/private/
+/modules/se.trixon.almond.core/build/
+/modules/se.trixon.almond.actions.osx/build/
+/modules/se.trixon.almond.actions/build/
+/modules/se.trixon.almond.core/nbproject/private/
+/modules/se.trixon.almond/nbproject/private/
+/modules/se.trixon.almond/build/
