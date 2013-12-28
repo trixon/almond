@@ -20,22 +20,27 @@ public class AColorChooserButton extends JButton {
 
     public AColorChooserButton() {
         super();
+        init();
     }
 
     public AColorChooserButton(String text) {
         super(text);
+        init();
     }
 
     public AColorChooserButton(Action action) {
         super(action);
+        init();
     }
 
     public AColorChooserButton(Icon icon) {
         super(icon);
+        init();
     }
 
     public AColorChooserButton(String text, Icon icon) {
         super(text, icon);
+        init();
     }
 
     public Color getColor() {
@@ -63,4 +68,7 @@ public class AColorChooserButton extends JButton {
         mTextColor = textColor;
     }
 
+    private void init() {
+        setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+    }
 }
