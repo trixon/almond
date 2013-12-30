@@ -12,15 +12,21 @@ import org.openide.util.lookup.Lookups;
  */
 public class AUtil {
 
-    public static TreeSet<Integer> getSet(String aString) {
+    /**
+     *
+     * @param string
+     * @return 1,2,3,7,8,9 from "1-3,7-9"
+     */
+    public static TreeSet<Integer> convertStringToIntSet(String string) {
         TreeSet<Integer> treeSet = new TreeSet<Integer>();
-        String[] arg = aString.split(",");
-        for (int i = 0; i < arg.length; i++) {
+        String[] args = string.split(",");
+
+        for (String arg : args) {
             try {
-                int value = Integer.valueOf(arg[i].trim());
+                int value = Integer.valueOf(arg.trim());
                 treeSet.add(value);
             } catch (java.lang.NumberFormatException e) {
-                String[] interval = arg[i].split("-");
+                String[] interval = arg.split("-");
                 int start = Math.min(Integer.valueOf(interval[0].trim()), Integer.valueOf(interval[1].trim()));
                 int stop = Math.max(Integer.valueOf(interval[0].trim()), Integer.valueOf(interval[1].trim()));
                 for (int j = start; j <= stop; j++) {
