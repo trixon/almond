@@ -12,47 +12,47 @@ import org.openide.windows.OutputWriter;
  */
 public class Monitor {
 
-    private InputOutput io;
-    private OutputWriter out;
-    private OutputWriter err;
-    private boolean useTimestamps = true;
+    private OutputWriter mErr;
+    private final InputOutput mIo;
+    private OutputWriter mOut;
+    private boolean mUseTimestamps = true;
 
     public Monitor(String tag, boolean newIO, boolean useTimestamps) {
-        this.useTimestamps = useTimestamps;
-        io = IOProvider.getDefault().getIO(tag, newIO);
+        mUseTimestamps = useTimestamps;
+        mIo = IOProvider.getDefault().getIO(tag, newIO);
     }
 
-    public void errln(String aMessage) {
-        err = io.getErr();
-        printDate(err);
-        err.println(aMessage);
-        err.close();
-    }
-
-    public void outln(String aMessage) {
-        out = io.getOut();
-        printDate(out);
-        out.println(aMessage);
-        out.close();
-    }
-
-    public void outlnEvent(String aMessage) {
-        out = io.getOut();
-        printDate(out);
-        out.println(aMessage);
-        out.close();
+    public void errln(String message) {
+        mErr = mIo.getErr();
+        printDate(mErr);
+        mErr.println(message);
+        mErr.close();
     }
 
     public boolean isUseTimestamps() {
-        return useTimestamps;
+        return mUseTimestamps;
+    }
+
+    public void outln(String message) {
+        mOut = mIo.getOut();
+        printDate(mOut);
+        mOut.println(message);
+        mOut.close();
+    }
+
+    public void outlnEvent(String message) {
+        mOut = mIo.getOut();
+        printDate(mOut);
+        mOut.println(message);
+        mOut.close();
     }
 
     public void setUseTimestamps(boolean useTimestamps) {
-        this.useTimestamps = useTimestamps;
+        mUseTimestamps = useTimestamps;
     }
 
     private void printDate(OutputWriter anOutputWriter) {
-        if (useTimestamps) {
+        if (mUseTimestamps) {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH.mm.ss");
             Calendar calendar = Calendar.getInstance();
             anOutputWriter.print(sdf.format(calendar.getTime()) + ": ");
