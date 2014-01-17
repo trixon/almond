@@ -8,24 +8,20 @@ import org.openide.util.NbBundle;
  *
  * @author Patrik Karlsson <patrik@trixon.se>
  */
-public class ALicense {
+public class License {
 
-    private ALicensePanel licensePanel;
+    private final LicensePanel mLicensePanel;
 
-    private ALicense(String aLicense) {
-        licensePanel = new ALicensePanel(aLicense);
+    private License(String license) {
+        mLicensePanel = new LicensePanel(license);
         showIt();
     }
 
-    public static void showDialog(String aLicense) {
-        ALicense license = new ALicense(aLicense);
-    }
-
     private void showIt() {
-        String dialogTitle = NbBundle.getMessage(ALicense.class, "CTL_DialogTitleLicense");
+        String dialogTitle = NbBundle.getMessage(License.class, "CTL_DialogTitleLicense");
 
         DialogDescriptor dialogDescriptor = new DialogDescriptor(
-                licensePanel,
+                mLicensePanel,
                 dialogTitle,
                 true,
                 new Object[]{DialogDescriptor.CLOSED_OPTION},

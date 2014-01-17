@@ -5,7 +5,7 @@
         <folder name="Help">
             <file name="org-netbeans-core-actions-AboutAction.instance">
                 <attr name="displayName" bundlevalue="org.netbeans.core.actions.Bundle#About"/>
-                <attr name="delegate" newvalue="se.trixon.almond.about.About"/>
+                <attr name="delegate" newvalue="se.trixon.almond.about.AboutAction"/>
                 <attr name="instanceCreate" methodvalue="org.openide.awt.Actions.alwaysEnabled"/>
                 <attr name="noIconInMenu" boolvalue="false"/>
                 <attr name="iconBase" stringvalue="org/netbeans/core/startup/frame.png"/>
