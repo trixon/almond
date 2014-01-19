@@ -37,7 +37,8 @@ public final class AboutAction implements ActionListener {
             sImageIcon = ImageUtilities.loadImageIcon("se/trixon/almond/about/res/default_logo.png", false);
         }
 
-        String title = String.format(NbBundle.getMessage(License.class, "CTL_DialogTitleAbout"), sAboutBundle.getString("application.title"));
+        String appTitle = sAboutBundle.getString("application.title");
+        String title = NbBundle.getMessage(License.class, "CTL_DialogTitleAbout", appTitle);
         AboutPanel aboutPanel = new AboutPanel(sAboutBundle, sImageIcon, sLicenseBundle);
         DialogDescriptor dialogDescriptor = new DialogDescriptor(
                 aboutPanel,

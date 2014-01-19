@@ -185,18 +185,12 @@ public class AboutPanel extends JPanel {
         headerTextPanel.add(Box.createRigidArea(new Dimension(0, 2)));
         headerTextPanel.add(mUsesLabel);
 
+        mVersionLabel.setText(String.format("%s, %s", getString("application.version"), getString("application.date")));
         String javaVersion = System.getProperty("java.runtime.version");
         String javaName = System.getProperty("java.runtime.name");
+        String uses = NbBundle.getMessage(AboutAction.class, "CTL_Using", javaName, javaVersion);
 
-        mVersionLabel.setText(getString("application.version") + ", " + getString("application.date"));
-
-        String license = getLicenseString("license.name");
-        String resourceString = mResourceBundle.getString("CTL_License");
-        license = String.format(resourceString, license);
-
-        resourceString = mResourceBundle.getString("CTL_Using");
-        String uses = String.format(resourceString, javaName + " " + javaVersion);
-        mUsesLabel.setText("<html>" + " " + uses);
+        mUsesLabel.setText(uses);
 
         add(headerPanel, BorderLayout.NORTH);
     }
