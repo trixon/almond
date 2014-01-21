@@ -28,6 +28,19 @@ public class FileChooserPanel extends javax.swing.JPanel {
         initComponents();
         init();
     }
+
+    public JFileChooser getFileChooser() {
+        return mFileChooser;
+    }
+
+    public int getMode() {
+        return mMode;
+    }
+
+    public void setMode(int mode) {
+        mMode = mode;
+    }
+
     public JButton getButton() {
         return mButton;
     }
@@ -51,8 +64,8 @@ public class FileChooserPanel extends javax.swing.JPanel {
         mTextField.setEnabled(enabled);
     }
 
-    public void setPath(String anIconThemePath) {
-        mTextField.setText(anIconThemePath);
+    public void setPath(String path) {
+        mTextField.setText(path);
     }
 
     private void init() {
