@@ -9,7 +9,7 @@ import java.util.ResourceBundle;
  */
 public enum Dict {
 
-    DATE, NAME, PATH, SIZE, TYPE, VERSION;
+    DATE, NAME, PATH, SEARCHING_IN, SIZE, TASK_COMPLETED, TYPE, VERSION;
     private final ResourceBundle mDefaultResourceBundle = ResourceBundle.getBundle("se/trixon/almond/util/Dict", Locale.getDefault());
     private final ResourceBundle mResourceBundle = ResourceBundle.getBundle("se/trixon/almond/util/Dict");
 
