@@ -1,8 +1,7 @@
 package se.trixon.almond.swing;
 
-import java.util.ResourceBundle;
 import javax.swing.DefaultComboBoxModel;
-import org.openide.util.NbBundle;
+import se.trixon.almond.dictionary.Dict;
 
 /**
  *
@@ -11,13 +10,12 @@ import org.openide.util.NbBundle;
 public class ModelCreator {
 
     public static DefaultComboBoxModel createDefaultComboBoxModel(Model model) {
-        ResourceBundle bundle = NbBundle.getBundle(ModelCreator.class);
         switch (model) {
             case BEGINS_CONTAINS_ENDS:
                 return new DefaultComboBoxModel(new String[]{
-                    bundle.getString("startsWith"),
-                    bundle.getString("contains"),
-                    bundle.getString("endsWith")});
+                    Dict.STARTS_WITH.getString(),
+                    Dict.CONTAINS.getString(),
+                    Dict.ENDS_WITH.getString()});
             default:
                 return null;
         }
