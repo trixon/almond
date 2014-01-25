@@ -10,12 +10,11 @@ import org.openide.util.NbBundle;
  */
 public enum Dict {
 
-    CONTAINS, DATE, ENDS_WITH, NAME, PATH, SEARCHING_IN, SIZE, STARTS_WITH, TASK_COMPLETED, TYPE, VERSION;
+    CATEGORY, CONTAINS, COPYRIGHT, DATE, DESCRIPTION, ENDS_WITH, INFORMATION, LICENSE, NAME, PATH, SEARCHING_IN, SIZE, STARTS_WITH, TASK_COMPLETED, TYPE, VERSION;
     private final ResourceBundle mDefaultResourceBundle = ResourceBundle.getBundle("se/trixon/almond/dictionary/Bundle", Locale.getDefault());
     private final ResourceBundle mResourceBundle = NbBundle.getBundle(Dict.class);
 
     public String getString() {
-
         return mResourceBundle.getString(name().toLowerCase());
     }
 
