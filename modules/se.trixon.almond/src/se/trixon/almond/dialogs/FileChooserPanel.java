@@ -18,6 +18,7 @@ import javax.swing.JTextField;
  * @author Patrik Karlsson <patrik@trixon.se>
  */
 public class FileChooserPanel extends javax.swing.JPanel {
+
     private JFileChooser mFileChooser;
     private int mMode;
 
@@ -62,6 +63,10 @@ public class FileChooserPanel extends javax.swing.JPanel {
         super.setEnabled(enabled);
         mButton.setEnabled(enabled);
         mTextField.setEnabled(enabled);
+    }
+
+    public void setHeader(String string) {
+        mLabel.setText(string);
     }
 
     public void setPath(String path) {
@@ -109,9 +114,9 @@ public class FileChooserPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(mTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(mButton)
+                .addComponent(mTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(mButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(mLabel)
@@ -137,7 +142,6 @@ public class FileChooserPanel extends javax.swing.JPanel {
             mTextField.setText(mFileChooser.getSelectedFile().toString());
         }
     }//GEN-LAST:event_mButtonActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton mButton;
