@@ -21,6 +21,7 @@ public class FileChooserPanel extends javax.swing.JPanel {
 
     private JFileChooser mFileChooser;
     private int mMode;
+    private FileChooserButtonListener mFileChooserButtonListener;
 
     /**
      * Creates new form FileChooserPanel
@@ -36,6 +37,10 @@ public class FileChooserPanel extends javax.swing.JPanel {
 
     public int getMode() {
         return mMode;
+    }
+
+    public void setButtonListener(FileChooserButtonListener fileChooserButtonListener) {
+        mFileChooserButtonListener = fileChooserButtonListener;
     }
 
     public void setMode(int mode) {
@@ -136,10 +141,27 @@ public class FileChooserPanel extends javax.swing.JPanel {
     private void mButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mButtonActionPerformed
         mFileChooser = new JFileChooser(mTextField.getText());
         mFileChooser.setFileSelectionMode(mMode);
-        mFileChooser.showOpenDialog(mButton.getTopLevelAncestor());
+        File baseDirectory = new File(mTextField.getText());
 
-        if (mFileChooser.getSelectedFile() != null) {
+        if (baseDirectory.exists() && baseDirectory.isFile()) {
+            baseDirectory = baseDirectory.getParentFile();
+        }
+
+        mFileChooser.setCurrentDirectory(baseDirectory);
+
+        int returnVal = mFileChooser.showOpenDialog(mButton.getTopLevelAncestor());
+
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
             mTextField.setText(mFileChooser.getSelectedFile().toString());
+            try {
+                mFileChooserButtonListener.onFileChooserOk(mFileChooser.getSelectedFile());
+            } catch (Exception e) {
+            }
+        } else {
+            try {
+                mFileChooserButtonListener.onFileChooserCancel();
+            } catch (Exception e) {
+            }
         }
     }//GEN-LAST:event_mButtonActionPerformed
 
@@ -148,4 +170,10 @@ public class FileChooserPanel extends javax.swing.JPanel {
     private javax.swing.JLabel mLabel;
     private javax.swing.JTextField mTextField;
     // End of variables declaration//GEN-END:variables
+public interface FileChooserButtonListener {
+
+        public void onFileChooserCancel();
+
+        public void onFileChooserOk(File file);
+    }
 }
