@@ -22,6 +22,7 @@ public class FileChooserPanel extends javax.swing.JPanel {
     private JFileChooser mFileChooser;
     private int mMode;
     private FileChooserButtonListener mFileChooserButtonListener;
+    private String mTitle;
 
     /**
      * Creates new form FileChooserPanel
@@ -31,12 +32,27 @@ public class FileChooserPanel extends javax.swing.JPanel {
         init();
     }
 
+    public FileChooserPanel(int mode, String title) {
+        initComponents();
+        init();
+        mMode = mode;
+        mTitle = title;
+    }
+
     public JFileChooser getFileChooser() {
         return mFileChooser;
     }
 
     public int getMode() {
         return mMode;
+    }
+
+    public String getTitle() {
+        return mTitle;
+    }
+
+    public void setTitle(String title) {
+        mTitle = title;
     }
 
     public void setButtonListener(FileChooserButtonListener fileChooserButtonListener) {
@@ -140,6 +156,9 @@ public class FileChooserPanel extends javax.swing.JPanel {
 
     private void mButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mButtonActionPerformed
         mFileChooser = new JFileChooser(mTextField.getText());
+        if (mTitle != null) {
+            mFileChooser.setDialogTitle(mTitle);
+        }
         mFileChooser.setFileSelectionMode(mMode);
         File baseDirectory = new File(mTextField.getText());
 
@@ -170,7 +189,8 @@ public class FileChooserPanel extends javax.swing.JPanel {
     private javax.swing.JLabel mLabel;
     private javax.swing.JTextField mTextField;
     // End of variables declaration//GEN-END:variables
-public interface FileChooserButtonListener {
+
+    public interface FileChooserButtonListener {
 
         public void onFileChooserCancel();
 
