@@ -18,8 +18,6 @@ public class Xlog {
     private static boolean sActive = true;
     private static final InputOutput sInputOutput;
     private static int sLevel = VERBOSE;
-    private static OutputWriter sOutputWriter;
-    private static OutputWriter sOutputWriterErr;
     private static boolean sUseGlobalTag = false;
     private static boolean sUseTimestamps = true;
 
@@ -28,38 +26,32 @@ public class Xlog {
     }
 
     public static void a(Class c, String msg) {
-        if (sActive && sLevel <= ASSERT) {
-            printErrln(getMessage(getTag(c.getCanonicalName()), getNullSafeMsg(msg)));
-        }
+        a(getTag(c.getCanonicalName()), msg);
     }
 
     public static void a(String tag, String msg) {
         if (sActive && sLevel <= ASSERT) {
-            printErrln(getMessage(getTag(tag), getNullSafeMsg(msg)));
+            printErr("ASSERT", getMessage(getTag(tag), getNullSafeMsg(msg)));
         }
     }
 
     public static void d(Class c, String msg) {
-        if (sActive && sLevel <= DEBUG) {
-            printLn(getMessage(getTag(c.getCanonicalName()), getNullSafeMsg(msg)));
-        }
+        d(getTag(c.getCanonicalName()), msg);
     }
 
     public static void d(String tag, String msg) {
         if (sActive && sLevel <= DEBUG) {
-            printLn(getMessage(getTag(tag), getNullSafeMsg(msg)));
+            print("DEBUG", getMessage(getTag(tag), getNullSafeMsg(msg)));
         }
     }
 
     public static void e(Class c, String msg) {
-        if (sActive && sLevel <= ERROR) {
-            printErrln(getMessage(getTag(c.getCanonicalName()), getNullSafeMsg(msg)));
-        }
+        e(getTag(c.getCanonicalName()), msg);
     }
 
     public static void e(String tag, String msg) {
         if (sActive && sLevel <= ERROR) {
-            printErrln(getMessage(getTag(tag), getNullSafeMsg(msg)));
+            printErr("ERROR", getMessage(getTag(tag), getNullSafeMsg(msg)));
         }
     }
 
@@ -72,14 +64,12 @@ public class Xlog {
     }
 
     public static void i(Class c, String msg) {
-        if (sActive && sLevel <= INFO) {
-            printLn(getMessage(getTag(c.getCanonicalName()), getNullSafeMsg(msg)));
-        }
+        i(getTag(c.getCanonicalName()), msg);
     }
 
     public static void i(String tag, String msg) {
         if (sActive && sLevel <= INFO) {
-            printLn(getMessage(getTag(tag), getNullSafeMsg(msg)));
+            print("INFO", getMessage(getTag(tag), getNullSafeMsg(msg)));
         }
     }
 
@@ -91,18 +81,8 @@ public class Xlog {
         return sUseGlobalTag;
     }
 
-    public static void printLn(String message) {
-        sOutputWriter = sInputOutput.getOut();
-        printDate(sOutputWriter);
-        sOutputWriter.println(message);
-        sOutputWriter.close();
-    }
-
-    public static void printOutlnEvent(String message) {
-        sOutputWriter = sInputOutput.getOut();
-        printDate(sOutputWriter);
-        sOutputWriter.println(message);
-        sOutputWriter.close();
+    public static boolean isUseTimestamps() {
+        return sUseTimestamps;
     }
 
     public static void setActive(boolean active) {
@@ -122,26 +102,22 @@ public class Xlog {
     }
 
     public static void v(Class<?> c, String msg) {
-        if (sActive && sLevel <= VERBOSE) {
-            printLn(getMessage(getTag(c.getCanonicalName()), getNullSafeMsg(msg)));
-        }
+        v(getTag(c.getCanonicalName()), msg);
     }
 
     public static void v(String tag, String msg) {
         if (sActive && sLevel <= VERBOSE) {
-            printLn(getMessage(getTag(tag), getNullSafeMsg(msg)));
+            print("VERBOSE", getMessage(getTag(tag), getNullSafeMsg(msg)));
         }
     }
 
     public static void w(Class c, String msg) {
-        if (sActive && sLevel <= WARN) {
-            printErrln(getMessage(getTag(c.getCanonicalName()), getNullSafeMsg(msg)));
-        }
+        w(getTag(c.getCanonicalName()), msg);
     }
 
     public static void w(String tag, String msg) {
         if (sActive && sLevel <= WARN) {
-            printErrln(getMessage(getTag(tag), getNullSafeMsg(msg)));
+            printErr("WARNING", getMessage(getTag(tag), getNullSafeMsg(msg)));
         }
     }
 
@@ -173,22 +149,28 @@ public class Xlog {
         return tag;
     }
 
+    private static void print(String levelClass, String message) {
+        OutputWriter outputWriter = sInputOutput.getOut();
+        printDate(outputWriter);
+        outputWriter.print(levelClass + " ");
+        outputWriter.println(message);
+        outputWriter.close();
+    }
+
     private static void printDate(OutputWriter outputWriter) {
         if (sUseTimestamps) {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH.mm.ss");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH.mm.ss: ");
+//            SimpleDateFormat sdf = new SimpleDateFormat("HH.mm.ss: ");
             Calendar calendar = Calendar.getInstance();
-            outputWriter.print(sdf.format(calendar.getTime()) + ": ");
+            outputWriter.print(sdf.format(calendar.getTime()));
         }
     }
 
-    private static void printErrln(String message) {
-        sOutputWriterErr = sInputOutput.getErr();
-        printDate(sOutputWriterErr);
-        sOutputWriterErr.println(message);
-        sOutputWriterErr.close();
-    }
-
-    public boolean isUseTimestamps() {
-        return sUseTimestamps;
+    private static void printErr(String levelClass, String message) {
+        OutputWriter outputWriter = sInputOutput.getErr();
+        printDate(outputWriter);
+        outputWriter.print(levelClass + " ");
+        outputWriter.println(message);
+        outputWriter.close();
     }
 }
