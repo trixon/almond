@@ -19,7 +19,7 @@ import javax.swing.JTextField;
  */
 public class FileChooserPanel extends javax.swing.JPanel {
 
-    private JFileChooser mFileChooser;
+    private final JFileChooser mFileChooser = new JFileChooser();
     private int mMode;
     private FileChooserButtonListener mFileChooserButtonListener;
     private String mTitle;
@@ -37,6 +37,7 @@ public class FileChooserPanel extends javax.swing.JPanel {
         init();
         mMode = mode;
         mTitle = title;
+        mFileChooser.setFileSelectionMode(mMode);
     }
 
     public JFileChooser getFileChooser() {
@@ -61,6 +62,7 @@ public class FileChooserPanel extends javax.swing.JPanel {
 
     public void setMode(int mode) {
         mMode = mode;
+        mFileChooser.setFileSelectionMode(mMode);
     }
 
     public JButton getButton() {
@@ -155,11 +157,10 @@ public class FileChooserPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mButtonActionPerformed
-        mFileChooser = new JFileChooser(mTextField.getText());
         if (mTitle != null) {
             mFileChooser.setDialogTitle(mTitle);
         }
-        mFileChooser.setFileSelectionMode(mMode);
+
         File baseDirectory = new File(mTextField.getText());
 
         if (baseDirectory.exists() && baseDirectory.isFile()) {
