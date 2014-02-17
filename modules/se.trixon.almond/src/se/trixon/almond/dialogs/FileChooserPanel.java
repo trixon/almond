@@ -123,6 +123,12 @@ public class FileChooserPanel extends javax.swing.JPanel {
 
         org.openide.awt.Mnemonics.setLocalizedText(mLabel, org.openide.util.NbBundle.getMessage(FileChooserPanel.class, "FileChooserPanel.mLabel.text")); // NOI18N
 
+        mTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mTextFieldActionPerformed(evt);
+            }
+        });
+
         org.openide.awt.Mnemonics.setLocalizedText(mButton, "…"); // NOI18N
         mButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -183,6 +189,18 @@ public class FileChooserPanel extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_mButtonActionPerformed
+
+    private void mTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mTextFieldActionPerformed
+        File file = new File(mTextField.getText().trim());
+        setPath(file.getAbsolutePath());
+        
+        if (file.exists() && file.isDirectory()) {
+            try {
+                mFileChooserButtonListener.onFileChooserOk(file);
+            } catch (Exception e) {
+            }
+        }
+    }//GEN-LAST:event_mTextFieldActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton mButton;
