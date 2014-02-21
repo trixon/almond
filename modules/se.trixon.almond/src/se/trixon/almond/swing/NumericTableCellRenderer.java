@@ -10,8 +10,15 @@ import javax.swing.table.DefaultTableCellRenderer;
  */
 public class NumericTableCellRenderer extends DefaultTableCellRenderer {
 
+    private Class mClass;
+
     public NumericTableCellRenderer() {
         setHorizontalAlignment(SwingConstants.RIGHT);
+    }
+
+    public NumericTableCellRenderer(Class c) {
+        this();
+        mClass = c;
     }
 
     @Override
@@ -19,7 +26,13 @@ public class NumericTableCellRenderer extends DefaultTableCellRenderer {
         Object result = value;
         if ((value != null) && (value instanceof Number)) {
             Number numberValue = (Number) value;
-            NumberFormat formatter = NumberFormat.getIntegerInstance();
+            NumberFormat formatter;
+
+            if (mClass == Double.class || mClass == Float.class) {
+                formatter = NumberFormat.getNumberInstance();
+            } else {
+                formatter = NumberFormat.getIntegerInstance();
+            }
             result = formatter.format(numberValue.doubleValue());
         }
 
