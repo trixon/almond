@@ -19,6 +19,7 @@ import javax.swing.JTextField;
  */
 public class FileChooserPanel extends javax.swing.JPanel {
 
+    private DropTarget mDropTarget;
     private final JFileChooser mFileChooser = new JFileChooser();
     private int mMode;
     private FileChooserButtonListener mFileChooserButtonListener;
@@ -86,6 +87,7 @@ public class FileChooserPanel extends javax.swing.JPanel {
         super.setEnabled(enabled);
         mButton.setEnabled(enabled);
         mTextField.setEnabled(enabled);
+        activateDropTarget(enabled);
     }
 
     public void setHeader(String string) {
@@ -96,8 +98,16 @@ public class FileChooserPanel extends javax.swing.JPanel {
         mTextField.setText(path);
     }
 
+    private void activateDropTarget(boolean activate) {
+        if (activate) {
+            mTextField.setDropTarget(mDropTarget);
+        } else {
+            mTextField.setDropTarget(null);
+        }
+    }
+
     private void init() {
-        mTextField.setDropTarget(new DropTarget() {
+        mDropTarget = new DropTarget() {
             @Override
             public synchronized void drop(DropTargetDropEvent evt) {
                 try {
@@ -107,7 +117,9 @@ public class FileChooserPanel extends javax.swing.JPanel {
                 } catch (UnsupportedFlavorException | IOException ex) {
                 }
             }
-        });
+        };
+
+        activateDropTarget(true);
     }
 
     /**
@@ -194,7 +206,7 @@ public class FileChooserPanel extends javax.swing.JPanel {
     private void mTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mTextFieldActionPerformed
         File file = new File(mTextField.getText().trim());
         setPath(file.getAbsolutePath());
-        
+
         if (file.exists() && file.isDirectory()) {
             try {
                 mFileChooserButtonListener.onFileChooserOk(file);
