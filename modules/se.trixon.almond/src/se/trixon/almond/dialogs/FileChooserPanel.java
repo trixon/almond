@@ -85,6 +85,7 @@ public class FileChooserPanel extends javax.swing.JPanel {
     @Override
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
+        mLabel.setEnabled(enabled);
         mButton.setEnabled(enabled);
         mTextField.setEnabled(enabled);
         activateDropTarget(enabled);
