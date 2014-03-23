@@ -286,6 +286,16 @@ public class AboutPanel extends JPanel {
         addSystemProperty(mDefaultTableModel, "path.separator");
 
         mDefaultTableModel.addRow(new Object[]{"", ""});
+        addSystemProperty(mDefaultTableModel, "netbeans.home");
+        addSystemProperty(mDefaultTableModel, "netbeans.user");
+        addSystemProperty(mDefaultTableModel, "netbeans.dirs");
+        addSystemProperty(mDefaultTableModel, "netbeans.running.environment");
+        addSystemProperty(mDefaultTableModel, "netbeans.productversion");
+        addSystemProperty(mDefaultTableModel, "netbeans.buildnumber");
+        addSystemProperty(mDefaultTableModel, "netbeans.dynamic.classpath");
+        addSystemProperty(mDefaultTableModel, "netbeans.logger.console");
+
+        mDefaultTableModel.addRow(new Object[]{"", ""});
         addSystemProperty(mDefaultTableModel, "java.awt.graphicsenv");
         addSystemProperty(mDefaultTableModel, "java.awt.printerjob");
         addSystemProperty(mDefaultTableModel, "java.class.path");
