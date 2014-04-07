@@ -15,8 +15,14 @@
  */
 package se.trixon.almond;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
+import org.openide.filesystems.FileObject;
+import org.openide.filesystems.FileUtil;
 import se.trixon.almond.dictionary.Dict;
 
 /**
@@ -25,11 +31,23 @@ import se.trixon.almond.dictionary.Dict;
  */
 public class FileRemover {
 
-    private final String[] mPaths;
+    private final Set<String> mDeniedRemoves = new HashSet();
 
-    public FileRemover(String[] paths) {
+    public FileRemover() {
+    }
+
+    public Set<String> getDeniedRemoves() {
+        return mDeniedRemoves;
+    }
+
+    public boolean isSuccessful() {
+        return mDeniedRemoves.isEmpty();
+    }
+
+    public boolean remove(String[] paths) {
+        mDeniedRemoves.clear();
+        boolean filesRemoved = false;
         int numOfFiles = paths.length;
-        mPaths = paths;
         if (numOfFiles > 0) {
             String title = numOfFiles == 1 ? Dict.REMOVE_FILE_TITLE.getString() : Dict.REMOVE_FILES_TITLE.getString();
             String message = numOfFiles == 1 ? Dict.REMOVE_FILE_MESSAGE.getString() : Dict.REMOVE_FILES_MESSAGE.getString();
@@ -38,10 +56,11 @@ public class FileRemover {
                 message = String.format(message, paths[0]);
             } else {
                 StringBuilder builder = new StringBuilder();
-                for (int i = 0; i < paths.length; i++) {
-                    builder.append(paths[i]).append("\n");
+                for (String path : paths) {
+                    builder.append(path).append("\n");
                 }
                 builder.deleteCharAt(builder.length() - 1);
+                message = String.format(message, numOfFiles, builder.toString());
             }
 
             NotifyDescriptor notifyDescriptor = new NotifyDescriptor(
@@ -52,9 +71,21 @@ public class FileRemover {
                     null,
                     null);
             Object result = DialogDisplayer.getDefault().notify(notifyDescriptor);
+
             if (result == NotifyDescriptor.YES_OPTION) {
-                System.err.println("remove files");
+                for (String path : paths) {
+                    try {
+                        File file = new File(path);
+                        FileObject fileObject = FileUtil.createData(file);
+                        fileObject.delete();
+                    } catch (IOException ex) {
+                        mDeniedRemoves.add(path);
+                    }
+                }
+                filesRemoved = true;
             }
         }
+
+        return filesRemoved;
     }
 }
