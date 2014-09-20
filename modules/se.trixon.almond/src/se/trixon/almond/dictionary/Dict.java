@@ -62,7 +62,8 @@ public enum Dict {
     STARTS_WITH,
     TASK_COMPLETED,
     TYPE,
-    VERSION;
+    VERSION,
+    WARNING;
 
     private final ResourceBundle mDefaultResourceBundle = ResourceBundle.getBundle("se/trixon/almond/dictionary/Bundle", Locale.getDefault());
     private final ResourceBundle mResourceBundle = NbBundle.getBundle(Dict.class);
