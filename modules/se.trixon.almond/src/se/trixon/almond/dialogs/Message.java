@@ -24,7 +24,19 @@ import org.openide.NotifyDescriptor;
  */
 public class Message {
 
-    public static void warning(String title,String message) {
+    public static void error(String title, String message) {
+        NotifyDescriptor notifyDescriptor = new NotifyDescriptor.Message(message, NotifyDescriptor.ERROR_MESSAGE);
+        notifyDescriptor.setTitle(title);
+        DialogDisplayer.getDefault().notify(notifyDescriptor);
+    }
+
+    public static void information(String title, String message) {
+        NotifyDescriptor notifyDescriptor = new NotifyDescriptor.Message(message, NotifyDescriptor.INFORMATION_MESSAGE);
+        notifyDescriptor.setTitle(title);
+        DialogDisplayer.getDefault().notify(notifyDescriptor);
+    }
+
+    public static void warning(String title, String message) {
         NotifyDescriptor notifyDescriptor = new NotifyDescriptor.Message(message, NotifyDescriptor.WARNING_MESSAGE);
         notifyDescriptor.setTitle(title);
         DialogDisplayer.getDefault().notify(notifyDescriptor);
