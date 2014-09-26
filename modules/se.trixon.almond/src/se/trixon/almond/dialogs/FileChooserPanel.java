@@ -68,6 +68,10 @@ public class FileChooserPanel extends javax.swing.JPanel {
         return mTitle;
     }
 
+    public boolean isSelected() {
+        return mCheckBox.isSelected();
+    }
+
     public void setTitle(String title) {
         mTitle = title;
     }
@@ -79,6 +83,11 @@ public class FileChooserPanel extends javax.swing.JPanel {
     public void setMode(int mode) {
         mMode = mode;
         mFileChooser.setFileSelectionMode(mMode);
+    }
+
+    public void setCheckBoxMode(boolean checkBoxMode) {
+        mLabel.setVisible(!checkBoxMode);
+        mCheckBox.setVisible(checkBoxMode);
     }
 
     public JButton getButton() {
@@ -108,6 +117,7 @@ public class FileChooserPanel extends javax.swing.JPanel {
 
     public void setHeader(String string) {
         mLabel.setText(string);
+        mCheckBox.setText(string);
     }
 
     public void setPath(String path) {
@@ -136,6 +146,7 @@ public class FileChooserPanel extends javax.swing.JPanel {
         };
 
         activateDropTarget(true);
+        mCheckBox.setVisible(false);
     }
 
     /**
@@ -148,10 +159,18 @@ public class FileChooserPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         mLabel = new javax.swing.JLabel();
+        mCheckBox = new javax.swing.JCheckBox();
         mTextField = new javax.swing.JTextField();
         mButton = new javax.swing.JButton();
 
         org.openide.awt.Mnemonics.setLocalizedText(mLabel, org.openide.util.NbBundle.getMessage(FileChooserPanel.class, "FileChooserPanel.mLabel.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(mCheckBox, org.openide.util.NbBundle.getMessage(FileChooserPanel.class, "FileChooserPanel.mCheckBox.text")); // NOI18N
+        mCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mCheckBoxActionPerformed(evt);
+            }
+        });
 
         mTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -177,12 +196,16 @@ public class FileChooserPanel extends javax.swing.JPanel {
                 .addGap(2, 2, 2))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(mLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(mCheckBox)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(mLabel)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(mLabel)
+                    .addComponent(mCheckBox))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(mTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -231,8 +254,17 @@ public class FileChooserPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_mTextFieldActionPerformed
 
+    private void mCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mCheckBoxActionPerformed
+        setEnabled(mCheckBox.isSelected());
+        try {
+            mFileChooserButtonListener.onFileChooserCheckBoxChange(this, mCheckBox.isSelected());
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_mCheckBoxActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton mButton;
+    private javax.swing.JCheckBox mCheckBox;
     private javax.swing.JLabel mLabel;
     private javax.swing.JTextField mTextField;
     // End of variables declaration//GEN-END:variables
@@ -240,6 +272,8 @@ public class FileChooserPanel extends javax.swing.JPanel {
     public interface FileChooserButtonListener {
 
         public void onFileChooserCancel(FileChooserPanel fileChooserPanel);
+
+        public void onFileChooserCheckBoxChange(FileChooserPanel fileChooserPanel, boolean isSelected);
 
         public void onFileChooserOk(FileChooserPanel fileChooserPanel, File file);
     }
