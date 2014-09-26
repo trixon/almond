@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2014 Patrik Karlsson.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -208,12 +208,12 @@ public class FileChooserPanel extends javax.swing.JPanel {
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             mTextField.setText(mFileChooser.getSelectedFile().toString());
             try {
-                mFileChooserButtonListener.onFileChooserOk(mFileChooser.getSelectedFile());
+                mFileChooserButtonListener.onFileChooserOk(this, mFileChooser.getSelectedFile());
             } catch (Exception e) {
             }
         } else {
             try {
-                mFileChooserButtonListener.onFileChooserCancel();
+                mFileChooserButtonListener.onFileChooserCancel(this);
             } catch (Exception e) {
             }
         }
@@ -225,7 +225,7 @@ public class FileChooserPanel extends javax.swing.JPanel {
 
         if (file.exists() && file.isDirectory()) {
             try {
-                mFileChooserButtonListener.onFileChooserOk(file);
+                mFileChooserButtonListener.onFileChooserOk(this, file);
             } catch (Exception e) {
             }
         }
@@ -239,8 +239,8 @@ public class FileChooserPanel extends javax.swing.JPanel {
 
     public interface FileChooserButtonListener {
 
-        public void onFileChooserCancel();
+        public void onFileChooserCancel(FileChooserPanel fileChooserPanel);
 
-        public void onFileChooserOk(File file);
+        public void onFileChooserOk(FileChooserPanel fileChooserPanel, File file);
     }
 }
