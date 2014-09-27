@@ -124,6 +124,10 @@ public class FileChooserPanel extends javax.swing.JPanel {
         mTextField.setText(path);
     }
 
+    public void setSelected(boolean selected) {
+        mCheckBox.setSelected(selected);
+    }
+
     private void activateDropTarget(boolean activate) {
         if (activate) {
             mTextField.setDropTarget(mDropTarget);
