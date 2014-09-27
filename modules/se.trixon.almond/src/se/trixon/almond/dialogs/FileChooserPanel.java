@@ -210,7 +210,7 @@ public class FileChooserPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(mLabel)
                     .addComponent(mCheckBox))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(mTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(mButton)))
@@ -218,6 +218,11 @@ public class FileChooserPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mButtonActionPerformed
+        try {
+            mFileChooserButtonListener.onFileChooserPreSelect(this);
+        } catch (Exception e) {
+        }
+
         if (mTitle != null) {
             mFileChooser.setDialogTitle(mTitle);
         }
@@ -280,5 +285,7 @@ public class FileChooserPanel extends javax.swing.JPanel {
         public void onFileChooserCheckBoxChange(FileChooserPanel fileChooserPanel, boolean isSelected);
 
         public void onFileChooserOk(FileChooserPanel fileChooserPanel, File file);
+
+        public void onFileChooserPreSelect(FileChooserPanel fileChooserPanel);
     }
 }
