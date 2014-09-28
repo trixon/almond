@@ -25,15 +25,19 @@ import org.openide.util.NbBundle;
  */
 public enum Dict {
 
+    ADVANCED,
+    BASIC,
     CATEGORY,
     CLEAR,
     CONTAINS,
+    COPY,
     COPYRIGHT,
     DATE,
     DESCRIPTION,
     DESTINATION,
     DIRECTORY,
     ENDS_WITH,
+    EXPORT,
     FILE,
     FILE_ERROR_READ_MESSAGE,
     FILE_ERROR_WRITE_MESSAGE,
@@ -45,6 +49,7 @@ public enum Dict {
     IO_ERROR_TITLE,
     LICENSE,
     NAME,
+    OK,
     OPEN,
     OPERATION_COMPLETED,
     PATH,
@@ -64,6 +69,7 @@ public enum Dict {
     STARTS_WITH,
     TASK_COMPLETED,
     TYPE,
+    VERIFY,
     VERSION,
     WARNING;
 
