@@ -50,6 +50,7 @@ public enum Dict {
     INFORMATION,
     IO_ERROR_TITLE,
     LICENSE,
+    LOG,
     NAME,
     OK,
     OPEN,
