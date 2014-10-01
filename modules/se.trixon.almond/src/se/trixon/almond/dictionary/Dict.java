@@ -54,6 +54,7 @@ public enum Dict {
     FILE_NOT_FOUND_TITLE,
     INCLUDE,
     INFORMATION,
+    INVALID_INPUT,
     IO_ERROR_TITLE,
     JOB,
     JOB_PROPERTIES,
