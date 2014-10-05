@@ -30,6 +30,7 @@ public enum Dict {
     AFTER,
     BASIC,
     BEFORE,
+    CANCEL,
     CATEGORY,
     CLEAR,
     CLEAR_SELECTION,
