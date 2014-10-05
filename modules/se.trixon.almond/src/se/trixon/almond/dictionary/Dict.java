@@ -25,6 +25,7 @@ import org.openide.util.NbBundle;
  */
 public enum Dict {
 
+    ACTIVATE,
     ADD,
     ADVANCED,
     AFTER,
@@ -39,6 +40,7 @@ public enum Dict {
     COPY,
     COPYRIGHT,
     DATE,
+    DEACTIVATE,
     DESCRIPTION,
     DESTINATION,
     DIRECTORY,
@@ -62,6 +64,10 @@ public enum Dict {
     JOB_PROPERTIES,
     LICENSE,
     LOG,
+    MOVE_BOTTOM,
+    MOVE_DOWN,
+    MOVE_TOP,
+    MOVE_UP,
     NAME,
     OK,
     OPEN,
@@ -89,6 +95,9 @@ public enum Dict {
     STOP,
     TASK,
     TASK_COMPLETED,
+    TASKS,
+    TASKS_ACTIVE,
+    TASKS_AVAILABLE,
     TYPE,
     VERIFY,
     VERSION,
