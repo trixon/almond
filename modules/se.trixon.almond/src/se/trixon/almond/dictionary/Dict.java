@@ -48,6 +48,7 @@ public enum Dict {
     EDIT,
     ENDS_WITH,
     ENVIRONMENT,
+    ERROR,
     EXCLUDE,
     EXPORT,
     FILE,
