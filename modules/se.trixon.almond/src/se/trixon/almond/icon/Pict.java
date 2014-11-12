@@ -45,6 +45,7 @@ public class Pict {
         DOCUMENT_SAVE,
         EDIT_CLEAR_LIST,
         EDIT_CLEAR,
+        MERGE,
         PROCESS_STOP,
         WINDOW_CLOSE;
 

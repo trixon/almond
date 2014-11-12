@@ -37,6 +37,7 @@ public enum Dict {
     CLEAR_SELECTION,
     CLOSE,
     CONTAINS,
+    COMPARE,
     COPY,
     COPYRIGHT,
     DATE,
