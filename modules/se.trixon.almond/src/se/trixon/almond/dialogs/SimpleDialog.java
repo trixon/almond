@@ -81,6 +81,27 @@ public class SimpleDialog {
         return result == JFileChooser.APPROVE_OPTION;
     }
 
+    public static boolean openFileAndDirectoy() {
+        return openFileAndDirectoy(false);
+    }
+
+    public static boolean openFileAndDirectoy(boolean multiSelection) {
+        sFileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        sFileChooser.setMultiSelectionEnabled(multiSelection);
+        sPaths = new File[0];
+
+        int result = sFileChooser.showOpenDialog(sParent);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            if (multiSelection) {
+                sPaths = sFileChooser.getSelectedFiles();
+            } else {
+                sPath = sFileChooser.getSelectedFile();
+            }
+        }
+
+        return result == JFileChooser.APPROVE_OPTION;
+    }
+
     public static boolean saveFile() {
         int result = sFileChooser.showSaveDialog(sParent);
         if (result != JFileChooser.APPROVE_OPTION) {
