@@ -34,11 +34,13 @@ import javax.swing.JTextField;
  */
 public class FileChooserPanel extends javax.swing.JPanel {
 
+    private static final String PATH_SEPARATOR = System.getProperty("path.separator");
     private DropTarget mDropTarget;
     private final JFileChooser mFileChooser = new JFileChooser();
     private int mMode;
     private FileChooserButtonListener mFileChooserButtonListener;
     private String mTitle;
+    private DropMode mDropMode = DropMode.SINGLE;
 
     /**
      * Creates new form FileChooserPanel
@@ -56,6 +58,10 @@ public class FileChooserPanel extends javax.swing.JPanel {
         mFileChooser.setFileSelectionMode(mMode);
     }
 
+    public DropMode getDropMode() {
+        return mDropMode;
+    }
+
     public JFileChooser getFileChooser() {
         return mFileChooser;
     }
@@ -70,6 +76,10 @@ public class FileChooserPanel extends javax.swing.JPanel {
 
     public boolean isSelected() {
         return mCheckBox.isSelected();
+    }
+
+    public void setDropMode(DropMode dropMode) {
+        mDropMode = dropMode;
     }
 
     public void setTitle(String title) {
@@ -143,7 +153,17 @@ public class FileChooserPanel extends javax.swing.JPanel {
                 try {
                     evt.acceptDrop(DnDConstants.ACTION_COPY);
                     List<File> droppedFiles = (List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);
-                    mTextField.setText(droppedFiles.get(0).getAbsolutePath());
+                    if (mDropMode == DropMode.SINGLE) {
+                        mTextField.setText(droppedFiles.get(0).getAbsolutePath());
+                    } else {
+                        StringBuilder sb = new StringBuilder();
+                        for (File file : droppedFiles) {
+                            sb.append(file.getAbsolutePath()).append(PATH_SEPARATOR);
+                        }
+                        sb.deleteCharAt(sb.length() - 1);
+                        mTextField.setText(sb.toString());
+                    }
+
                 } catch (UnsupportedFlavorException | IOException ex) {
                 }
             }
@@ -277,6 +297,12 @@ public class FileChooserPanel extends javax.swing.JPanel {
     private javax.swing.JLabel mLabel;
     private javax.swing.JTextField mTextField;
     // End of variables declaration//GEN-END:variables
+
+    public enum DropMode {
+
+        MULTI,
+        SINGLE;
+    }
 
     public interface FileChooserButtonListener {
 
