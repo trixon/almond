@@ -100,6 +100,7 @@ public enum Dict {
     STARTS_WITH,
     STOP,
     TASK,
+    TASK_ABORTED,
     TASK_COMPLETED,
     TASKS,
     TASKS_ACTIVE,
