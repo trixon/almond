@@ -161,6 +161,10 @@ public class SimpleDialog {
         sFileChooser.setCurrentDirectory(sPath);
     }
 
+    public static void setSelectedFile(File file) {
+        sFileChooser.setSelectedFile(file);
+    }
+
     public static void setTitle(String title) {
         sTitle = title;
         sFileChooser.setDialogTitle(sTitle);
