@@ -163,6 +163,10 @@ public class FileChooserPanel extends javax.swing.JPanel {
                         sb.deleteCharAt(sb.length() - 1);
                         mTextField.setText(sb.toString());
                     }
+                    try {
+                        mFileChooserButtonListener.onFileChooserDrop(FileChooserPanel.this);
+                    } catch (Exception e) {
+                    }
 
                 } catch (UnsupportedFlavorException | IOException ex) {
                 }
@@ -309,6 +313,8 @@ public class FileChooserPanel extends javax.swing.JPanel {
         public void onFileChooserCancel(FileChooserPanel fileChooserPanel);
 
         public void onFileChooserCheckBoxChange(FileChooserPanel fileChooserPanel, boolean isSelected);
+
+        public void onFileChooserDrop(FileChooserPanel fileChooserPanel);
 
         public void onFileChooserOk(FileChooserPanel fileChooserPanel, File file);
 
