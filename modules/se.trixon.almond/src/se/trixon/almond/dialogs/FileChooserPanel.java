@@ -262,7 +262,11 @@ public class FileChooserPanel extends javax.swing.JPanel {
         int returnVal = mFileChooser.showOpenDialog(mButton.getTopLevelAncestor());
 
         if (returnVal == JFileChooser.APPROVE_OPTION) {
-            mTextField.setText(mFileChooser.getSelectedFile().toString());
+            if (mFileChooser.isMultiSelectionEnabled()) {
+                //TODO Join array?
+            } else {
+                mTextField.setText(mFileChooser.getSelectedFile().toString());
+            }
             try {
                 mFileChooserButtonListener.onFileChooserOk(this, mFileChooser.getSelectedFile());
             } catch (Exception e) {
