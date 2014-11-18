@@ -41,6 +41,7 @@ public class FileChooserPanel extends javax.swing.JPanel {
     private FileChooserButtonListener mFileChooserButtonListener;
     private String mTitle;
     private DropMode mDropMode = DropMode.SINGLE;
+    private File[] mPaths;
 
     /**
      * Creates new form FileChooserPanel
@@ -112,6 +113,10 @@ public class FileChooserPanel extends javax.swing.JPanel {
         return mTextField.getText();
     }
 
+    public File[] getPaths() {
+        return mPaths;
+    }
+
     public JTextField getTextField() {
         return mTextField;
     }
@@ -153,6 +158,7 @@ public class FileChooserPanel extends javax.swing.JPanel {
                 try {
                     evt.acceptDrop(DnDConstants.ACTION_COPY);
                     List<File> droppedFiles = (List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);
+                    mPaths = droppedFiles.toArray(new File[droppedFiles.size()]);
                     if (mDropMode == DropMode.SINGLE) {
                         mTextField.setText(droppedFiles.get(0).getAbsolutePath());
                     } else {
@@ -262,6 +268,7 @@ public class FileChooserPanel extends javax.swing.JPanel {
         int returnVal = mFileChooser.showOpenDialog(mButton.getTopLevelAncestor());
 
         if (returnVal == JFileChooser.APPROVE_OPTION) {
+            mPaths = mFileChooser.getSelectedFiles();
             if (mFileChooser.isMultiSelectionEnabled()) {
                 //TODO Join array?
             } else {
