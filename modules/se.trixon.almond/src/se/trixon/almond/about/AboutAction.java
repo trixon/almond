@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2014 Patrik Karlsson.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -33,6 +33,10 @@ public final class AboutAction implements ActionListener {
     private static ResourceBundle sAboutBundle = null;
     private static ImageIcon sImageIcon = null;
     private static ResourceBundle sLicenseBundle = null;
+
+    public static ResourceBundle getAboutBundle() {
+        return sAboutBundle;
+    }
 
     public static void setAboutBundle(ResourceBundle resourceBundle) {
         sAboutBundle = resourceBundle;
