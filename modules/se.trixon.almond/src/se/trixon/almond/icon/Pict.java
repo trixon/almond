@@ -38,6 +38,7 @@ public class Pict {
         ARROW_RIGHT,
         CONFIGURE,
         DOCUMENT_EDIT,
+        DOCUMENT_EDIT_DECRYPT_VERIFY,
         DOCUMENT_OPEN_FOLDER,
         DOCUMENT_OPEN,
         DOCUMENT_SAVE_ALL,
@@ -45,8 +46,14 @@ public class Pict {
         DOCUMENT_SAVE,
         EDIT_CLEAR_LIST,
         EDIT_CLEAR,
+        EDIT_COPY,
+        EDIT_DELETE,
+        EDIT_FIND,
+        EDIT_SELECT_ALL,
         MERGE,
         PROCESS_STOP,
+        TRASH_EMPTY,
+        VIEW_REFRESH,
         WINDOW_CLOSE;
 
         public ImageIcon get(int size) {
