@@ -61,6 +61,7 @@ public enum Dict {
     FILE_NOT_FOUND_MESSAGE,
     FILE_NOT_FOUND_TITLE,
     FILTER,
+    HELP,
     INCLUDE,
     INFORMATION,
     INVALID_INPUT,

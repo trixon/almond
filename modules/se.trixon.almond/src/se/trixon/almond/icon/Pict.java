@@ -50,6 +50,7 @@ public class Pict {
         EDIT_DELETE,
         EDIT_FIND,
         EDIT_SELECT_ALL,
+        HELP_CONTENTS,
         MERGE,
         PROCESS_STOP,
         TRASH_EMPTY,
