@@ -65,6 +65,8 @@ public enum Dict {
     FILTER,
     FROM,
     HELP,
+    HELP_NOT_FOUND_MESSAGE,
+    HELP_NOT_FOUND_TITLE,
     INCLUDE,
     INFORMATION,
     INVALID_INPUT,
