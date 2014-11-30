@@ -36,6 +36,7 @@ public class Pict {
     public enum Actions {
 
         ARROW_RIGHT,
+        CHRONOMETER,
         CONFIGURE,
         DOCUMENT_EDIT,
         DOCUMENT_EDIT_DECRYPT_VERIFY,
@@ -59,6 +60,15 @@ public class Pict {
 
         public ImageIcon get(int size) {
             return Pict.get("actions/" + name(), size);
+        }
+    }
+
+    public enum Places {
+
+        BOOKMARKS;
+
+        public ImageIcon get(int size) {
+            return Pict.get("places/" + name(), size);
         }
     }
 }
