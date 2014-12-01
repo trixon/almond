@@ -52,8 +52,10 @@ public class Pict {
         EDIT_FIND,
         EDIT_SELECT_ALL,
         HELP_CONTENTS,
+        LIST_ADD,
         MERGE,
         PROCESS_STOP,
+        TAB_NEW,
         TRASH_EMPTY,
         VIEW_REFRESH,
         WINDOW_CLOSE;
