@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2015 Patrik Karlsson.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -51,6 +51,7 @@ public enum Dict {
     DESTINATION,
     DETAILS,
     DIRECTORY,
+    DRY_RUN,
     EDIT,
     ENDS_WITH,
     ENVIRONMENT,
@@ -68,6 +69,7 @@ public enum Dict {
     FILE_PATTERN,
     FILELIST_EMPTY,
     FILTER,
+    FOLLOW_LINKS,
     FROM,
     GENERATING_FILELIST,
     HELP,
@@ -99,6 +101,7 @@ public enum Dict {
     PROJECT,
     PROCESSING,
     QUALIFIER,
+    RECURSIVE,
     REMOVE,
     REMOVE_ALL,
     REMOVE_FILE_MESSAGE,
