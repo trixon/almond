@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2015 Patrik Karlsson.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -41,6 +41,10 @@ public class LogPanel extends javax.swing.JPanel {
         textArea.setText("");
     }
 
+    public String getText() {
+        return textArea.getText();
+    }
+
     public JTextArea getTextArea() {
         return textArea;
     }
@@ -79,7 +83,6 @@ public class LogPanel extends javax.swing.JPanel {
             .addComponent(scrollPane)
         );
     }// </editor-fold>//GEN-END:initComponents
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane scrollPane;
