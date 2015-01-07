@@ -128,6 +128,7 @@ public enum Dict {
     RUN_BEFORE,
     SAVE,
     SAVE_AS,
+    SAVING,
     SEARCH,
     SEARCHING_IN,
     SELECT,
