@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2015 Patrik Karlsson.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -62,6 +62,15 @@ public class Pict {
 
         public ImageIcon get(int size) {
             return Pict.get("actions/" + name(), size);
+        }
+    }
+
+    public enum Categories {
+
+        APPLICATIONS_INTERNET;
+
+        public ImageIcon get(int size) {
+            return Pict.get("categories/" + name(), size);
         }
     }
 
