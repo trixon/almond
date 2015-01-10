@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2015 Patrik Karlsson.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,11 +22,15 @@ import java.awt.Image;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.imageio.ImageReader;
+import javax.imageio.stream.ImageInputStream;
 import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -117,6 +121,29 @@ public class GraphicsHelper {
         }
 
         return bufferedImage;
+    }
+
+    public static Dimension getImgageDimension(File imageFile) throws IOException {
+        ImageInputStream inputStream = ImageIO.createImageInputStream(imageFile);
+
+        try {
+            final Iterator<ImageReader> imageReaders = ImageIO.getImageReaders(inputStream);
+            if (imageReaders.hasNext()) {
+                ImageReader imageReader = imageReaders.next();
+                try {
+                    imageReader.setInput(inputStream);
+                    return new Dimension(imageReader.getWidth(0), imageReader.getHeight(0));
+                } finally {
+                    imageReader.dispose();
+                }
+            }
+        } finally {
+            if (inputStream != null) {
+                inputStream.close();
+            }
+        }
+
+        return null;
     }
 
     public static Image scaleImage(Image image, Dimension dimension) {
