@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2015 Patrik Karlsson.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,6 +19,7 @@ import java.awt.Component;
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import org.apache.commons.io.FilenameUtils;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
 import se.trixon.almond.dictionary.Dict;
@@ -38,6 +39,10 @@ public class SimpleDialog {
 
     public static void addFilter(FileNameExtensionFilter filter) {
         sFileChooser.addChoosableFileFilter(filter);
+    }
+
+    public static void clearFilters() {
+        sFileChooser.resetChoosableFileFilters();
     }
 
     public static FileNameExtensionFilter getFilter() {
@@ -102,13 +107,36 @@ public class SimpleDialog {
         return result == JFileChooser.APPROVE_OPTION;
     }
 
-    public static boolean saveFile() {
+    public static boolean saveFile(String... extensions) {
         int result = sFileChooser.showSaveDialog(sParent);
         if (result != JFileChooser.APPROVE_OPTION) {
             return false;
         }
 
         File file = sFileChooser.getSelectedFile();
+
+        if (extensions != null && extensions.length > 0) {
+            String fileExt = FilenameUtils.getExtension(file.getName());
+            boolean validExt = false;
+
+            for (String extension : extensions) {
+                if (fileExt.toLowerCase().equalsIgnoreCase(extension)) {
+                    validExt = true;
+                    break;
+                }
+            }
+
+            if (!validExt) {
+                String suffix;
+                if (file.getName().endsWith(".")) {
+                    suffix = extensions[0];
+                } else {
+                    suffix = "." + extensions[0];
+                }
+                file = new File(file.getAbsolutePath() + suffix);
+            }
+        }
+
         if (file.exists()) {
             NotifyDescriptor notifyDescriptor = new NotifyDescriptor(
                     String.format(Dict.FILE_EXISTS_MESSAGE.getString(), file.getAbsolutePath()),
