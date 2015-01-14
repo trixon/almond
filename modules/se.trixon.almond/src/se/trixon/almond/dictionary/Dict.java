@@ -96,6 +96,7 @@ public enum Dict {
     LICENSE,
     LONGITUDE,
     LOG,
+    LOG_FILES,
     MOVE_BOTTOM,
     MOVE_DOWN,
     MOVE_TOP,
