@@ -105,6 +105,10 @@ public class Xlog {
         sInputOutput = IOProvider.getDefault().getIO(sGlobalTag, false);
     }
 
+    public static void select() {
+        sInputOutput.select();
+    }
+
     public static void setActive(boolean active) {
         sActive = active;
     }
