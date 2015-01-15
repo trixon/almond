@@ -45,4 +45,10 @@ limitations under the License.
             </file>
         </folder>
     </folder>
+    <folder name="Shortcuts">
+        <file name="F11.shadow">
+            <attr name="originalFile" stringvalue="Actions/Window/org-netbeans-core-windows-actions-ToggleFullScreenAction.instance"/>
+        </file>
+        <file name="OS-ENTER.shadow_hidden"/>
+    </folder>
 </filesystem>
