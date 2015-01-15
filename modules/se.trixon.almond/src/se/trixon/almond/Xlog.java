@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2015 Patrik Karlsson.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,9 +29,10 @@ public class Xlog {
     public static final int INFO = 4;
     public static final int VERBOSE = 2;
     public static final int WARN = 5;
-    public static String sGlobalTag = "log";
+    public static String sGlobalTag = "";
     private static boolean sActive = true;
-    private static final InputOutput sInputOutput;
+    private static final SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd HH.mm.ss: ");
+    private static InputOutput sInputOutput;
     private static int sLevel = VERBOSE;
     private static boolean sUseGlobalTag = false;
     private static boolean sUseTimestamps = true;
@@ -100,6 +101,10 @@ public class Xlog {
         return sUseTimestamps;
     }
 
+    public static void reinit() {
+        sInputOutput = IOProvider.getDefault().getIO(sGlobalTag, false);
+    }
+
     public static void setActive(boolean active) {
         sActive = active;
     }
@@ -165,27 +170,24 @@ public class Xlog {
     }
 
     private static void print(String levelClass, String message) {
-        OutputWriter outputWriter = sInputOutput.getOut();
-        printDate(outputWriter);
-        outputWriter.print(levelClass + " ");
-        outputWriter.println(message);
-        outputWriter.close();
+        try (OutputWriter outputWriter = sInputOutput.getOut()) {
+            printDate(outputWriter);
+            outputWriter.print(levelClass + " ");
+            outputWriter.println(message);
+        }
     }
 
     private static void printDate(OutputWriter outputWriter) {
         if (sUseTimestamps) {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH.mm.ss: ");
-//            SimpleDateFormat sdf = new SimpleDateFormat("HH.mm.ss: ");
-            Calendar calendar = Calendar.getInstance();
-            outputWriter.print(sdf.format(calendar.getTime()));
+            outputWriter.print(sDateFormat.format(Calendar.getInstance().getTime()));
         }
     }
 
     private static void printErr(String levelClass, String message) {
-        OutputWriter outputWriter = sInputOutput.getErr();
-        printDate(outputWriter);
-        outputWriter.print(levelClass + " ");
-        outputWriter.println(message);
-        outputWriter.close();
+        try (OutputWriter outputWriter = sInputOutput.getErr()) {
+            printDate(outputWriter);
+            outputWriter.print(levelClass + " ");
+            outputWriter.println(message);
+        }
     }
 }

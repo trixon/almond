@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2015 Patrik Karlsson.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,7 +17,6 @@ package se.trixon.almond;
 
 import java.awt.Frame;
 import java.util.prefs.PreferenceChangeEvent;
-import java.util.prefs.PreferenceChangeListener;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
 import org.openide.modules.ModuleInstall;
@@ -47,22 +46,15 @@ public class Installer extends ModuleInstall {
 
     @Override
     public void restored() {
-        AlmondOptions.getPreferences().addPreferenceChangeListener(new PreferenceChangeListener() {
-
-            @Override
-            public void preferenceChange(PreferenceChangeEvent evt) {
-                if (evt.getKey().equalsIgnoreCase(AlmondOptions.KEY_ALWAYS_ON_TOP)) {
-                    mFrame.setAlwaysOnTop(mOptions.getAlwaysOnTop());
-                }
+        AlmondOptions.getPreferences().addPreferenceChangeListener((PreferenceChangeEvent evt) -> {
+            if (evt.getKey().equalsIgnoreCase(AlmondOptions.KEY_ALWAYS_ON_TOP)) {
+                mFrame.setAlwaysOnTop(mOptions.getAlwaysOnTop());
             }
         });
 
-        WindowManager.getDefault().invokeWhenUIReady(new Runnable() {
-            @Override
-            public void run() {
-                mFrame = WindowManager.getDefault().getMainWindow();
-                mFrame.setAlwaysOnTop(mOptions.getAlwaysOnTop());
-            }
+        WindowManager.getDefault().invokeWhenUIReady(() -> {
+            mFrame = WindowManager.getDefault().getMainWindow();
+            mFrame.setAlwaysOnTop(mOptions.getAlwaysOnTop());
         });
     }
 }
