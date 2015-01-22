@@ -107,6 +107,7 @@ public enum Dict {
     MOVE_TOP,
     MOVE_UP,
     NAME,
+    NEWS,
     OK,
     OPEN,
     OPERATION_COMPLETED,
