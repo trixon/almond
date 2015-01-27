@@ -37,4 +37,8 @@ public class SystemHelper {
 
         return hostname;
     }
+
+    public static String getPackageAsPath(Class clazz) {
+        return clazz.getPackage().getName().replace(".", "/") + "/";
+    }
 }
