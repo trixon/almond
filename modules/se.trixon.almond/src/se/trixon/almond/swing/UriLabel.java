@@ -27,6 +27,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import javax.swing.Icon;
 import javax.swing.JLabel;
+import se.trixon.almond.Xlog;
 
 public class UriLabel extends JLabel {
 
@@ -90,11 +91,11 @@ public class UriLabel extends JLabel {
     }
 
     private void launchURI(MouseEvent evt) {
-        if (mUri != null) {
+        if (mUri != null && Desktop.isDesktopSupported()) {
             try {
                 Desktop.getDesktop().browse(mUri);
-            } catch (IOException ex) {
-                System.err.println(ex);
+            } catch (IOException | UnsupportedOperationException ex) {
+                Xlog.e(this.getClass(), ex.getLocalizedMessage());
             }
         }
     }
