@@ -120,6 +120,7 @@ public enum Dict {
     PROCESSING,
     QUALIFIER,
     RECURSIVE,
+    REFRESH,
     REMOVE,
     REMOVE_ALL,
     REMOVE_FILE_MESSAGE,
