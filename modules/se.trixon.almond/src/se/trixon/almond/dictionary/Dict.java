@@ -114,6 +114,7 @@ public enum Dict {
     OPEN,
     OPERATION_COMPLETED,
     OPTIONS,
+    ORIGINAL,
     PATH,
     PATTERN,
     PLACEMARK,
