@@ -36,7 +36,7 @@ public class Installer extends ModuleInstall {
     public boolean closing() {
         boolean exit = true;
 
-        if (mOptions.getConfirmExit()) {
+        if (Almond.ASK_CONFIRM_EXIT && mOptions.getConfirmExit()) {
             Object result = DialogDisplayer.getDefault().notify(ConfirmExitDialog.getDescriptor());
             exit = result == NotifyDescriptor.OK_OPTION;
         }
