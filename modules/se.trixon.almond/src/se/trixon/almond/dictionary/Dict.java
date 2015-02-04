@@ -104,6 +104,8 @@ public enum Dict {
     LONGITUDE,
     LOG,
     LOG_FILES,
+    METADATA_FILE,
+    METADATA_FILES,
     MOVE_BOTTOM,
     MOVE_DOWN,
     MOVE_TOP,
