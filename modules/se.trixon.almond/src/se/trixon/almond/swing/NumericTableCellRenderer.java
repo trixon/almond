@@ -15,83 +15,48 @@
  */
 package se.trixon.almond.swing;
 
-
-
 import java.text.NumberFormat;
-
 import javax.swing.SwingConstants;
-
 import javax.swing.table.DefaultTableCellRenderer;
 
-
-
 /**
-
  *
-
  * @author Patrik Karlsson <patrik@trixon.se>
-
  */
-
 public class NumericTableCellRenderer extends DefaultTableCellRenderer {
 
-
-
+    private int fmFractionDigits;
     private Class mClass;
 
-
-
     public NumericTableCellRenderer() {
-
         setHorizontalAlignment(SwingConstants.RIGHT);
-
     }
 
-
-
-    public NumericTableCellRenderer(Class c) {
-
+    public NumericTableCellRenderer(Class c, int fractionDigits) {
         this();
-
         mClass = c;
-
+        fmFractionDigits = fractionDigits;
     }
-
-
 
     @Override
-
     public void setValue(Object value) {
-
         Object result = value;
 
         if ((value != null) && (value instanceof Number)) {
-
             Number numberValue = (Number) value;
-
             NumberFormat formatter;
 
-
-
             if (mClass == Double.class || mClass == Float.class) {
-
                 formatter = NumberFormat.getNumberInstance();
-
+                formatter.setMinimumFractionDigits(fmFractionDigits);
+                formatter.setMaximumFractionDigits(fmFractionDigits);
             } else {
-
                 formatter = NumberFormat.getIntegerInstance();
-
             }
 
             result = formatter.format(numberValue.doubleValue());
-
         }
 
-
-
         super.setValue(result);
-
     }
-
 }
-
