@@ -46,6 +46,8 @@ public enum Dict {
     COMPARE,
     CONTAINS,
     COORDINATE,
+    COORDINATE_FILE,
+    COORDINATE_FILES,
     COPY,
     COPYRIGHT,
     CUSTOM_TEXT,
