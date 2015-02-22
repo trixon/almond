@@ -51,6 +51,7 @@ public class Pict {
         EDIT_DELETE,
         EDIT_FIND,
         EDIT_SELECT_ALL,
+        FORMAT_JUSTIFY_FILL,
         HELP_CONTENTS,
         LIST_ADD,
         MERGE,
@@ -67,7 +68,8 @@ public class Pict {
 
     public enum Categories {
 
-        APPLICATIONS_INTERNET;
+        APPLICATIONS_INTERNET,
+        APPLICATIONS_SYSTEM;
 
         public ImageIcon get(int size) {
             return Pict.get("categories/" + name(), size);

@@ -170,6 +170,7 @@ public enum Dict {
     TIME_MIN,
     TIME_SEC,
     TO,
+    TOOLBARS,
     TYPE,
     UP,
     VERIFY,
