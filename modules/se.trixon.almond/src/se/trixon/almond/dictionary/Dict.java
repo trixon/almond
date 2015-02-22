@@ -155,6 +155,7 @@ public enum Dict {
     STARTS_WITH,
     STOP,
     SUBDIRECTORIES,
+    SYSTEM,
     TAB_NEW,
     TAB_CLOSE,
     TAB_CLOSE_ALL,
