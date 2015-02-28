@@ -26,6 +26,7 @@ import org.openide.util.NbBundle;
 public enum Dict {
 
     ACTIVATE,
+    ACTIVE,
     ADD,
     ADVANCED,
     AFTER,

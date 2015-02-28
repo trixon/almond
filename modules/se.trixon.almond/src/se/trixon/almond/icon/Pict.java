@@ -54,6 +54,7 @@ public class Pict {
         FORMAT_JUSTIFY_FILL,
         HELP_CONTENTS,
         LIST_ADD,
+        LIST_REMOVE,
         MERGE,
         PROCESS_STOP,
         TAB_NEW,
