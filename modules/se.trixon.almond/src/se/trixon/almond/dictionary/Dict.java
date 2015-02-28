@@ -32,6 +32,7 @@ public enum Dict {
     ALTITUDE,
     ANALYZE,
     APPEND,
+    BASENAME,
     BASIC,
     BEARING,
     BEFORE,
