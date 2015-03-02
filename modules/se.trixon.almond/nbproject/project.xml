@@ -91,6 +91,7 @@
                 <package>se.trixon.almond</package>
                 <package>se.trixon.almond.about</package>
                 <package>se.trixon.almond.dialogs</package>
+                <package>se.trixon.almond.dialogs.cron</package>
                 <package>se.trixon.almond.dictionary</package>
                 <package>se.trixon.almond.icon</package>
                 <package>se.trixon.almond.news</package>
