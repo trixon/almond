@@ -94,6 +94,7 @@
                 <package>se.trixon.almond.dialogs.cron</package>
                 <package>se.trixon.almond.dictionary</package>
                 <package>se.trixon.almond.icon</package>
+                <package>se.trixon.almond.imageviewer</package>
                 <package>se.trixon.almond.news</package>
                 <package>se.trixon.almond.swing</package>
                 <package>se.trixon.almond.util</package>
