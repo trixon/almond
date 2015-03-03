@@ -102,6 +102,7 @@ public enum Dict {
     IO_ERROR_TITLE,
     JOB,
     JOB_PROPERTIES,
+    LAST,
     LATITUDE,
     LICENSE,
     LINE_SEPARATOR,

@@ -15,6 +15,8 @@
  */
 package se.trixon.almond.dialogs.cron;
 
+import se.trixon.almond.dictionary.Dict;
+
 /**
  *
  * @author Patrik Karlsson <patrik@trixon.se>
@@ -43,6 +45,8 @@ public class ElementDomPanel extends ElementPanel {
         for (int i = 1; i < 32; i++) {
             mArray.add(String.valueOf(i));
         }
+
+        mArray.add(Dict.LAST.getString());
 
         initModel(mArray);
     }

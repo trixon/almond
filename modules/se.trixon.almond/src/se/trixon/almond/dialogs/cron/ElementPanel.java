@@ -53,6 +53,7 @@ public abstract class ElementPanel extends javax.swing.JPanel {
         });
         
         list.setModel(mListModel);
+        list.setSelectedIndex(0);
     }
 
     /**
