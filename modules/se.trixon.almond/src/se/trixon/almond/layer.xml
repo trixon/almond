@@ -50,5 +50,9 @@ limitations under the License.
             <attr name="originalFile" stringvalue="Actions/Window/org-netbeans-core-windows-actions-ToggleFullScreenAction.instance"/>
         </file>
         <file name="OS-ENTER.shadow_hidden"/>
+        <file name="F12.shadow">
+            <attr name="originalFile" stringvalue="Actions/Window/org-netbeans-core-windows-actions-ShowEditorOnlyAction.instance"/>
+        </file>
+        <file name="DS-ENTER.shadow_hidden"/>
     </folder>
 </filesystem>
