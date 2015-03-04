@@ -45,6 +45,9 @@ public class Pict {
         DOCUMENT_SAVE_ALL,
         DOCUMENT_SAVE_AS,
         DOCUMENT_SAVE,
+        DOWNLOAD,
+        DOWNLOAD_LATER,
+        FOLDER_DOWNLOADS,
         EDIT_CLEAR_LIST,
         EDIT_CLEAR,
         EDIT_COPY,
@@ -67,6 +70,8 @@ public class Pict {
         PROCESS_STOP,
         TAB_NEW,
         TRASH_EMPTY,
+        VIEW_CATALOG,
+        VIEW_PREVIEW,
         VIEW_REFRESH,
         WINDOW_CLOSE;
 
