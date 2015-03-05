@@ -41,7 +41,6 @@ public class ElementDowPanel extends ElementPanel {
     }
 
     private void init() {
-        mArray.add("*");
         Calendar c = Calendar.getInstance(Locale.ENGLISH);
         for (int i = 1; i < 8; i++) {
             c.set(Calendar.DAY_OF_WEEK, i);

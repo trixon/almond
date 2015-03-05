@@ -18,6 +18,7 @@ package se.trixon.almond.dialogs.cron;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
+import se.trixon.almond.dictionary.Dict;
 
 /**
  *
@@ -51,7 +52,7 @@ public abstract class ElementPanel extends javax.swing.JPanel {
         arrayList.stream().forEach((string) -> {
             mListModel.addElement(string);
         });
-        
+
         list.setModel(mListModel);
         list.setSelectedIndex(0);
     }
@@ -65,15 +66,47 @@ public abstract class ElementPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup = new javax.swing.ButtonGroup();
         label = new javax.swing.JLabel();
         scrollPane = new javax.swing.JScrollPane();
         list = new javax.swing.JList();
+        allRadioButton = new javax.swing.JRadioButton();
+        selectedRadioButton = new javax.swing.JRadioButton();
+        checkBox = new javax.swing.JCheckBox();
+        comboBox = new javax.swing.JComboBox();
 
         setPreferredSize(new java.awt.Dimension(150, 300));
 
         org.openide.awt.Mnemonics.setLocalizedText(label, "Label"); // NOI18N
 
+        list.setEnabled(false);
         scrollPane.setViewportView(list);
+
+        buttonGroup.add(allRadioButton);
+        allRadioButton.setSelected(true);
+        org.openide.awt.Mnemonics.setLocalizedText(allRadioButton, Dict.ALL.getString());
+        allRadioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                allRadioButtonActionPerformed(evt);
+            }
+        });
+
+        buttonGroup.add(selectedRadioButton);
+        org.openide.awt.Mnemonics.setLocalizedText(selectedRadioButton, Dict.SELECTED.getString());
+        selectedRadioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectedRadioButtonActionPerformed(evt);
+            }
+        });
+
+        org.openide.awt.Mnemonics.setLocalizedText(checkBox, Dict.EVERY.getString());
+        checkBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxActionPerformed(evt);
+            }
+        });
+
+        comboBox.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -82,10 +115,14 @@ public abstract class ElementPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollPane)
+                    .addComponent(allRadioButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(selectedRadioButton, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+                    .addComponent(comboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(label)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(scrollPane))
+                    .addComponent(checkBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -94,15 +131,40 @@ public abstract class ElementPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(label)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
+                .addComponent(allRadioButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(selectedRadioButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkBox)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(comboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void selectedRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectedRadioButtonActionPerformed
+        list.setEnabled(true);
+    }//GEN-LAST:event_selectedRadioButtonActionPerformed
+
+    private void allRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allRadioButtonActionPerformed
+        list.setEnabled(false);
+    }//GEN-LAST:event_allRadioButtonActionPerformed
+
+    private void checkBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxActionPerformed
+        comboBox.setEnabled(checkBox.isSelected());
+    }//GEN-LAST:event_checkBoxActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButton allRadioButton;
+    private javax.swing.ButtonGroup buttonGroup;
+    private javax.swing.JCheckBox checkBox;
+    private javax.swing.JComboBox comboBox;
     private javax.swing.JLabel label;
     private javax.swing.JList list;
     private javax.swing.JScrollPane scrollPane;
+    private javax.swing.JRadioButton selectedRadioButton;
     // End of variables declaration//GEN-END:variables
 }

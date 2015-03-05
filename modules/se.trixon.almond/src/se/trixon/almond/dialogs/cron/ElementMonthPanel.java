@@ -41,7 +41,6 @@ public class ElementMonthPanel extends ElementPanel {
     }
 
     private void init() {
-        mArray.add("*");
         Calendar c = Calendar.getInstance();
         for (int i = 0; i < 12; i++) {
             c.set(Calendar.MONTH, i);

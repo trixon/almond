@@ -40,8 +40,6 @@ public class ElementDomPanel extends ElementPanel {
     }
 
     private void init() {
-        mArray.add("*");
-
         for (int i = 1; i < 32; i++) {
             mArray.add(String.valueOf(i));
         }

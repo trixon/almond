@@ -38,8 +38,6 @@ public class ElementHourPanel extends ElementPanel {
     }
 
     private void init() {
-        mArray.add("*");
-
         for (int i = 0; i < 24; i++) {
             mArray.add(String.valueOf(i));
         }
