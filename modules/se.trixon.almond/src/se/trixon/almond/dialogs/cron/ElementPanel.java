@@ -18,6 +18,8 @@ package se.trixon.almond.dialogs.cron;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
+import javax.swing.SpinnerNumberModel;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import se.trixon.almond.ArrayHelper;
 import se.trixon.almond.StringHelper;
@@ -51,16 +53,23 @@ public abstract class ElementPanel extends javax.swing.JPanel {
     }
 
     public void setCronString(String cronString) {
+        boolean hasLast = cronString.contains("L");
+
+        if (hasLast) {
+            cronString = cronString.replace(",L", "").replace("L", "");
+        }
+
         String[] every = StringUtils.split(cronString, "/");
         String ab = every[0];
         String c = null;
 
         if (every.length == 2) {
             c = every[1];
+            spinner.setValue(Integer.valueOf(c));
         }
 
         checkBox.setSelected(c != null);
-        comboBox.setEnabled(c != null);
+        spinner.setEnabled(c != null);
 
         if (ab.contains("*")) {
             allRadioButton.doClick();
@@ -69,6 +78,11 @@ public abstract class ElementPanel extends javax.swing.JPanel {
             String[] selections = StringHelper.intervalStringToArray(ab);
             int[] indices = ArrayHelper.stringToInt(selections);
             indices = ArrayHelper.adjustOffset(indices, -1 * mOffset);
+            
+            if (hasLast) {
+                indices = ArrayUtils.add(indices, mListModel.getSize() - 1);
+            }
+            
             list.setSelectedIndices(indices);
         }
     }
@@ -87,6 +101,7 @@ public abstract class ElementPanel extends javax.swing.JPanel {
         });
 
         list.setModel(mListModel);
+        spinner.setModel(new SpinnerNumberModel(2, 2, mListModel.getSize() + mOffset - 1, 1));
     }
 
     /**
@@ -105,7 +120,7 @@ public abstract class ElementPanel extends javax.swing.JPanel {
         allRadioButton = new javax.swing.JRadioButton();
         selectedRadioButton = new javax.swing.JRadioButton();
         checkBox = new javax.swing.JCheckBox();
-        comboBox = new javax.swing.JComboBox();
+        spinner = new javax.swing.JSpinner();
 
         setPreferredSize(new java.awt.Dimension(150, 300));
 
@@ -138,8 +153,6 @@ public abstract class ElementPanel extends javax.swing.JPanel {
             }
         });
 
-        comboBox.setEnabled(false);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -150,11 +163,11 @@ public abstract class ElementPanel extends javax.swing.JPanel {
                     .addComponent(scrollPane)
                     .addComponent(allRadioButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(selectedRadioButton, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
-                    .addComponent(comboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(checkBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(label)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(checkBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(spinner))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -167,11 +180,11 @@ public abstract class ElementPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(selectedRadioButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
+                .addComponent(scrollPane)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(checkBox)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(comboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(spinner, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -186,7 +199,7 @@ public abstract class ElementPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_allRadioButtonActionPerformed
 
     private void checkBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxActionPerformed
-        comboBox.setEnabled(checkBox.isSelected());
+        spinner.setEnabled(checkBox.isSelected());
     }//GEN-LAST:event_checkBoxActionPerformed
 
 
@@ -194,10 +207,10 @@ public abstract class ElementPanel extends javax.swing.JPanel {
     private javax.swing.JRadioButton allRadioButton;
     private javax.swing.ButtonGroup buttonGroup;
     private javax.swing.JCheckBox checkBox;
-    private javax.swing.JComboBox comboBox;
     private javax.swing.JLabel label;
     private javax.swing.JList list;
     private javax.swing.JScrollPane scrollPane;
     private javax.swing.JRadioButton selectedRadioButton;
+    private javax.swing.JSpinner spinner;
     // End of variables declaration//GEN-END:variables
 }

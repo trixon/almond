@@ -31,12 +31,12 @@
                   <Component id="scrollPane" max="32767" attributes="0"/>
                   <Component id="allRadioButton" alignment="0" max="32767" attributes="0"/>
                   <Component id="selectedRadioButton" pref="138" max="32767" attributes="0"/>
-                  <Component id="comboBox" max="32767" attributes="0"/>
+                  <Component id="checkBox" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Component id="label" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="checkBox" alignment="0" max="32767" attributes="0"/>
+                  <Component id="spinner" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -52,11 +52,11 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="selectedRadioButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="scrollPane" pref="206" max="32767" attributes="0"/>
+              <Component id="scrollPane" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="checkBox" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="comboBox" min="-2" max="-2" attributes="0"/>
+              <Component id="spinner" min="-2" pref="28" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -119,10 +119,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JComboBox" name="comboBox">
-      <Properties>
-        <Property name="enabled" type="boolean" value="false"/>
-      </Properties>
+    <Component class="javax.swing.JSpinner" name="spinner">
     </Component>
   </SubComponents>
 </Form>

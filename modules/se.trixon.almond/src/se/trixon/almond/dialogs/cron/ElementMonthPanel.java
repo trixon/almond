@@ -28,8 +28,8 @@ public class ElementMonthPanel extends ElementPanel {
      * Creates new form ElementMonthPanel
      */
     public ElementMonthPanel() {
-        init();
         setOffset(1);
+        init();
     }
 
     @Override
