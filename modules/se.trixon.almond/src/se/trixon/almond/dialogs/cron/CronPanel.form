@@ -19,38 +19,38 @@
     <Property name="rows" type="int" value="1"/>
   </Layout>
   <SubComponents>
-    <Component class="se.trixon.almond.dialogs.cron.ElementMinutePanel" name="elementMinutePanel1">
+    <Component class="se.trixon.almond.dialogs.cron.ElementMinutePanel" name="elementMinutePanel">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="se/trixon/almond/dialogs/cron/Bundle.properties" key="CronPanel.elementMinutePanel1.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+          <ResourceString bundle="se/trixon/almond/dialogs/cron/Bundle.properties" key="CronPanel.elementMinutePanel.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
         </Property>
       </Properties>
     </Component>
-    <Component class="se.trixon.almond.dialogs.cron.ElementHourPanel" name="elementHourPanel1">
+    <Component class="se.trixon.almond.dialogs.cron.ElementHourPanel" name="elementHourPanel">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="se/trixon/almond/dialogs/cron/Bundle.properties" key="CronPanel.elementHourPanel1.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+          <ResourceString bundle="se/trixon/almond/dialogs/cron/Bundle.properties" key="CronPanel.elementHourPanel.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
         </Property>
       </Properties>
     </Component>
-    <Component class="se.trixon.almond.dialogs.cron.ElementDomPanel" name="elementDomPanel1">
+    <Component class="se.trixon.almond.dialogs.cron.ElementDomPanel" name="elementDomPanel">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="se/trixon/almond/dialogs/cron/Bundle.properties" key="CronPanel.elementDomPanel1.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+          <ResourceString bundle="se/trixon/almond/dialogs/cron/Bundle.properties" key="CronPanel.elementDomPanel.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
         </Property>
       </Properties>
     </Component>
-    <Component class="se.trixon.almond.dialogs.cron.ElementMonthPanel" name="elementMonthPanel1">
+    <Component class="se.trixon.almond.dialogs.cron.ElementMonthPanel" name="elementMonthPanel">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="se/trixon/almond/dialogs/cron/Bundle.properties" key="CronPanel.elementMonthPanel1.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+          <ResourceString bundle="se/trixon/almond/dialogs/cron/Bundle.properties" key="CronPanel.elementMonthPanel.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
         </Property>
       </Properties>
     </Component>
-    <Component class="se.trixon.almond.dialogs.cron.ElementDowPanel" name="elementDowPanel1">
+    <Component class="se.trixon.almond.dialogs.cron.ElementDowPanel" name="elementDowPanel">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="se/trixon/almond/dialogs/cron/Bundle.properties" key="CronPanel.elementDowPanel1.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+          <ResourceString bundle="se/trixon/almond/dialogs/cron/Bundle.properties" key="CronPanel.elementDowPanel.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
         </Property>
       </Properties>
     </Component>

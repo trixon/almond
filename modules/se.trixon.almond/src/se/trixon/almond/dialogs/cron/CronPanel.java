@@ -21,11 +21,19 @@ package se.trixon.almond.dialogs.cron;
  */
 public class CronPanel extends javax.swing.JPanel {
 
+    ElementPanel[] mElementPanels = new ElementPanel[5];
+
     /**
      * Creates new form CronPanel
      */
     public CronPanel() {
         initComponents();
+
+        mElementPanels[0] = elementMinutePanel;
+        mElementPanels[1] = elementHourPanel;
+        mElementPanels[2] = elementDomPanel;
+        mElementPanels[3] = elementMonthPanel;
+        mElementPanels[4] = elementDowPanel;
     }
 
     public String getCronString() {
@@ -33,7 +41,15 @@ public class CronPanel extends javax.swing.JPanel {
     }
 
     public void setCronString(String cronString) {
+        String[] cronItems = cronString.split(" ");
 
+        for (int i = 0; i < 5; i++) {
+            try {
+                mElementPanels[i].setCronString(cronItems[i]);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                mElementPanels[i].setCronString("*");
+            }
+        }
     }
 
     /**
@@ -45,36 +61,36 @@ public class CronPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        elementMinutePanel1 = new se.trixon.almond.dialogs.cron.ElementMinutePanel();
-        elementHourPanel1 = new se.trixon.almond.dialogs.cron.ElementHourPanel();
-        elementDomPanel1 = new se.trixon.almond.dialogs.cron.ElementDomPanel();
-        elementMonthPanel1 = new se.trixon.almond.dialogs.cron.ElementMonthPanel();
-        elementDowPanel1 = new se.trixon.almond.dialogs.cron.ElementDowPanel();
+        elementMinutePanel = new se.trixon.almond.dialogs.cron.ElementMinutePanel();
+        elementHourPanel = new se.trixon.almond.dialogs.cron.ElementHourPanel();
+        elementDomPanel = new se.trixon.almond.dialogs.cron.ElementDomPanel();
+        elementMonthPanel = new se.trixon.almond.dialogs.cron.ElementMonthPanel();
+        elementDowPanel = new se.trixon.almond.dialogs.cron.ElementDowPanel();
 
         setLayout(new java.awt.GridLayout(1, 0));
 
-        elementMinutePanel1.setText(org.openide.util.NbBundle.getMessage(CronPanel.class, "CronPanel.elementMinutePanel1.text")); // NOI18N
-        add(elementMinutePanel1);
+        elementMinutePanel.setText(org.openide.util.NbBundle.getMessage(CronPanel.class, "CronPanel.elementMinutePanel.text")); // NOI18N
+        add(elementMinutePanel);
 
-        elementHourPanel1.setText(org.openide.util.NbBundle.getMessage(CronPanel.class, "CronPanel.elementHourPanel1.text")); // NOI18N
-        add(elementHourPanel1);
+        elementHourPanel.setText(org.openide.util.NbBundle.getMessage(CronPanel.class, "CronPanel.elementHourPanel.text")); // NOI18N
+        add(elementHourPanel);
 
-        elementDomPanel1.setText(org.openide.util.NbBundle.getMessage(CronPanel.class, "CronPanel.elementDomPanel1.text")); // NOI18N
-        add(elementDomPanel1);
+        elementDomPanel.setText(org.openide.util.NbBundle.getMessage(CronPanel.class, "CronPanel.elementDomPanel.text")); // NOI18N
+        add(elementDomPanel);
 
-        elementMonthPanel1.setText(org.openide.util.NbBundle.getMessage(CronPanel.class, "CronPanel.elementMonthPanel1.text")); // NOI18N
-        add(elementMonthPanel1);
+        elementMonthPanel.setText(org.openide.util.NbBundle.getMessage(CronPanel.class, "CronPanel.elementMonthPanel.text")); // NOI18N
+        add(elementMonthPanel);
 
-        elementDowPanel1.setText(org.openide.util.NbBundle.getMessage(CronPanel.class, "CronPanel.elementDowPanel1.text")); // NOI18N
-        add(elementDowPanel1);
+        elementDowPanel.setText(org.openide.util.NbBundle.getMessage(CronPanel.class, "CronPanel.elementDowPanel.text")); // NOI18N
+        add(elementDowPanel);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private se.trixon.almond.dialogs.cron.ElementDomPanel elementDomPanel1;
-    private se.trixon.almond.dialogs.cron.ElementDowPanel elementDowPanel1;
-    private se.trixon.almond.dialogs.cron.ElementHourPanel elementHourPanel1;
-    private se.trixon.almond.dialogs.cron.ElementMinutePanel elementMinutePanel1;
-    private se.trixon.almond.dialogs.cron.ElementMonthPanel elementMonthPanel1;
+    private se.trixon.almond.dialogs.cron.ElementDomPanel elementDomPanel;
+    private se.trixon.almond.dialogs.cron.ElementDowPanel elementDowPanel;
+    private se.trixon.almond.dialogs.cron.ElementHourPanel elementHourPanel;
+    private se.trixon.almond.dialogs.cron.ElementMinutePanel elementMinutePanel;
+    private se.trixon.almond.dialogs.cron.ElementMonthPanel elementMonthPanel;
     // End of variables declaration//GEN-END:variables
 }

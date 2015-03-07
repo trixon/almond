@@ -18,6 +18,9 @@ package se.trixon.almond.dialogs.cron;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
+import org.apache.commons.lang3.StringUtils;
+import se.trixon.almond.ArrayHelper;
+import se.trixon.almond.StringHelper;
 import se.trixon.almond.dictionary.Dict;
 
 /**
@@ -28,6 +31,7 @@ public abstract class ElementPanel extends javax.swing.JPanel {
 
     protected final DefaultListModel mListModel = new DefaultListModel();
     protected final ArrayList<String> mArray = new ArrayList<>();
+    private int mOffset = 0;
 
     /**
      * Creates new form ElementPanel
@@ -38,7 +42,36 @@ public abstract class ElementPanel extends javax.swing.JPanel {
 
     public abstract String getCronString();
 
-    public abstract void setCronString(String cronString);
+    public int getOffset() {
+        return mOffset;
+    }
+
+    public void setOffset(int offset) {
+        mOffset = offset;
+    }
+
+    public void setCronString(String cronString) {
+        String[] every = StringUtils.split(cronString, "/");
+        String ab = every[0];
+        String c = null;
+
+        if (every.length == 2) {
+            c = every[1];
+        }
+
+        checkBox.setSelected(c != null);
+        comboBox.setEnabled(c != null);
+
+        if (ab.contains("*")) {
+            allRadioButton.doClick();
+        } else {
+            selectedRadioButton.doClick();
+            String[] selections = StringHelper.intervalStringToArray(ab);
+            int[] indices = ArrayHelper.stringToInt(selections);
+            indices = ArrayHelper.adjustOffset(indices, -1 * mOffset);
+            list.setSelectedIndices(indices);
+        }
+    }
 
     public JList getList() {
         return list;
@@ -54,7 +87,6 @@ public abstract class ElementPanel extends javax.swing.JPanel {
         });
 
         list.setModel(mListModel);
-        list.setSelectedIndex(0);
     }
 
     /**
@@ -149,6 +181,7 @@ public abstract class ElementPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_selectedRadioButtonActionPerformed
 
     private void allRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allRadioButtonActionPerformed
+        list.clearSelection();
         list.setEnabled(false);
     }//GEN-LAST:event_allRadioButtonActionPerformed
 

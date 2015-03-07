@@ -36,10 +36,6 @@ public class ElementDowPanel extends ElementPanel {
         return "*";
     }
 
-    @Override
-    public void setCronString(String cronString) {
-    }
-
     private void init() {
         Calendar c = Calendar.getInstance(Locale.ENGLISH);
         for (int i = 1; i < 8; i++) {

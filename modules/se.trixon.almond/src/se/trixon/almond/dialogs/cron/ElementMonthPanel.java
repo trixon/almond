@@ -29,15 +29,12 @@ public class ElementMonthPanel extends ElementPanel {
      */
     public ElementMonthPanel() {
         init();
+        setOffset(1);
     }
 
     @Override
     public String getCronString() {
         return "*";
-    }
-
-    @Override
-    public void setCronString(String cronString) {
     }
 
     private void init() {
