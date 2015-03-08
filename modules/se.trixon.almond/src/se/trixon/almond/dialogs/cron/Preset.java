@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2015 Patrik Karlsson.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,30 +15,45 @@
  */
 package se.trixon.almond.dialogs.cron;
 
-import se.trixon.almond.dictionary.Dict;
-
 /**
  *
  * @author Patrik Karlsson <patrik@trixon.se>
  */
-public class ElementDomPanel extends ElementPanel {
+public class Preset {
 
-    /**
-     * Creates new form ElementDomPanel
-     */
-    public ElementDomPanel() {
-        setHasLast(true);
-        init();
-        setOffset(1);
+    private String mName;
+    private String mPattern;
+
+    public Preset() {
     }
 
-    private void init() {
-        for (int i = 1; i < 32; i++) {
-            mArray.add(String.valueOf(i));
+    public Preset(String name, String pattern) {
+        mName = name;
+        mPattern = pattern;
+    }
+
+    public String getName() {
+        return mName;
+    }
+
+    public void setName(String name) {
+        mName = name;
+    }
+
+    public String getPattern() {
+        return mPattern;
+    }
+
+    public void setPattern(String pattern) {
+        mPattern = pattern;
+    }
+
+    @Override
+    public String toString() {
+        if (mName == null) {
+            return "";
+        } else {
+            return mName;
         }
-
-        mArray.add(Dict.LAST.getString());
-
-        initModel(mArray);
     }
 }

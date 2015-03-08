@@ -20,9 +20,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import se.trixon.almond.ArrayHelper;
@@ -39,6 +37,7 @@ public abstract class ElementPanel extends javax.swing.JPanel {
     protected final ArrayList<String> mArray = new ArrayList<>();
     private int mOffset = 0;
     private ExprChaneListener mExprChaneListener;
+    private boolean mHasLast;
 
     /**
      * Creates new form ElementPanel
@@ -55,13 +54,11 @@ public abstract class ElementPanel extends javax.swing.JPanel {
 
     public String getCronString() {
         StringBuilder stringBuilder = new StringBuilder();
-
+        int[] indices = null;
         if (allRadioButton.isSelected()) {
             stringBuilder.append("*");
         } else {
-//            int[] indices = ArrayHelper.adjustOffset(list.getSelectedIndices(), mOffset);
-            int[] indices = list.getSelectedIndices();
-            System.err.println(StringHelper.arrayToIntervalString(indices));
+            indices = ArrayHelper.adjustOffset(list.getSelectedIndices(), mOffset);
             stringBuilder.append(StringHelper.arrayToIntervalString(indices));
         }
 
@@ -69,7 +66,14 @@ public abstract class ElementPanel extends javax.swing.JPanel {
             stringBuilder.append("/").append(spinner.getValue());
         }
 
-        return stringBuilder.toString();
+        String cronString = stringBuilder.toString();
+
+        if (selectedRadioButton.isSelected() && mHasLast) {
+            String lastIndex = String.valueOf(mListModel.getSize());
+            cronString = cronString.replace(lastIndex, "L");
+        }
+
+        return cronString;
     }
 
     public int getOffset() {
@@ -78,6 +82,10 @@ public abstract class ElementPanel extends javax.swing.JPanel {
 
     public void setExprChaneListener(ExprChaneListener exprChaneListener) {
         mExprChaneListener = exprChaneListener;
+    }
+
+    public void setHasLast(boolean hasLast) {
+        mHasLast = hasLast;
     }
 
     public void setOffset(int offset) {

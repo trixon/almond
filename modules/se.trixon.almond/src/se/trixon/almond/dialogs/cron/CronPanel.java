@@ -15,8 +15,12 @@
  */
 package se.trixon.almond.dialogs.cron;
 
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+import org.openide.DialogDescriptor;
 import org.openide.NotificationLineSupport;
-import se.trixon.almond.Xlog;
+import org.openide.util.NbBundle;
+import se.trixon.almond.dictionary.Dict;
 
 /**
  *
@@ -25,6 +29,8 @@ import se.trixon.almond.Xlog;
 public class CronPanel extends javax.swing.JPanel implements ElementPanel.ExprChaneListener {
 
     ElementPanel[] mElementPanels = new ElementPanel[5];
+    private final ResourceBundle mBundle;
+    private DialogDescriptor mDialogDescriptor;
     private NotificationLineSupport mNotificationLineSupport;
 
     /**
@@ -32,7 +38,9 @@ public class CronPanel extends javax.swing.JPanel implements ElementPanel.ExprCh
      */
     public CronPanel() {
         initComponents();
+                mBundle = NbBundle.getBundle(CronPanel.class);
 
+        initPresets();
         mElementPanels[0] = elementMinutePanel;
         mElementPanels[1] = elementHourPanel;
         mElementPanels[2] = elementDomPanel;
@@ -72,8 +80,10 @@ public class CronPanel extends javax.swing.JPanel implements ElementPanel.ExprCh
     public void onExprChanged() {
         if (isCronValid()) {
             mNotificationLineSupport.setInformationMessage(getCronString());
+            mDialogDescriptor.setValid(true);
         } else {
             mNotificationLineSupport.setErrorMessage(getCronString());
+            mDialogDescriptor.setValid(false);
         }
     }
 
@@ -91,8 +101,22 @@ public class CronPanel extends javax.swing.JPanel implements ElementPanel.ExprCh
         onExprChanged();
     }
 
-    public void setNotificationLineSupport(NotificationLineSupport notificationLineSupport) {
-        mNotificationLineSupport = notificationLineSupport;
+    public void setDialogDescriptor(DialogDescriptor dialogDescriptor) {
+        mDialogDescriptor = dialogDescriptor;
+        mNotificationLineSupport = dialogDescriptor.createNotificationLineSupport();
+    }
+
+    private void initPresets() {
+        ArrayList<Preset> presets = new ArrayList<>();
+        presets.add(new Preset());
+        
+        presets.add(new Preset(mBundle.getString("preset1"), "*/10 * * * * *"));
+        presets.add(new Preset(mBundle.getString("preset2"), "0 * * * * *"));
+        presets.add(new Preset(mBundle.getString("preset3"), "0/15 8-17 * * 1-5"));
+        presets.add(new Preset(mBundle.getString("preset4"), "* * */2 * *"));
+        presets.add(new Preset(mBundle.getString("preset5"), "* 6-8,18-20 * 5 *"));
+
+        presetComboBox.setModel(new javax.swing.DefaultComboBoxModel(presets.toArray()));
     }
 
     /**
@@ -104,29 +128,70 @@ public class CronPanel extends javax.swing.JPanel implements ElementPanel.ExprCh
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        presetLabel = new javax.swing.JLabel();
+        presetComboBox = new javax.swing.JComboBox();
+        elementsPanel = new javax.swing.JPanel();
         elementMinutePanel = new se.trixon.almond.dialogs.cron.ElementMinutePanel();
         elementHourPanel = new se.trixon.almond.dialogs.cron.ElementHourPanel();
         elementDomPanel = new se.trixon.almond.dialogs.cron.ElementDomPanel();
         elementMonthPanel = new se.trixon.almond.dialogs.cron.ElementMonthPanel();
         elementDowPanel = new se.trixon.almond.dialogs.cron.ElementDowPanel();
 
-        setLayout(new java.awt.GridLayout(1, 0));
+        org.openide.awt.Mnemonics.setLocalizedText(presetLabel, Dict.PRESETS.getString());
+
+        presetComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                presetComboBoxActionPerformed(evt);
+            }
+        });
+
+        elementsPanel.setLayout(new java.awt.GridLayout(1, 0));
 
         elementMinutePanel.setText(org.openide.util.NbBundle.getMessage(CronPanel.class, "CronPanel.elementMinutePanel.text")); // NOI18N
-        add(elementMinutePanel);
+        elementsPanel.add(elementMinutePanel);
 
         elementHourPanel.setText(org.openide.util.NbBundle.getMessage(CronPanel.class, "CronPanel.elementHourPanel.text")); // NOI18N
-        add(elementHourPanel);
+        elementsPanel.add(elementHourPanel);
 
         elementDomPanel.setText(org.openide.util.NbBundle.getMessage(CronPanel.class, "CronPanel.elementDomPanel.text")); // NOI18N
-        add(elementDomPanel);
+        elementsPanel.add(elementDomPanel);
 
         elementMonthPanel.setText(org.openide.util.NbBundle.getMessage(CronPanel.class, "CronPanel.elementMonthPanel.text")); // NOI18N
-        add(elementMonthPanel);
+        elementsPanel.add(elementMonthPanel);
 
         elementDowPanel.setText(org.openide.util.NbBundle.getMessage(CronPanel.class, "CronPanel.elementDowPanel.text")); // NOI18N
-        add(elementDowPanel);
+        elementsPanel.add(elementDowPanel);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(presetLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(presetComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(elementsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 666, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(presetLabel)
+                    .addComponent(presetComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(elementsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 393, Short.MAX_VALUE))
+        );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void presetComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_presetComboBoxActionPerformed
+        if (presetComboBox.getSelectedIndex() > 0) {
+            Preset preset = (Preset) presetComboBox.getSelectedItem();
+            setCronString(preset.getPattern());
+        }
+    }//GEN-LAST:event_presetComboBoxActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -135,5 +200,8 @@ public class CronPanel extends javax.swing.JPanel implements ElementPanel.ExprCh
     private se.trixon.almond.dialogs.cron.ElementHourPanel elementHourPanel;
     private se.trixon.almond.dialogs.cron.ElementMinutePanel elementMinutePanel;
     private se.trixon.almond.dialogs.cron.ElementMonthPanel elementMonthPanel;
+    private javax.swing.JPanel elementsPanel;
+    private javax.swing.JComboBox presetComboBox;
+    private javax.swing.JLabel presetLabel;
     // End of variables declaration//GEN-END:variables
 }

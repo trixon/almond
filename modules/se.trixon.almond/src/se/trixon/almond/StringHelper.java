@@ -27,6 +27,7 @@ import org.apache.commons.lang3.StringUtils;
 public class StringHelper {
 
     public static String arrayToIntervalString(int[] indices) {
+        System.out.println("arrayToIntervalString");
         if (indices == null || indices.length == 0) {
             return "";
         }

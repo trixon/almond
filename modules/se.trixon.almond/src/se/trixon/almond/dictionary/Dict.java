@@ -138,6 +138,7 @@ public enum Dict {
     PATTERN,
     PHOTO,
     PLACEMARK,
+    PRESETS,
     PROCESSING,
     PROJECT,
     QUALIFIER,
