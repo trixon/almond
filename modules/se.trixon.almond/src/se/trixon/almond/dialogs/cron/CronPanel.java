@@ -115,8 +115,8 @@ public class CronPanel extends javax.swing.JPanel implements ElementPanel.ExprCh
         
         presets.add(new Preset(mBundle.getString("preset1"), "*/10 * * * * *"));
         presets.add(new Preset(mBundle.getString("preset2"), "0 * * * * *"));
-        presets.add(new Preset(mBundle.getString("preset3"), "0/15 8-17 * * 1-5"));
-        presets.add(new Preset(mBundle.getString("preset4"), "* * */2 * *"));
+        presets.add(new Preset(mBundle.getString("preset3"), "*/15 8-17 * * 1-5"));
+        presets.add(new Preset(mBundle.getString("preset4"), "0 12 */2 * *"));
         presets.add(new Preset(mBundle.getString("preset5"), "* 6-8,18-20 * 5 *"));
 
         presetComboBox.setModel(new javax.swing.DefaultComboBoxModel(presets.toArray()));
