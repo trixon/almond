@@ -31,11 +31,6 @@ public class ElementDomPanel extends ElementPanel {
         setOffset(1);
     }
 
-    @Override
-    public String getCronString() {
-        return "*";
-    }
-
     private void init() {
         for (int i = 1; i < 32; i++) {
             mArray.add(String.valueOf(i));

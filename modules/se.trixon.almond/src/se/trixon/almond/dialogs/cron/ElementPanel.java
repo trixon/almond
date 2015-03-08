@@ -19,6 +19,10 @@ import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import se.trixon.almond.ArrayHelper;
@@ -34,18 +38,46 @@ public abstract class ElementPanel extends javax.swing.JPanel {
     protected final DefaultListModel mListModel = new DefaultListModel();
     protected final ArrayList<String> mArray = new ArrayList<>();
     private int mOffset = 0;
+    private ExprChaneListener mExprChaneListener;
 
     /**
      * Creates new form ElementPanel
      */
     public ElementPanel() {
         initComponents();
+        list.addListSelectionListener((ListSelectionEvent e) -> {
+            exprChanged();
+        });
+        spinner.addChangeListener((ChangeEvent e) -> {
+            exprChanged();
+        });
     }
 
-    public abstract String getCronString();
+    public String getCronString() {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        if (allRadioButton.isSelected()) {
+            stringBuilder.append("*");
+        } else {
+//            int[] indices = ArrayHelper.adjustOffset(list.getSelectedIndices(), mOffset);
+            int[] indices = list.getSelectedIndices();
+            System.err.println(StringHelper.arrayToIntervalString(indices));
+            stringBuilder.append(StringHelper.arrayToIntervalString(indices));
+        }
+
+        if (checkBox.isSelected()) {
+            stringBuilder.append("/").append(spinner.getValue());
+        }
+
+        return stringBuilder.toString();
+    }
 
     public int getOffset() {
         return mOffset;
+    }
+
+    public void setExprChaneListener(ExprChaneListener exprChaneListener) {
+        mExprChaneListener = exprChaneListener;
     }
 
     public void setOffset(int offset) {
@@ -78,11 +110,11 @@ public abstract class ElementPanel extends javax.swing.JPanel {
             String[] selections = StringHelper.intervalStringToArray(ab);
             int[] indices = ArrayHelper.stringToInt(selections);
             indices = ArrayHelper.adjustOffset(indices, -1 * mOffset);
-            
+
             if (hasLast) {
                 indices = ArrayUtils.add(indices, mListModel.getSize() - 1);
             }
-            
+
             list.setSelectedIndices(indices);
         }
     }
@@ -102,6 +134,10 @@ public abstract class ElementPanel extends javax.swing.JPanel {
 
         list.setModel(mListModel);
         spinner.setModel(new SpinnerNumberModel(2, 2, mListModel.getSize() + mOffset - 1, 1));
+    }
+
+    private void exprChanged() {
+        mExprChaneListener.onExprChanged();
     }
 
     /**
@@ -191,15 +227,18 @@ public abstract class ElementPanel extends javax.swing.JPanel {
 
     private void selectedRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectedRadioButtonActionPerformed
         list.setEnabled(true);
+        exprChanged();
     }//GEN-LAST:event_selectedRadioButtonActionPerformed
 
     private void allRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allRadioButtonActionPerformed
         list.clearSelection();
         list.setEnabled(false);
+        exprChanged();
     }//GEN-LAST:event_allRadioButtonActionPerformed
 
     private void checkBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxActionPerformed
         spinner.setEnabled(checkBox.isSelected());
+        exprChanged();
     }//GEN-LAST:event_checkBoxActionPerformed
 
 
@@ -213,4 +252,8 @@ public abstract class ElementPanel extends javax.swing.JPanel {
     private javax.swing.JRadioButton selectedRadioButton;
     private javax.swing.JSpinner spinner;
     // End of variables declaration//GEN-END:variables
+public interface ExprChaneListener {
+
+        void onExprChanged();
+    }
 }

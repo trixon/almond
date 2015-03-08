@@ -28,11 +28,6 @@ public class ElementMinutePanel extends ElementPanel {
         init();
     }
 
-    @Override
-    public String getCronString() {
-        return "*";
-    }
-
     private void init() {
         for (int i = 0; i < 60; i++) {
             mArray.add(String.valueOf(i));

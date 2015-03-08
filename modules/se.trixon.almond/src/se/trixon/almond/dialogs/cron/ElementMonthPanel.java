@@ -32,11 +32,6 @@ public class ElementMonthPanel extends ElementPanel {
         init();
     }
 
-    @Override
-    public String getCronString() {
-        return "*";
-    }
-
     private void init() {
         Calendar c = Calendar.getInstance();
         for (int i = 0; i < 12; i++) {

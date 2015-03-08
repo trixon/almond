@@ -24,9 +24,8 @@ public class ArrayHelper {
     public static int[] adjustOffset(int[] integers, int offset) {
         for (int i = 0; i < integers.length; i++) {
             integers[i] = integers[i] + offset;
-
         }
-        
+
         return integers;
     }
 

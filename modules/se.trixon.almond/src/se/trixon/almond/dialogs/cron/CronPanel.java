@@ -15,13 +15,17 @@
  */
 package se.trixon.almond.dialogs.cron;
 
+import org.openide.NotificationLineSupport;
+import se.trixon.almond.Xlog;
+
 /**
  *
  * @author Patrik Karlsson <patrik@trixon.se>
  */
-public class CronPanel extends javax.swing.JPanel {
+public class CronPanel extends javax.swing.JPanel implements ElementPanel.ExprChaneListener {
 
     ElementPanel[] mElementPanels = new ElementPanel[5];
+    private NotificationLineSupport mNotificationLineSupport;
 
     /**
      * Creates new form CronPanel
@@ -34,10 +38,43 @@ public class CronPanel extends javax.swing.JPanel {
         mElementPanels[2] = elementDomPanel;
         mElementPanels[3] = elementMonthPanel;
         mElementPanels[4] = elementDowPanel;
+
+        for (ElementPanel elementPanel : mElementPanels) {
+            elementPanel.setExprChaneListener(this);
+        }
     }
 
     public String getCronString() {
-        return "*";
+        String cron = String.format("%s %s %s %s %s",
+                mElementPanels[0].getCronString(),
+                mElementPanels[1].getCronString(),
+                mElementPanels[2].getCronString(),
+                mElementPanels[3].getCronString(),
+                mElementPanels[4].getCronString());
+
+        return cron;
+    }
+
+    public boolean isCronValid() {
+        boolean valid = true;
+
+        for (ElementPanel elementPanel : mElementPanels) {
+            String cron = elementPanel.getCronString();
+            if (cron.isEmpty() || cron.startsWith("/")) {
+                valid = false;
+            }
+        }
+
+        return valid;
+    }
+
+    @Override
+    public void onExprChanged() {
+        if (isCronValid()) {
+            mNotificationLineSupport.setInformationMessage(getCronString());
+        } else {
+            mNotificationLineSupport.setErrorMessage(getCronString());
+        }
     }
 
     public void setCronString(String cronString) {
@@ -50,6 +87,12 @@ public class CronPanel extends javax.swing.JPanel {
                 mElementPanels[i].setCronString("*");
             }
         }
+
+        onExprChanged();
+    }
+
+    public void setNotificationLineSupport(NotificationLineSupport notificationLineSupport) {
+        mNotificationLineSupport = notificationLineSupport;
     }
 
     /**
