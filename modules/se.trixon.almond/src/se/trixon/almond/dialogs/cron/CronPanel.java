@@ -88,6 +88,9 @@ public class CronPanel extends javax.swing.JPanel implements ElementPanel.ExprCh
     }
 
     public void setCronString(String cronString) {
+        if (cronString==null) {
+            cronString="0 * * * *";
+        }
         String[] cronItems = cronString.split(" ");
 
         for (int i = 0; i < 5; i++) {
