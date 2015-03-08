@@ -42,41 +42,49 @@ public class StringHelper {
         StringBuilder builder = new StringBuilder();
         LinkedList<BlockItem> blockItems = new LinkedList<>();
 
-//        int current;
         int prev = -1;
-//        int next;
-//        int nextNext;
+        int next;
         int lastStart = 0;
         int length = 0;
 
+        log(StringUtils.repeat("FOR ", 10));
+        log(StringUtils.repeat(indices.length + " ", 40));
+
         for (int i = 0; i < indices.length; i++) {
-            log("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+            log(StringUtils.repeat("I ", 30));
+            log(StringUtils.repeat(i + " ", 30));
+
             int current = indices[i];
 
             if (i == 0) {
                 lastStart = current;
-//                prev = -1;
+                prev = current - 1;
             } else if (length == 0) {
                 lastStart = current;
             }
 
             length++;
 
-//            next = -1;
-//            nextNext = -1;
-//
-//            try {
-//                next = indices[i + 1];
-//                try {
-//                    nextNext = indices[i + 2];
-//                } catch (IndexOutOfBoundsException e) {
-//                }
-//            } catch (IndexOutOfBoundsException e) {
-//            }
-//            boolean addBlock = (next - current > 1 && nextNext - current > 2) || nextNext == -1;
-            boolean endOfBlock = current > prev + 1 || i == indices.length - 1;
+            try {
+                next = indices[i + 1];
+            } catch (IndexOutOfBoundsException e) {
+                next = -1;
+            }
 
-            log("c="+current);
+            boolean endOfBlock = current > prev + 1 || i == indices.length - 1;
+            if (next > -1 && !endOfBlock) {
+                endOfBlock = current + 1 < next;
+            }
+
+            log("count=" + indices.length);
+            log("i=" + i);
+            log("prev=" + prev);
+            log("current=" + current);
+            log("next=" + next);
+            log("length=" + length);
+            log("lastStart=" + lastStart);
+            log("endOfBlock=" + endOfBlock);
+
             if (endOfBlock) {
                 BlockItem blockItem = new BlockItem();
                 blockItem.length = length;
@@ -85,26 +93,9 @@ public class StringHelper {
                 length = 0;
             }
 
-            prev = current;
+            prev = next - 1;
         }
 
-//        blockItems.clear();
-//        BlockItem bi;
-//        
-//        bi= new BlockItem();        
-//        bi.start = 0;
-//        bi.length = 2;
-//        blockItems.add(bi);
-//        
-//        bi = new BlockItem();
-//        bi.start = 5;
-//        bi.length = 1;
-//        blockItems.add(bi);
-//        
-//        bi = new BlockItem();
-//        bi.start = 8;
-//        bi.length = 3;
-//        blockItems.add(bi);
         for (BlockItem blockItem : blockItems) {
             log(blockItem.toString());
 
@@ -119,97 +110,12 @@ public class StringHelper {
             builder.append(",");
         }
 
-//        char lastChar = builder.charAt(builder.length() - 1);
-//        if (lastChar == ',') {
-//            builder.deleteCharAt(builder.length() - 1);
-//        }
-        StringBuilder builder1 = new StringBuilder();
-        for (int index : indices) {
-            builder1.append(index).append(",");
+        char lastChar = builder.charAt(builder.length() - 1);
+        if (lastChar == ',') {
+            builder.deleteCharAt(builder.length() - 1);
         }
 
-        log(builder1.toString());
         log(builder.toString());
-
-        return builder.toString();
-    }
-
-    public static String XXXarrayToIntervalStringXXX(int[] indices) {
-        System.err.println("arrayToIntervalString");
-        Xlog.v(StringHelper.class, "arrayToIntervalString");
-
-        if (indices == null || indices.length == 0) {
-            return "";
-        }
-
-        for (int index : indices) {
-            if (index < 0) {
-                return "";
-            }
-        }
-
-        Arrays.sort(indices);
-
-        StringBuilder builder = new StringBuilder();
-
-//        for (int index : indices) {
-//            builder.append(index).append(",");
-//        }
-        int currentStart = indices[0];
-        builder.append(indices[0]);
-        int prev;
-        int current;
-        int next;
-
-        for (int i = 1; i < indices.length; i++) {
-            System.err.println("for...");
-            Xlog.v(StringHelper.class, "for..");
-            prev = indices[i - 1];
-            current = indices[i];
-
-            if (i < indices.length - 1) {
-                next = indices[i + 1];
-            } else {
-                next = -1;
-            }
-
-            Xlog.v(StringHelper.class, "p=" + prev);
-            Xlog.v(StringHelper.class, "c=" + current);
-            Xlog.v(StringHelper.class, "n=" + next);
-
-            System.err.println("p=" + prev);
-            System.err.println("c=" + current);
-            System.err.println("n=" + next);
-            //1,2,4,5,6
-            //1,2,4-6
-            char lastChar = builder.charAt(builder.length() - 1);
-
-            if (current - prev > 1 || next - current < 1) {
-                builder.append(",");
-            }
-
-            if (next - current < 1) {
-                builder.append("-");
-            }
-
-            if (next - current > 1 || next == -1) {
-                builder.append(current);
-            }
-        }
-
-//        for (int index : indices) {
-//        }
-//
-//        if (builder.length() > 0) {
-//            builder.deleteCharAt(builder.length() - 1);
-//        }
-        StringBuilder builder1 = new StringBuilder();
-        for (int index : indices) {
-            builder1.append(index).append(",");
-        }
-
-        Xlog.v(StringHelper.class, builder1.toString());
-        Xlog.v(StringHelper.class, builder.toString());
 
         return builder.toString();
     }
@@ -238,8 +144,8 @@ public class StringHelper {
     }
 
     private static void log(String string) {
-        System.err.println(string);
-        Xlog.v(StringHelper.class, string);
+//        System.out.println(string);
+//        Xlog.v(StringHelper.class, string);
     }
 
     private static class BlockItem {
