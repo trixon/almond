@@ -45,6 +45,7 @@ public enum Dict {
     CHANGE_TO,
     CLEAR,
     CLEAR_SELECTION,
+    CLONE,
     CLOSE,
     COMPARE,
     CONTAINS,
