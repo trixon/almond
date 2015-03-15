@@ -15,6 +15,20 @@
  */
 package se.trixon.almond.imageviewer;
 
+import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.LinkedList;
+import javax.imageio.ImageIO;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.JSlider;
+import javax.swing.JToggleButton;
+import org.openide.awt.DropDownButtonFactory;
+import org.openide.util.Exceptions;
 import se.trixon.almond.dictionary.Dict;
 import se.trixon.almond.icon.Pict;
 
@@ -22,8 +36,11 @@ import se.trixon.almond.icon.Pict;
  *
  * @author Patrik Karlsson <patrik@trixon.se>
  */
-public class ImageViewPanel extends javax.swing.JPanel {
+public class ImageViewPanel extends JPanel {
+
     private static final int ICON_SIZE = 24;
+    private final LinkedList<File> mFiles = new LinkedList<>();
+    private int mIndex;
 
     /**
      * Creates new form PreviewPanel
@@ -31,6 +48,41 @@ public class ImageViewPanel extends javax.swing.JPanel {
     public ImageViewPanel() {
         initComponents();
         init();
+    }
+
+    public void add(File[] files) {
+        mFiles.addAll(Arrays.asList(files));
+        fileListChanged();
+    }
+
+    public void addReplace(File[] files) {
+        mFiles.clear();
+        add(files);
+    }
+
+    public void clear() {
+        mFiles.clear();
+    }
+
+    private void display(int index) {
+        try {
+            BufferedImage bufferedImage = ImageIO.read(mFiles.get(index));
+            imagePanel.setImage(bufferedImage);
+            label.setText(mFiles.get(index).getName());
+            if (bufferedImage == null) {
+                label.setText("Error loading: " + mFiles.get(index).getName());
+            }
+        } catch (IOException ex) {
+            Exceptions.printStackTrace(ex);
+        }
+
+        updateButtonState();
+    }
+
+    private void fileListChanged() {
+        slider.setMaximum(mFiles.size() - 1);
+        mIndex = slider.getMaximum();
+        slider.setValue(mIndex);
     }
 
     private void init() {
@@ -41,6 +93,33 @@ public class ImageViewPanel extends javax.swing.JPanel {
 
         prevButton.setIcon(Pict.Actions.MEDIA_SEEK_BACKWARD.get(ICON_SIZE));
         nextButton.setIcon(Pict.Actions.MEDIA_SEEK_FORWARD.get(ICON_SIZE));
+
+        updateButtonState();
+
+        int colVal = 0x33;
+        label.setBackground(new Color(colVal, colVal, colVal, 196));
+        label.setOpaque(true);
+        label.setText("");
+
+        previewLabel.setVisible(false);
+        JPopupMenu popupMenu = new JPopupMenu();
+        popupMenu.add(new JMenuItem("1"));
+        popupMenu.add(new JMenuItem("2"));
+        popupMenu.add(new JMenuItem("3"));
+        popupMenu.add(new JMenuItem("4"));
+        popupMenu.add(new JSlider());
+
+        JToggleButton ddb = DropDownButtonFactory.createDropDownToggleButton(Pict.Actions.MEDIA_PLAYBACK_START.get(ICON_SIZE), popupMenu);
+
+        toolBar.add(ddb);
+    }
+
+    private void updateButtonState() {
+        startButton.setEnabled(mFiles.size() > 1);
+        playToggleButton.setEnabled(mFiles.size() > 1);
+        prevButton.setEnabled(mIndex > 0);
+        nextButton.setEnabled(mIndex < mFiles.size() - 1);
+        slider.setEnabled(mFiles.size() > 0);
     }
 
     /**
@@ -53,8 +132,10 @@ public class ImageViewPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         previewLabel = new javax.swing.JLabel();
+        imagePanel = new se.trixon.almond.imageviewer.ImagePanel();
+        label = new javax.swing.JLabel();
         controlPanel = new javax.swing.JPanel();
-        jSlider1 = new javax.swing.JSlider();
+        slider = new javax.swing.JSlider();
         toolBar = new javax.swing.JToolBar();
         prevButton = new javax.swing.JButton();
         startButton = new javax.swing.JButton();
@@ -70,10 +151,38 @@ public class ImageViewPanel extends javax.swing.JPanel {
         org.openide.awt.Mnemonics.setLocalizedText(previewLabel, org.openide.util.NbBundle.getMessage(ImageViewPanel.class, "ImageViewPanel.previewLabel.text")); // NOI18N
         previewLabel.setEnabled(false);
         previewLabel.setOpaque(true);
-        add(previewLabel, java.awt.BorderLayout.CENTER);
+        add(previewLabel, java.awt.BorderLayout.PAGE_START);
+
+        imagePanel.setBackground(new java.awt.Color(102, 102, 102));
+
+        label.setForeground(new java.awt.Color(204, 204, 204));
+        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        org.openide.awt.Mnemonics.setLocalizedText(label, org.openide.util.NbBundle.getMessage(ImageViewPanel.class, "ImageViewPanel.label.text")); // NOI18N
+
+        javax.swing.GroupLayout imagePanelLayout = new javax.swing.GroupLayout(imagePanel);
+        imagePanel.setLayout(imagePanelLayout);
+        imagePanelLayout.setHorizontalGroup(
+            imagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(label, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+        );
+        imagePanelLayout.setVerticalGroup(
+            imagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(imagePanelLayout.createSequentialGroup()
+                .addComponent(label)
+                .addGap(0, 249, Short.MAX_VALUE))
+        );
+
+        add(imagePanel, java.awt.BorderLayout.CENTER);
 
         controlPanel.setLayout(new java.awt.BorderLayout());
-        controlPanel.add(jSlider1, java.awt.BorderLayout.CENTER);
+
+        slider.setMaximum(0);
+        slider.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                sliderStateChanged(evt);
+            }
+        });
+        controlPanel.add(slider, java.awt.BorderLayout.CENTER);
 
         toolBar.setFloatable(false);
         toolBar.setBorderPainted(false);
@@ -125,23 +234,30 @@ public class ImageViewPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_startButtonActionPerformed
 
     private void prevButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prevButtonActionPerformed
-
+        slider.setValue(slider.getValue() - 1);
     }//GEN-LAST:event_prevButtonActionPerformed
 
     private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
-
+        slider.setValue(slider.getValue() + 1);
     }//GEN-LAST:event_nextButtonActionPerformed
+
+    private void sliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sliderStateChanged
+        mIndex = slider.getValue();
+        display(mIndex);
+    }//GEN-LAST:event_sliderStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel controlPanel;
     private javax.swing.Box.Filler filler1;
+    private se.trixon.almond.imageviewer.ImagePanel imagePanel;
     private javax.swing.JToolBar.Separator jSeparator1;
-    private javax.swing.JSlider jSlider1;
+    private javax.swing.JLabel label;
     private javax.swing.JButton nextButton;
     private javax.swing.JToggleButton playToggleButton;
     private javax.swing.JButton prevButton;
     private javax.swing.JLabel previewLabel;
+    private javax.swing.JSlider slider;
     private javax.swing.JButton startButton;
     private javax.swing.JToolBar toolBar;
     // End of variables declaration//GEN-END:variables
