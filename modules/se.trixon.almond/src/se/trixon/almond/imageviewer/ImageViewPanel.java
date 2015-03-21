@@ -65,24 +65,41 @@ public class ImageViewPanel extends JPanel {
     }
 
     private void display(int index) {
-        try {
-            BufferedImage bufferedImage = ImageIO.read(mFiles.get(index));
-            imagePanel.setImage(bufferedImage);
-            label.setText(mFiles.get(index).getName());
-            if (bufferedImage == null) {
-                label.setText("Error loading: " + mFiles.get(index).getName());
+        BufferedImage bufferedImage = null;
+        String name = "";
+        
+        if (index > -1) {
+            try {
+                bufferedImage = ImageIO.read(mFiles.get(index));
+                if (bufferedImage == null) {
+                    name = "Error loading: " + mFiles.get(index).getName();
+                } else {
+                    name = mFiles.get(index).getName();
+                }
+            } catch (IOException ex) {
+                Exceptions.printStackTrace(ex);
             }
-        } catch (IOException ex) {
-            Exceptions.printStackTrace(ex);
         }
+        
+        imagePanel.setImage(bufferedImage);
+        label.setText(name);
 
         updateButtonState();
     }
 
     private void fileListChanged() {
-        slider.setMaximum(mFiles.size() - 1);
-        mIndex = slider.getMaximum();
-        slider.setValue(mIndex);
+        if (mFiles.size() > 0) {
+            slider.setMaximum(mFiles.size() - 1);
+            mIndex = slider.getMaximum();
+            slider.setValue(mIndex);
+        } else {
+            slider.setMinimum(0);
+            slider.setMaximum(0);
+            slider.setValue(0);
+            display(-1);
+        }
+
+        updateButtonState();
     }
 
     private void init() {
@@ -243,7 +260,9 @@ public class ImageViewPanel extends JPanel {
 
     private void sliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sliderStateChanged
         mIndex = slider.getValue();
-        display(mIndex);
+        if (mFiles.size() > 0) {
+            display(mIndex);
+        }
     }//GEN-LAST:event_sliderStateChanged
 
 
