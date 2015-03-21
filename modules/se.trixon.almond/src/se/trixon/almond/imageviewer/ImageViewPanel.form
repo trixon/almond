@@ -14,13 +14,19 @@
               <ResourceString bundle="se/trixon/almond/imageviewer/Bundle.properties" key="ImageViewPanel.playMenuItem.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="playMenuItemActionPerformed"/>
+          </Events>
         </MenuItem>
-        <MenuItem class="javax.swing.JMenuItem" name="playFromStartMenuItem">
+        <MenuItem class="javax.swing.JMenuItem" name="playAllMenuItem">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="se/trixon/almond/imageviewer/Bundle.properties" key="ImageViewPanel.playFromStartMenuItem.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+              <ResourceString bundle="se/trixon/almond/imageviewer/Bundle.properties" key="ImageViewPanel.playAllMenuItem.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="playAllMenuItemActionPerformed"/>
+          </Events>
         </MenuItem>
         <MenuItem class="javax.swing.JCheckBoxMenuItem" name="reversedCheckBoxMenuItem">
           <Properties>
@@ -41,12 +47,17 @@
     </Container>
     <Component class="javax.swing.JSlider" name="speedSlider">
       <Properties>
+        <Property name="maximum" type="int" value="2000"/>
+        <Property name="value" type="int" value="1700"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
             <EmptyBorder bottom="0" left="16" right="16" top="0"/>
           </Border>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="speedSliderStateChanged"/>
+      </Events>
     </Component>
   </NonVisualComponents>
   <AuxValues>
@@ -146,7 +157,7 @@
             <Component class="javax.swing.JButton" name="prevButton">
               <Properties>
                 <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="Dict.ADD.getString()" type="code"/>
+                  <Connection code="Dict.PREVIOUS.getString()" type="code"/>
                 </Property>
                 <Property name="focusable" type="boolean" value="false"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
@@ -159,7 +170,7 @@
             <Component class="javax.swing.JButton" name="nextButton">
               <Properties>
                 <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="Dict.EDIT.getString()" type="code"/>
+                  <Connection code="Dict.NEXT.getString()" type="code"/>
                 </Property>
                 <Property name="focusable" type="boolean" value="false"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>

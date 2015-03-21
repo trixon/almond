@@ -16,6 +16,7 @@
 package se.trixon.almond.imageviewer;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -25,6 +26,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 import org.openide.awt.DropDownButtonFactory;
 import org.openide.util.Exceptions;
 import se.trixon.almond.SwingHelper;
@@ -38,9 +40,12 @@ import se.trixon.almond.icon.Pict;
 public class ImageViewPanel extends JPanel {
 
     private static final int ICON_SIZE = 24;
+    private ImageIcon mPauseImageIcon;
+    private ImageIcon mPlayImageIcon;
     private JButton mStartButton;
     private final LinkedList<File> mFiles = new LinkedList<>();
     private int mIndex;
+    private Timer mTimer;
 
     /**
      * Creates new form PreviewPanel
@@ -103,6 +108,10 @@ public class ImageViewPanel extends JPanel {
         slider.requestFocus();
     }
 
+    private int getSpeedDelay() {
+        return speedSlider.getMaximum() - speedSlider.getValue() + 50;
+    }
+
     private void init() {
         int colVal = 0x33;
         label.setBackground(new Color(colVal, colVal, colVal, 196));
@@ -111,19 +120,47 @@ public class ImageViewPanel extends JPanel {
 
         previewLabel.setVisible(false);
         playPopupMenu.add(speedSlider, 4);
-        ImageIcon imageIcon = Pict.Actions.MEDIA_PLAYBACK_START.get((int) (ICON_SIZE * 1.5));
-        mStartButton = DropDownButtonFactory.createDropDownButton(imageIcon, playPopupMenu);
+        mPlayImageIcon = Pict.Actions.MEDIA_PLAYBACK_START.get((int) (ICON_SIZE * 1.5));
+        mPauseImageIcon = Pict.Actions.MEDIA_PLAYBACK_PAUSE.get((int) (ICON_SIZE * 1.5));
+        mStartButton = DropDownButtonFactory.createDropDownButton(mPlayImageIcon, playPopupMenu);
         mStartButton.setBorder(null);
         mStartButton.setBorderPainted(false);
         mStartButton.setFocusPainted(false);
         mStartButton.setFocusable(false);
+        mStartButton.addActionListener((ActionEvent e) -> {
+            playMenuItem.doClick();
+        });
         toolBar.add(mStartButton, 1);
 
-        mStartButton.setToolTipText(Dict.START.getString());
+        mStartButton.setToolTipText(Dict.PLAY.getString());
         prevButton.setIcon(Pict.Actions.MEDIA_SEEK_BACKWARD.get(ICON_SIZE));
         nextButton.setIcon(Pict.Actions.MEDIA_SEEK_FORWARD.get(ICON_SIZE));
 
         updateButtonState();
+
+        mTimer = new Timer(getSpeedDelay(), (ActionEvent e) -> {
+            boolean shouldStop = false;
+            if (reversedCheckBoxMenuItem.isSelected()) {
+                if (slider.getValue() > 0) {
+                    slider.setValue(slider.getValue() - 1);
+                } else {
+                    shouldStop = true;
+                }
+            } else {
+                if (slider.getValue() < slider.getMaximum()) {
+                    slider.setValue(slider.getValue() + 1);
+                } else {
+                    shouldStop = true;
+                }
+            }
+
+            if (shouldStop) {
+                mTimer.stop();
+                mStartButton.setIcon(mPlayImageIcon);
+            }
+        });
+
+        mTimer.setInitialDelay(getSpeedDelay());
     }
 
     private void updateButtonState() {
@@ -146,7 +183,7 @@ public class ImageViewPanel extends JPanel {
 
         playPopupMenu = new javax.swing.JPopupMenu();
         playMenuItem = new javax.swing.JMenuItem();
-        playFromStartMenuItem = new javax.swing.JMenuItem();
+        playAllMenuItem = new javax.swing.JMenuItem();
         reversedCheckBoxMenuItem = new javax.swing.JCheckBoxMenuItem();
         speedMenuItem = new javax.swing.JMenuItem();
         speedSlider = new javax.swing.JSlider();
@@ -162,10 +199,20 @@ public class ImageViewPanel extends JPanel {
         slider = new javax.swing.JSlider();
 
         org.openide.awt.Mnemonics.setLocalizedText(playMenuItem, org.openide.util.NbBundle.getMessage(ImageViewPanel.class, "ImageViewPanel.playMenuItem.text")); // NOI18N
+        playMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                playMenuItemActionPerformed(evt);
+            }
+        });
         playPopupMenu.add(playMenuItem);
 
-        org.openide.awt.Mnemonics.setLocalizedText(playFromStartMenuItem, org.openide.util.NbBundle.getMessage(ImageViewPanel.class, "ImageViewPanel.playFromStartMenuItem.text")); // NOI18N
-        playPopupMenu.add(playFromStartMenuItem);
+        org.openide.awt.Mnemonics.setLocalizedText(playAllMenuItem, org.openide.util.NbBundle.getMessage(ImageViewPanel.class, "ImageViewPanel.playAllMenuItem.text")); // NOI18N
+        playAllMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                playAllMenuItemActionPerformed(evt);
+            }
+        });
+        playPopupMenu.add(playAllMenuItem);
 
         org.openide.awt.Mnemonics.setLocalizedText(reversedCheckBoxMenuItem, org.openide.util.NbBundle.getMessage(ImageViewPanel.class, "ImageViewPanel.reversedCheckBoxMenuItem.text")); // NOI18N
         playPopupMenu.add(reversedCheckBoxMenuItem);
@@ -174,7 +221,14 @@ public class ImageViewPanel extends JPanel {
         speedMenuItem.setEnabled(false);
         playPopupMenu.add(speedMenuItem);
 
+        speedSlider.setMaximum(2000);
+        speedSlider.setValue(1700);
         speedSlider.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 16, 0, 16));
+        speedSlider.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                speedSliderStateChanged(evt);
+            }
+        });
 
         setLayout(new java.awt.BorderLayout());
 
@@ -211,7 +265,7 @@ public class ImageViewPanel extends JPanel {
         toolBar.setFloatable(false);
         toolBar.setBorderPainted(false);
 
-        prevButton.setToolTipText(Dict.ADD.getString());
+        prevButton.setToolTipText(Dict.PREVIOUS.getString());
         prevButton.setFocusable(false);
         prevButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         prevButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -222,7 +276,7 @@ public class ImageViewPanel extends JPanel {
         });
         toolBar.add(prevButton);
 
-        nextButton.setToolTipText(Dict.EDIT.getString());
+        nextButton.setToolTipText(Dict.NEXT.getString());
         nextButton.setFocusable(false);
         nextButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         nextButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -263,6 +317,36 @@ public class ImageViewPanel extends JPanel {
         }
     }//GEN-LAST:event_sliderStateChanged
 
+    private void playMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playMenuItemActionPerformed
+        if (mTimer.isRunning()) {
+            mTimer.stop();
+            mStartButton.setIcon(mPlayImageIcon);
+        } else {
+            if (reversedCheckBoxMenuItem.isSelected() && slider.getValue() == 0) {
+                slider.setValue(slider.getMaximum());
+            } else if (!reversedCheckBoxMenuItem.isSelected() && slider.getValue() == slider.getMaximum()) {
+                slider.setValue(0);
+            }
+            mTimer.start();
+            mStartButton.setIcon(mPauseImageIcon);
+        }
+    }//GEN-LAST:event_playMenuItemActionPerformed
+
+    private void playAllMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playAllMenuItemActionPerformed
+        if (reversedCheckBoxMenuItem.isSelected()) {
+            slider.setValue(slider.getMaximum());
+        } else {
+            slider.setValue(0);
+        }
+
+        playMenuItem.doClick();
+    }//GEN-LAST:event_playAllMenuItemActionPerformed
+
+    private void speedSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_speedSliderStateChanged
+        mTimer.setDelay(getSpeedDelay());
+        mTimer.setInitialDelay(getSpeedDelay());
+    }//GEN-LAST:event_speedSliderStateChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel controlPanel;
@@ -271,7 +355,7 @@ public class ImageViewPanel extends JPanel {
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JLabel label;
     private javax.swing.JButton nextButton;
-    private javax.swing.JMenuItem playFromStartMenuItem;
+    private javax.swing.JMenuItem playAllMenuItem;
     private javax.swing.JMenuItem playMenuItem;
     private javax.swing.JPopupMenu playPopupMenu;
     private javax.swing.JButton prevButton;
