@@ -194,8 +194,7 @@ public class ImageViewPanel extends JPanel {
         toolBar = new javax.swing.JToolBar();
         prevButton = new javax.swing.JButton();
         nextButton = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JToolBar.Separator();
-        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
+        toolbarSeparator1 = new javax.swing.JToolBar.Separator();
         slider = new javax.swing.JSlider();
 
         org.openide.awt.Mnemonics.setLocalizedText(playMenuItem, org.openide.util.NbBundle.getMessage(ImageViewPanel.class, "ImageViewPanel.playMenuItem.text")); // NOI18N
@@ -286,8 +285,7 @@ public class ImageViewPanel extends JPanel {
             }
         });
         toolBar.add(nextButton);
-        toolBar.add(jSeparator1);
-        toolBar.add(filler1);
+        toolBar.add(toolbarSeparator1);
 
         controlPanel.add(toolBar, java.awt.BorderLayout.WEST);
 
@@ -350,9 +348,7 @@ public class ImageViewPanel extends JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel controlPanel;
-    private javax.swing.Box.Filler filler1;
     private se.trixon.almond.imageviewer.ImagePanel imagePanel;
-    private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JLabel label;
     private javax.swing.JButton nextButton;
     private javax.swing.JMenuItem playAllMenuItem;
@@ -365,5 +361,6 @@ public class ImageViewPanel extends JPanel {
     private javax.swing.JMenuItem speedMenuItem;
     private javax.swing.JSlider speedSlider;
     private javax.swing.JToolBar toolBar;
+    private javax.swing.JToolBar.Separator toolbarSeparator1;
     // End of variables declaration//GEN-END:variables
 }
