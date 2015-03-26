@@ -17,6 +17,8 @@ package se.trixon.almond;
 
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Font;
+import javax.swing.JMenu;
 
 /**
  *
@@ -30,6 +32,18 @@ public class SwingHelper {
             component.setEnabled(enable);
             if (component instanceof Container) {
                 enableComponents((Container) component, enable);
+            }
+        }
+    }
+
+    public static void setComponentsFont(Container container, Font font) {
+        Component[] components = container.getComponents();
+        container.setFont(font);
+        
+        for (Component component : components) {
+            component.setFont(font);
+            if (component instanceof JMenu) {
+                setComponentsFont((Container) component, font);
             }
         }
     }
