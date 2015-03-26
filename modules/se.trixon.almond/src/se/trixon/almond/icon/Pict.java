@@ -67,6 +67,7 @@ public class Pict {
         MEDIA_SEEK_FORWARD,
         MEDIA_SKIP_BACKWARD,
         MEDIA_SKIP_FORWARD,
+        MERGE,
         PROCESS_STOP,
         TAB_NEW,
         TRASH_EMPTY,
