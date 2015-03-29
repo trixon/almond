@@ -74,7 +74,11 @@ public class Pict {
         VIEW_CATALOG,
         VIEW_PREVIEW,
         VIEW_REFRESH,
-        WINDOW_CLOSE;
+        WINDOW_CLOSE,
+        ZOOM_FIT_BEST,
+        ZOOM_IN,
+        ZOOM_ORIGINAL,
+        ZOOM_OUT;
 
         public ImageIcon get(int size) {
             return Pict.get("actions/" + name(), size);
