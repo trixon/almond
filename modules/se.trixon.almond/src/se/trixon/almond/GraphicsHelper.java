@@ -34,6 +34,7 @@ import javax.imageio.stream.ImageInputStream;
 import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
@@ -50,6 +51,26 @@ public class GraphicsHelper {
         return maskedColor;
     }
 
+    public static String colorToAABBGGRR(Color color, String... prefixSuffix) {
+        String rr = StringUtils.leftPad(Integer.toHexString(color.getRed()), 2, "0");
+        String gg = StringUtils.leftPad(Integer.toHexString(color.getGreen()), 2, "0");
+        String bb = StringUtils.leftPad(Integer.toHexString(color.getBlue()), 2, "0");
+        String aa = StringUtils.leftPad(Integer.toHexString(color.getAlpha()), 2, "0");
+        StringBuilder builder = new StringBuilder();
+
+        if (prefixSuffix.length > 0) {
+            builder.append(prefixSuffix[0]);
+        }
+
+        builder.append(aa).append(bb).append(gg).append(rr);
+
+        if (prefixSuffix.length > 1) {
+            builder.append(prefixSuffix[1]);
+        }
+
+        return builder.toString();
+    }
+
     public static String colorToHex(Color color) {
         String rgb = Integer.toHexString(color.getRGB());
 
@@ -57,9 +78,7 @@ public class GraphicsHelper {
     }
 
     public static int colorToHexInt(Color color) {
-        Integer integer = Integer.decode("0x" + colorToHex(color));
-
-        return integer.intValue();
+        return Integer.decode("0x" + colorToHex(color));
     }
 
     public static String colorToString(Color color) {
