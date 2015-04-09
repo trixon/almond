@@ -16,12 +16,19 @@
 package se.trixon.almond.imageviewer;
 
 import java.awt.Color;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.awt.dnd.DnDConstants;
+import java.awt.dnd.DropTarget;
+import java.awt.dnd.DropTargetDropEvent;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -30,6 +37,7 @@ import javax.swing.Timer;
 import org.openide.awt.DropDownButtonFactory;
 import org.openide.util.Exceptions;
 import se.trixon.almond.SwingHelper;
+import se.trixon.almond.dialogs.FileChooserPanel;
 import se.trixon.almond.dictionary.Dict;
 import se.trixon.almond.icon.Pict;
 
@@ -46,6 +54,7 @@ public class ImageViewPanel extends JPanel {
     private final LinkedList<File> mFiles = new LinkedList<>();
     private int mIndex;
     private Timer mTimer;
+    private DropTarget mDropTarget;
 
     /**
      * Creates new form PreviewPanel
@@ -53,6 +62,7 @@ public class ImageViewPanel extends JPanel {
     public ImageViewPanel() {
         initComponents();
         init();
+        initDropTarget();
     }
 
     public void add(File[] files) {
@@ -161,6 +171,25 @@ public class ImageViewPanel extends JPanel {
         });
 
         mTimer.setInitialDelay(getSpeedDelay());
+    }
+
+    private void initDropTarget() {
+        mDropTarget = new DropTarget() {
+            @Override
+            public synchronized void drop(DropTargetDropEvent evt) {
+                try {
+                    evt.acceptDrop(DnDConstants.ACTION_COPY);
+                    List<File> droppedFiles = (List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);
+                    Collections.sort(droppedFiles);
+                    File[] files = droppedFiles.toArray(new File[droppedFiles.size()]);
+                    addReplace(files);
+                    System.err.println("drop");
+                } catch (UnsupportedFlavorException | IOException ex) {
+                }
+            }
+        };
+
+        imagePanel.setDropTarget(mDropTarget);
     }
 
     private void updateButtonState() {
