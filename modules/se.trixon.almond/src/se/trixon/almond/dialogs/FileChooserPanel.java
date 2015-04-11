@@ -22,6 +22,7 @@ import java.awt.dnd.DropTarget;
 import java.awt.dnd.DropTargetDropEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -158,9 +159,32 @@ public class FileChooserPanel extends javax.swing.JPanel {
                 try {
                     evt.acceptDrop(DnDConstants.ACTION_COPY);
                     List<File> droppedFiles = (List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);
+                    List<File> invalidFiles = new LinkedList<>();
+
+                    for (File droppedFile : droppedFiles) {
+                        if (droppedFile.isFile()) {
+                            if (mMode == JFileChooser.DIRECTORIES_ONLY) {
+                                invalidFiles.add(droppedFile);
+                            }
+                        } else {
+                            if (mMode == JFileChooser.FILES_ONLY) {
+                                invalidFiles.add(droppedFile);
+                            }
+                        }
+                    }
+
+                    for (File invalidFile : invalidFiles) {
+                        droppedFiles.remove(invalidFile);
+                    }
+
                     mPaths = droppedFiles.toArray(new File[droppedFiles.size()]);
+
                     if (mDropMode == DropMode.SINGLE) {
-                        mTextField.setText(droppedFiles.get(0).getAbsolutePath());
+                        String path = "";
+                        if (droppedFiles.size() > 0) {
+                            path = droppedFiles.get(0).getAbsolutePath();
+                        }
+                        mTextField.setText(path);
                     } else {
                         StringBuilder sb = new StringBuilder();
                         for (File file : droppedFiles) {
