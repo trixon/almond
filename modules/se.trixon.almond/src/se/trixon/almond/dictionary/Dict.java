@@ -39,6 +39,7 @@ public enum Dict {
     BEARING,
     BEFORE,
     BOOKMARKS,
+    BROWSE,
     CANCEL,
     CATEGORY,
     CHANGE,
