@@ -41,105 +41,105 @@ public class Xlog {
         sInputOutput = IOProvider.getDefault().getIO(sGlobalTag, false);
     }
 
-    public static void a(Class c, String msg) {
+    public synchronized static void a(Class c, String msg) {
         a(getTag(c.getCanonicalName()), msg);
     }
 
-    public static void a(String tag, String msg) {
+    public synchronized static void a(String tag, String msg) {
         if (sActive && sLevel <= ASSERT) {
             printErr("ASSERT", getMessage(getTag(tag), getNullSafeMsg(msg)));
         }
     }
 
-    public static void d(Class c, String msg) {
+    public synchronized static void d(Class c, String msg) {
         d(getTag(c.getCanonicalName()), msg);
     }
 
-    public static void d(String tag, String msg) {
+    public synchronized static void d(String tag, String msg) {
         if (sActive && sLevel <= DEBUG) {
             print("DEBUG", getMessage(getTag(tag), getNullSafeMsg(msg)));
         }
     }
 
-    public static void e(Class c, String msg) {
+    public synchronized static void e(Class c, String msg) {
         e(getTag(c.getCanonicalName()), msg);
     }
 
-    public static void e(String tag, String msg) {
+    public synchronized static void e(String tag, String msg) {
         if (sActive && sLevel <= ERROR) {
             printErr("ERROR", getMessage(getTag(tag), getNullSafeMsg(msg)));
         }
     }
 
-    public static String getGlobalTag() {
+    public synchronized static String getGlobalTag() {
         return sGlobalTag;
     }
 
-    public static int getLevel() {
+    public synchronized static int getLevel() {
         return sLevel;
     }
 
-    public static void i(Class c, String msg) {
+    public synchronized static void i(Class c, String msg) {
         i(getTag(c.getCanonicalName()), msg);
     }
 
-    public static void i(String tag, String msg) {
+    public synchronized static void i(String tag, String msg) {
         if (sActive && sLevel <= INFO) {
             print("INFO", getMessage(getTag(tag), getNullSafeMsg(msg)));
         }
     }
 
-    public static boolean isActive() {
+    public synchronized static boolean isActive() {
         return sActive;
     }
 
-    public static boolean isUseGlobalTag() {
+    public synchronized static boolean isUseGlobalTag() {
         return sUseGlobalTag;
     }
 
-    public static boolean isUseTimestamps() {
+    public synchronized static boolean isUseTimestamps() {
         return sUseTimestamps;
     }
 
-    public static void reinit() {
+    public synchronized static void reinit() {
         sInputOutput = IOProvider.getDefault().getIO(sGlobalTag, false);
     }
 
-    public static void select() {
+    public synchronized static void select() {
         sInputOutput.select();
     }
 
-    public static void setActive(boolean active) {
+    public synchronized static void setActive(boolean active) {
         sActive = active;
     }
 
-    public static void setGlobalTag(String globalTag) {
+    public synchronized static void setGlobalTag(String globalTag) {
         sGlobalTag = globalTag;
     }
 
-    public static void setLevel(int level) {
+    public synchronized static void setLevel(int level) {
         sLevel = level;
     }
 
-    public static void setUseGlobalTag(boolean useGlobalTag) {
+    public synchronized static void setUseGlobalTag(boolean useGlobalTag) {
         sUseGlobalTag = useGlobalTag;
     }
 
-    public static void v(Class<?> c, String msg) {
+    public synchronized static void v(Class<?> c, String msg) {
         v(getTag(c.getCanonicalName()), msg);
     }
 
-    public static void v(String tag, String msg) {
+    public synchronized static void v(String tag, String msg) {
         if (sActive && sLevel <= VERBOSE) {
             print("VERBOSE", getMessage(getTag(tag), getNullSafeMsg(msg)));
         }
     }
 
-    public static void w(Class c, String msg) {
+    public synchronized static void w(Class c, String msg) {
         w(getTag(c.getCanonicalName()), msg);
     }
 
-    public static void w(String tag, String msg) {
+    public synchronized static void w(String tag, String msg) {
         if (sActive && sLevel <= WARN) {
             printErr("WARNING", getMessage(getTag(tag), getNullSafeMsg(msg)));
         }
