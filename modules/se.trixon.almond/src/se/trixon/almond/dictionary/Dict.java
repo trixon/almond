@@ -33,6 +33,7 @@ public enum Dict {
     ALL,
     ALTITUDE,
     ANALYZE,
+    AUTOMATIC_UPDATING,
     APPEND,
     BASENAME,
     BASIC,
