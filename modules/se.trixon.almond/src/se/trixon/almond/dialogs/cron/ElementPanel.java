@@ -36,7 +36,7 @@ public abstract class ElementPanel extends javax.swing.JPanel {
     protected final DefaultListModel mListModel = new DefaultListModel();
     protected final ArrayList<String> mArray = new ArrayList<>();
     private int mOffset = 0;
-    private ExprChaneListener mExprChaneListener;
+    private CronExprChangeListener mCronExprChangeListener;
     private boolean mHasLast;
 
     /**
@@ -80,8 +80,8 @@ public abstract class ElementPanel extends javax.swing.JPanel {
         return mOffset;
     }
 
-    public void setExprChaneListener(ExprChaneListener exprChaneListener) {
-        mExprChaneListener = exprChaneListener;
+    public void setCronExprChangeListener(CronExprChangeListener cronExprChangeListener) {
+        mCronExprChangeListener = cronExprChangeListener;
     }
 
     public void setHasLast(boolean hasLast) {
@@ -145,7 +145,7 @@ public abstract class ElementPanel extends javax.swing.JPanel {
     }
 
     private void exprChanged() {
-        mExprChaneListener.onExprChanged();
+        mCronExprChangeListener.onCronExprChanged();
     }
 
     /**
@@ -260,8 +260,4 @@ public abstract class ElementPanel extends javax.swing.JPanel {
     private javax.swing.JRadioButton selectedRadioButton;
     private javax.swing.JSpinner spinner;
     // End of variables declaration//GEN-END:variables
-public interface ExprChaneListener {
-
-        void onExprChanged();
-    }
 }

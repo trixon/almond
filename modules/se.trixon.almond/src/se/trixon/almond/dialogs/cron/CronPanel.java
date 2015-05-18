@@ -26,19 +26,20 @@ import se.trixon.almond.dictionary.Dict;
  *
  * @author Patrik Karlsson <patrik@trixon.se>
  */
-public class CronPanel extends javax.swing.JPanel implements ElementPanel.ExprChaneListener {
+public class CronPanel extends javax.swing.JPanel implements CronExprChangeListener {
 
     ElementPanel[] mElementPanels = new ElementPanel[5];
     private final ResourceBundle mBundle;
     private DialogDescriptor mDialogDescriptor;
     private NotificationLineSupport mNotificationLineSupport;
+    private CronExprChangeListener mCronExprChangeListener;
 
     /**
      * Creates new form CronPanel
      */
     public CronPanel() {
         initComponents();
-                mBundle = NbBundle.getBundle(CronPanel.class);
+        mBundle = NbBundle.getBundle(CronPanel.class);
 
         initPresets();
         mElementPanels[0] = elementMinutePanel;
@@ -48,7 +49,7 @@ public class CronPanel extends javax.swing.JPanel implements ElementPanel.ExprCh
         mElementPanels[4] = elementDowPanel;
 
         for (ElementPanel elementPanel : mElementPanels) {
-            elementPanel.setExprChaneListener(this);
+            elementPanel.setCronExprChangeListener(this);
         }
     }
 
@@ -77,19 +78,39 @@ public class CronPanel extends javax.swing.JPanel implements ElementPanel.ExprCh
     }
 
     @Override
-    public void onExprChanged() {
-        if (isCronValid()) {
-            mNotificationLineSupport.setInformationMessage(getCronString());
-            mDialogDescriptor.setValid(true);
-        } else {
-            mNotificationLineSupport.setErrorMessage(getCronString());
-            mDialogDescriptor.setValid(false);
+    public void onCronExprChanged() {
+        try {
+            if (isCronValid()) {
+                if (mCronExprChangeListener != null) {
+                    mCronExprChangeListener.onCronExprChanged(getCronString());
+                }
+                mNotificationLineSupport.setInformationMessage(getCronString());
+                mDialogDescriptor.setValid(true);
+            } else {
+                if (mCronExprChangeListener != null) {
+                    mCronExprChangeListener.onCronExprInvalid();
+                }
+                mNotificationLineSupport.setErrorMessage(getCronString());
+                mDialogDescriptor.setValid(false);
+            }
+
+        } catch (NullPointerException e) {
         }
     }
 
+    @Override
+    public void onCronExprChanged(String cronString) {
+        // nvm
+    }
+
+    @Override
+    public void onCronExprInvalid() {
+        // nvm
+    }
+
     public void setCronString(String cronString) {
-        if (cronString==null) {
-            cronString="0 * * * *";
+        if (cronString == null) {
+            cronString = "0 * * * *";
         }
         String[] cronItems = cronString.split(" ");
 
@@ -101,7 +122,7 @@ public class CronPanel extends javax.swing.JPanel implements ElementPanel.ExprCh
             }
         }
 
-        onExprChanged();
+        onCronExprChanged();
     }
 
     public void setDialogDescriptor(DialogDescriptor dialogDescriptor) {
@@ -109,10 +130,14 @@ public class CronPanel extends javax.swing.JPanel implements ElementPanel.ExprCh
         mNotificationLineSupport = dialogDescriptor.createNotificationLineSupport();
     }
 
+    public void setCronExprChangeListener(CronExprChangeListener cronExprChangeListener) {
+        mCronExprChangeListener = cronExprChangeListener;
+    }
+
     private void initPresets() {
         ArrayList<Preset> presets = new ArrayList<>();
         presets.add(new Preset());
-        
+
         presets.add(new Preset(mBundle.getString("preset1"), "*/10 * * * * *"));
         presets.add(new Preset(mBundle.getString("preset2"), "0 * * * * *"));
         presets.add(new Preset(mBundle.getString("preset3"), "*/15 8-17 * * 1-5"));
