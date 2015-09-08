@@ -28,6 +28,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -43,6 +44,7 @@ public class FileChooserPanel extends javax.swing.JPanel {
     private String mTitle;
     private DropMode mDropMode = DropMode.SINGLE;
     private File[] mPaths;
+    private static FileNameExtensionFilter mFilter;
 
     /**
      * Creates new form FileChooserPanel
@@ -50,6 +52,23 @@ public class FileChooserPanel extends javax.swing.JPanel {
     public FileChooserPanel() {
         initComponents();
         init();
+    }
+
+    public void addFilter(FileNameExtensionFilter filter) {
+        mFileChooser.addChoosableFileFilter(filter);
+    }
+
+    public void setFilter(FileNameExtensionFilter filter) {
+        mFilter = filter;
+        mFileChooser.setFileFilter(filter);
+    }
+
+    public void clearFilters() {
+        mFileChooser.resetChoosableFileFilters();
+    }
+
+    public FileNameExtensionFilter getFilter() {
+        return mFilter;
     }
 
     public FileChooserPanel(int mode, String title) {
