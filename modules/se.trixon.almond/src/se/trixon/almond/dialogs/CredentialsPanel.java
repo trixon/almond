@@ -31,12 +31,28 @@ public class CredentialsPanel extends javax.swing.JPanel {
         initComponents();
     }
 
-    public JTextField getNameField() {
+    public String getUserName() {
+        return nameTextField.getText();
+    }
+
+    public JTextField getUserNameField() {
         return nameTextField;
     }
 
-    public JPasswordField getPasswordField() {
+    public String getUserPassword() {
+        return passwordField.getText();
+    }
+
+    public JPasswordField getUserPasswordField() {
         return passwordField;
+    }
+
+    public void setUserName(String name) {
+        nameTextField.setText(name);
+    }
+
+    public void setUserPassword(String password) {
+        passwordField.setText(password);
     }
 
     /**
