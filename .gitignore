@@ -39,3 +39,10 @@
 /modules/se.trixon.almond/nbproject/private/
 /modules/se.trixon.almond/build/
 /nbproject/private/
+/almond/target/
+/nbp-util/target/
+/actions/target/
+/actions-osx/target/
+/nbp-actions-osx/target/
+/nbp/target/
+/nbp-actions/target/

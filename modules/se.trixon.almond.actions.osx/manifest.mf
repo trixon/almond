@@ -1,7 +1,0 @@
-Manifest-Version: 1.0
-OpenIDE-Module: se.trixon.almond.actions.osx
-OpenIDE-Module-Implementation-Version: 1
-OpenIDE-Module-Layer: se/trixon/almond/actions/osx/layer.xml
-OpenIDE-Module-Localizing-Bundle: se/trixon/almond/actions/osx/Bundle.properties
-OpenIDE-Module-Requires: org.openide.modules.os.MacOSX
-

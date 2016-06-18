@@ -1,0 +1,238 @@
+/* 
+ * Copyright 2016 Patrik Karlsson.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package se.trixon.util.swing.dialogs.cron;
+
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+import se.trixon.util.BundleHelper;
+import se.trixon.util.dictionary.Dict;
+
+/**
+ *
+ * @author Patrik Karlsson
+ */
+public class CronPanel extends javax.swing.JPanel implements CronExprChangeListener {
+
+    ElementPanel[] mElementPanels = new ElementPanel[5];
+    private final ResourceBundle mBundle = BundleHelper.getBundle(CronPanel.class, "Bundle");
+    private CronExprChangeListener mCronExprChangeListener;
+
+    /**
+     * Creates new form CronPanel
+     */
+    public CronPanel() {
+        initComponents();
+        initPresets();
+        mElementPanels[0] = elementMinutePanel;
+        mElementPanels[1] = elementHourPanel;
+        mElementPanels[2] = elementDomPanel;
+        mElementPanels[3] = elementMonthPanel;
+        mElementPanels[4] = elementDowPanel;
+
+        for (ElementPanel elementPanel : mElementPanels) {
+            elementPanel.setCronExprChangeListener(this);
+        }
+    }
+
+    public String getCronString() {
+        String cron = String.format("%s %s %s %s %s",
+                mElementPanels[0].getCronString(),
+                mElementPanels[1].getCronString(),
+                mElementPanels[2].getCronString(),
+                mElementPanels[3].getCronString(),
+                mElementPanels[4].getCronString());
+
+        return cron;
+    }
+
+    public boolean isCronValid() {
+        boolean valid = true;
+
+        for (ElementPanel elementPanel : mElementPanels) {
+            String cron = elementPanel.getCronString();
+            if (cron.isEmpty() || cron.startsWith("/")) {
+                valid = false;
+            }
+        }
+
+        return valid;
+    }
+
+    @Override
+    public void onCronExprChanged() {
+        try {
+            if (isCronValid()) {
+                if (mCronExprChangeListener != null) {
+                    mCronExprChangeListener.onCronExprChanged(getCronString());
+                }
+                notificationLine.displayInformationMessage(getCronString());
+                //mDialogDescriptor.setValid(true);
+            } else {
+                if (mCronExprChangeListener != null) {
+                    mCronExprChangeListener.onCronExprInvalid();
+                }
+                notificationLine.displayErrorMessage(getCronString());
+                //mDialogDescriptor.setValid(false);
+            }
+
+        } catch (NullPointerException e) {
+        }
+    }
+
+    @Override
+    public void onCronExprChanged(String cronString) {
+        // nvm
+    }
+
+    @Override
+    public void onCronExprInvalid() {
+        // nvm
+    }
+
+    public void setCronString(String cronString) {
+        if (cronString == null) {
+            cronString = "0 * * * *";
+        }
+        String[] cronItems = cronString.split(" ");
+
+        for (int i = 0; i < 5; i++) {
+            try {
+                mElementPanels[i].setCronString(cronItems[i]);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                mElementPanels[i].setCronString("*");
+            }
+        }
+
+        onCronExprChanged();
+    }
+
+//    public void setDialogDescriptor(DialogDescriptor dialogDescriptor) {
+//        mDialogDescriptor = dialogDescriptor;
+//        mNotificationLineSupport = dialogDescriptor.createNotificationLineSupport();
+//    }
+    public void setCronExprChangeListener(CronExprChangeListener cronExprChangeListener) {
+        mCronExprChangeListener = cronExprChangeListener;
+    }
+
+    private void initPresets() {
+        ArrayList<Preset> presets = new ArrayList<>();
+        presets.add(new Preset());
+
+        presets.add(new Preset(mBundle.getString("preset1"), "*/10 * * * * *"));
+        presets.add(new Preset(mBundle.getString("preset2"), "0 * * * * *"));
+        presets.add(new Preset(mBundle.getString("preset3"), "*/15 8-17 * * 1-5"));
+        presets.add(new Preset(mBundle.getString("preset4"), "0 12 */2 * *"));
+        presets.add(new Preset(mBundle.getString("preset5"), "* 6-8,18-20 * 5 *"));
+
+        presetComboBox.setModel(new javax.swing.DefaultComboBoxModel(presets.toArray()));
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jPanel1 = new javax.swing.JPanel();
+        presetLabel = new javax.swing.JLabel();
+        presetComboBox = new javax.swing.JComboBox();
+        elementsPanel = new javax.swing.JPanel();
+        elementMinutePanel = new se.trixon.util.swing.dialogs.cron.ElementMinutePanel();
+        elementHourPanel = new se.trixon.util.swing.dialogs.cron.ElementHourPanel();
+        elementDomPanel = new se.trixon.util.swing.dialogs.cron.ElementDomPanel();
+        elementMonthPanel = new se.trixon.util.swing.dialogs.cron.ElementMonthPanel();
+        elementDowPanel = new se.trixon.util.swing.dialogs.cron.ElementDowPanel();
+        notificationLine = new se.trixon.util.swing.dialogs.NotificationLine();
+
+        setLayout(new java.awt.BorderLayout());
+
+        presetLabel.setText(Dict.PRESETS.getString());
+
+        presetComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                presetComboBoxActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(presetLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(presetComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(presetLabel)
+                    .addComponent(presetComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        add(jPanel1, java.awt.BorderLayout.PAGE_START);
+
+        elementsPanel.setLayout(new java.awt.GridLayout(1, 0));
+
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("se/trixon/util/swing/dialogs/cron/Bundle"); // NOI18N
+        elementMinutePanel.setText(bundle.getString("CronPanel.elementMinutePanel.text")); // NOI18N
+        elementsPanel.add(elementMinutePanel);
+
+        elementHourPanel.setText(bundle.getString("CronPanel.elementHourPanel.text")); // NOI18N
+        elementsPanel.add(elementHourPanel);
+
+        elementDomPanel.setText(bundle.getString("CronPanel.elementDomPanel.text")); // NOI18N
+        elementsPanel.add(elementDomPanel);
+
+        elementMonthPanel.setText(bundle.getString("CronPanel.elementMonthPanel.text")); // NOI18N
+        elementsPanel.add(elementMonthPanel);
+
+        elementDowPanel.setText(bundle.getString("CronPanel.elementDowPanel.text")); // NOI18N
+        elementsPanel.add(elementDowPanel);
+
+        add(elementsPanel, java.awt.BorderLayout.CENTER);
+        add(notificationLine, java.awt.BorderLayout.PAGE_END);
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void presetComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_presetComboBoxActionPerformed
+        if (presetComboBox.getSelectedIndex() > 0) {
+            Preset preset = (Preset) presetComboBox.getSelectedItem();
+            setCronString(preset.getPattern());
+        }
+    }//GEN-LAST:event_presetComboBoxActionPerformed
+
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private se.trixon.util.swing.dialogs.cron.ElementDomPanel elementDomPanel;
+    private se.trixon.util.swing.dialogs.cron.ElementDowPanel elementDowPanel;
+    private se.trixon.util.swing.dialogs.cron.ElementHourPanel elementHourPanel;
+    private se.trixon.util.swing.dialogs.cron.ElementMinutePanel elementMinutePanel;
+    private se.trixon.util.swing.dialogs.cron.ElementMonthPanel elementMonthPanel;
+    private javax.swing.JPanel elementsPanel;
+    private javax.swing.JPanel jPanel1;
+    private se.trixon.util.swing.dialogs.NotificationLine notificationLine;
+    private javax.swing.JComboBox presetComboBox;
+    private javax.swing.JLabel presetLabel;
+    // End of variables declaration//GEN-END:variables
+}
