@@ -53,7 +53,7 @@ public final class AboutAction implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (sImageIcon == null) {
-            sImageIcon = ImageUtilities.loadImageIcon("se/trixon/almond/about/res/default_logo.png", false);
+            sImageIcon = ImageUtilities.loadImageIcon("se/trixon/almond/about/default_logo.png", false);
         }
 
         String appTitle = sAboutBundle.getString("application.title");
