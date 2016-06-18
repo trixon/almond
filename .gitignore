@@ -1,6 +1,7 @@
 *.class
 
 # Package Files #
+*~
 *.jar
 *.war
 *.ear
@@ -39,6 +40,9 @@
 /modules/se.trixon.almond/nbproject/private/
 /modules/se.trixon.almond/build/
 /nbproject/private/
+
+/application/target/
+/branding/target/
 /almond/target/
 /nbp-util/target/
 /actions/target/
