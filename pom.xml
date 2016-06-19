@@ -69,7 +69,6 @@
     <modules>
         <module>branding</module>
         <module>application</module>
-        <module>almond</module>
         <module>nbp-actions-osx</module>
         <module>nbp</module>
         <module>nbp-actions</module>

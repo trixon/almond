@@ -16,7 +16,7 @@
                 <extensions>true</extensions>
                 <configuration>
                     <publicPackages>
-                        <publicPackage>se.trixon.almond.*</publicPackage>
+                        <publicPackage>se.trixon.almond.nbp.*</publicPackage>
                     </publicPackages>
                 </configuration>
             </plugin>
@@ -106,5 +106,4 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-    <name>almond-parent</name>
 </project>
