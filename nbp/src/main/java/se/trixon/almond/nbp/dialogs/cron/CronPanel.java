@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
 import org.openide.DialogDescriptor;
 import org.openide.NotificationLineSupport;
 import org.openide.util.NbBundle;
-import se.trixon.almond.util.dictionary.Dict;
+import se.trixon.almond.util.Dict;
 
 /**
  *

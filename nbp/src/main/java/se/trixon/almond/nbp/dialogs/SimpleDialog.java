@@ -22,7 +22,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import org.apache.commons.io.FilenameUtils;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
-import se.trixon.almond.util.dictionary.Dict;
+import se.trixon.almond.util.Dict;
 
 /**
  *

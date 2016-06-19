@@ -36,7 +36,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 import org.openide.awt.DropDownButtonFactory;
 import org.openide.util.Exceptions;
-import se.trixon.almond.util.dictionary.Dict;
+import se.trixon.almond.util.Dict;
 import se.trixon.almond.util.icon.Pict;
 import se.trixon.almond.util.swing.SwingHelper;
 

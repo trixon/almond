@@ -16,7 +16,7 @@
 package se.trixon.almond.nbp.swing;
 
 import javax.swing.DefaultComboBoxModel;
-import se.trixon.almond.util.dictionary.Dict;
+import se.trixon.almond.util.Dict;
 
 /**
  *

@@ -23,7 +23,7 @@ import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
 import org.openide.filesystems.FileObject;
 import org.openide.filesystems.FileUtil;
-import se.trixon.almond.util.dictionary.Dict;
+import se.trixon.almond.util.Dict;
 
 /**
  *
