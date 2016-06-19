@@ -23,9 +23,9 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ListSelectionEvent;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
-import se.trixon.almond.nbp.ArrayHelper;
-import se.trixon.almond.nbp.StringHelper;
-import se.trixon.almond.nbp.dictionary.Dict;
+import se.trixon.almond.util.dictionary.Dict;
+import se.trixon.almond.util.ArrayHelper;
+import se.trixon.almond.util.StringHelper;
 
 /**
  *

@@ -19,7 +19,7 @@ import java.awt.Color;
 import javax.swing.Action;
 import javax.swing.Icon;
 import javax.swing.JButton;
-import se.trixon.almond.nbp.GraphicsHelper;
+import se.trixon.almond.util.GraphicsHelper;
 
 /**
  *

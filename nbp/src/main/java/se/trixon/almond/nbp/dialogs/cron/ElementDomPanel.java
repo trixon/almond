@@ -15,7 +15,7 @@
  */
 package se.trixon.almond.nbp.dialogs.cron;
 
-import se.trixon.almond.nbp.dictionary.Dict;
+import se.trixon.almond.util.dictionary.Dict;
 
 /**
  *

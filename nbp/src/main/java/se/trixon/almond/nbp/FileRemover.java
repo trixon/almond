@@ -23,7 +23,7 @@ import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
 import org.openide.filesystems.FileObject;
 import org.openide.filesystems.FileUtil;
-import se.trixon.almond.nbp.dictionary.Dict;
+import se.trixon.almond.util.dictionary.Dict;
 
 /**
  *
@@ -49,8 +49,8 @@ public class FileRemover {
         boolean filesRemoved = false;
         int numOfFiles = paths.length;
         if (numOfFiles > 0) {
-            String title = numOfFiles == 1 ? Dict.REMOVE_FILE_TITLE.getString() : Dict.REMOVE_FILES_TITLE.getString();
-            String message = numOfFiles == 1 ? Dict.REMOVE_FILE_MESSAGE.getString() : Dict.REMOVE_FILES_MESSAGE.getString();
+            String title = numOfFiles == 1 ? Dict.REMOVE_FILE_TITLE.toString() : Dict.REMOVE_FILES_TITLE.toString();
+            String message = numOfFiles == 1 ? Dict.REMOVE_FILE_MESSAGE.toString() : Dict.REMOVE_FILES_MESSAGE.toString();
 
             if (numOfFiles == 1) {
                 message = String.format(message, paths[0]);

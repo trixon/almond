@@ -22,7 +22,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import org.apache.commons.io.FilenameUtils;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
-import se.trixon.almond.nbp.dictionary.Dict;
+import se.trixon.almond.util.dictionary.Dict;
 
 /**
  *
@@ -139,8 +139,8 @@ public class SimpleDialog {
 
         if (file.exists()) {
             NotifyDescriptor notifyDescriptor = new NotifyDescriptor(
-                    String.format(Dict.FILE_EXISTS_MESSAGE.getString(), file.getAbsolutePath()),
-                    Dict.FILE_EXISTS_TITLE.getString(),
+                    String.format(Dict.FILE_EXISTS_MESSAGE.toString(), file.getAbsolutePath()),
+                    Dict.FILE_EXISTS_TITLE.toString(),
                     NotifyDescriptor.DEFAULT_OPTION,
                     NotifyDescriptor.QUESTION_MESSAGE,
                     null,

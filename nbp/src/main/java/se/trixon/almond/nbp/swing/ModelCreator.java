@@ -16,7 +16,7 @@
 package se.trixon.almond.nbp.swing;
 
 import javax.swing.DefaultComboBoxModel;
-import se.trixon.almond.nbp.dictionary.Dict;
+import se.trixon.almond.util.dictionary.Dict;
 
 /**
  *
@@ -34,9 +34,9 @@ public class ModelCreator {
             case BEGINS_CONTAINS_ENDS:
 
                 return new DefaultComboBoxModel(new String[]{
-                    Dict.STARTS_WITH.getString(),
-                    Dict.CONTAINS.getString(),
-                    Dict.ENDS_WITH.getString()});
+                    Dict.STARTS_WITH.toString(),
+                    Dict.CONTAINS.toString(),
+                    Dict.ENDS_WITH.toString()});
 
             default:
 
