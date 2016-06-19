@@ -1,4 +1,4 @@
 Manifest-Version: 1.0
 OpenIDE-Module-Layer: se/trixon/almond/actions/layer.xml
 OpenIDE-Module-Localizing-Bundle: se/trixon/almond/actions/Bundle.properties
-
+AutoUpdate-Show-In-Client: false
