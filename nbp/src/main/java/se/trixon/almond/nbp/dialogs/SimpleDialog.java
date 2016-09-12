@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2016 Patrik Karlsson.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -139,8 +139,8 @@ public class SimpleDialog {
 
         if (file.exists()) {
             NotifyDescriptor notifyDescriptor = new NotifyDescriptor(
-                    String.format(Dict.FILE_EXISTS_MESSAGE.toString(), file.getAbsolutePath()),
-                    Dict.FILE_EXISTS_TITLE.toString(),
+                    String.format(Dict.Dialog.MESSAGE_FILE_EXISTS.toString(), file.getAbsolutePath()),
+                    Dict.Dialog.TITLE_FILE_EXISTS.toString(),
                     NotifyDescriptor.DEFAULT_OPTION,
                     NotifyDescriptor.QUESTION_MESSAGE,
                     null,

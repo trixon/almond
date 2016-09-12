@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2016 Patrik Karlsson.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -49,8 +49,8 @@ public class FileRemover {
         boolean filesRemoved = false;
         int numOfFiles = paths.length;
         if (numOfFiles > 0) {
-            String title = numOfFiles == 1 ? Dict.REMOVE_FILE_TITLE.toString() : Dict.REMOVE_FILES_TITLE.toString();
-            String message = numOfFiles == 1 ? Dict.REMOVE_FILE_MESSAGE.toString() : Dict.REMOVE_FILES_MESSAGE.toString();
+            String title = numOfFiles == 1 ? Dict.Dialog.TITLE_REMOVE_FILE.toString() : Dict.Dialog.TITLE_REMOVE_FILES.toString();
+            String message = numOfFiles == 1 ? Dict.Dialog.MESSAGE_REMOVE_FILE.toString() : Dict.Dialog.MESSAGE_REMOVE_FILES.toString();
 
             if (numOfFiles == 1) {
                 message = String.format(message, paths[0]);
