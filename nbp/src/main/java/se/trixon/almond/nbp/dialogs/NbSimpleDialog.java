@@ -28,7 +28,7 @@ import se.trixon.almond.util.Dict;
  *
  * @author Patrik Karlsson <patrik@trixon.se>
  */
-public class SimpleDialog {
+public class NbSimpleDialog {
 
     private static final JFileChooser sFileChooser = new JFileChooser();
     private static FileNameExtensionFilter sFilter;
@@ -202,7 +202,7 @@ public class SimpleDialog {
         sFileChooser.setFileHidingEnabled(!showHidden);
     }
 
-    private SimpleDialog() {
+    private NbSimpleDialog() {
     }
 
 }

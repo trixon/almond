@@ -22,7 +22,7 @@ import org.openide.NotifyDescriptor;
  *
  * @author Patrik Karlsson <patrik@trixon.se>
  */
-public class Message {
+public class NbMessage {
 
     public static void error(String title, String message) {
         NotifyDescriptor notifyDescriptor = new NotifyDescriptor.Message(message, NotifyDescriptor.ERROR_MESSAGE);
