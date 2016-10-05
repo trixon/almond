@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2016 Patrik Karlsson.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,8 +20,9 @@ import java.util.Calendar;
 import org.openide.windows.IOProvider;
 import org.openide.windows.InputOutput;
 import org.openide.windows.OutputWriter;
+import se.trixon.almond.util.Dict;
 
-public class Xlog {
+public class NbLog {
 
     public static final int ASSERT = 7;
     public static final int DEBUG = 3;
@@ -29,7 +30,7 @@ public class Xlog {
     public static final int INFO = 4;
     public static final int VERBOSE = 2;
     public static final int WARN = 5;
-    public static String sGlobalTag = "";
+    public static String sGlobalTag = Dict.APPLICATION.toString();
     private static boolean sActive = true;
     private static final SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd HH.mm.ss: ");
     private static InputOutput sInputOutput;

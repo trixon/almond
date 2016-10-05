@@ -27,7 +27,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import javax.swing.Icon;
 import javax.swing.JLabel;
-import se.trixon.almond.nbp.Xlog;
+import se.trixon.almond.nbp.NbLog;
 
 public class UriLabel extends JLabel {
 
@@ -95,7 +95,7 @@ public class UriLabel extends JLabel {
             try {
                 Desktop.getDesktop().browse(mUri);
             } catch (IOException | UnsupportedOperationException ex) {
-                Xlog.e(this.getClass(), ex.getLocalizedMessage());
+                NbLog.e(this.getClass(), ex.getLocalizedMessage());
             }
         }
     }
