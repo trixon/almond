@@ -5,7 +5,7 @@
 
     <groupId>se.trixon.almond</groupId>
     <artifactId>almond-parent</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>almond-parent</name>
@@ -75,7 +75,7 @@
     </modules>
 
     <properties>
-        <netbeans.version>RELEASE81</netbeans.version>
+        <netbeans.version>RELEASE82</netbeans.version>
         <brandingToken>almond</brandingToken>
     </properties>
 </project>
