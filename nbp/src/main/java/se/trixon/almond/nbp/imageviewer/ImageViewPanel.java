@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2016 Patrik Karlsson.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -36,8 +36,10 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 import org.openide.awt.DropDownButtonFactory;
 import org.openide.util.Exceptions;
+import se.trixon.almond.util.AlmondOptions;
 import se.trixon.almond.util.Dict;
-import se.trixon.almond.util.icon.Pict;
+import se.trixon.almond.util.icons.IconColor;
+import se.trixon.almond.util.icons.material.MaterialIcon;
 import se.trixon.almond.util.swing.SwingHelper;
 
 /**
@@ -46,7 +48,7 @@ import se.trixon.almond.util.swing.SwingHelper;
  */
 public class ImageViewPanel extends JPanel {
 
-    private static final int ICON_SIZE = 24;
+    private static final int ICON_SIZE = 36;
     private ImageIcon mPauseImageIcon;
     private ImageIcon mPlayImageIcon;
     private JButton mStartButton;
@@ -122,6 +124,7 @@ public class ImageViewPanel extends JPanel {
     }
 
     private void init() {
+        final IconColor mIconColor = AlmondOptions.getInstance().getIconColor();
         int colVal = 0x33;
         label.setBackground(new Color(colVal, colVal, colVal, 196));
         label.setOpaque(true);
@@ -129,8 +132,9 @@ public class ImageViewPanel extends JPanel {
 
         previewLabel.setVisible(false);
         playPopupMenu.add(speedSlider, 4);
-        mPlayImageIcon = Pict.Actions.MEDIA_PLAYBACK_START.get((int) (ICON_SIZE * 1.5));
-        mPauseImageIcon = Pict.Actions.MEDIA_PLAYBACK_PAUSE.get((int) (ICON_SIZE * 1.5));
+        mPlayImageIcon = MaterialIcon._Av.PLAY_CIRCLE_OUTLINE.get((int) (ICON_SIZE * 1.5), mIconColor);
+        mPauseImageIcon = MaterialIcon._Av.PAUSE_CIRCLE_OUTLINE.get((int) (ICON_SIZE * 1.5), mIconColor);
+
         mStartButton = DropDownButtonFactory.createDropDownButton(mPlayImageIcon, playPopupMenu);
         mStartButton.setBorder(null);
         mStartButton.setBorderPainted(false);
@@ -142,8 +146,8 @@ public class ImageViewPanel extends JPanel {
         toolBar.add(mStartButton, 1);
 
         mStartButton.setToolTipText(Dict.PLAY.getString());
-        prevButton.setIcon(Pict.Actions.MEDIA_SEEK_BACKWARD.get(ICON_SIZE));
-        nextButton.setIcon(Pict.Actions.MEDIA_SEEK_FORWARD.get(ICON_SIZE));
+        prevButton.setIcon(MaterialIcon._Av.SKIP_PREVIOUS.get(ICON_SIZE, mIconColor));
+        nextButton.setIcon(MaterialIcon._Av.SKIP_NEXT.get(ICON_SIZE, mIconColor));
 
         updateButtonState();
 
@@ -372,7 +376,6 @@ public class ImageViewPanel extends JPanel {
         mTimer.setDelay(getSpeedDelay());
         mTimer.setInitialDelay(getSpeedDelay());
     }//GEN-LAST:event_speedSliderStateChanged
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel controlPanel;

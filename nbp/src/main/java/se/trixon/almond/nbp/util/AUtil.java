@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2016 Patrik Karlsson.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,11 +15,7 @@
  */
 package se.trixon.almond.nbp.util;
 
-import java.util.Collection;
 import java.util.TreeSet;
-import javax.swing.Action;
-import org.openide.util.Lookup;
-import org.openide.util.lookup.Lookups;
 
 /**
  *
@@ -51,21 +47,5 @@ public class AUtil {
         }
 
         return treeSet;
-    }
-
-    public static Action getActionInstance(String aFolder, String aFile) {
-        Lookup pathLookup = Lookups.forPath(aFolder);
-        final String INSTANCE_FILE = aFile;
-        Lookup.Template<Action> actionTemplate = new Lookup.Template<Action>(Action.class, aFolder + INSTANCE_FILE, null);
-        Lookup.Result<Action> lookupResult = pathLookup.lookup(actionTemplate);
-        Collection<? extends Action> foundActions = lookupResult.allInstances();
-
-        Action resultAction = null;
-
-        for (Action action : foundActions) {
-            resultAction = action;
-        }
-
-        return resultAction;
     }
 }

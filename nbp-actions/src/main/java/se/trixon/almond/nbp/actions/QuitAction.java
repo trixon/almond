@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2016 Patrik Karlsson.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,11 +29,11 @@ import org.openide.util.NbBundle.Messages;
         id = "se.trixon.almond.nbp.actions.QuitAction"
 )
 @ActionRegistration(
-        iconBase = "se/trixon/almond/nbp/actions/application-exit.png",
         displayName = "#CTL_QuitAction"
 )
 @ActionReferences({
-    @ActionReference(path = "Menu/File", position = 2700),
+    @ActionReference(path = "Menu/File", position = 2700)
+    ,
     @ActionReference(path = "Shortcuts", name = "D-Q")
 })
 @Messages("CTL_QuitAction=Quit")
