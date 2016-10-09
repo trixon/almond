@@ -25,7 +25,7 @@ import se.trixon.almond.util.icons.IconColor;
 
 /**
  *
- * @author Patrik Karlsson <patrik@trixon.se>
+ * @author Patrik Karlsson
  */
 public class ActionHelper {
 
@@ -61,8 +61,7 @@ public class ActionHelper {
         Action action = FileUtil.getConfigObject(path, Action.class);
 
         if (action != null) {
-            action.putValue(Action.LARGE_ICON_KEY, icon);
-            action.putValue(Action.SMALL_ICON, icon);
+            action.putValue(key, icon);
         } else {
             System.err.println("Action not fond: " + path);
         }

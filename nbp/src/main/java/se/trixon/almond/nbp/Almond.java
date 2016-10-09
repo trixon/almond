@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2016 Patrik Karlsson.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,9 +17,11 @@ package se.trixon.almond.nbp;
 
 /**
  *
- * @author Patrik Karlsson <patrik@trixon.se>
+ * @author Patrik Karlsson
  */
 public class Almond {
 
     public static boolean ASK_CONFIRM_EXIT = false;
+    public static final int ICON_LARGE = 24;
+    public static final int ICON_SMALL = 16;
 }
