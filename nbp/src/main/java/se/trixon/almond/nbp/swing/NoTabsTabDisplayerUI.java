@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2016 Patrik Karlsson.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,7 +32,7 @@ import org.netbeans.swing.tabcontrol.TabDisplayerUI;
  */
 public class NoTabsTabDisplayerUI extends TabDisplayerUI {
 
-    public static final String ID = "se.trixon.almond.swing.NoTabsTabDisplayerUI";
+    public static final String ID = "se.trixon.almond.nbp.swing.NoTabsTabDisplayerUI";
     private static final int[] PTS = new int[]{0, 0, 0};
 
     public static ComponentUI createUI(JComponent jc) {
