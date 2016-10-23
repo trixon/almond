@@ -22,6 +22,6 @@ package se.trixon.almond.nbp;
 public class Almond {
 
     public static boolean ASK_CONFIRM_EXIT = false;
-    public static final int ICON_LARGE = 24;
-    public static final int ICON_SMALL = 16;
+    public static int ICON_LARGE = 24;
+    public static int ICON_SMALL = 16;
 }
