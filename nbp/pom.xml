@@ -17,7 +17,6 @@
                 <configuration>
                     <publicPackages>
                         <publicPackage>se.trixon.almond.nbp.*</publicPackage>
-                        <publicPackage>se.trixon.almond.util.*</publicPackage>
                     </publicPackages>
                 </configuration>
             </plugin>
