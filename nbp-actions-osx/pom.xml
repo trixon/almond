@@ -27,6 +27,7 @@
         </plugins>
     </build>
     <dependencies>
+        <!--NetBeans-->
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-netbeans-api-annotations-common</artifactId>
@@ -36,5 +37,4 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-    <name>almond-parent</name>
 </project>
