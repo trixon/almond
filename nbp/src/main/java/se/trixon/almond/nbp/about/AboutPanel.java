@@ -40,7 +40,7 @@ import se.trixon.almond.nbp.swing.UriLabel;
 
 /**
  *
- * @author Patrik Karlsson <patrik@trixon.se>
+ * @author Patrik Karlsson
  */
 public class AboutPanel extends JPanel {
 

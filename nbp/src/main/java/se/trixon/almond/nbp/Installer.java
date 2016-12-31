@@ -25,7 +25,7 @@ import se.trixon.almond.nbp.dialogs.ConfirmExitDialog;
 
 /**
  *
- * @author Patrik Karlsson <patrik@trixon.se>
+ * @author Patrik Karlsson
  */
 public class Installer extends ModuleInstall {
 

@@ -21,7 +21,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
- * @author Patrik Karlsson <patrik@trixon.se>
+ * @author Patrik Karlsson
  */
 public class NumericTableCellRenderer extends DefaultTableCellRenderer {
 

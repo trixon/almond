@@ -19,7 +19,7 @@ import java.util.ResourceBundle;
 
 /**
  *
- * @author Patrik Karlsson <patrik@trixon.se>
+ * @author Patrik Karlsson
  */
 public interface NewsProvider {
 

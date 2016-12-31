@@ -23,7 +23,7 @@ import org.openide.windows.OutputWriter;
 
 /**
  *
- * @author Patrik Karlsson <patrik@trixon.se>
+ * @author Patrik Karlsson
  */
 public class Monitor {
 

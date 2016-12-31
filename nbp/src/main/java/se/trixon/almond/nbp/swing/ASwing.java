@@ -26,7 +26,7 @@ import se.trixon.almond.nbp.util.AString;
 
 /**
  *
- * @author Patrik Karlsson <patrik@trixon.se>
+ * @author Patrik Karlsson
  */
 public class ASwing {
 

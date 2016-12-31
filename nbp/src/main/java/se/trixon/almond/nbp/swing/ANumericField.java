@@ -21,7 +21,7 @@ import javax.swing.text.Document;
 
 /**
  *
- * @author Patrik Karlsson <patrik@trixon.se>
+ * @author Patrik Karlsson
  */
 public class ANumericField extends JTextField {
 

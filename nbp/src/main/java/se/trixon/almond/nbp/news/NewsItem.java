@@ -17,7 +17,7 @@ package se.trixon.almond.nbp.news;
 
 /**
  *
- * @author Patrik Karlsson <patrik@trixon.se>
+ * @author Patrik Karlsson
  */
 public class NewsItem {
 

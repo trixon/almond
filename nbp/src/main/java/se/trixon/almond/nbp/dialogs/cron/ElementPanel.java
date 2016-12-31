@@ -29,7 +29,7 @@ import se.trixon.almond.util.StringHelper;
 
 /**
  *
- * @author Patrik Karlsson <patrik@trixon.se>
+ * @author Patrik Karlsson
  */
 public abstract class ElementPanel extends javax.swing.JPanel {
 

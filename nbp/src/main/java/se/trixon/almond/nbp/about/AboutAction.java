@@ -26,7 +26,7 @@ import org.openide.util.NbBundle;
 
 /**
  *
- * @author Patrik Karlsson <patrik@trixon.se>
+ * @author Patrik Karlsson
  */
 public final class AboutAction implements ActionListener {
 

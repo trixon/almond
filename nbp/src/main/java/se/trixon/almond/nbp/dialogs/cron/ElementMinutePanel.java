@@ -17,7 +17,7 @@ package se.trixon.almond.nbp.dialogs.cron;
 
 /**
  *
- * @author Patrik Karlsson <patrik@trixon.se>
+ * @author Patrik Karlsson
  */
 public class ElementMinutePanel extends ElementPanel {
 

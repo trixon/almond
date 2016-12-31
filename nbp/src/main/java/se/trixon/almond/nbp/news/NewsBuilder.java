@@ -27,7 +27,7 @@ import org.openide.util.Lookup;
 
 /**
  *
- * @author Patrik Karlsson <patrik@trixon.se>
+ * @author Patrik Karlsson
  */
 public class NewsBuilder {
 

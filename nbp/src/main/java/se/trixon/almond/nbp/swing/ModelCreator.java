@@ -22,7 +22,7 @@ import se.trixon.almond.util.Dict;
  *
  *
  *
- * @author Patrik Karlsson <patrik@trixon.se>
+ * @author Patrik Karlsson
  *
  */
 public class ModelCreator {

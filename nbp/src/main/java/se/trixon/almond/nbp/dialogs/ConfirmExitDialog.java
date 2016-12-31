@@ -21,7 +21,7 @@ import se.trixon.almond.nbp.AlmondOptions;
 
 /**
  *
- * @author Patrik Karlsson <patrik@trixon.se>
+ * @author Patrik Karlsson
  */
 @NbBundle.Messages({
     "CTL_ConfirmExitTitle=Confirm Exit"})

@@ -19,7 +19,7 @@ import java.text.DecimalFormat;
 
 /**
  *
- * @author Patrik Karlsson <patrik@trixon.se>
+ * @author Patrik Karlsson
  */
 public class AString {
 

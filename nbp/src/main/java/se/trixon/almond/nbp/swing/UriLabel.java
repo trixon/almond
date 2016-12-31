@@ -17,7 +17,7 @@ package se.trixon.almond.nbp.swing;
 
 /**
  *
- * @author Patrik Karlsson <patrik@trixon.se>
+ * @author Patrik Karlsson
  */
 import java.awt.Cursor;
 import java.awt.Desktop;

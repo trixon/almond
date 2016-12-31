@@ -20,7 +20,7 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author Patrik Karlsson <patrik@trixon.se>
+ * @author Patrik Karlsson
  */
 public class CredentialsPanel extends javax.swing.JPanel {
 

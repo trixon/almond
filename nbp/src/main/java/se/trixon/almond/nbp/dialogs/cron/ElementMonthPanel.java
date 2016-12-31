@@ -20,7 +20,7 @@ import java.util.Locale;
 
 /**
  *
- * @author Patrik Karlsson <patrik@trixon.se>
+ * @author Patrik Karlsson
  */
 public class ElementMonthPanel extends ElementPanel {
 

@@ -19,7 +19,7 @@ import java.util.TreeSet;
 
 /**
  *
- * @author Patrik Karlsson <patrik@trixon.se>
+ * @author Patrik Karlsson
  */
 public class AUtil {
 

@@ -20,7 +20,7 @@ import org.openide.util.NbPreferences;
 
 /**
  *
- * @author Patrik Karlsson <patrik@trixon.se>
+ * @author Patrik Karlsson
  */
 public enum AlmondOptions {
 

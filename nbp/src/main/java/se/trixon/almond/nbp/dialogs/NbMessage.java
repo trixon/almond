@@ -20,7 +20,7 @@ import org.openide.NotifyDescriptor;
 
 /**
  *
- * @author Patrik Karlsson <patrik@trixon.se>
+ * @author Patrik Karlsson
  */
 public class NbMessage {
 

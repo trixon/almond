@@ -44,7 +44,7 @@ import se.trixon.almond.util.swing.SwingHelper;
 
 /**
  *
- * @author Patrik Karlsson <patrik@trixon.se>
+ * @author Patrik Karlsson
  */
 public class ImageViewPanel extends JPanel {
 
