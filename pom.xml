@@ -5,10 +5,36 @@
 
     <groupId>se.trixon.almond</groupId>
     <artifactId>almond-parent</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>almond-parent</name>
+    <url>https://github.com/trixon/java-almond-nbp</url>
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <id>trixon</id>
+            <name>Patrik Karlsson</name>
+            <roles>
+                <role>architect</role>
+                <role>developer</role>
+            </roles>
+            <email>patrik@trixon.se</email>
+            <url>http://trixon.se</url>
+            <timezone>+1</timezone>
+        </developer>
+    </developers>
+    <scm>
+        <url>https://github.com/trixon/java-almond-nbp</url>
+        <connection>scm:git:git://github.com/trixon/java-almond-nbp.git</connection>
+        <developerConnection>scm:git:git@github.com:trixon/java-almond-nbp.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
 
     <repositories>
         <repository>
