@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2016 Patrik Karlsson.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,6 +16,7 @@
 package se.trixon.almond.nbp.options;
 
 import java.util.ResourceBundle;
+import javax.swing.DefaultComboBoxModel;
 import se.trixon.almond.util.AlmondOptions;
 import se.trixon.almond.util.BundleHelper;
 import se.trixon.almond.util.Dict;
@@ -31,7 +32,7 @@ final class IconPanel extends javax.swing.JPanel {
     IconPanel(IconOptionsPanelController controller) {
         this.controller = controller;
         initComponents();
-        iconsComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{mBundle.getString("LookAndFeelPanel.iconThemeBlack"), mBundle.getString("LookAndFeelPanel.iconThemeWhite")}));
+        iconsComboBox.setModel(new DefaultComboBoxModel<>(new String[]{Dict.MATERIAL_BLACK.toString(), Dict.MATERIAL_WHITE.toString()}));
     }
 
     /**
