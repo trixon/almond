@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2016 Patrik Karlsson.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -177,7 +177,7 @@ public class FileChooserPanel extends javax.swing.JPanel {
             public synchronized void drop(DropTargetDropEvent evt) {
                 try {
                     evt.acceptDrop(DnDConstants.ACTION_COPY);
-                    List<File> droppedFiles = (List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);
+                    LinkedList<File> droppedFiles = new LinkedList<>((List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor));
                     List<File> invalidFiles = new LinkedList<>();
 
                     for (File droppedFile : droppedFiles) {
@@ -185,10 +185,12 @@ public class FileChooserPanel extends javax.swing.JPanel {
                             if (mMode == JFileChooser.DIRECTORIES_ONLY) {
                                 invalidFiles.add(droppedFile);
                             }
-                        } else {
+                        } else if (droppedFile.isDirectory()) {
                             if (mMode == JFileChooser.FILES_ONLY) {
                                 invalidFiles.add(droppedFile);
                             }
+                        } else {
+                            invalidFiles.add(droppedFile);
                         }
                     }
 
