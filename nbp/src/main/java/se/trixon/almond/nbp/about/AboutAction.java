@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2016 Patrik Karlsson.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,12 +17,11 @@ package se.trixon.almond.nbp.about;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ResourceBundle;
-import javax.swing.ImageIcon;
+import javax.swing.BorderFactory;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
-import org.openide.util.ImageUtilities;
-import org.openide.util.NbBundle;
+import se.trixon.almond.util.swing.dialogs.about.AboutModel;
+import se.trixon.almond.util.swing.dialogs.about.AboutPanel;
 
 /**
  *
@@ -30,44 +29,27 @@ import org.openide.util.NbBundle;
  */
 public final class AboutAction implements ActionListener {
 
-    private static ResourceBundle sAboutBundle = null;
-    private static ImageIcon sImageIcon = null;
-    private static ResourceBundle sLicenseBundle = null;
+    private static AboutModel sAboutModel;
 
-    public static ResourceBundle getAboutBundle() {
-        return sAboutBundle;
-    }
-
-    public static void setAboutBundle(ResourceBundle resourceBundle) {
-        sAboutBundle = resourceBundle;
-    }
-
-    public static void setImageIcon(ImageIcon imageIcon) {
-        AboutAction.sImageIcon = imageIcon;
-    }
-
-    public static void setLicenseBundle(ResourceBundle resourceBundle) {
-        sLicenseBundle = resourceBundle;
+    public static void setAboutModel(AboutModel aboutModel) {
+        AboutAction.sAboutModel = aboutModel;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (sImageIcon == null) {
-            sImageIcon = ImageUtilities.loadImageIcon("se/trixon/almond/nbp/about/default_logo.png", false);
-        }
+        AboutPanel aboutPanel = new AboutPanel(sAboutModel);
+        aboutPanel.setBorder(BorderFactory.createEmptyBorder(0, 16, 0, 16));
 
-        String appTitle = sAboutBundle.getString("application.title");
-        String title = NbBundle.getMessage(License.class, "CTL_DialogTitleAbout", appTitle);
-        AboutPanel aboutPanel = new AboutPanel(sAboutBundle, sImageIcon, sLicenseBundle);
         DialogDescriptor dialogDescriptor = new DialogDescriptor(
                 aboutPanel,
-                title,
+                sAboutModel.getAppName(),
                 false,
                 new Object[]{DialogDescriptor.CLOSED_OPTION},
                 DialogDescriptor.CLOSED_OPTION,
                 DialogDescriptor.DEFAULT_ALIGN,
                 null,
                 null);
+
         DialogDisplayer.getDefault().notify(dialogDescriptor);
     }
 }

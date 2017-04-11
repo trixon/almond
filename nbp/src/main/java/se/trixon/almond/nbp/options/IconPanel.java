@@ -18,14 +18,14 @@ package se.trixon.almond.nbp.options;
 import java.util.ResourceBundle;
 import javax.swing.DefaultComboBoxModel;
 import se.trixon.almond.util.AlmondOptions;
-import se.trixon.almond.util.BundleHelper;
 import se.trixon.almond.util.Dict;
+import se.trixon.almond.util.SystemHelper;
 import se.trixon.almond.util.swing.dialogs.LookAndFeelPanel;
 
 final class IconPanel extends javax.swing.JPanel {
 
     private final AlmondOptions mAlmondOptions = AlmondOptions.getInstance();
-    private final ResourceBundle mBundle = BundleHelper.getBundle(LookAndFeelPanel.class, "Bundle");
+    private final ResourceBundle mBundle = SystemHelper.getBundle(LookAndFeelPanel.class, "Bundle");
 
     private final IconOptionsPanelController controller;
 
