@@ -38,7 +38,7 @@ public final class AboutAction implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         AboutPanel aboutPanel = new AboutPanel(sAboutModel);
-        aboutPanel.setBorder(BorderFactory.createEmptyBorder(0, 16, 0, 16));
+        aboutPanel.setBorder(BorderFactory.createEmptyBorder(16, 16, 0, 16));
 
         DialogDescriptor dialogDescriptor = new DialogDescriptor(
                 aboutPanel,
