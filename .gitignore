@@ -1,53 +1,61 @@
+
+# Created by https://www.gitignore.io/api/java,linux,maven,netbeans
+
+### Linux ###
+*~
+
+# temporary files which can be created if a process still has a handle open of a deleted file
+.fuse_hidden*
+
+# KDE directory preferences
+.directory
+
+# Linux trash folder which might appear on any partition or disk
+.Trash-*
+
+# .nfs files are created when an open file is removed but is still being accessed
+.nfs*
+
+
+### Maven ###
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+
+# Exclude maven wrapper
+!/.mvn/wrapper/maven-wrapper.jar
+
+
+### NetBeans ###
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+
+### Java ###
 *.class
 
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
 # Package Files #
-*~
 *.jar
 *.war
 *.ear
-.DS_Store
-/build/
-/dist/
-/modules/nmc_util/build/
-/modules/nmc_swing/build/
-/modules/nmc_swing/nbproject/private/
-/modules/nmc_dialogs/build/
-/modules/nmc_dialogs/nbproject/private/
-/modules/nmc_about/build/
-/modules/nmc_about/nbproject/private/
-/modules/nmc_util/nbproject/private/
-/modules/almond_about/nbproject/private/
-/modules/almond_dialogs/nbproject/private/
-/modules/almond_swing/nbproject/private/
-/modules/almond_util/nbproject/private/
-/modules/almond_util/build/
-/modules/almond_swing/build/
-/modules/almond_about/build/
-/modules/almond_dialogs/build/
-/modules/actions_osx/nbproject/private/
-/modules/almond_actions_osx/nbproject/private/
-/modules/almond_actions/build/
-/modules/almond_actions_osx/build/
-/modules/almond_resources/build/
-/modules/almond_resources/nbproject/private/
-/modules/almond_actions/nbproject/private/
-/modules/se.trixon.almond.actions/nbproject/private/
-/modules/se.trixon.almond.actions.osx/nbproject/private/
-/modules/se.trixon.almond.core/build/
-/modules/se.trixon.almond.actions.osx/build/
-/modules/se.trixon.almond.actions/build/
-/modules/se.trixon.almond.core/nbproject/private/
-/modules/se.trixon.almond/nbproject/private/
-/modules/se.trixon.almond/build/
-/nbproject/private/
 
-/application/target/
-/branding/target/
-/almond/target/
-/nbp-util/target/
-/actions/target/
-/actions-osx/target/
-/nbp-actions-osx/target/
-/nbp/target/
-/nbp-actions/target/
-/target/
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+# End of https://www.gitignore.io/api/java,linux,maven,netbeans
