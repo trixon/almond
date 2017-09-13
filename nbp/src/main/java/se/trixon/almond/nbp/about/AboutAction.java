@@ -20,6 +20,7 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
+import se.trixon.almond.util.Dict;
 import se.trixon.almond.util.swing.dialogs.about.AboutModel;
 import se.trixon.almond.util.swing.dialogs.about.AboutPanel;
 
@@ -42,7 +43,7 @@ public final class AboutAction implements ActionListener {
 
         DialogDescriptor dialogDescriptor = new DialogDescriptor(
                 aboutPanel,
-                sAboutModel.getAppName(),
+                String.format(Dict.ABOUT_S.toString(), sAboutModel.getAppName()),
                 false,
                 new Object[]{DialogDescriptor.CLOSED_OPTION},
                 DialogDescriptor.CLOSED_OPTION,
