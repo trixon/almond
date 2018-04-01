@@ -1,5 +1,5 @@
 /* 
- * Copyright 2018 Patrik Karlsson.
+ * Copyright 2018 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ package se.trixon.almond.nbp.swing;
 
 /**
  *
- * @author Patrik Karlsson
+ * @author Patrik Karlström
  */
 import java.awt.Cursor;
 import java.awt.Desktop;
