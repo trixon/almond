@@ -13,30 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package se.trixon.almond.nbp;
+package se.trixon.almond.nbp.fx;
 
-import java.awt.Frame;
-import javax.swing.SwingUtilities;
-import org.openide.windows.WindowManager;
+import java.awt.Dimension;
+import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
 
 /**
  *
  * @author Patrik Karlström
  */
-public class Almond {
+public abstract class FxPanel extends JFXPanel {
 
-    public static boolean ASK_CONFIRM_EXIT = false;
-    public static int ICON_LARGE = 24;
-    public static int ICON_SMALL = 16;
+    public FxPanel() {
+        setPreferredSize(new Dimension(200, 200));
+    }
 
-    public static void activateWindow(boolean active) {
-        SwingUtilities.invokeLater(() -> {
-            getFrame().setEnabled(active);
+    public void initFx(Runnable runnable) {
+        Platform.runLater(() -> {
+            fxConstructor();
+
+            if (runnable != null) {
+                runnable.run();
+            }
         });
     }
 
-    public static Frame getFrame() {
-        return WindowManager.getDefault().getMainWindow();
-    }
+    protected abstract void fxConstructor();
 
 }

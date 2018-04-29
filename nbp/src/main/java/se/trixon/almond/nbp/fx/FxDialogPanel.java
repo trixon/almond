@@ -13,30 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package se.trixon.almond.nbp;
+package se.trixon.almond.nbp.fx;
 
-import java.awt.Frame;
-import javax.swing.SwingUtilities;
-import org.openide.windows.WindowManager;
+import org.openide.DialogDescriptor;
+import org.openide.NotificationLineSupport;
 
 /**
  *
  * @author Patrik Karlström
  */
-public class Almond {
+public abstract class FxDialogPanel extends FxPanel {
 
-    public static boolean ASK_CONFIRM_EXIT = false;
-    public static int ICON_LARGE = 24;
-    public static int ICON_SMALL = 16;
+    protected DialogDescriptor mDialogDescriptor;
+    protected NotificationLineSupport mNotificationLineSupport;
 
-    public static void activateWindow(boolean active) {
-        SwingUtilities.invokeLater(() -> {
-            getFrame().setEnabled(active);
-        });
+    public void createNotificationLineSupport() {
+        mNotificationLineSupport = mDialogDescriptor.createNotificationLineSupport();
     }
 
-    public static Frame getFrame() {
-        return WindowManager.getDefault().getMainWindow();
+    public void setDialogDescriptor(DialogDescriptor dialogDescriptor) {
+        mDialogDescriptor = dialogDescriptor;
     }
-
 }
