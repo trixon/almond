@@ -70,26 +70,26 @@ public abstract class FxTopComponent extends TopComponent {
 
     @Override
     protected void componentClosed() {
-        super.componentClosed();
         Platform.runLater(() -> {
             fxComponentClosed();
         });
+        super.componentClosed();
     }
 
     @Override
     protected void componentDeactivated() {
-        super.componentDeactivated();
         Platform.runLater(() -> {
             fxComponentDeactivated();
         });
+        super.componentDeactivated();
     }
 
     @Override
     protected void componentHidden() {
-        super.componentHidden();
         Platform.runLater(() -> {
             fxComponentHidden();
         });
+        super.componentHidden();
     }
 
     @Override
