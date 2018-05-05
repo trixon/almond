@@ -1,5 +1,5 @@
-/*
- * Copyright 2018 pata.
+/* 
+ * Copyright 2018 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,7 +37,7 @@ import se.trixon.almond.util.Dict;
 @TopComponent.Description(
         preferredID = "NotesTopComponent",
         //iconBase="SET/PATH/TO/ICON/HERE",
-        persistenceType = TopComponent.PERSISTENCE_ONLY_OPENED
+        persistenceType = TopComponent.PERSISTENCE_ALWAYS
 )
 @TopComponent.Registration(mode = "output", openAtStartup = false)
 @ActionID(category = "Window", id = "se.trixon.almond.nbp.fx.NotesTopComponent")
