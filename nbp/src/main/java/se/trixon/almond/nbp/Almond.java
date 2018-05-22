@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2018 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -28,6 +28,7 @@ public class Almond {
     public static boolean ASK_CONFIRM_EXIT = false;
     public static int ICON_LARGE = 24;
     public static int ICON_SMALL = 16;
+    private final static WindowManager sWindowManager = WindowManager.getDefault();
 
     public static void activateWindow(boolean active) {
         SwingUtilities.invokeLater(() -> {
@@ -39,4 +40,10 @@ public class Almond {
         return WindowManager.getDefault().getMainWindow();
     }
 
+    public static void openAndActivateTopComponent(String id) {
+        SwingUtilities.invokeLater(() -> {
+            sWindowManager.findTopComponent(id).open();
+            sWindowManager.findTopComponent(id).requestActive();
+        });
+    }
 }
