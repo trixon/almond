@@ -1,4 +1,5 @@
 Manifest-Version: 1.0
+OpenIDE-Module-Requires: org.openide.modules.os.MacOSX
 OpenIDE-Module-Layer: se/trixon/almond/nbp/actions/osx/layer.xml
 OpenIDE-Module-Localizing-Bundle: se/trixon/almond/nbp/actions/osx/Bundle.properties
 AutoUpdate-Show-In-Client: false
