@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2018 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,6 +17,7 @@ package se.trixon.almond.nbp;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import javax.swing.SwingUtilities;
 import org.openide.windows.IOProvider;
 import org.openide.windows.InputOutput;
 import org.openide.windows.OutputWriter;
@@ -39,7 +40,9 @@ public class NbLog {
     private static boolean sUseTimestamps = true;
 
     static {
-        sInputOutput = IOProvider.getDefault().getIO(sGlobalTag, false);
+        SwingUtilities.invokeLater(() -> {
+            sInputOutput = IOProvider.getDefault().getIO(sGlobalTag, false);
+        });
     }
 
     public synchronized static void a(Class c, String msg) {
@@ -175,11 +178,13 @@ public class NbLog {
     }
 
     private static void print(String levelClass, String message) {
-        try (OutputWriter outputWriter = sInputOutput.getOut()) {
-            printDate(outputWriter);
-            outputWriter.print(levelClass + " ");
-            outputWriter.println(message);
-        }
+        SwingUtilities.invokeLater(() -> {
+            try (OutputWriter outputWriter = sInputOutput.getOut()) {
+                printDate(outputWriter);
+                outputWriter.print(levelClass + " ");
+                outputWriter.println(message);
+            }
+        });
     }
 
     private static void printDate(OutputWriter outputWriter) {
@@ -189,10 +194,12 @@ public class NbLog {
     }
 
     private static void printErr(String levelClass, String message) {
-        try (OutputWriter outputWriter = sInputOutput.getErr()) {
-            printDate(outputWriter);
-            outputWriter.print(levelClass + " ");
-            outputWriter.println(message);
-        }
+        SwingUtilities.invokeLater(() -> {
+            try (OutputWriter outputWriter = sInputOutput.getErr()) {
+                printDate(outputWriter);
+                outputWriter.print(levelClass + " ");
+                outputWriter.println(message);
+            }
+        });
     }
 }
