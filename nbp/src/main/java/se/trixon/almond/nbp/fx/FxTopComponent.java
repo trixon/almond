@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2018 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -46,6 +46,12 @@ public abstract class FxTopComponent extends TopComponent {
 
     public Scene getScene() {
         return mScene;
+    }
+
+    public void resetFx() {
+        removeAll();
+        mFxPanel.setVisible(true);
+        add(mFxPanel, BorderLayout.CENTER);
     }
 
     public void setScene(Scene scene) {
