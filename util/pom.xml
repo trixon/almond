@@ -1,64 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>se.trixon.almond</groupId>
+    <parent>
+        <groupId>se.trixon.almond</groupId>
+        <artifactId>almond-parent</artifactId>
+        <version>3.0.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
     <artifactId>almond-util</artifactId>
-    <version>2.0.1-SNAPSHOT</version>
+    <version>3.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>${project.groupId}:${project.artifactId}</name>
     <description>Utility classes</description>
-    <url>https://github.com/trixon/java-almond-util</url>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <netbeans.hint.license>apache20</netbeans.hint.license>
-    </properties>
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-        </license>
-    </licenses>
-    <developers>
-        <developer>
-            <id>trixon</id>
-            <name>Patrik Karlström</name>
-            <roles>
-                <role>architect</role>
-                <role>developer</role>
-            </roles>
-            <email>patrik@trixon.se</email>
-            <url>https://trixon.se</url>
-            <timezone>+1</timezone>
-        </developer>
-    </developers>
-    <scm>
-        <url>https://github.com/trixon/java-almond-util</url>
-        <connection>scm:git:git://github.com/trixon/java-almond-util.git</connection>
-        <developerConnection>scm:git:git@github.com:trixon/java-almond-util.git</developerConnection>
-        <tag>HEAD</tag>
-    </scm>
     <dependencies>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.8.1</version>
+            <version>${version.commons-lang3}</version>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.6</version>
+            <version>${version.commons-io}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-text</artifactId>
-            <version>1.4</version>
+            <version>${version.commons-text}</version>
         </dependency>
         <dependency>
             <groupId>org.controlsfx</groupId>
             <artifactId>controlsfx</artifactId>
-            <version>8.40.14</version>
+            <version>${version.controlsfx}</version>
         </dependency>
     </dependencies>
     <build>
