@@ -24,7 +24,7 @@
                 <role>developer</role>
             </roles>
             <email>patrik@trixon.se</email>
-            <url>http://trixon.se</url>
+            <url>https://trixon.se</url>
             <timezone>+1</timezone>
         </developer>
     </developers>
@@ -80,6 +80,7 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
+                    <showDeprecation>true</showDeprecation>
                 </configuration>
             </plugin>
             <plugin>
