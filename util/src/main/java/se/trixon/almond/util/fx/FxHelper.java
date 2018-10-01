@@ -16,9 +16,11 @@
 package se.trixon.almond.util.fx;
 
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 import java.util.stream.Stream;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Point3D;
 import javafx.scene.Node;
@@ -30,7 +32,10 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import org.controlsfx.control.MaskerPane;
+import org.controlsfx.control.NotificationPane;
 import se.trixon.almond.util.PrefsHelper;
+import se.trixon.almond.util.icons.material.MaterialIcon;
 
 /**
  *
@@ -133,6 +138,24 @@ public class FxHelper {
             node.setRotationAxis(p);
             node.setRotate(Math.toDegrees(d));
         }
+    }
+
+    public static void notify(String message, NotificationPane notificationPane, MaskerPane maskerPane, int iconSize) {
+        Platform.runLater(() -> {
+            maskerPane.setVisible(false);
+            notificationPane.show(message, MaterialIcon._Action.INFO_OUTLINE.getImageView(iconSize));
+        });
+
+        new Thread(() -> {
+            try {
+                TimeUnit.MILLISECONDS.sleep(3000);
+                Platform.runLater(() -> {
+                    notificationPane.hide();
+                });
+            } catch (InterruptedException ex) {
+                //Exceptions.printStackTrace(ex);
+            }
+        }).start();
     }
 
     public static Optional showAndWait(Dialog dialog, Stage stage) {
