@@ -52,7 +52,7 @@ public class GeoPoint extends CoordinatePoint {
         setRemark(parts[6]);
     }
 
-    public GeoPoint(String pointId, double x, double y, double z, String pointCode) {
+    public GeoPoint(String pointId, Double x, Double y, Double z, String pointCode) {
         setPointId(pointId);
         mX = x;
         mY = y;

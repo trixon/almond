@@ -45,10 +45,14 @@ public class Geo extends CoordinateFile {
     }
 
     public void addPoint(GeoPoint geoPoint) {
-        if (mPoints.isEmpty()) {
-            mPath2D.moveTo(geoPoint.getY(), geoPoint.getX());
-        } else {
-            mPath2D.lineTo(geoPoint.getY(), geoPoint.getX());
+        try {
+            if (mPoints.isEmpty()) {
+                mPath2D.moveTo(geoPoint.getY(), geoPoint.getX());
+            } else {
+                mPath2D.lineTo(geoPoint.getY(), geoPoint.getX());
+            }
+        } catch (NullPointerException e) {
+            //nvm
         }
 
         mPoints.add(geoPoint);
