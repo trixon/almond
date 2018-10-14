@@ -18,6 +18,7 @@ package se.trixon.almond.util.io;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
+import org.apache.commons.lang3.RegExUtils;
 import org.apache.commons.lang3.StringUtils;
 import se.trixon.almond.util.MathHelper;
 
@@ -38,7 +39,7 @@ public class GeoPoint extends CoordinatePoint {
     }
 
     public GeoPoint(String line) throws NumberFormatException {
-        line = StringUtils.removeAll(line, "\"");
+        line = RegExUtils.removeAll(line, "\"");
         line = StringUtils.removeStart(line.trim(), "Point");
         String[] parts = StringUtils.splitPreserveAllTokens(line, ",");
 

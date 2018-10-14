@@ -39,7 +39,7 @@ import se.trixon.almond.util.swing.SwingHelper;
  */
 public class AlmondUI extends AlmondGui {
 
-    private final ArrayList<AlmondOptionsWatcher> mAlmondOptionsWatchers = new ArrayList();
+    private final ArrayList<AlmondOptionsWatcher> mAlmondOptionsWatchers = new ArrayList<>();
     private JFrame mFrame = null;
     protected final AlmondOptions mAlmondOptions = AlmondOptions.getInstance();
 
