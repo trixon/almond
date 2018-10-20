@@ -16,7 +16,11 @@
 package se.trixon.almond.nbp;
 
 import java.awt.Frame;
+import java.lang.reflect.InvocationTargetException;
 import javax.swing.SwingUtilities;
+import org.openide.util.Exceptions;
+import org.openide.windows.Mode;
+import org.openide.windows.TopComponent;
 import org.openide.windows.WindowManager;
 
 /**
@@ -28,7 +32,8 @@ public class Almond {
     public static boolean ASK_CONFIRM_EXIT = false;
     public static int ICON_LARGE = 24;
     public static int ICON_SMALL = 16;
-    private final static WindowManager sWindowManager = WindowManager.getDefault();
+    private final static WindowManager WINDOW_MANAGER = WindowManager.getDefault();
+    private static boolean sWasSelected;
 
     public static void activateWindow(boolean active) {
         SwingUtilities.invokeLater(() -> {
@@ -42,8 +47,34 @@ public class Almond {
 
     public static void openAndActivateTopComponent(String id) {
         SwingUtilities.invokeLater(() -> {
-            sWindowManager.findTopComponent(id).open();
-            sWindowManager.findTopComponent(id).requestActive();
+            WINDOW_MANAGER.findTopComponent(id).open();
+            WINDOW_MANAGER.findTopComponent(id).requestActive();
         });
+    }
+
+    public static synchronized boolean requestActive(String preferredID) {
+        Runnable r = () -> {
+            try {
+                TopComponent topComponent = WINDOW_MANAGER.findTopComponent(preferredID);
+                Mode mode = WINDOW_MANAGER.findMode(topComponent);
+                sWasSelected = mode.getSelectedTopComponent() == topComponent;
+                topComponent.requestActive();
+            } catch (Exception e) {
+                //Could not find top component...
+                sWasSelected = false;
+            }
+        };
+
+        if (SwingUtilities.isEventDispatchThread()) {
+            r.run();
+        } else {
+            try {
+                SwingUtilities.invokeAndWait(r);
+            } catch (InterruptedException | InvocationTargetException ex) {
+                Exceptions.printStackTrace(ex);
+            }
+        }
+
+        return sWasSelected;
     }
 }
