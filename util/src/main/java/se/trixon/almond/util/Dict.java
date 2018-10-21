@@ -167,6 +167,7 @@ public enum Dict {
     IMAGE,
     IMAGE_DIRECTORY,
     IMAGE_SIZE,
+    IMPORT,
     INCLUDE,
     INFORMATION,
     INVALID_ARGUMENT,
