@@ -265,6 +265,8 @@ public enum Dict {
     PATTERN,
     PHOTO,
     PIN,
+    PLACE_NAME,
+    PLACE_NAMES,
     PLACEMARK,
     PLAY,
     PLEASE_WAIT,
