@@ -83,9 +83,17 @@ public class AboutPane extends TabPane {
         return action;
     }
 
-    private AboutPane(AboutModel aboutModel) {
+    public AboutPane(AboutModel aboutModel) {
         mAboutModel = aboutModel;
         init();
+    }
+
+    public void reset() {
+        getTabs().stream().filter((tab) -> (tab instanceof ResetableTab)).forEachOrdered((tab) -> {
+            ((ResetableTab) tab).reset();
+        });
+
+        getSelectionModel().selectFirst();
     }
 
     private void init() {
@@ -107,14 +115,6 @@ public class AboutPane extends TabPane {
         }
 
         getTabs().add(new PropertiesTab(mAboutModel));
-    }
-
-    private void reset() {
-        getTabs().stream().filter((tab) -> (tab instanceof ResetableTab)).forEachOrdered((tab) -> {
-            ((ResetableTab) tab).reset();
-        });
-
-        getSelectionModel().selectFirst();
     }
 
     public interface ResetableTab {
