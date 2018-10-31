@@ -373,6 +373,7 @@ public enum Dict {
     TOOLBARS,
     TOOLBOX,
     TOOLS,
+    TOOLS_SEARCH,
     TO_MANY_CLIENTS,
     TRANSLATION,
     TYPE,
