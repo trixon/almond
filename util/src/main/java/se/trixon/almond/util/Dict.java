@@ -161,6 +161,7 @@ public enum Dict {
     HEIGHT,
     HELP,
     HISTORY,
+    HITS,
     HOME,
     HOST,
     ICONS,
