@@ -286,6 +286,7 @@ public enum Dict {
     QUIT,
     RANDOM,
     READ_ONLY,
+    READY,
     RECURSIVE,
     REDO,
     REFRESH,
