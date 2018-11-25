@@ -394,6 +394,7 @@ public enum Dict {
     WINDOW,
     WINDOW_ALREADY_OPEN,
     YES,
+    ZOOM_EXTENTS,
     ZOOM;
 
     private final ResourceBundle mResourceBundle = ResourceBundle.getBundle(SystemHelper.getPackageAsPath(Dict.class) + "Dict", Locale.getDefault());
