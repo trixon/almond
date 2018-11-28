@@ -297,6 +297,8 @@ public enum Dict {
     RENAME,
     RENDER,
     REPLACE,
+    REPORT,
+    REPORTS,
     RESET,
     RESET_WINDOWS,
     REVERT,
