@@ -15,7 +15,6 @@
  */
 package se.trixon.almond.util.fx.dialogs;
 
-import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -82,8 +81,6 @@ public class Message {
         alert.setHeaderText(headerText);
         alert.setContentText(contentText);
 
-        Platform.runLater(() -> {
-            FxHelper.showAndWait(alert, (Stage) owner);
-        });
+        FxHelper.showAndWait(alert, (Stage) owner);
     }
 }
