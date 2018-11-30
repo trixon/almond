@@ -36,6 +36,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
 import javax.swing.ImageIcon;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -51,6 +53,12 @@ public class SystemHelper {
 
     public static void copyToClipboard(String string) {
         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(string), null);
+    }
+
+    public static void copyToClipboard(Image image) {
+        ClipboardContent clipboardContent = new ClipboardContent();
+        clipboardContent.putImage(image);
+        Clipboard.getSystemClipboard().setContent(clipboardContent);
     }
 
     public static void desktopBrowse(String url) {
