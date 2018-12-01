@@ -19,6 +19,7 @@ import java.awt.Desktop;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.InputEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
@@ -34,6 +35,7 @@ import java.util.ResourceBundle;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.Clipboard;
@@ -55,10 +57,15 @@ public class SystemHelper {
         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(string), null);
     }
 
-    public static void copyToClipboard(Image image) {
+    public static boolean copyToClipboard(BufferedImage bufferedImage) {
+        return copyToClipboard(SwingFXUtils.toFXImage(bufferedImage, null));
+    }
+
+    public static boolean copyToClipboard(Image image) {
         ClipboardContent clipboardContent = new ClipboardContent();
         clipboardContent.putImage(image);
-        Clipboard.getSystemClipboard().setContent(clipboardContent);
+
+        return Clipboard.getSystemClipboard().setContent(clipboardContent);
     }
 
     public static void desktopBrowse(String url) {
