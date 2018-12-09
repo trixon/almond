@@ -158,6 +158,12 @@ public class FxHelper {
         }).start();
     }
 
+    public static void setEditable(boolean editable, Spinner... spinners) {
+        for (Spinner spinner : spinners) {
+            spinner.setEditable(editable);
+        }
+    }
+
     public static Optional showAndWait(Dialog dialog, Stage stage) {
         Stage alertStage = (Stage) dialog.getDialogPane().getScene().getWindow();
         if (stage != null) {
