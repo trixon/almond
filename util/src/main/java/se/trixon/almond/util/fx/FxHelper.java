@@ -80,6 +80,17 @@ public class FxHelper {
         return Color.web(hex);
     }
 
+    public static java.awt.Color colorToColor(Color color) {
+        if (color == null) {
+            return java.awt.Color.BLACK;
+        } else {
+            return new java.awt.Color((float) color.getRed(),
+                    (float) color.getGreen(),
+                    (float) color.getBlue(),
+                    (float) color.getOpacity());
+        }
+    }
+
     public static String colorToHex(Color color) {
         return String.format("%02X%02X%02X",
                 (int) (color.getRed() * 0xff),
