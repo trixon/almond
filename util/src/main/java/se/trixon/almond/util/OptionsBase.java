@@ -32,6 +32,22 @@ public abstract class OptionsBase {
         return mPreferences.get(key, def == null || def.length == 0 ? "" : def[0]);
     }
 
+    public double getDouble(String key, Double... def) {
+        return mPreferences.getDouble(key, def == null || def.length == 0 ? 0 : def[0]);
+    }
+
+    public float getFloat(String key, Float... def) {
+        return mPreferences.getFloat(key, def == null || def.length == 0 ? 0 : def[0]);
+    }
+
+    public double getInt(String key, Integer... def) {
+        return mPreferences.getInt(key, def == null || def.length == 0 ? 0 : def[0]);
+    }
+
+    public long getLong(String key, Long... def) {
+        return mPreferences.getLong(key, def == null || def.length == 0 ? 0 : def[0]);
+    }
+
     public Preferences getPreferences() {
         return mPreferences;
     }
@@ -40,11 +56,27 @@ public abstract class OptionsBase {
         return mPreferences.getBoolean(key, def == null || def.length == 0 ? true : def[0]);
     }
 
-    public void set(String key, boolean value) {
+    public void put(String key, boolean value) {
         mPreferences.putBoolean(key, value);
     }
 
-    public void set(String key, String value) {
+    public void put(String key, int value) {
+        mPreferences.putInt(key, value);
+    }
+
+    public void put(String key, long value) {
+        mPreferences.putLong(key, value);
+    }
+
+    public void put(String key, double value) {
+        mPreferences.putDouble(key, value);
+    }
+
+    public void put(String key, float value) {
+        mPreferences.putFloat(key, value);
+    }
+
+    public void put(String key, String value) {
         mPreferences.put(key, value);
     }
 
