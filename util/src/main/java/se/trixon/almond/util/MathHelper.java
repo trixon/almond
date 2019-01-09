@@ -24,6 +24,10 @@ import java.math.RoundingMode;
  */
 public class MathHelper {
 
+    public static double convertDoubleToDouble(Double d) {
+        return d == null ? 0 : d;
+    }
+
     public static String convertIntegerToString(Integer i) {
         return i == null ? null : i.toString();
     }
