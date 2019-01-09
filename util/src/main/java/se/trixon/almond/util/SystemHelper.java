@@ -242,6 +242,20 @@ public class SystemHelper {
         return System.getProperty("user.name");
     }
 
+    /**
+     *
+     * @param host
+     * @return true if host is reachable within 5 seconds.
+     */
+    public static boolean isReachable(String host) {
+        try {
+            InetAddress inetAddress = InetAddress.getByName(host);
+            return inetAddress.isReachable(5000);
+        } catch (IOException ex) {
+            return false;
+        }
+    }
+
     public static void setMacApplicationName(String name) {
         System.setProperty("com.apple.mrj.application.apple.menu.about.name", name);
         System.setProperty("apple.awt.application.name", name);
