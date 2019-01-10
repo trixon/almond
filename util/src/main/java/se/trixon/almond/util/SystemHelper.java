@@ -30,7 +30,9 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.net.UnknownHostException;
 import java.security.CodeSource;
+import java.util.LinkedHashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -228,6 +230,54 @@ public class SystemHelper {
         }
 
         return s;
+    }
+
+    public static String getSystemInfo() {
+        LinkedHashMap<String, String> map = new LinkedHashMap<>();
+        map.put("Operating System", String.format("%s version %s running on %s",
+                System.getProperty("os.name"),
+                System.getProperty("os.version"),
+                System.getProperty("os.arch")
+        ));
+        map.put("Java; VM; Vendor", String.format("%s; %s %s; %s",
+                System.getProperty("java.version"),
+                System.getProperty("java.vm.name"),
+                System.getProperty("java.vm.version"),
+                System.getProperty("java.vendor")
+        ));
+        map.put("Runtime", String.format("%s %s",
+                System.getProperty("java.runtime.name"),
+                System.getProperty("java.runtime.version")
+        ));
+        map.put("Java Home", System.getProperty("java.home"));
+        map.put("System Locale; Encoding", String.format("%s; %s",
+                Locale.getDefault().toString(),
+                System.getProperty("file.encoding")
+        ));
+        map.put("Home Directory", System.getProperty("user.home"));
+        if (System.getProperties().containsKey("netbeans.user")) {
+            map.put("User Directory", System.getProperty("netbeans.user"));
+        }
+
+        int max = Integer.MIN_VALUE;
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            max = Math.max(max, entry.getKey().length());
+        }
+
+        StringBuilder sb = new StringBuilder("\n");
+        String separator = " = ";
+
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            sb.append("  ").append(StringUtils.rightPad(key, max)).append(separator).append(value).append("\n");
+        }
+
+        return sb.toString();
+    }
+
+    public static void main(String[] args) {
+        System.out.println(getSystemInfo());
     }
 
     public static String getUserCountry() {
