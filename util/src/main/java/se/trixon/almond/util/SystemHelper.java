@@ -245,12 +245,12 @@ public class SystemHelper {
     /**
      *
      * @param host
-     * @return true if host is reachable within 5 seconds.
+     * @return true if host is resolves an ip.
      */
     public static boolean isReachable(String host) {
         try {
             InetAddress inetAddress = InetAddress.getByName(host);
-            return inetAddress.isReachable(5000);
+            return true;
         } catch (IOException ex) {
             return false;
         }
