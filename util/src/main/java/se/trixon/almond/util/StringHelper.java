@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Patrik Karlström.
+ * Copyright 2019 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -149,6 +149,40 @@ public class StringHelper {
         }
 
         return treeSet;
+    }
+
+    public static String createRegexFromGlob(String glob) {
+        //https://stackoverflow.com/questions/1247772/is-there-an-equivalent-of-java-util-regex-for-glob-type-patterns
+
+        String out = "^";
+        for (int i = 0; i < glob.length(); ++i) {
+            final char c = glob.charAt(i);
+
+            switch (c) {
+                case '*':
+                    out += ".*";
+                    break;
+
+                case '?':
+                    out += '.';
+                    break;
+
+                case '.':
+                    out += "\\.";
+                    break;
+
+                case '\\':
+                    out += "\\\\";
+                    break;
+
+                default:
+                    out += c;
+            }
+        }
+
+        out += '$';
+
+        return out;
     }
 
     public static String[] intervalStringToArray(String intervalString) {
