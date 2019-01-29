@@ -28,6 +28,10 @@ public class MathHelper {
         return d == null ? 0 : d;
     }
 
+    public static Integer convertIntegerToInteger(Integer i) {
+        return i == null ? 0 : i;
+    }
+
     public static String convertIntegerToString(Integer i) {
         return i == null ? null : i.toString();
     }
