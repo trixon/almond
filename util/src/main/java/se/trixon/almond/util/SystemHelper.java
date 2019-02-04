@@ -55,6 +55,15 @@ public class SystemHelper {
 
     private static final Logger LOGGER = Logger.getLogger(SystemHelper.class.getName());
 
+    /**
+     *
+     * @param millisec
+     * @return difference from System.currentTimeMillis()
+     */
+    public static long age(long millisec) {
+        return System.currentTimeMillis() - millisec;
+    }
+
     public static void copyToClipboard(String string) {
         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(string), null);
     }
@@ -276,10 +285,6 @@ public class SystemHelper {
         return sb.toString();
     }
 
-    public static void main(String[] args) {
-        System.out.println(getSystemInfo());
-    }
-
     public static String getUserCountry() {
         return System.getProperty("user.country");
     }
@@ -304,6 +309,10 @@ public class SystemHelper {
         } catch (IOException ex) {
             return false;
         }
+    }
+
+    public static void main(String[] args) {
+        System.out.println(getSystemInfo());
     }
 
     public static void setMacApplicationName(String name) {
