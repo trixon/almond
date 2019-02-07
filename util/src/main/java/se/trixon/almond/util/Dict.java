@@ -306,6 +306,7 @@ public enum Dict {
     REVERT,
     REVIEW,
     ROOT,
+    RULER,
     RUN,
     RUN_AFTER,
     RUN_BEFORE,
