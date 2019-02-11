@@ -20,12 +20,15 @@ import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
 import org.openide.windows.TopComponent;
+import org.openide.windows.WindowManager;
 
 /**
  *
  * @author Patrik Karlström
  */
 public abstract class FxTopComponent extends TopComponent {
+
+    private static final WindowManager sWindowManager = WindowManager.getDefault();
 
     private final JFXPanel mFxPanel = new JFXPanel();
     private Scene mScene;
@@ -59,7 +62,9 @@ public abstract class FxTopComponent extends TopComponent {
     }
 
     public void toggleOpened() {
-        if (isOpened()) {
+        boolean activeInMode = sWindowManager.findMode(this).getSelectedTopComponent() == this;
+
+        if (activeInMode) {
             close();
         } else {
             open();
