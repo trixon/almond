@@ -484,6 +484,23 @@ public enum Dict {
         }
     }
 
+    public enum Shape {
+        CIRCLE,
+        ELLIPSE,
+        LINE,
+        PATH,
+        POLYGON,
+        RECTANGLE,
+        SQUARE,
+        ZZZ;
+        private final ResourceBundle mResourceBundle = ResourceBundle.getBundle(SystemHelper.getPackageAsPath(Dict.class) + "DictShape", Locale.getDefault());
+
+        @Override
+        public String toString() {
+            return getString(mResourceBundle, name().toLowerCase());
+        }
+    }
+
     public enum Time {
         DATE,
         DAY,
