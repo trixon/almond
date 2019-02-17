@@ -40,7 +40,7 @@ public abstract class OptionsBase {
         return mPreferences.getFloat(key, def == null || def.length == 0 ? 0 : def[0]);
     }
 
-    public double getInt(String key, Integer... def) {
+    public int getInt(String key, Integer... def) {
         return mPreferences.getInt(key, def == null || def.length == 0 ? 0 : def[0]);
     }
 
