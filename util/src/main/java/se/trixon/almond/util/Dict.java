@@ -160,6 +160,7 @@ public enum Dict {
     GENERATING_FILELIST,
     GLOBAL_OPTIONS,
     GROUP,
+    @Deprecated
     HEIGHT,
     HELP,
     HISTORY,
@@ -265,6 +266,7 @@ public enum Dict {
     PASTE,
     PATH,
     PATH_GAP_GFX,
+    @Deprecated
     PATH_GFX,
     PATTERN,
     PHOTO,
@@ -397,6 +399,7 @@ public enum Dict {
     VERSION,
     VIEW,
     WARNING,
+    @Deprecated
     WIDTH,
     WINDOW,
     WINDOW_ALREADY_OPEN,
@@ -484,16 +487,26 @@ public enum Dict {
         }
     }
 
-    public enum Shape {
+    public enum Geometry {
+        ANGLE,
+        AREA,
+        BEARING,
+        CENTER,
         CIRCLE,
+        DIAMETER,
         ELLIPSE,
+        HEIGHT,
+        LENGTH,
         LINE,
         PATH,
+        PERIMETER,
         POLYGON,
+        RADIUS,
         RECTANGLE,
         SQUARE,
+        WIDTH,
         ZZZ;
-        private final ResourceBundle mResourceBundle = ResourceBundle.getBundle(SystemHelper.getPackageAsPath(Dict.class) + "DictShape", Locale.getDefault());
+        private final ResourceBundle mResourceBundle = ResourceBundle.getBundle(SystemHelper.getPackageAsPath(Dict.class) + "DictGeometry", Locale.getDefault());
 
         @Override
         public String toString() {
