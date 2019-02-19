@@ -69,6 +69,7 @@ public enum Dict {
     CATEGORY,
     CHANGE,
     CHANGE_TO,
+    @Deprecated
     CIRCLE,
     CLEAR,
     CLEAR_COMMENTS,
@@ -202,6 +203,7 @@ public enum Dict {
     LIBRARIES,
     LICENSE,
     LIGHT,
+    @Deprecated
     LINE,
     LINE_SEPARATOR,
     LIST,
@@ -229,6 +231,7 @@ public enum Dict {
     MATERIAL_WHITE,
     MAX_HEIGHT,
     MAX_WIDTH,
+    MEASURE,
     MENU,
     METADATA_FILE,
     METADATA_FILES,
