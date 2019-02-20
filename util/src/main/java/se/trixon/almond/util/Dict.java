@@ -503,6 +503,7 @@ public enum Dict {
         LINE,
         PATH,
         PERIMETER,
+        POINT,
         POLYGON,
         RADIUS,
         RECTANGLE,
