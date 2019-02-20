@@ -498,6 +498,8 @@ public enum Dict {
         CIRCLE,
         DIAMETER,
         ELLIPSE,
+        GEOMETRIES,
+        GEOMETRY,
         HEIGHT,
         LENGTH,
         LINE,
