@@ -98,8 +98,68 @@ public class FxHelper {
                 (int) (color.getBlue() * 0xff));
     }
 
+    public static String colorToHexABGR(Color color) {
+        return String.format("%02X%02X%02X%02X",
+                (int) (color.getOpacity() * 0xff),
+                (int) (color.getBlue() * 0xff),
+                (int) (color.getGreen() * 0xff),
+                (int) (color.getRed() * 0xff));
+    }
+
+    public static String colorToHexABGR(java.awt.Color color) {
+        return String.format("%02X%02X%02X%02X",
+                color.getAlpha(),
+                color.getBlue(),
+                color.getGreen(),
+                color.getRed());
+    }
+
+    public static String colorToHexARGB(Color color) {
+        return String.format("%02X%02X%02X%02X",
+                (int) (color.getOpacity() * 0xff),
+                (int) (color.getRed() * 0xff),
+                (int) (color.getGreen() * 0xff),
+                (int) (color.getBlue() * 0xff));
+    }
+
+    public static String colorToHexARGB(java.awt.Color color) {
+        return String.format("%02X%02X%02X%02X",
+                color.getAlpha(),
+                color.getBlue(),
+                color.getGreen(),
+                color.getRed());
+    }
+
+    public static String colorToHexBGR(Color color) {
+        return String.format("%02X%02X%02X",
+                (int) (color.getBlue() * 0xff),
+                (int) (color.getGreen() * 0xff),
+                (int) (color.getRed() * 0xff));
+    }
+
+    public static String colorToHexBGR(java.awt.Color color) {
+        return String.format("%02X%02X%02X",
+                color.getBlue(),
+                color.getGreen(),
+                color.getRed());
+    }
+
     public static int colorToHexInt(Color color) {
         return Integer.decode("0x" + colorToHex(color));
+    }
+
+    public static String colorToHexRGB(Color color) {
+        return String.format("%02X%02X%02X",
+                (int) (color.getRed() * 0xff),
+                (int) (color.getGreen() * 0xff),
+                (int) (color.getBlue() * 0xff));
+    }
+
+    public static String colorToHexRGB(java.awt.Color color) {
+        return String.format("%02X%02X%02X",
+                color.getBlue(),
+                color.getGreen(),
+                color.getRed());
     }
 
     public static int colorToInt(Color color) {
@@ -128,6 +188,10 @@ public class FxHelper {
 
     public static boolean isFullScreen(Class c) {
         return Preferences.userNodeForPackage(c).getBoolean(STAGE_FULL_SCREEN, false);
+    }
+
+    public static void main(String[] args) {
+        System.out.println(colorToHexBGR(java.awt.Color.red));
     }
 
     public static void matrixRotateNode(Node node, double alf, double bet, double gam) {
