@@ -76,21 +76,23 @@ public class FxHelper {
         }
     }
 
-    public static Color colorFromHex(String hex) {
-        return Color.web(hex);
+    public static Color colorFromHexRGBA(String rgba) {
+        return Color.web(rgba);
     }
 
     public static java.awt.Color colorToColor(Color color) {
         if (color == null) {
             return java.awt.Color.BLACK;
         } else {
-            return new java.awt.Color((float) color.getRed(),
+            return new java.awt.Color(
+                    (float) color.getRed(),
                     (float) color.getGreen(),
                     (float) color.getBlue(),
                     (float) color.getOpacity());
         }
     }
 
+    @Deprecated
     public static String colorToHex(Color color) {
         return String.format("%02X%02X%02X",
                 (int) (color.getRed() * 0xff),
@@ -107,22 +109,6 @@ public class FxHelper {
     }
 
     public static String colorToHexABGR(java.awt.Color color) {
-        return String.format("%02X%02X%02X%02X",
-                color.getAlpha(),
-                color.getBlue(),
-                color.getGreen(),
-                color.getRed());
-    }
-
-    public static String colorToHexARGB(Color color) {
-        return String.format("%02X%02X%02X%02X",
-                (int) (color.getOpacity() * 0xff),
-                (int) (color.getRed() * 0xff),
-                (int) (color.getGreen() * 0xff),
-                (int) (color.getBlue() * 0xff));
-    }
-
-    public static String colorToHexARGB(java.awt.Color color) {
         return String.format("%02X%02X%02X%02X",
                 color.getAlpha(),
                 color.getBlue(),
@@ -160,6 +146,24 @@ public class FxHelper {
                 color.getBlue(),
                 color.getGreen(),
                 color.getRed());
+    }
+
+    public static String colorToHexRGBA(java.awt.Color color) {
+        return String.format("%02X%02X%02X%02X",
+                color.getRed(),
+                color.getGreen(),
+                color.getBlue(),
+                color.getAlpha()
+        );
+    }
+
+    public static String colorToHexRGBA(Color color) {
+        return String.format("%02X%02X%02X%02X",
+                (int) (color.getRed() * 0xff),
+                (int) (color.getGreen() * 0xff),
+                (int) (color.getBlue() * 0xff),
+                (int) (color.getOpacity() * 0xff)
+        );
     }
 
     public static int colorToInt(Color color) {
