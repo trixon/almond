@@ -159,6 +159,7 @@ public enum Dict {
     FROM,
     FULL_SCREEN,
     GENERATING_FILELIST,
+    GLOBAL,
     GLOBAL_OPTIONS,
     GROUP,
     @Deprecated
@@ -207,6 +208,7 @@ public enum Dict {
     LINE,
     LINE_SEPARATOR,
     LIST,
+    LOCAL,
     LOG,
     LOGGING,
     LOG_DIRECTORY,
