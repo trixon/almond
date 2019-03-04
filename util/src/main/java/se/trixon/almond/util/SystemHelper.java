@@ -315,6 +315,16 @@ public class SystemHelper {
         System.out.println(getSystemInfo());
     }
 
+    public static void printEvery(int counter, int total, int every, Logger logger, String formatMessage) {
+        if (counter % every == 0) {
+            if (logger != null) {
+                logger.info(String.format(formatMessage, counter));
+            } else {
+                System.out.println(String.format(formatMessage, counter, total));
+            }
+        }
+    }
+
     public static void setMacApplicationName(String name) {
         System.setProperty("com.apple.mrj.application.apple.menu.about.name", name);
         System.setProperty("apple.awt.application.name", name);
