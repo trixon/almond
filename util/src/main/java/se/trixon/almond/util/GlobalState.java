@@ -43,8 +43,28 @@ public class GlobalState {
     }
 
     public void put(String key, Object object) {
-        mKeyObjectMap.put(key, object);
-        GlobalStateChangeEvent event = new GlobalStateChangeEvent(key, object, this) {
+        put(key, object, false);
+    }
+
+    public void removeAllListeners() {
+        mListeners.clear();
+    }
+
+    public void removeListener(GlobalStateChangeListener listener) {
+        mListenerKeyMap.remove(listener);
+        mListeners.remove(listener);
+    }
+
+    public void send(String key, Object object) {
+        put(key, object, true);
+    }
+
+    private void put(String key, Object object, boolean _volatile) {
+        if (!_volatile) {
+            mKeyObjectMap.put(key, object);
+        }
+
+        GlobalStateChangeEvent event = new GlobalStateChangeEvent(key, object, this, _volatile) {
             @Override
             public <T> T getValue() {
                 return (T) object;
@@ -57,15 +77,5 @@ public class GlobalState {
                 listener.globalStateChange(event);
             }
         }
-
-    }
-
-    public void removeAllListeners() {
-        mListeners.clear();
-    }
-
-    public void removeListener(GlobalStateChangeListener listener) {
-        mListenerKeyMap.remove(listener);
-        mListeners.remove(listener);
     }
 }

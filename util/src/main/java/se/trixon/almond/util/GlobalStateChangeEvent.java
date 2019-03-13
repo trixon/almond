@@ -23,11 +23,13 @@ public abstract class GlobalStateChangeEvent extends java.util.EventObject {
 
     private String mKey;
     private Object mObject;
+    private boolean mVolatile;
 
-    public GlobalStateChangeEvent(String key, Object object, Object source) {
+    public GlobalStateChangeEvent(String key, Object object, Object source, boolean _volatile) {
         super(source);
         mKey = key;
         mObject = object;
+        mVolatile = _volatile;
     }
 
     public String getKey() {
@@ -39,4 +41,8 @@ public abstract class GlobalStateChangeEvent extends java.util.EventObject {
     }
 
     public abstract <T> T getValue();
+
+    public boolean isVolatile() {
+        return mVolatile;
+    }
 }
