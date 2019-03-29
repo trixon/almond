@@ -259,6 +259,14 @@ public class FxHelper {
         buttonBase.setOnMouseExited(e -> buttonBase.setStyle(STYLE_IDLE_BUTTON));
     }
 
+    public static void undecorateButtons(Stream<Node> stream) {
+        stream.filter((item) -> (item instanceof ButtonBase))
+                .map((item) -> (ButtonBase) item)
+                .forEachOrdered((buttonBase) -> {
+                    undecorateButton(buttonBase);
+                });
+    }
+
     public static void windowStateRestore(Stage stage, double defaultWidth, double defaultHeight, Class c) throws BackingStoreException {
         Preferences p = Preferences.userNodeForPackage(c);
 
