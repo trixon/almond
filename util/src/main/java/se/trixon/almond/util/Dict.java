@@ -314,6 +314,8 @@ public enum Dict {
     REPORTS,
     RESET,
     RESET_WINDOWS,
+    RESTORE,
+    RESTORE_DEFAULTS,
     REVERT,
     REVIEW,
     ROOT,
