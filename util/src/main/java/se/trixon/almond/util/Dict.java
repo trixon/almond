@@ -118,6 +118,7 @@ public enum Dict {
     DISABLE,
     DISABLED,
     DISCONNECT,
+    DOCUMENT,
     DOCUMENTATION,
     DONE,
     DOWNLOADS_SCHEDULE,
