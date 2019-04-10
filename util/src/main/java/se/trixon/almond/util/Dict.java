@@ -399,6 +399,8 @@ public enum Dict {
     TRANSLATION,
     TYPE,
     UNDO,
+    UNHANDLED_ERROR,
+    UNHANDLED_EXCEPTION,
     UNIQUE,
     UNTITLED,
     UP,
