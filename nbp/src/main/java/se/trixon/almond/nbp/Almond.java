@@ -47,8 +47,20 @@ public class Almond {
 
     public static void openAndActivateTopComponent(String id) {
         SwingUtilities.invokeLater(() -> {
-            WINDOW_MANAGER.findTopComponent(id).open();
-            WINDOW_MANAGER.findTopComponent(id).requestActive();
+            try {
+                WINDOW_MANAGER.findTopComponent(id).open();
+                WINDOW_MANAGER.findTopComponent(id).requestActive();
+            } catch (Exception e) {
+            }
+        });
+    }
+
+    public static void openTopComponent(String id) {
+        SwingUtilities.invokeLater(() -> {
+            try {
+                WINDOW_MANAGER.findTopComponent(id).open();
+            } catch (Exception e) {
+            }
         });
     }
 
