@@ -103,6 +103,6 @@
         <version.commons-io>2.6</version.commons-io>
         <version.commons-lang3>3.9</version.commons-lang3>
         <version.commons-text>1.6</version.commons-text>
-        <version.controlsfx>8.40.14</version.controlsfx>
+        <version.controlsfx>8.40.15</version.controlsfx>
     </properties>
 </project>
