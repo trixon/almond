@@ -15,6 +15,7 @@
  */
 package se.trixon.almond.util;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -35,6 +36,16 @@ public class CollectionHelper {
 
     public static void incValue(Map<String, Integer> map, String key) {
         map.put(key, map.getOrDefault(key, 0) + 1);
+    }
+
+    public static void replaceIfAfter(Map<String, Timestamp> map, String key, Timestamp newTimestamp) {
+        Timestamp oldTimestamp = map.getOrDefault(key, new Timestamp(Long.MIN_VALUE));
+        map.put(key, DateHelper.getMax(oldTimestamp, newTimestamp));
+    }
+
+    public static void replaceIfBefore(Map<String, Timestamp> map, String key, Timestamp newTimestamp) {
+        Timestamp oldTimestamp = map.getOrDefault(key, new Timestamp(Long.MAX_VALUE));
+        map.put(key, DateHelper.getMin(oldTimestamp, newTimestamp));
     }
 
     public static <K, V extends Comparable<? super V>> Map<K, V> sortByValue(Map<K, V> map) {
