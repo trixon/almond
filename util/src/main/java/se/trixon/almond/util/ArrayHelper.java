@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2019 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,6 +27,26 @@ public class ArrayHelper {
         }
 
         return integers;
+    }
+
+    public static int continuousValueToArrayIndex(int size, double value, double beg, double end) {
+        double step = (end - beg) / size;
+        double lowLimit = Double.MIN_VALUE;
+        for (int i = 0; i < size; i++) {
+            double limit = beg + i * step;
+            if (value > lowLimit && value < limit) {
+                return i;
+            }
+
+            lowLimit = limit;
+        }
+
+        return size - 1;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(continuousValueToArrayIndex(32, -0.0002, -0.01, 0.01));
+        System.out.println(continuousValueToArrayIndex(32, 1, -0.01, 0.01));
     }
 
     public static int[] stringToInt(String[] strings) throws NumberFormatException {
