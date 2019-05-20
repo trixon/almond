@@ -45,6 +45,14 @@ public class Almond {
         return WindowManager.getDefault().getMainWindow();
     }
 
+    public static <T extends TopComponent> T getTopComponent(String id, Class<T> type) {
+        return type.cast(WINDOW_MANAGER.findTopComponent(id));
+    }
+
+    public static TopComponent getTopComponent(String id) {
+        return getTopComponent(id, TopComponent.class);
+    }
+
     public static void openAndActivateTopComponent(String id) {
         SwingUtilities.invokeLater(() -> {
             try {
