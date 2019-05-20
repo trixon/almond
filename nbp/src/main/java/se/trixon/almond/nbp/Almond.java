@@ -72,6 +72,25 @@ public class Almond {
         });
     }
 
+    public static void openTopComponent(String id, boolean invokeAndWait) {
+        Runnable r = () -> {
+            try {
+                WINDOW_MANAGER.findTopComponent(id).open();
+            } catch (Exception e) {
+            }
+        };
+
+        if (!SwingUtilities.isEventDispatchThread() && invokeAndWait) {
+            try {
+                SwingUtilities.invokeAndWait(r);
+            } catch (InterruptedException | InvocationTargetException ex) {
+                Exceptions.printStackTrace(ex);
+            }
+        } else {
+            SwingUtilities.invokeLater(r);
+        }
+    }
+
     public static synchronized boolean requestActive(String preferredID) {
         Runnable r = () -> {
             try {
