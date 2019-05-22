@@ -4,11 +4,11 @@
     <parent>
         <groupId>se.trixon.almond</groupId>
         <artifactId>almond-parent</artifactId>
-        <version>3.0.0</version>
+        <version>3.0.1</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>almond-util</artifactId>
-    <version>3.0.0</version>
+    <version>3.0.1</version>
     <packaging>jar</packaging>
     <description>Utility classes</description>
     <dependencies>
