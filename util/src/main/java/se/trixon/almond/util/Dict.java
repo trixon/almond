@@ -70,6 +70,7 @@ public enum Dict {
     CATEGORY,
     CHANGE,
     CHANGE_TO,
+    CHART,
     @Deprecated
     CIRCLE,
     CLEAR,
@@ -134,6 +135,7 @@ public enum Dict {
     DYNAMIC_WORD_WRAP,
     EDIT,
     ELEVATION,
+    EMPTY,
     ENABLE,
     ENABLED,
     ENDS_WITH,
