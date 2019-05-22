@@ -4,7 +4,7 @@
 
     <groupId>se.trixon.almond</groupId>
     <artifactId>almond-parent</artifactId>
-    <version>3.0.1</version>
+    <version>3.0.2-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>almond-parent</name>
@@ -96,7 +96,7 @@
         <netbeans.hint.license>apache20</netbeans.hint.license>
         <netbeans.version>RELEASE110</netbeans.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <version.almond-util>3.0.1</version.almond-util>
+        <version.almond-util>3.0.2-SNAPSHOT</version.almond-util>
         <version.commons-cli>1.4</version.commons-cli>
         <version.commons-codec>1.12</version.commons-codec>
         <version.commons-io>2.6</version.commons-io>
