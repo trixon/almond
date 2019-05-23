@@ -90,18 +90,41 @@
         <module>util</module>
     </modules>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>3.9</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>2.6</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-text</artifactId>
+                <version>1.6</version>
+            </dependency>
+            <dependency>
+                <groupId>org.controlsfx</groupId>
+                <artifactId>controlsfx</artifactId>
+                <version>8.40.15</version>
+            </dependency>
+            <dependency>
+                <groupId>se.trixon.almond</groupId>
+                <artifactId>almond-util</artifactId>
+                <version>3.0.2-SNAPSHOT</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <netbeans.hint.license>apache20</netbeans.hint.license>
         <netbeans.version>RELEASE110</netbeans.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <version.almond-util>3.0.2-SNAPSHOT</version.almond-util>
-        <version.commons-cli>1.4</version.commons-cli>
-        <version.commons-codec>1.12</version.commons-codec>
-        <version.commons-io>2.6</version.commons-io>
-        <version.commons-lang3>3.9</version.commons-lang3>
-        <version.commons-text>1.6</version.commons-text>
-        <version.controlsfx>8.40.15</version.controlsfx>
     </properties>
 </project>

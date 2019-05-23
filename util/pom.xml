@@ -8,31 +8,28 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>almond-util</artifactId>
-    <version>3.0.2-SNAPSHOT</version>
     <packaging>jar</packaging>
     <description>Utility classes</description>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>${version.commons-lang3}</version>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>${version.commons-io}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-text</artifactId>
-            <version>${version.commons-text}</version>
         </dependency>
         <dependency>
             <groupId>org.controlsfx</groupId>
             <artifactId>controlsfx</artifactId>
-            <version>${version.controlsfx}</version>
         </dependency>
     </dependencies>
+
     <build>
         <plugins>
             <plugin>
