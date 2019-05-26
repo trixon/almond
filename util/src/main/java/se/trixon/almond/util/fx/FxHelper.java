@@ -29,7 +29,11 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.controlsfx.control.MaskerPane;
@@ -73,6 +77,24 @@ public class FxHelper {
     public static void autoCommitSpinners(Spinner... spinners) {
         for (Spinner spinner : spinners) {
             autoCommitSpinner(spinner);
+        }
+    }
+
+    public static void autoSizeColumn(GridPane gridPane, int columnCount) {
+        gridPane.getColumnConstraints().clear();
+
+        for (int i = 0; i < columnCount; i++) {
+            ColumnConstraints columnConstraints = new ColumnConstraints();
+            columnConstraints.setPercentWidth(100.0 / columnCount);
+            gridPane.getColumnConstraints().add(columnConstraints);
+        }
+    }
+
+    public static void autoSizeRegion(Region... regions) {
+        for (Region region : regions) {
+            GridPane.setHgrow(region, Priority.ALWAYS);
+            GridPane.setFillWidth(region, true);
+            region.setMaxWidth(Double.MAX_VALUE);
         }
     }
 
@@ -240,6 +262,18 @@ public class FxHelper {
     public static void setEditable(boolean editable, Spinner... spinners) {
         for (Spinner spinner : spinners) {
             spinner.setEditable(editable);
+        }
+    }
+
+    public static void setMargin(Insets insets, Region... regions) {
+        for (Region region : regions) {
+            GridPane.setMargin(region, insets);
+        }
+    }
+
+    public static void setPadding(Insets insets, Region... regions) {
+        for (Region region : regions) {
+            region.setPadding(insets);
         }
     }
 
