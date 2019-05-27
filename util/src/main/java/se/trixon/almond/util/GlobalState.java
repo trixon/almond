@@ -29,7 +29,7 @@ public class GlobalState {
     private final HashMap<GlobalStateChangeListener, String[]> mListenerKeyMap = new HashMap<>();
     private final HashSet<GlobalStateChangeListener> mListeners = new HashSet<>();
 
-    public void addListener(GlobalStateChangeListener listener, String... keys) {
+    synchronized public void addListener(GlobalStateChangeListener listener, String... keys) {
         mListeners.add(listener);
         mListenerKeyMap.put(listener, keys);
     }
@@ -42,7 +42,7 @@ public class GlobalState {
         return (T) (mKeyObjectMap.get(key));
     }
 
-    public void put(String key, Object object) {
+    synchronized public void put(String key, Object object) {
         put(key, object, false);
     }
 
@@ -71,10 +71,12 @@ public class GlobalState {
             }
         };
 
-        for (GlobalStateChangeListener listener : mListeners) {
-            final String[] listenerKeys = mListenerKeyMap.get(listener);
-            if (listenerKeys.length == 0 || ArrayUtils.contains(listenerKeys, key)) {
-                listener.globalStateChange(event);
+        synchronized (this) {
+            for (GlobalStateChangeListener listener : mListeners) {
+                final String[] listenerKeys = mListenerKeyMap.get(listener);
+                if (listenerKeys.length == 0 || ArrayUtils.contains(listenerKeys, key)) {
+                    listener.globalStateChange(event);
+                }
             }
         }
     }
