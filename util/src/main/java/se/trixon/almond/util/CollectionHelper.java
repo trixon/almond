@@ -30,12 +30,36 @@ import javax.swing.SortOrder;
  */
 public class CollectionHelper {
 
-    public static void decValue(Map<String, Integer> map, String key) {
-        map.put(key, map.getOrDefault(key, 0) - 1);
+    public static void decDouble(Map<String, Double> map, String key) {
+        incDouble(map, key, -1);
     }
 
-    public static void incValue(Map<String, Integer> map, String key) {
-        map.put(key, map.getOrDefault(key, 0) + 1);
+    public static void decDouble(Map<String, Double> map, String key, double d) {
+        incDouble(map, key, -d);
+    }
+
+    public static void decInteger(Map<String, Integer> map, String key) {
+        incInteger(map, key, -1);
+    }
+
+    public static void decInteger(Map<String, Integer> map, String key, int i) {
+        incInteger(map, key, -i);
+    }
+
+    public static void incDouble(Map<String, Double> map, String key) {
+        incDouble(map, key, 1.0);
+    }
+
+    public static void incDouble(Map<String, Double> map, String key, double d) {
+        map.put(key, map.getOrDefault(key, 0.0) + d);
+    }
+
+    public static void incInteger(Map<String, Integer> map, String key, int i) {
+        map.put(key, map.getOrDefault(key, 0) + i);
+    }
+
+    public static void incInteger(Map<String, Integer> map, String key) {
+        incInteger(map, key, 1);
     }
 
     public static void replaceIfAfter(Map<String, Timestamp> map, String key, Timestamp newTimestamp) {
