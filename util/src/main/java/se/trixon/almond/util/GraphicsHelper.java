@@ -104,6 +104,22 @@ public class GraphicsHelper {
         return bufferedImage.getSubimage(region.x, region.y, region.width, region.height);
     }
 
+    public static BufferedImage createBorderedImage(BufferedImage bi, Color c, int borderSize) {
+        int width = bi.getWidth();
+        int height = bi.getHeight();
+        int borderedImageWidth = width + borderSize * 2;
+        int borderedImageHeight = height + borderSize * 2;
+
+        BufferedImage borderedImage = new BufferedImage(borderedImageWidth, borderedImageHeight, BufferedImage.TYPE_3BYTE_BGR);
+
+        Graphics2D g2 = borderedImage.createGraphics();
+        g2.setColor(c);
+        g2.fillRect(0, 0, borderedImageWidth, borderedImageHeight);
+        g2.drawImage(bi, borderSize, borderSize, width + borderSize, height + borderSize, 0, 0, width, height, c, null);
+
+        return borderedImage;
+    }
+
     public static void drawCircle(int x, int y, int radius, Graphics2D graphics2D) {
         graphics2D.drawOval(x - radius, y - radius, radius * 2, radius * 2);
     }
