@@ -112,6 +112,17 @@ public class DateRangeSlider extends RangeSlider {
         highValueProperty().addListener((ObservableValue<? extends Number> ov, Number t, Number t1) -> {
             highDateProperty().setValue(getMinDate().plusDays(t1.intValue()));
         });
-    }
 
+        lowDateProperty().addListener((ObservableValue<? extends LocalDate> ov, LocalDate t, LocalDate t1) -> {
+            if (getMinDate() != null) {
+                setLowValue(ChronoUnit.DAYS.between(getMinDate(), t1));
+            }
+        });
+
+        highDateProperty().addListener((ObservableValue<? extends LocalDate> ov, LocalDate t, LocalDate t1) -> {
+            if (getMaxDate() != null) {
+                setHighValue(ChronoUnit.DAYS.between(getMinDate(), t1));
+            }
+        });
+    }
 }
