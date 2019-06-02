@@ -68,6 +68,7 @@ public enum Dict {
     CALENDAR_LANGUAGE,
     CANCEL,
     CANCELED,
+    CACHE,
     CATEGORY,
     CHANGE,
     CHANGE_TO,
