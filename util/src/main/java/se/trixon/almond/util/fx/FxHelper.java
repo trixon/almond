@@ -21,21 +21,26 @@ import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 import java.util.stream.Stream;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Point3D;
 import javafx.scene.Node;
 import javafx.scene.control.ButtonBase;
+import javafx.scene.control.Control;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Spinner;
+import javafx.scene.control.ToolBar;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import org.apache.commons.lang3.ArrayUtils;
 import org.controlsfx.control.MaskerPane;
 import org.controlsfx.control.NotificationPane;
 import se.trixon.almond.util.PrefsHelper;
@@ -206,6 +211,26 @@ public class FxHelper {
                         CornerRadii.EMPTY,
                         Insets.EMPTY
                 ));
+    }
+
+    public static void disableControls(ObservableList<Node> nodes, boolean disabled, Control... excludedControls) {
+        for (Node node : nodes) {
+            if (!ArrayUtils.contains(excludedControls, node)) {
+                if (node instanceof Pane) {
+                    Pane pane = (Pane) node;
+                    disableControls(pane.getChildrenUnmodifiable(), disabled, excludedControls);
+                } else if (node instanceof ToolBar) {
+                    ToolBar toolBar = (ToolBar) node;
+                    disableControls(toolBar.getItems(), disabled, excludedControls);
+                } else {
+                    try {
+                        node.setDisable(disabled);
+                    } catch (Exception e) {
+                        //Fails on Bound value cannot be set. E.g Button with an Action
+                    }
+                }
+            }
+        }
     }
 
     public static boolean isAlwaysOnTop(Class c) {
