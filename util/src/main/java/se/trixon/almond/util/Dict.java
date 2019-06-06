@@ -278,6 +278,7 @@ public enum Dict {
     PASSWORD,
     PASTE,
     PATH,
+    @Deprecated
     PATH_GAP_GFX,
     @Deprecated
     PATH_GFX,
@@ -405,6 +406,8 @@ public enum Dict {
     TOOLS_SEARCH,
     TO_MANY_CLIENTS,
     TRANSLATION,
+    TRACK,
+    TRACKS,
     TYPE,
     UNCATEGORISED,
     UNDO,
@@ -522,6 +525,8 @@ public enum Dict {
         LENGTH,
         LINE,
         PATH,
+        PATHS,
+        PATH_GAP,
         PERIMETER,
         POINT,
         POLYGON,
