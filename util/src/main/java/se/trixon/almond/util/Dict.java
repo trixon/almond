@@ -284,6 +284,7 @@ public enum Dict {
     PATH_GFX,
     PATTERN,
     PHOTO,
+    PHOTOS,
     PIN,
     PLACEMARK,
     PLACE_NAME,
