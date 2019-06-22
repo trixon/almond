@@ -37,7 +37,6 @@ public class NbPrint {
 
     public void err(String x) {
         SwingUtilities.invokeLater(() -> {
-            select();
             try (OutputWriter outputWriter = mInputOutput.getErr()) {
                 printDate(outputWriter);
                 outputWriter.println(StringUtils.defaultString(x, "NULL"));
@@ -59,7 +58,6 @@ public class NbPrint {
 
     public void out(String x) {
         SwingUtilities.invokeLater(() -> {
-            select();
             try (OutputWriter outputWriter = mInputOutput.getOut()) {
                 printDate(outputWriter);
                 outputWriter.println(StringUtils.defaultString(x, "NULL"));
@@ -76,7 +74,9 @@ public class NbPrint {
     }
 
     public synchronized void select() {
-        mInputOutput.select();
+        SwingUtilities.invokeLater(() -> {
+            mInputOutput.select();
+        });
     }
 
     public void setDateFormat(SimpleDateFormat dateFormat) {
