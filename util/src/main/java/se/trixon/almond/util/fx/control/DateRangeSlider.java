@@ -19,6 +19,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
+import org.apache.commons.lang3.ObjectUtils;
 import org.controlsfx.control.RangeSlider;
 
 /**
@@ -93,7 +94,10 @@ public class DateRangeSlider extends RangeSlider {
         mHighDateProperty.setValue(maxDate);
 
         setMin(0);
-        setMax(ChronoUnit.DAYS.between(minDate, maxDate));
+
+        if (ObjectUtils.allNotNull(minDate, maxDate)) {
+            setMax(ChronoUnit.DAYS.between(minDate, maxDate));
+        }
 
         setLowValue(getMin());
         setHighValue(getMax());
