@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2019 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,13 +27,13 @@ import se.trixon.almond.util.Dict;
  */
 public class ModelCreator {
 
-    public static DefaultComboBoxModel createDefaultComboBoxModel(Model model) {
+    public static DefaultComboBoxModel<String> createDefaultComboBoxModel(Model model) {
 
         switch (model) {
 
             case BEGINS_CONTAINS_ENDS:
 
-                return new DefaultComboBoxModel(new String[]{
+                return new DefaultComboBoxModel<>(new String[]{
                     Dict.STARTS_WITH.toString(),
                     Dict.CONTAINS.toString(),
                     Dict.ENDS_WITH.toString()});

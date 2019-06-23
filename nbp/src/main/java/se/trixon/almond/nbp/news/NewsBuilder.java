@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2019 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -51,7 +51,7 @@ public class NewsBuilder {
 
         StringBuilder builder = new StringBuilder();
 
-        List keys = new ArrayList(mDateCollections.keySet());
+        List<String> keys = new ArrayList<>(mDateCollections.keySet());
         Collections.sort(keys);
         Collections.reverse(keys);
 

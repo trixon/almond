@@ -17,6 +17,7 @@ package se.trixon.almond.util.swing.dialogs.cron;
 
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javax.swing.DefaultComboBoxModel;
 import se.trixon.almond.util.Dict;
 import se.trixon.almond.util.SystemHelper;
 import se.trixon.almond.util.swing.dialogs.NotificationLine;
@@ -136,7 +137,12 @@ public class CronPanel extends javax.swing.JPanel implements CronExprChangeListe
         presets.add(new Preset(mBundle.getString("preset4"), "0 12 */2 * *"));
         presets.add(new Preset(mBundle.getString("preset5"), "* 6-8,18-20 * 5 *"));
 
-        presetComboBox.setModel(new javax.swing.DefaultComboBoxModel(presets.toArray()));
+        DefaultComboBoxModel<Preset> comboBoxModel = new DefaultComboBoxModel<>();
+        for (Preset preset : presets) {
+            comboBoxModel.addElement(preset);
+        }
+
+        presetComboBox.setModel(comboBoxModel);
     }
 
     /**
@@ -148,7 +154,7 @@ public class CronPanel extends javax.swing.JPanel implements CronExprChangeListe
 
         jPanel1 = new javax.swing.JPanel();
         presetLabel = new javax.swing.JLabel();
-        presetComboBox = new javax.swing.JComboBox();
+        presetComboBox = new javax.swing.JComboBox<>();
         elementsPanel = new javax.swing.JPanel();
         elementMinutePanel = new se.trixon.almond.util.swing.dialogs.cron.ElementMinutePanel();
         elementHourPanel = new se.trixon.almond.util.swing.dialogs.cron.ElementHourPanel();
@@ -228,7 +234,7 @@ public class CronPanel extends javax.swing.JPanel implements CronExprChangeListe
     private javax.swing.JPanel elementsPanel;
     private javax.swing.JPanel jPanel1;
     private se.trixon.almond.util.swing.dialogs.NotificationLine notificationLine;
-    private javax.swing.JComboBox presetComboBox;
+    private javax.swing.JComboBox<Preset> presetComboBox;
     private javax.swing.JLabel presetLabel;
     // End of variables declaration//GEN-END:variables
 }

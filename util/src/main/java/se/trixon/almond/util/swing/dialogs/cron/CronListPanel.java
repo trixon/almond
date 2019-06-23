@@ -40,7 +40,7 @@ import se.trixon.almond.util.swing.dialogs.Message;
 public class CronListPanel extends JPanel {
 
     private static final int ICON_SIZE = AlmondUI.ICON_SIZE_NORMAL;
-    private DefaultListModel mModel = new DefaultListModel();
+    private DefaultListModel<String> mModel = new DefaultListModel<>();
     private final AlmondOptions mAlmondOptions = AlmondOptions.getInstance();
     private static final String CRON_ITEM_SEPARATOR = "|";
     private final ResourceBundle mBundle = SystemHelper.getBundle(CronListPanel.class, "Bundle");
@@ -53,7 +53,7 @@ public class CronListPanel extends JPanel {
         init();
     }
 
-    public DefaultListModel getModel() {
+    public DefaultListModel<String> getModel() {
         return mModel;
     }
 
@@ -80,7 +80,7 @@ public class CronListPanel extends JPanel {
         }
     }
 
-    public void setModel(DefaultListModel model) {
+    public void setModel(DefaultListModel<String> model) {
         mModel = model;
         list.setModel(model);
     }
@@ -91,7 +91,7 @@ public class CronListPanel extends JPanel {
         mModel.clear();
 
         for (Object object : objects) {
-            mModel.addElement(object);
+            mModel.addElement((String) object);
         }
     }
 
@@ -164,7 +164,7 @@ public class CronListPanel extends JPanel {
         removeAllButton = new javax.swing.JButton();
         checkBox = new javax.swing.JCheckBox();
         scrollPane = new javax.swing.JScrollPane();
-        list = new javax.swing.JList();
+        list = new javax.swing.JList<>();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -294,7 +294,7 @@ public class CronListPanel extends JPanel {
     protected javax.swing.JButton addButton;
     protected javax.swing.JCheckBox checkBox;
     protected javax.swing.JButton editButton;
-    protected javax.swing.JList list;
+    protected javax.swing.JList<String> list;
     protected javax.swing.JButton removeAllButton;
     protected javax.swing.JButton removeButton;
     protected javax.swing.JScrollPane scrollPane;

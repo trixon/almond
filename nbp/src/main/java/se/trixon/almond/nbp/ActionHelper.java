@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2019 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,7 +29,7 @@ import se.trixon.almond.util.icons.IconColor;
  */
 public class ActionHelper {
 
-    private static final IconColor sIconColor = se.trixon.almond.util.AlmondOptions.getInstance().getIconColor();
+    private static final IconColor sIconColor = IconColor.getDefault();
 
     public static void add(ActionMap actionMap, final String key, final Runnable runnable) {
 

@@ -164,8 +164,8 @@ public class SwingHelper {
 
     }
 
-    public static DefaultComboBoxModel getLookAndFeelComboBoxModel(boolean addSystem) {
-        return new DefaultComboBoxModel(getLookAndFeelNames(addSystem));
+    public static DefaultComboBoxModel<String> getLookAndFeelComboBoxModel(boolean addSystem) {
+        return new DefaultComboBoxModel<String>(getLookAndFeelNames(addSystem));
     }
 
     public static String[] getLookAndFeelNames(boolean addSystem) {

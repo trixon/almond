@@ -93,6 +93,7 @@ public class SimpleDialog {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public static boolean saveFile(String... extensions) {
         File file = sFileChooser.showSaveDialog(sOwner);
 

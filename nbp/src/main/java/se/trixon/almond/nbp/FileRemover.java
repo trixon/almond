@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2019 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -31,7 +31,7 @@ import se.trixon.almond.util.Dict;
  */
 public class FileRemover {
 
-    private final Set<String> mDeniedRemoves = new HashSet();
+    private final Set<String> mDeniedRemoves = new HashSet<>();
 
     public FileRemover() {
     }

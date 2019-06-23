@@ -15,7 +15,6 @@
  */
 package se.trixon.almond.util.fx.dialogs.about;
 
-import java.util.Optional;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -77,7 +76,7 @@ public class AboutPane extends TabPane {
                 }
             }
 
-            Optional<ButtonType> result = FxHelper.showAndWait(alert, stage);
+            FxHelper.showAndWait(alert, stage);
         });
 
         return action;

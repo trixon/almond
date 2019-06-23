@@ -26,9 +26,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.apache.commons.lang3.StringUtils;
+import se.trixon.almond.util.AboutModel;
 import se.trixon.almond.util.Dict;
 import se.trixon.almond.util.SystemHelper;
-import se.trixon.almond.util.AboutModel;
 
 /**
  *
@@ -39,7 +39,7 @@ public class PropertiesTab extends Tab implements AboutPane.ResetableTab {
     private ContextMenu mContextMenu;
     private final ObservableList<SystemProperty> mData = FXCollections.observableArrayList();
     private int mMaxKeyLength = 0;
-    private final TableView mTableView = new TableView();
+    private final TableView<SystemProperty> mTableView = new TableView<>();
 
     public PropertiesTab(AboutModel aboutModel) {
         setText(Dict.PROPERTIES.toString());
@@ -55,12 +55,12 @@ public class PropertiesTab extends Tab implements AboutPane.ResetableTab {
     private void init() {
         initSystemProperties();
 
-        TableColumn keyCol = new TableColumn(Dict.KEY.toString());
+        TableColumn<SystemProperty, String> keyCol = new TableColumn<>(Dict.KEY.toString());
         keyCol.setCellValueFactory(new PropertyValueFactory<>("key"));
         keyCol.setSortable(false);
         keyCol.prefWidthProperty().bind(mTableView.widthProperty().multiply(0.3));
 
-        TableColumn valCol = new TableColumn(Dict.VALUE.toString());
+        TableColumn<SystemProperty, String> valCol = new TableColumn<>(Dict.VALUE.toString());
         valCol.setCellValueFactory(new PropertyValueFactory<>("val"));
         valCol.setSortable(false);
         valCol.prefWidthProperty().bind(mTableView.widthProperty().multiply(0.65));

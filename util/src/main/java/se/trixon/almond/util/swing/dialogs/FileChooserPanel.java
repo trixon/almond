@@ -189,6 +189,7 @@ public class FileChooserPanel extends javax.swing.JPanel {
             public synchronized void drop(DropTargetDropEvent evt) {
                 try {
                     evt.acceptDrop(DnDConstants.ACTION_COPY);
+                    @SuppressWarnings("unchecked")
                     LinkedList<File> droppedFiles = new LinkedList<>((List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor));
                     List<File> invalidFiles = new LinkedList<>();
 

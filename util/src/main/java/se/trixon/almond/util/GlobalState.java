@@ -38,6 +38,7 @@ public class GlobalState {
         return type.cast(mKeyObjectMap.get(key));
     }
 
+    @SuppressWarnings("unchecked")
     public <T> T get(String key) {
         return (T) (mKeyObjectMap.get(key));
     }
@@ -59,6 +60,7 @@ public class GlobalState {
         put(key, object, true);
     }
 
+    @SuppressWarnings("unchecked")
     private void put(String key, Object object, boolean _volatile) {
         if (!_volatile) {
             mKeyObjectMap.put(key, object);

@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2019 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,7 +25,7 @@ import se.trixon.almond.util.icons.material.MaterialIcon;
 public class InitIcons {
 
     public static void run() {
-        IconColor iconColor = se.trixon.almond.util.AlmondOptions.getInstance().getIconColor();
+        IconColor iconColor = IconColor.getDefault();
 
         String category = "Actions/File";
         String id = "se.trixon.almond.nbp.actions.QuitAction";
