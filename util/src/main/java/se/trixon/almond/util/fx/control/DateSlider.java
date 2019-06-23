@@ -19,31 +19,30 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.control.Slider;
 import org.apache.commons.lang3.ObjectUtils;
-import org.controlsfx.control.RangeSlider;
 
 /**
  *
  * @author Patrik Karlström
  */
-public class DateRangeSlider extends RangeSlider {
+public class DateSlider extends Slider {
 
-    private final SimpleObjectProperty<LocalDate> mHighDateProperty = new SimpleObjectProperty<>();
-    private final SimpleObjectProperty<LocalDate> mLowDateProperty = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<LocalDate> mDateProperty = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<LocalDate> mMaxDateProperty = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<LocalDate> mMinDateProperty = new SimpleObjectProperty<>();
 
-    public DateRangeSlider() {
+    public DateSlider() {
         init();
         initListeners();
     }
 
-    public LocalDate getHighDate() {
-        return mHighDateProperty.getValue();
+    public SimpleObjectProperty<LocalDate> dateProperty() {
+        return mDateProperty;
     }
 
-    public LocalDate getLowDate() {
-        return mLowDateProperty.getValue();
+    public LocalDate getDate() {
+        return mDateProperty.getValue();
     }
 
     public LocalDate getMaxDate() {
@@ -54,14 +53,6 @@ public class DateRangeSlider extends RangeSlider {
         return mMinDateProperty.getValue();
     }
 
-    public SimpleObjectProperty<LocalDate> highDateProperty() {
-        return mHighDateProperty;
-    }
-
-    public SimpleObjectProperty<LocalDate> lowDateProperty() {
-        return mLowDateProperty;
-    }
-
     public SimpleObjectProperty<LocalDate> maxDateProperty() {
         return mMaxDateProperty;
     }
@@ -70,12 +61,8 @@ public class DateRangeSlider extends RangeSlider {
         return mMinDateProperty;
     }
 
-    public void setHighDate(LocalDate localDate) {
-        mHighDateProperty.setValue(localDate);
-    }
-
-    public void setLowDate(LocalDate localDate) {
-        mLowDateProperty.setValue(localDate);
+    public void setDate(LocalDate localDate) {
+        mDateProperty.setValue(localDate);
     }
 
     public void setMaxDate(LocalDate localDate) {
@@ -90,8 +77,7 @@ public class DateRangeSlider extends RangeSlider {
         mMinDateProperty.setValue(minDate);
         mMaxDateProperty.setValue(maxDate);
 
-        mLowDateProperty.setValue(minDate);
-        mHighDateProperty.setValue(maxDate);
+        mDateProperty.setValue(maxDate);
 
         setMin(0);
 
@@ -99,8 +85,7 @@ public class DateRangeSlider extends RangeSlider {
             setMax(ChronoUnit.DAYS.between(minDate, maxDate));
         }
 
-        setLowValue(getMin());
-        setHighValue(getMax());
+        setValue(getMin());
     }
 
     private void init() {
@@ -109,23 +94,13 @@ public class DateRangeSlider extends RangeSlider {
     }
 
     private void initListeners() {
-        lowValueProperty().addListener((ObservableValue<? extends Number> ov, Number t, Number t1) -> {
-            lowDateProperty().setValue(getMinDate().plusDays(t1.intValue()));
+        valueProperty().addListener((ObservableValue<? extends Number> ov, Number t, Number t1) -> {
+            dateProperty().setValue(getMinDate().plusDays(t1.intValue()));
         });
 
-        highValueProperty().addListener((ObservableValue<? extends Number> ov, Number t, Number t1) -> {
-            highDateProperty().setValue(getMinDate().plusDays(t1.intValue()));
-        });
-
-        lowDateProperty().addListener((ObservableValue<? extends LocalDate> ov, LocalDate t, LocalDate t1) -> {
-            if (getMinDate() != null) {
-                setLowValue(ChronoUnit.DAYS.between(getMinDate(), t1));
-            }
-        });
-
-        highDateProperty().addListener((ObservableValue<? extends LocalDate> ov, LocalDate t, LocalDate t1) -> {
+        dateProperty().addListener((ObservableValue<? extends LocalDate> ov, LocalDate t, LocalDate t1) -> {
             if (getMaxDate() != null) {
-                setHighValue(ChronoUnit.DAYS.between(getMinDate(), t1));
+                setValue(ChronoUnit.DAYS.between(getMinDate(), t1));
             }
         });
     }

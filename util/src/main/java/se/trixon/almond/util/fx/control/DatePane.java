@@ -20,7 +20,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Slider;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.util.Callback;
@@ -30,15 +29,15 @@ import se.trixon.almond.util.fx.FxHelper;
  *
  * @author Patrik Karlström
  */
-public class DateRangePane extends GridPane {
+public class DatePane extends GridPane {
 
     private DateRangeSlider mDateRangeSlider;
     private DateSelectionMode mDateSelectionMode;
-    private Slider mDateSlider;
+    private DateSlider mDateSlider;
     private DatePicker mFromDatePicker;
     private DatePicker mToDatePicker;
 
-    public DateRangePane() {
+    public DatePane() {
         createUI();
         initListeners();
     }
@@ -72,9 +71,24 @@ public class DateRangePane extends GridPane {
         getChildren().removeAll(mDateSlider, mDateRangeSlider);
         addRow(0, dateSelectionMode == DateSelectionMode.INTERVAL ? mDateRangeSlider : mDateSlider);
         mToDatePicker.setDisable(dateSelectionMode == DateSelectionMode.POINT_IN_TIME);
+
+        if (dateSelectionMode == DateSelectionMode.INTERVAL) {
+            mDateSlider.dateProperty().unbindBidirectional(mFromDatePicker.valueProperty());
+            mDateSlider.dateProperty().unbindBidirectional(mToDatePicker.valueProperty());
+
+            mDateRangeSlider.lowDateProperty().bindBidirectional(mFromDatePicker.valueProperty());
+            mDateRangeSlider.highDateProperty().bindBidirectional(mToDatePicker.valueProperty());
+        } else {
+            mDateRangeSlider.lowDateProperty().unbindBidirectional(mFromDatePicker.valueProperty());
+            mDateRangeSlider.highDateProperty().unbindBidirectional(mToDatePicker.valueProperty());
+
+            mDateSlider.dateProperty().bindBidirectional(mToDatePicker.valueProperty());
+            mDateSlider.dateProperty().bindBidirectional(mFromDatePicker.valueProperty());
+        }
     }
 
     public void setMinMaxDate(LocalDate minDate, LocalDate maxDate) {
+        mDateSlider.setMinMaxDate(minDate, maxDate);
         mDateRangeSlider.setMinMaxDate(minDate, maxDate);
 
         Callback<DatePicker, DateCell> selectionLimiter = d -> new DateCell() {
@@ -94,9 +108,9 @@ public class DateRangePane extends GridPane {
         mDateRangeSlider.prefWidthProperty().bind(widthProperty());
         GridPane.setColumnSpan(mDateRangeSlider, GridPane.REMAINING);
 
-        mDateSlider = new Slider();
+        mDateSlider = new DateSlider();
         mDateSlider.prefWidthProperty().bind(widthProperty());
-        mDateSlider.maxProperty().bind(mDateRangeSlider.maxProperty());
+
         GridPane.setColumnSpan(mDateSlider, GridPane.REMAINING);
 
         mFromDatePicker = new DatePicker();
@@ -116,9 +130,6 @@ public class DateRangePane extends GridPane {
 
         setPadding(new Insets(8));
         addRow(1, mFromDatePicker, mToDatePicker);
-
-        mDateRangeSlider.lowDateProperty().bindBidirectional(mFromDatePicker.valueProperty());
-        mDateRangeSlider.highDateProperty().bindBidirectional(mToDatePicker.valueProperty());
 
         setDateSelectionMode(DateSelectionMode.INTERVAL);
     }
