@@ -30,23 +30,31 @@ public class ArrayHelper {
     }
 
     public static int continuousValueToArrayIndex(int size, double value, double beg, double end) {
-        double step = (end - beg) / size;
-        double lowLimit = Double.MIN_VALUE;
-        for (int i = 0; i < size; i++) {
-            double limit = beg + i * step;
-            if (value > lowLimit && value < limit) {
-                return i;
-            }
+        int index = -1;
 
-            lowLimit = limit;
+        if (value <= beg) {
+            index = 0;
+        } else if (value >= end) {
+            index = size - 1;
+        } else {
+            double step = (end - beg) / size;
+            double lowLimit = Double.MIN_VALUE;
+            for (int i = 0; i < size; i++) {
+                double limit = beg + i * step;
+                if (value >= lowLimit && value <= limit) {
+                    index = i;
+                    break;
+                }
+
+                lowLimit = limit;
+            }
         }
 
-        return size - 1;
+        return index;
     }
 
     public static void main(String[] args) {
-        System.out.println(continuousValueToArrayIndex(32, -0.0002, -0.01, 0.01));
-        System.out.println(continuousValueToArrayIndex(32, 1, -0.01, 0.01));
+        System.out.println(continuousValueToArrayIndex(32, -0.005, -0.01, 0.01));
     }
 
     public static int[] stringToInt(String[] strings) throws NumberFormatException {
