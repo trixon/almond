@@ -21,6 +21,7 @@ import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
 import org.openide.windows.TopComponent;
 import org.openide.windows.WindowManager;
+import se.trixon.almond.util.fx.FxHelper;
 
 /**
  *
@@ -28,7 +29,7 @@ import org.openide.windows.WindowManager;
  */
 public abstract class FxTopComponent extends TopComponent {
 
-    private static final WindowManager sWindowManager = WindowManager.getDefault();
+    private static final WindowManager WINDOW_MANAGER = WindowManager.getDefault();
 
     private final JFXPanel mFxPanel = new JFXPanel();
     private Scene mScene;
@@ -59,10 +60,11 @@ public abstract class FxTopComponent extends TopComponent {
 
     public void setScene(Scene scene) {
         mScene = scene;
+        FxHelper.loadDarkTheme(scene);
     }
 
     public void toggleOpened() {
-        boolean activeInMode = sWindowManager.findMode(this).getSelectedTopComponent() == this;
+        boolean activeInMode = WINDOW_MANAGER.findMode(this).getSelectedTopComponent() == this;
 
         if (activeInMode) {
             close();

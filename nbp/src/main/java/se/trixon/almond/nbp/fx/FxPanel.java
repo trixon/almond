@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2019 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,6 +18,7 @@ package se.trixon.almond.nbp.fx;
 import java.awt.Dimension;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
+import se.trixon.almond.util.fx.FxHelper;
 
 /**
  *
@@ -32,6 +33,7 @@ public abstract class FxPanel extends JFXPanel {
     public void initFx(Runnable runnable) {
         Platform.runLater(() -> {
             fxConstructor();
+            FxHelper.loadDarkTheme(getScene());
 
             if (runnable != null) {
                 runnable.run();

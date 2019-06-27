@@ -25,6 +25,8 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Point3D;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ButtonBase;
 import javafx.scene.control.Control;
 import javafx.scene.control.Dialog;
@@ -237,8 +239,32 @@ public class FxHelper {
         return Preferences.userNodeForPackage(c).getBoolean(STAGE_ALWAYS_ON_TOP, false);
     }
 
+    public static boolean isDarkThemeEnabled() {
+        return Boolean.getBoolean("trixon.almond.fx.dark");
+    }
+
     public static boolean isFullScreen(Class c) {
         return Preferences.userNodeForPackage(c).getBoolean(STAGE_FULL_SCREEN, false);
+    }
+
+    public static void loadDarkTheme(Scene scene) {
+        if (isDarkThemeEnabled()) {
+            scene.getStylesheets().add("css/modena_dark.css");
+        }
+    }
+
+    public static void loadDarkTheme(Parent parent) {
+        if (isDarkThemeEnabled()) {
+            parent.getStylesheets().add("css/modena_dark.css");
+        }
+    }
+
+    public static void loadDarkTheme(Parent... parents) {
+        if (isDarkThemeEnabled()) {
+            for (Parent parent : parents) {
+                loadDarkTheme(parent);
+            }
+        }
     }
 
     public static void main(String[] args) {
@@ -288,6 +314,10 @@ public class FxHelper {
         for (Spinner spinner : spinners) {
             spinner.setEditable(editable);
         }
+    }
+
+    public static void setDarkThemeEnabled(boolean enabled) {
+        System.setProperty("trixon.almond.fx.dark", String.valueOf(enabled));
     }
 
     public static void setMargin(Insets insets, Region... regions) {
