@@ -29,6 +29,14 @@
     -fx-selection-bar-non-focused: rgb(50, 50, 50);
 }
 
+.notification-bar > .pane .title {
+    -fx-text-fill: #ebebeb !important;
+}
+
+.notification-bar > .pane .label {
+    -fx-text-fill: #ebebeb !important;
+}
+
 .popover > .content {
     -fx-fill: rgb(50, 50, 50);
     -fx-background-color: rgb(50, 50, 50);
