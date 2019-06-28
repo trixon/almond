@@ -247,19 +247,19 @@ public class FxHelper {
         return Preferences.userNodeForPackage(c).getBoolean(STAGE_FULL_SCREEN, false);
     }
 
-    public static void loadDarkTheme(Scene scene) {
+    public synchronized static void loadDarkTheme(Scene scene) {
         if (isDarkThemeEnabled()) {
             scene.getStylesheets().add("css/modena_dark.css");
         }
     }
 
-    public static void loadDarkTheme(Parent parent) {
+    public synchronized static void loadDarkTheme(Parent parent) {
         if (isDarkThemeEnabled()) {
             parent.getStylesheets().add("css/modena_dark.css");
         }
     }
 
-    public static void loadDarkTheme(Parent... parents) {
+    public synchronized static void loadDarkTheme(Parent... parents) {
         if (isDarkThemeEnabled()) {
             for (Parent parent : parents) {
                 loadDarkTheme(parent);
