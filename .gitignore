@@ -59,3 +59,4 @@ nbdist/
 hs_err_pid*
 
 # End of https://www.gitignore.io/api/java,linux,maven,netbeans
+!/nbp-darcula/lib/com/bulenkov/darcula/1.0.0/darcula-1.0.0.jar

@@ -250,7 +250,7 @@ public class FxHelper {
     public static void loadDarkTheme(Scene scene) {
         if (isDarkThemeEnabled()) {
             Platform.runLater(() -> {
-                scene.getStylesheets().add("css/modena_dark.css");
+                scene.getStylesheets().add(FxHelper.class.getResource("darcula.css").toExternalForm());
             });
         }
     }
@@ -258,7 +258,7 @@ public class FxHelper {
     public static void loadDarkTheme(Parent parent) {
         if (isDarkThemeEnabled()) {
             Platform.runLater(() -> {
-                parent.getStylesheets().add("css/modena_dark.css");
+                parent.getStylesheets().add(FxHelper.class.getResource("darcula.css").toExternalForm());
             });
         }
     }
