@@ -4,4 +4,5 @@ OpenIDE-Module-Layer: com/revivius/nb/darcula/layer.xml
 OpenIDE-Module-Localizing-Bundle: com/revivius/nb/darcula/Bundle.properties
 OpenIDE-Module-Display-Category: Base IDE
 Built-By: Revivius
+AutoUpdate-Show-In-Client: false
 

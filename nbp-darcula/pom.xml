@@ -61,7 +61,7 @@
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
-            <url>file://./lib</url>
+            <url>file:///lib</url>
         </repository>
     </repositories>
 
