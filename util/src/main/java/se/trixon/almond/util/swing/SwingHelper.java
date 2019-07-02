@@ -57,12 +57,6 @@ public class SwingHelper {
         }
     }
 
-    public static void clearTextButtons(AbstractButton... abstractButtons) {
-        for (AbstractButton abstractButton : abstractButtons) {
-            abstractButton.setText(null);
-        }
-    }
-
     public static void clearText(Container container) {
         Component[] components = container.getComponents();
         for (Component component : components) {
@@ -71,6 +65,12 @@ public class SwingHelper {
             } else if (component instanceof Container) {
                 clearText((Container) component);
             }
+        }
+    }
+
+    public static void clearTextButtons(AbstractButton... abstractButtons) {
+        for (AbstractButton abstractButton : abstractButtons) {
+            abstractButton.setText(null);
         }
     }
 
@@ -149,6 +149,18 @@ public class SwingHelper {
         p.putInt(FRAME_X, frame.getX());
         p.putInt(FRAME_Y, frame.getY());
         p.putInt(FRAME_STATE, frame.getExtendedState());
+    }
+
+    public static double getFontScale() {
+        double scale = 1.0;
+        double defaultFontSize = 12.0;
+
+        Integer fontSize = (Integer) UIManager.get("customFontSize");
+        if (fontSize != null) {
+            scale = fontSize / defaultFontSize;
+        }
+
+        return scale;
     }
 
     public static String getLookAndFeelClassName(String name) {
