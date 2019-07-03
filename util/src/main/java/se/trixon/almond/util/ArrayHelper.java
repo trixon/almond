@@ -30,12 +30,12 @@ public class ArrayHelper {
     }
 
     public static int continuousValueToArrayIndex(int size, double value, double beg, double end) {
-        int index = -1;
+        int index = size - 1;
 
         if (value <= beg) {
             index = 0;
         } else if (value >= end) {
-            index = size - 1;
+            //nop
         } else {
             double step = (end - beg) / size;
             double lowLimit = Double.MIN_VALUE;
@@ -54,7 +54,7 @@ public class ArrayHelper {
     }
 
     public static void main(String[] args) {
-        System.out.println(continuousValueToArrayIndex(32, -0.005, -0.01, 0.01));
+        System.out.println(continuousValueToArrayIndex(32, 0.0099, -0.01, 0.01));
     }
 
     public static int[] stringToInt(String[] strings) throws NumberFormatException {
