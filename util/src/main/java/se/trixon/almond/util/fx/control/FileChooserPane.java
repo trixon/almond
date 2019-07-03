@@ -47,7 +47,7 @@ import se.trixon.almond.util.fx.FxHelper;
  */
 public class FileChooserPane extends BorderPane {
 
-    private final Button mButton = new Button(null, new Glyph("FontAwesome", FontAwesome.Glyph.FOLDER_OPEN_ALT).size(20));
+    private final Button mButton = new Button(null, new Glyph("FontAwesome", FontAwesome.Glyph.FOLDER_OPEN_ALT).size(FxHelper.getScaledFontSize() * 1.5));
     private final CheckBox mCheckBox = new CheckBox();
     private final DirectoryChooser mDirectoryChooser = new DirectoryChooser();
     private final FileChooser mFileChooser = new FileChooser();
