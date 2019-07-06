@@ -4,7 +4,7 @@
 
     <groupId>se.trixon.almond</groupId>
     <artifactId>almond-parent</artifactId>
-    <version>3.0.3-SNAPSHOT</version>
+    <version>3.0.3</version>
     <packaging>pom</packaging>
 
     <name>almond-parent</name>
@@ -116,7 +116,7 @@
             <dependency>
                 <groupId>se.trixon.almond</groupId>
                 <artifactId>almond-util</artifactId>
-                <version>3.0.3-SNAPSHOT</version>
+                <version>3.0.3</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
