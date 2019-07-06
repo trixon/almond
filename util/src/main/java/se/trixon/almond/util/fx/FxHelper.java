@@ -25,6 +25,8 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Point3D;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ButtonBase;
 import javafx.scene.control.Control;
 import javafx.scene.control.Dialog;
@@ -39,12 +41,14 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.ArrayUtils;
 import org.controlsfx.control.MaskerPane;
 import org.controlsfx.control.NotificationPane;
 import se.trixon.almond.util.PrefsHelper;
 import se.trixon.almond.util.icons.material.MaterialIcon;
+import se.trixon.almond.util.swing.SwingHelper;
 
 /**
  *
@@ -62,6 +66,7 @@ public class FxHelper {
     private static final String STAGE_W = "AlmondStage_Width";
     private static final String STAGE_X = "AlmondStage_X";
     private static final String STAGE_Y = "AlmondStage_Y";
+    private static Double sScaledFontSize = null;
 
     public static void adjustButtonWidth(Stream<Node> stream, double prefWidth) {
         stream.filter((item) -> (item instanceof ButtonBase))
@@ -233,12 +238,70 @@ public class FxHelper {
         }
     }
 
+    public static double getScaledFontSize() {
+        if (sScaledFontSize == null) {
+            sScaledFontSize = Font.getDefault().getSize() * SwingHelper.getUIScale();
+        }
+
+        return sScaledFontSize;
+    }
+
+    public static Insets getUIScaledInsets(double topRightBottomLeft) {
+        return new Insets(topRightBottomLeft * SwingHelper.getUIScale());
+    }
+
+    public static double getUIScaled(double value) {
+        return value * SwingHelper.getUIScale();
+    }
+
+    public static int getUIScaled(int value) {
+        return (int) (value * SwingHelper.getUIScale());
+    }
+
+    public static Insets getUIScaledInsets(double top, double right, double bottom, double left) {
+        return new Insets(
+                top * SwingHelper.getUIScale(),
+                right * SwingHelper.getUIScale(),
+                bottom * SwingHelper.getUIScale(),
+                left * SwingHelper.getUIScale()
+        );
+    }
+
     public static boolean isAlwaysOnTop(Class c) {
         return Preferences.userNodeForPackage(c).getBoolean(STAGE_ALWAYS_ON_TOP, false);
     }
 
+    public static boolean isDarkThemeEnabled() {
+        return Boolean.getBoolean("trixon.almond.fx.dark");
+    }
+
     public static boolean isFullScreen(Class c) {
         return Preferences.userNodeForPackage(c).getBoolean(STAGE_FULL_SCREEN, false);
+    }
+
+    public static void loadDarkTheme(Scene scene) {
+        if (isDarkThemeEnabled()) {
+            Platform.runLater(() -> {
+                scene.getStylesheets().add(FxHelper.class.getResource("darcula.css").toExternalForm());
+                scene.getRoot().setStyle(String.format("-fx-font-size: %dpx;", (int) getScaledFontSize()));
+            });
+        }
+    }
+
+    public static void loadDarkTheme(Parent parent) {
+        if (isDarkThemeEnabled()) {
+            Platform.runLater(() -> {
+                parent.getStylesheets().add(FxHelper.class.getResource("darcula.css").toExternalForm());
+            });
+        }
+    }
+
+    public static void loadDarkTheme(Parent... parents) {
+        if (isDarkThemeEnabled()) {
+            for (Parent parent : parents) {
+                loadDarkTheme(parent);
+            }
+        }
     }
 
     public static void main(String[] args) {
@@ -282,6 +345,10 @@ public class FxHelper {
                 //Exceptions.printStackTrace(ex);
             }
         }).start();
+    }
+
+    public static void setDarkThemeEnabled(boolean enabled) {
+        System.setProperty("trixon.almond.fx.dark", String.valueOf(enabled));
     }
 
     public static void setEditable(boolean editable, Spinner... spinners) {

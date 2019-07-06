@@ -15,7 +15,6 @@
  */
 package se.trixon.almond.nbp.dialogs;
 
-import java.awt.Dimension;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -28,6 +27,7 @@ import org.openide.DialogDisplayer;
 import se.trixon.almond.nbp.fx.FxDialogPanel;
 import se.trixon.almond.util.AboutModel;
 import se.trixon.almond.util.Dict;
+import se.trixon.almond.util.fx.FxHelper;
 import se.trixon.almond.util.fx.dialogs.about.AboutPane;
 import se.trixon.almond.util.swing.SwingHelper;
 
@@ -63,7 +63,7 @@ public class NbAboutFx extends FxDialogPanel {
         initFx(() -> {
         });
 
-        setPreferredSize(new Dimension(520, 400));
+        setPreferredSize(SwingHelper.getUIScaledDim(520, 400));
         DialogDisplayer.getDefault().notify(d);
     }
 
@@ -73,12 +73,13 @@ public class NbAboutFx extends FxDialogPanel {
     }
 
     private Scene createScene() {
+        double scaledFontSize = FxHelper.getScaledFontSize();
         Label appLabel = new Label(mAboutModel.getAppName());
-        appLabel.setFont(new Font(appLabel.getFont().getSize() * 1.8));
+        appLabel.setFont(new Font(scaledFontSize * 1.8));
         Label verLabel = new Label(String.format("%s %s", Dict.VERSION.toString(), mAboutModel.getAppVersion()));
-        verLabel.setFont(new Font(verLabel.getFont().getSize() * 1.2));
+        verLabel.setFont(new Font(scaledFontSize * 1.2));
         Label dateLabel = new Label(mAboutModel.getAppDate());
-        dateLabel.setFont(new Font(verLabel.getFont().getSize() * 1.0));
+        dateLabel.setFont(new Font(scaledFontSize * 1.2));
 
         VBox box = new VBox(appLabel, verLabel, dateLabel);
         box.setAlignment(Pos.CENTER_LEFT);

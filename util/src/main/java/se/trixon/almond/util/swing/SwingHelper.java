@@ -18,6 +18,7 @@ package se.trixon.almond.util.swing;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dialog;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Window;
 import java.awt.event.HierarchyEvent;
@@ -47,6 +48,7 @@ public class SwingHelper {
     private static final String FRAME_W = "Frame_Width";
     private static final String FRAME_X = "Frame_X";
     private static final String FRAME_Y = "Frame_Y";
+    private static Double sUIscale = null;
 
     public static void borderPainted(Container container, boolean enable) {
         Component[] components = container.getComponents();
@@ -54,12 +56,6 @@ public class SwingHelper {
             if (component instanceof AbstractButton) {
                 ((AbstractButton) component).setBorderPainted(enable);
             }
-        }
-    }
-
-    public static void clearTextButtons(AbstractButton... abstractButtons) {
-        for (AbstractButton abstractButton : abstractButtons) {
-            abstractButton.setText(null);
         }
     }
 
@@ -71,6 +67,12 @@ public class SwingHelper {
             } else if (component instanceof Container) {
                 clearText((Container) component);
             }
+        }
+    }
+
+    public static void clearTextButtons(AbstractButton... abstractButtons) {
+        for (AbstractButton abstractButton : abstractButtons) {
+            abstractButton.setText(null);
         }
     }
 
@@ -199,6 +201,24 @@ public class SwingHelper {
         }
 
         return null;
+    }
+
+    public static double getUIScale() {
+        if (sUIscale == null) {
+            double defaultFontSize = 12.0;
+            Integer fontSize = (Integer) UIManager.get("customFontSize");
+            sUIscale = fontSize == null ? 1.0 : fontSize / defaultFontSize;
+        }
+
+        return sUIscale;
+    }
+
+    public static Dimension getUIScaledDim(int width, int height) {
+        return new Dimension((int) (width * getUIScale()), (int) (height * getUIScale()));
+    }
+
+    public static Dimension getUIScaledDim(double width, double height) {
+        return new Dimension((int) (width * getUIScale()), (int) (height * getUIScale()));
     }
 
     public static void makeWindowResizable(Component component) {

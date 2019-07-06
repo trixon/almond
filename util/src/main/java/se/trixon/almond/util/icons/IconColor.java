@@ -46,4 +46,8 @@ public enum IconColor {
         java.awt.Color color = UIManager.getLookAndFeel().getDefaults().getColor("Button.background");
         mDefault = getForBackground(color);
     }
+
+    public static void setDefault(IconColor iconColor) {
+        mDefault = iconColor;
+    }
 }
