@@ -421,6 +421,8 @@ public enum Dict {
     UNIQUE,
     UNTITLED,
     UP,
+    UPDATE,
+    UPDATED_S,
     USER,
     USERNAME,
     VALUE,
