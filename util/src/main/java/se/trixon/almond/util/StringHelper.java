@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.TreeSet;
+import java.util.regex.PatternSyntaxException;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -206,6 +207,32 @@ public class StringHelper {
         }
 
         return Arrays.copyOf(arrayList.toArray(), arrayList.toArray().length, String[].class);
+    }
+
+    /**
+     * @param searchIn the string to search in
+     * @param glob the glob pattern
+     * @param ignoreCase <code>true</code> if the match is case insensitive,
+     * else <code>false</code>.
+     * @param autoWrap <code>true</code> if two * should wrap the @param glob,
+     * else <code>false</code>.
+     * @return The result of the match
+     */
+    public static boolean matchesSimpleGlob(String searchIn, String glob, boolean ignoreCase, boolean autoWrap) {
+        if (autoWrap && !StringUtils.contains(glob, "*")) {
+            glob = "*" + glob + "*";
+        }
+        String regex = createRegexFromGlob(glob);
+
+        try {
+            if (ignoreCase) {
+                return searchIn.toLowerCase().matches(regex);
+            } else {
+                return searchIn.matches(regex);
+            }
+        } catch (PatternSyntaxException e) {
+            return false;
+        }
     }
 
     private static void log(String string) {
