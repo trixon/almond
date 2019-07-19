@@ -219,6 +219,9 @@ public class StringHelper {
      * @return The result of the match
      */
     public static boolean matchesSimpleGlob(String searchIn, String glob, boolean ignoreCase, boolean autoWrap) {
+        searchIn = StringUtils.defaultString(searchIn);
+        glob = StringUtils.defaultString(glob);
+
         if (autoWrap && !StringUtils.contains(glob, "*")) {
             glob = "*" + glob + "*";
         }
