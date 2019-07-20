@@ -19,7 +19,6 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import se.trixon.almond.util.icons.IconColor;
 import se.trixon.almond.util.icons.material.MaterialIcon;
 import se.trixon.almond.util.icons.material.MaterialIcon.IconGetter;
 
@@ -54,14 +53,12 @@ public abstract class AlmondAction extends AbstractAction {
     }
 
     public void updateIcon() {
-        IconColor iconColor = IconColor.getDefault();
-
         if (mIconEnum != null) {
             if (mIconEnum instanceof MaterialIcon.IconGetter) {
                 //MaterialIcon
                 IconGetter iconGetter = (IconGetter) mIconEnum;
-                putValue(Action.LARGE_ICON_KEY, iconGetter.get(AlmondUI.ICON_SIZE_NORMAL, iconColor));
-                ImageIcon imageIcon = iconGetter.get(AlmondUI.ICON_SIZE_SMALL, iconColor);
+                putValue(Action.LARGE_ICON_KEY, iconGetter.getImageIcon(AlmondUI.ICON_SIZE_NORMAL));
+                ImageIcon imageIcon = iconGetter.getImageIcon(AlmondUI.ICON_SIZE_SMALL);
                 putValue(ALMOND_SMALL_ICON_KEY, imageIcon);
                 putValue(Action.SMALL_ICON, AlmondOptions.getInstance().isDisplayMenuIcons() ? imageIcon : null);
             } else {

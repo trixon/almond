@@ -24,11 +24,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import org.apache.commons.lang3.StringUtils;
-import se.trixon.almond.util.AlmondOptions;
 import se.trixon.almond.util.AlmondUI;
 import se.trixon.almond.util.Dict;
 import se.trixon.almond.util.SystemHelper;
-import se.trixon.almond.util.icons.IconColor;
 import se.trixon.almond.util.icons.material.MaterialIcon;
 import se.trixon.almond.util.swing.SwingHelper;
 import se.trixon.almond.util.swing.dialogs.Message;
@@ -41,7 +39,6 @@ public class CronListPanel extends JPanel {
 
     private static final int ICON_SIZE = AlmondUI.ICON_SIZE_NORMAL;
     private DefaultListModel<String> mModel = new DefaultListModel<>();
-    private final AlmondOptions mAlmondOptions = AlmondOptions.getInstance();
     private static final String CRON_ITEM_SEPARATOR = "|";
     private final ResourceBundle mBundle = SystemHelper.getBundle(CronListPanel.class, "Bundle");
 
@@ -139,12 +136,10 @@ public class CronListPanel extends JPanel {
     }
 
     private void init() {
-        IconColor iconColor = IconColor.getDefault();
-
-        addButton.setIcon(MaterialIcon._Content.ADD.get(ICON_SIZE, iconColor));
-        editButton.setIcon(MaterialIcon._Editor.MODE_EDIT.get(ICON_SIZE, iconColor));
-        removeButton.setIcon(MaterialIcon._Content.REMOVE.get(ICON_SIZE, iconColor));
-        removeAllButton.setIcon(MaterialIcon._Content.CLEAR.get(ICON_SIZE, iconColor));
+        addButton.setIcon(MaterialIcon._Content.ADD.getImageIcon(ICON_SIZE));
+        editButton.setIcon(MaterialIcon._Editor.MODE_EDIT.getImageIcon(ICON_SIZE));
+        removeButton.setIcon(MaterialIcon._Content.REMOVE.getImageIcon(ICON_SIZE));
+        removeAllButton.setIcon(MaterialIcon._Content.CLEAR.getImageIcon(ICON_SIZE));
 
         setModel(getModel());
         list.setSelectedIndex(0);

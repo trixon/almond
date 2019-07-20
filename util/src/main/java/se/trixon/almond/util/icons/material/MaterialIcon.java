@@ -6,20 +6,32 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.ImageView;
 import javax.swing.ImageIcon;
 import se.trixon.almond.util.GraphicsHelper;
-import se.trixon.almond.util.icons.IconColor;
+import se.trixon.almond.util.fx.FxHelper;
 
 public class MaterialIcon {
 
-    private static ImageIcon getImageIcon(String dir, String baseName, int size, IconColor iconColor) {
-        String path = MaterialIcon.class.getPackage().getName().replace(".", "/");
-        String fileName = String.format("/%s/%s/%s_%s.png", path, dir, baseName.toLowerCase(), iconColor.name().toLowerCase());
-        ImageIcon imageIcon = new ImageIcon(MaterialIcon.class.getResource(fileName));
-        Image scaledImage = imageIcon.getImage().getScaledInstance(size, size, Image.SCALE_SMOOTH);
-        return new ImageIcon(scaledImage);
+    private static javafx.scene.paint.Color sDefaultColor = javafx.scene.paint.Color.BLACK;
+
+    public static javafx.scene.paint.Color getDefaultColor() {
+        return sDefaultColor;
     }
 
-    private static ImageView getImageView(String dir, String baseName, int size, IconColor iconColor) {
-        BufferedImage bufferedImage = GraphicsHelper.toBufferedImage(getImageIcon(dir, baseName, size, iconColor).getImage());
+    public static void setDefaultColor(javafx.scene.paint.Color color) {
+        sDefaultColor = color;
+    }
+
+    private static ImageIcon getImageIcon(String dir, String baseName, int size, java.awt.Color color) {
+        String path = MaterialIcon.class.getPackage().getName().replace(".", "/");
+        String fileName = String.format("/%s/%s/%s_white.png", path, dir, baseName.toLowerCase());
+        ImageIcon imageIcon = new ImageIcon(MaterialIcon.class.getResource(fileName));
+        ImageIcon scaledImageIcon = new ImageIcon(imageIcon.getImage().getScaledInstance(size, size, Image.SCALE_SMOOTH));
+
+        return new ImageIcon(GraphicsHelper.colorize(scaledImageIcon.getImage(), color));
+    }
+
+    private static ImageView getImageView(String dir, String baseName, int size, javafx.scene.paint.Color color) {
+        BufferedImage bufferedImage = GraphicsHelper.toBufferedImage(getImageIcon(dir, baseName, size, FxHelper.colorToColor(color)).getImage());
+
         return new ImageView(SwingFXUtils.toFXImage(bufferedImage, null));
     }
 
@@ -242,23 +254,23 @@ public class MaterialIcon {
         ZOOM_OUT;
 
         @Override
-        public ImageIcon get(int size, IconColor iconColor) {
-            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, iconColor);
+        public ImageIcon getImageIcon(int size, java.awt.Color color) {
+            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, color);
         }
 
         @Override
-        public ImageIcon get(int size) {
-            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, IconColor.getDefault());
+        public ImageIcon getImageIcon(int size) {
+            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, FxHelper.colorToColor(getDefaultColor()));
         }
 
         @Override
-        public ImageView getImageView(int size, IconColor iconColor) {
-            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, iconColor);
+        public ImageView getImageView(int size, javafx.scene.paint.Color color) {
+            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, color);
         }
 
         @Override
         public ImageView getImageView(int size) {
-            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, IconColor.getDefault());
+            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, getDefaultColor());
         }
     }
 
@@ -269,23 +281,23 @@ public class MaterialIcon {
         WARNING;
 
         @Override
-        public ImageIcon get(int size, IconColor iconColor) {
-            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, iconColor);
+        public ImageIcon getImageIcon(int size, java.awt.Color color) {
+            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, color);
         }
 
         @Override
-        public ImageIcon get(int size) {
-            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, IconColor.getDefault());
+        public ImageIcon getImageIcon(int size) {
+            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, FxHelper.colorToColor(getDefaultColor()));
         }
 
         @Override
-        public ImageView getImageView(int size, IconColor iconColor) {
-            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, iconColor);
+        public ImageView getImageView(int size, javafx.scene.paint.Color color) {
+            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, color);
         }
 
         @Override
         public ImageView getImageView(int size) {
-            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, IconColor.getDefault());
+            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, getDefaultColor());
         }
     }
 
@@ -375,23 +387,23 @@ public class MaterialIcon {
         WEB_ASSET;
 
         @Override
-        public ImageIcon get(int size, IconColor iconColor) {
-            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, iconColor);
+        public ImageIcon getImageIcon(int size, java.awt.Color color) {
+            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, color);
         }
 
         @Override
-        public ImageIcon get(int size) {
-            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, IconColor.getDefault());
+        public ImageIcon getImageIcon(int size) {
+            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, FxHelper.colorToColor(getDefaultColor()));
         }
 
         @Override
-        public ImageView getImageView(int size, IconColor iconColor) {
-            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, iconColor);
+        public ImageView getImageView(int size, javafx.scene.paint.Color color) {
+            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, color);
         }
 
         @Override
         public ImageView getImageView(int size) {
-            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, IconColor.getDefault());
+            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, getDefaultColor());
         }
     }
 
@@ -448,23 +460,23 @@ public class MaterialIcon {
         VPN_KEY;
 
         @Override
-        public ImageIcon get(int size, IconColor iconColor) {
-            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, iconColor);
+        public ImageIcon getImageIcon(int size, java.awt.Color color) {
+            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, color);
         }
 
         @Override
-        public ImageIcon get(int size) {
-            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, IconColor.getDefault());
+        public ImageIcon getImageIcon(int size) {
+            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, FxHelper.colorToColor(getDefaultColor()));
         }
 
         @Override
-        public ImageView getImageView(int size, IconColor iconColor) {
-            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, iconColor);
+        public ImageView getImageView(int size, javafx.scene.paint.Color color) {
+            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, color);
         }
 
         @Override
         public ImageView getImageView(int size) {
-            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, IconColor.getDefault());
+            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, getDefaultColor());
         }
     }
 
@@ -512,23 +524,23 @@ public class MaterialIcon {
         WEEKEND;
 
         @Override
-        public ImageIcon get(int size, IconColor iconColor) {
-            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, iconColor);
+        public ImageIcon getImageIcon(int size, java.awt.Color color) {
+            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, color);
         }
 
         @Override
-        public ImageIcon get(int size) {
-            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, IconColor.getDefault());
+        public ImageIcon getImageIcon(int size) {
+            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, FxHelper.colorToColor(getDefaultColor()));
         }
 
         @Override
-        public ImageView getImageView(int size, IconColor iconColor) {
-            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, iconColor);
+        public ImageView getImageView(int size, javafx.scene.paint.Color color) {
+            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, color);
         }
 
         @Override
         public ImageView getImageView(int size) {
-            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, IconColor.getDefault());
+            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, getDefaultColor());
         }
     }
 
@@ -614,23 +626,23 @@ public class MaterialIcon {
         WIFI_TETHERING;
 
         @Override
-        public ImageIcon get(int size, IconColor iconColor) {
-            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, iconColor);
+        public ImageIcon getImageIcon(int size, java.awt.Color color) {
+            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, color);
         }
 
         @Override
-        public ImageIcon get(int size) {
-            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, IconColor.getDefault());
+        public ImageIcon getImageIcon(int size) {
+            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, FxHelper.colorToColor(getDefaultColor()));
         }
 
         @Override
-        public ImageView getImageView(int size, IconColor iconColor) {
-            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, iconColor);
+        public ImageView getImageView(int size, javafx.scene.paint.Color color) {
+            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, color);
         }
 
         @Override
         public ImageView getImageView(int size) {
-            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, IconColor.getDefault());
+            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, getDefaultColor());
         }
     }
 
@@ -706,23 +718,23 @@ public class MaterialIcon {
         WRAP_TEXT;
 
         @Override
-        public ImageIcon get(int size, IconColor iconColor) {
-            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, iconColor);
+        public ImageIcon getImageIcon(int size, java.awt.Color color) {
+            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, color);
         }
 
         @Override
-        public ImageIcon get(int size) {
-            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, IconColor.getDefault());
+        public ImageIcon getImageIcon(int size) {
+            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, FxHelper.colorToColor(getDefaultColor()));
         }
 
         @Override
-        public ImageView getImageView(int size, IconColor iconColor) {
-            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, iconColor);
+        public ImageView getImageView(int size, javafx.scene.paint.Color color) {
+            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, color);
         }
 
         @Override
         public ImageView getImageView(int size) {
-            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, IconColor.getDefault());
+            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, getDefaultColor());
         }
     }
 
@@ -743,23 +755,23 @@ public class MaterialIcon {
         FOLDER_SHARED;
 
         @Override
-        public ImageIcon get(int size, IconColor iconColor) {
-            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, iconColor);
+        public ImageIcon getImageIcon(int size, java.awt.Color color) {
+            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, color);
         }
 
         @Override
-        public ImageIcon get(int size) {
-            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, IconColor.getDefault());
+        public ImageIcon getImageIcon(int size) {
+            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, FxHelper.colorToColor(getDefaultColor()));
         }
 
         @Override
-        public ImageView getImageView(int size, IconColor iconColor) {
-            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, iconColor);
+        public ImageView getImageView(int size, javafx.scene.paint.Color color) {
+            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, color);
         }
 
         @Override
         public ImageView getImageView(int size) {
-            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, IconColor.getDefault());
+            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, getDefaultColor());
         }
     }
 
@@ -815,23 +827,23 @@ public class MaterialIcon {
         WATCH;
 
         @Override
-        public ImageIcon get(int size, IconColor iconColor) {
-            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, iconColor);
+        public ImageIcon getImageIcon(int size, java.awt.Color color) {
+            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, color);
         }
 
         @Override
-        public ImageIcon get(int size) {
-            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, IconColor.getDefault());
+        public ImageIcon getImageIcon(int size) {
+            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, FxHelper.colorToColor(getDefaultColor()));
         }
 
         @Override
-        public ImageView getImageView(int size, IconColor iconColor) {
-            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, iconColor);
+        public ImageView getImageView(int size, javafx.scene.paint.Color color) {
+            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, color);
         }
 
         @Override
         public ImageView getImageView(int size) {
-            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, IconColor.getDefault());
+            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, getDefaultColor());
         }
     }
 
@@ -993,23 +1005,23 @@ public class MaterialIcon {
         WB_SUNNY;
 
         @Override
-        public ImageIcon get(int size, IconColor iconColor) {
-            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, iconColor);
+        public ImageIcon getImageIcon(int size, java.awt.Color color) {
+            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, color);
         }
 
         @Override
-        public ImageIcon get(int size) {
-            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, IconColor.getDefault());
+        public ImageIcon getImageIcon(int size) {
+            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, FxHelper.colorToColor(getDefaultColor()));
         }
 
         @Override
-        public ImageView getImageView(int size, IconColor iconColor) {
-            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, iconColor);
+        public ImageView getImageView(int size, javafx.scene.paint.Color color) {
+            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, color);
         }
 
         @Override
         public ImageView getImageView(int size) {
-            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, IconColor.getDefault());
+            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, getDefaultColor());
         }
     }
 
@@ -1085,23 +1097,23 @@ public class MaterialIcon {
         ZOOM_OUT_MAP;
 
         @Override
-        public ImageIcon get(int size, IconColor iconColor) {
-            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, iconColor);
+        public ImageIcon getImageIcon(int size, java.awt.Color color) {
+            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, color);
         }
 
         @Override
-        public ImageIcon get(int size) {
-            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, IconColor.getDefault());
+        public ImageIcon getImageIcon(int size) {
+            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, FxHelper.colorToColor(getDefaultColor()));
         }
 
         @Override
-        public ImageView getImageView(int size, IconColor iconColor) {
-            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, iconColor);
+        public ImageView getImageView(int size, javafx.scene.paint.Color color) {
+            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, color);
         }
 
         @Override
         public ImageView getImageView(int size) {
-            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, IconColor.getDefault());
+            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, getDefaultColor());
         }
     }
 
@@ -1135,23 +1147,23 @@ public class MaterialIcon {
         UNFOLD_MORE;
 
         @Override
-        public ImageIcon get(int size, IconColor iconColor) {
-            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, iconColor);
+        public ImageIcon getImageIcon(int size, java.awt.Color color) {
+            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, color);
         }
 
         @Override
-        public ImageIcon get(int size) {
-            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, IconColor.getDefault());
+        public ImageIcon getImageIcon(int size) {
+            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, FxHelper.colorToColor(getDefaultColor()));
         }
 
         @Override
-        public ImageView getImageView(int size, IconColor iconColor) {
-            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, iconColor);
+        public ImageView getImageView(int size, javafx.scene.paint.Color color) {
+            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, color);
         }
 
         @Override
         public ImageView getImageView(int size) {
-            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, IconColor.getDefault());
+            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, getDefaultColor());
         }
     }
 
@@ -1212,23 +1224,23 @@ public class MaterialIcon {
         WIFI;
 
         @Override
-        public ImageIcon get(int size, IconColor iconColor) {
-            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, iconColor);
+        public ImageIcon getImageIcon(int size, java.awt.Color color) {
+            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, color);
         }
 
         @Override
-        public ImageIcon get(int size) {
-            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, IconColor.getDefault());
+        public ImageIcon getImageIcon(int size) {
+            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, FxHelper.colorToColor(getDefaultColor()));
         }
 
         @Override
-        public ImageView getImageView(int size, IconColor iconColor) {
-            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, iconColor);
+        public ImageView getImageView(int size, javafx.scene.paint.Color color) {
+            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, color);
         }
 
         @Override
         public ImageView getImageView(int size) {
-            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, IconColor.getDefault());
+            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, getDefaultColor());
         }
     }
 
@@ -1254,23 +1266,23 @@ public class MaterialIcon {
         SPA;
 
         @Override
-        public ImageIcon get(int size, IconColor iconColor) {
-            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, iconColor);
+        public ImageIcon getImageIcon(int size, java.awt.Color color) {
+            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, color);
         }
 
         @Override
-        public ImageIcon get(int size) {
-            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, IconColor.getDefault());
+        public ImageIcon getImageIcon(int size) {
+            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, FxHelper.colorToColor(getDefaultColor()));
         }
 
         @Override
-        public ImageView getImageView(int size, IconColor iconColor) {
-            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, iconColor);
+        public ImageView getImageView(int size, javafx.scene.paint.Color color) {
+            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, color);
         }
 
         @Override
         public ImageView getImageView(int size) {
-            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, IconColor.getDefault());
+            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, getDefaultColor());
         }
     }
 
@@ -1307,23 +1319,23 @@ public class MaterialIcon {
         WHATSHOT;
 
         @Override
-        public ImageIcon get(int size, IconColor iconColor) {
-            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, iconColor);
+        public ImageIcon getImageIcon(int size, java.awt.Color color) {
+            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, color);
         }
 
         @Override
-        public ImageIcon get(int size) {
-            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, IconColor.getDefault());
+        public ImageIcon getImageIcon(int size) {
+            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, FxHelper.colorToColor(getDefaultColor()));
         }
 
         @Override
-        public ImageView getImageView(int size, IconColor iconColor) {
-            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, iconColor);
+        public ImageView getImageView(int size, javafx.scene.paint.Color color) {
+            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, color);
         }
 
         @Override
         public ImageView getImageView(int size) {
-            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, IconColor.getDefault());
+            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, getDefaultColor());
         }
     }
 
@@ -1333,33 +1345,33 @@ public class MaterialIcon {
         STAR_HALF;
 
         @Override
-        public ImageIcon get(int size, IconColor iconColor) {
-            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, iconColor);
+        public ImageIcon getImageIcon(int size, java.awt.Color color) {
+            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, color);
         }
 
         @Override
-        public ImageIcon get(int size) {
-            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, IconColor.getDefault());
+        public ImageIcon getImageIcon(int size) {
+            return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, FxHelper.colorToColor(getDefaultColor()));
         }
 
         @Override
-        public ImageView getImageView(int size, IconColor iconColor) {
-            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, iconColor);
+        public ImageView getImageView(int size, javafx.scene.paint.Color color) {
+            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, color);
         }
 
         @Override
         public ImageView getImageView(int size) {
-            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, IconColor.getDefault());
+            return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, getDefaultColor());
         }
     }
 
     public interface IconGetter {
 
-        public ImageIcon get(int size, IconColor iconColor);
+        public ImageIcon getImageIcon(int size, java.awt.Color color);
 
-        public ImageIcon get(int size);
+        public ImageIcon getImageIcon(int size);
 
-        public ImageView getImageView(int size, IconColor iconColor);
+        public ImageView getImageView(int size, javafx.scene.paint.Color color);
 
         public ImageView getImageView(int size);
     }

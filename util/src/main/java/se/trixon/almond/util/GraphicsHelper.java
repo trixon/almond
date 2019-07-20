@@ -15,6 +15,7 @@
  */
 package se.trixon.almond.util;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -88,6 +89,25 @@ public class GraphicsHelper {
 
     public static String colorToString(Color color) {
         return "#" + colorToHex(color);
+    }
+
+    public static BufferedImage colorize(BufferedImage bufferedImage, java.awt.Color color) {
+        int w = bufferedImage.getWidth();
+        int h = bufferedImage.getHeight();
+
+        BufferedImage colorizedImage = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = colorizedImage.createGraphics();
+        g.drawImage(bufferedImage, 0, 0, null);
+        g.setComposite(AlphaComposite.SrcAtop);
+        g.setColor(color);
+        g.fillRect(0, 0, w, h);
+        g.dispose();
+
+        return colorizedImage;
+    }
+
+    public static Image colorize(Image image, java.awt.Color color) {
+        return colorize(toBufferedImage(image), color);
     }
 
     public static BufferedImage componentToImage(Component component, Rectangle region) throws IOException {

@@ -17,7 +17,6 @@ package se.trixon.almond.util.swing.dialogs;
 
 import javax.swing.ImageIcon;
 import se.trixon.almond.util.AlmondOptions;
-import se.trixon.almond.util.icons.IconColor;
 import se.trixon.almond.util.icons.material.MaterialIcon;
 
 /**
@@ -27,7 +26,6 @@ import se.trixon.almond.util.icons.material.MaterialIcon;
 public class NotificationLine extends javax.swing.JPanel {
 
     private final AlmondOptions mOptions = AlmondOptions.getInstance();
-    private final IconColor mIconColor = IconColor.getDefault();
     private final int ICON_SIZE = 16;
 
     /**
@@ -38,15 +36,15 @@ public class NotificationLine extends javax.swing.JPanel {
     }
 
     public void displayErrorMessage(String string) {
-        display(MaterialIcon._Alert.ERROR_OUTLINE.get(ICON_SIZE, mIconColor), string);
+        display(MaterialIcon._Alert.ERROR_OUTLINE.getImageIcon(ICON_SIZE), string);
     }
 
     public void displayInformationMessage(String string) {
-        display(MaterialIcon._Action.INFO_OUTLINE.get(ICON_SIZE, mIconColor), string);
+        display(MaterialIcon._Action.INFO_OUTLINE.getImageIcon(ICON_SIZE), string);
     }
 
     public void displayWarningMessage(String string) {
-        display(MaterialIcon._Alert.WARNING.get(ICON_SIZE, mIconColor), string);
+        display(MaterialIcon._Alert.WARNING.getImageIcon(ICON_SIZE), string);
     }
 
     private void display(ImageIcon imageIcon, String string) {

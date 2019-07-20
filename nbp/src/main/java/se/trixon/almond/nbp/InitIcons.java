@@ -15,7 +15,6 @@
  */
 package se.trixon.almond.nbp;
 
-import se.trixon.almond.util.icons.IconColor;
 import se.trixon.almond.util.icons.material.MaterialIcon;
 
 /**
@@ -25,37 +24,35 @@ import se.trixon.almond.util.icons.material.MaterialIcon;
 public class InitIcons {
 
     public static void run() {
-        IconColor iconColor = IconColor.getDefault();
-
         String category = "Actions/File";
         String id = "se.trixon.almond.nbp.actions.QuitAction";
-        ActionHelper.setIconSmall(category, id, MaterialIcon._Navigation.CLOSE.get(Almond.ICON_SMALL, iconColor));
-        ActionHelper.setIconLarge(category, id, MaterialIcon._Navigation.CLOSE.get(Almond.ICON_LARGE, iconColor));
+        ActionHelper.setIconSmall(category, id, MaterialIcon._Navigation.CLOSE.getImageIcon(Almond.ICON_SMALL));
+        ActionHelper.setIconLarge(category, id, MaterialIcon._Navigation.CLOSE.getImageIcon(Almond.ICON_LARGE));
 
         //TODO Fix missing icons
         category = "Actions/Edit";
         id = "org-openide-actions-CutAction";
-        ActionHelper.setIconSmall(category, id, MaterialIcon._Content.CONTENT_CUT.get(Almond.ICON_SMALL, iconColor));
-        ActionHelper.setIconLarge(category, id, MaterialIcon._Content.CONTENT_CUT.get(Almond.ICON_LARGE, iconColor));
+        ActionHelper.setIconSmall(category, id, MaterialIcon._Content.CONTENT_CUT.getImageIcon(Almond.ICON_SMALL));
+        ActionHelper.setIconLarge(category, id, MaterialIcon._Content.CONTENT_CUT.getImageIcon(Almond.ICON_LARGE));
 
         id = "org-openide-actions-CopyAction";
-        ActionHelper.setIconSmall(category, id, MaterialIcon._Content.CONTENT_COPY.get(Almond.ICON_SMALL, iconColor));
-        ActionHelper.setIconLarge(category, id, MaterialIcon._Content.CONTENT_COPY.get(Almond.ICON_LARGE, iconColor));
+        ActionHelper.setIconSmall(category, id, MaterialIcon._Content.CONTENT_COPY.getImageIcon(Almond.ICON_SMALL));
+        ActionHelper.setIconLarge(category, id, MaterialIcon._Content.CONTENT_COPY.getImageIcon(Almond.ICON_LARGE));
 
         id = "org-openide-actions-PasteAction";
-        ActionHelper.setIconSmall(category, id, MaterialIcon._Content.CONTENT_PASTE.get(Almond.ICON_SMALL, iconColor));
-        ActionHelper.setIconLarge(category, id, MaterialIcon._Content.CONTENT_PASTE.get(Almond.ICON_LARGE, iconColor));
+        ActionHelper.setIconSmall(category, id, MaterialIcon._Content.CONTENT_PASTE.getImageIcon(Almond.ICON_SMALL));
+        ActionHelper.setIconLarge(category, id, MaterialIcon._Content.CONTENT_PASTE.getImageIcon(Almond.ICON_LARGE));
 
         id = "org-openide-actions-FindAction";
-        ActionHelper.setIconSmall(category, id, MaterialIcon._Content.CONTENT_PASTE.get(Almond.ICON_SMALL, iconColor));
-        ActionHelper.setIconLarge(category, id, MaterialIcon._Content.CONTENT_PASTE.get(Almond.ICON_LARGE, iconColor));
+        ActionHelper.setIconSmall(category, id, MaterialIcon._Content.CONTENT_PASTE.getImageIcon(Almond.ICON_SMALL));
+        ActionHelper.setIconLarge(category, id, MaterialIcon._Content.CONTENT_PASTE.getImageIcon(Almond.ICON_LARGE));
 
         id = "org-openide-actions-UndoAction";
-        ActionHelper.setIconSmall(category, id, MaterialIcon._Content.CONTENT_PASTE.get(Almond.ICON_SMALL, iconColor));
-        ActionHelper.setIconLarge(category, id, MaterialIcon._Content.CONTENT_PASTE.get(Almond.ICON_LARGE, iconColor));
+        ActionHelper.setIconSmall(category, id, MaterialIcon._Content.CONTENT_PASTE.getImageIcon(Almond.ICON_SMALL));
+        ActionHelper.setIconLarge(category, id, MaterialIcon._Content.CONTENT_PASTE.getImageIcon(Almond.ICON_LARGE));
 
         id = "org-openide-actions-RedoAction";
-        ActionHelper.setIconSmall(category, id, MaterialIcon._Content.CONTENT_PASTE.get(Almond.ICON_SMALL, iconColor));
-        ActionHelper.setIconLarge(category, id, MaterialIcon._Content.CONTENT_PASTE.get(Almond.ICON_LARGE, iconColor));
+        ActionHelper.setIconSmall(category, id, MaterialIcon._Content.CONTENT_PASTE.getImageIcon(Almond.ICON_SMALL));
+        ActionHelper.setIconLarge(category, id, MaterialIcon._Content.CONTENT_PASTE.getImageIcon(Almond.ICON_LARGE));
     }
 }

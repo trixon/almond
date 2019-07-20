@@ -22,7 +22,6 @@ import java.util.prefs.BackingStoreException;
 import java.util.prefs.PreferenceChangeEvent;
 import java.util.prefs.Preferences;
 import org.apache.commons.lang3.SystemUtils;
-import se.trixon.almond.util.icons.IconColor;
 import se.trixon.almond.util.swing.dialogs.MenuModePanel;
 import se.trixon.almond.util.swing.dialogs.Message;
 
@@ -66,16 +65,6 @@ public class AlmondOptions {
                 Logger.getLogger(AlmondOptions.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
-    }
-
-    /**
-     *
-     * @return best match IconColor
-     * @deprecated Use IconColor.getDefault() instead.
-     */
-    @Deprecated
-    public IconColor getIconColor() {
-        return IconColor.getDefault();
     }
 
     public int getIconTheme() {
