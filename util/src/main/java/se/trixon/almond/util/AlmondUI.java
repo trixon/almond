@@ -29,7 +29,6 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import se.trixon.almond.util.AlmondOptions.AlmondOptionsEvent;
 import se.trixon.almond.util.AlmondOptions.AlmondOptionsWatcher;
-import se.trixon.almond.util.icons.IconColor;
 import se.trixon.almond.util.icons.material.MaterialIcon;
 import se.trixon.almond.util.swing.SwingHelper;
 
@@ -138,10 +137,10 @@ public class AlmondUI extends AlmondGui {
                         if (mAlmondOptions.getLookAndFeel().equalsIgnoreCase("Darcula")) {
                             int iconSize = ICON_SIZE_LARGE;
                             UIDefaults uiDefaults = UIManager.getLookAndFeelDefaults();
-                            uiDefaults.put("OptionPane.informationIcon", MaterialIcon._Action.INFO_OUTLINE.get(iconSize, IconColor.WHITE));
-                            uiDefaults.put("OptionPane.errorIcon", MaterialIcon._Alert.ERROR_OUTLINE.get(iconSize, IconColor.WHITE));
-                            uiDefaults.put("OptionPane.questionIcon", MaterialIcon._Action.HELP_OUTLINE.get(iconSize, IconColor.WHITE));
-                            uiDefaults.put("OptionPane.warningIcon", MaterialIcon._Alert.WARNING.get(iconSize, IconColor.WHITE));
+                            uiDefaults.put("OptionPane.informationIcon", MaterialIcon._Action.INFO_OUTLINE.getImageIcon(iconSize));
+                            uiDefaults.put("OptionPane.errorIcon", MaterialIcon._Alert.ERROR_OUTLINE.getImageIcon(iconSize));
+                            uiDefaults.put("OptionPane.questionIcon", MaterialIcon._Action.HELP_OUTLINE.getImageIcon(iconSize));
+                            uiDefaults.put("OptionPane.warningIcon", MaterialIcon._Alert.WARNING.getImageIcon(iconSize));
                         }
                     } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
                         Xlog.timedErr(ex.getMessage());

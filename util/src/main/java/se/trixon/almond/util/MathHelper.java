@@ -15,6 +15,8 @@
  */
 package se.trixon.almond.util;
 
+import java.awt.Dimension;
+import java.awt.Point;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
@@ -48,6 +50,10 @@ public class MathHelper {
         return s == null || s.trim().isEmpty() ? null : Integer.valueOf(s.trim());
     }
 
+    public static Point indexToPoint(int index, Dimension d) {
+        return new Point(index % d.width, index / d.width);
+    }
+
     public static boolean isInteger(String s) {
         try {
             Integer.parseInt(s);
@@ -55,6 +61,15 @@ public class MathHelper {
         } catch (NullPointerException | NumberFormatException e) {
             return false;
         }
+    }
+
+    public static void main(String[] args) {
+        System.out.println(pointToIndex(new Point(3, 1), new Dimension(5, 3)));
+        System.out.println(indexToPoint(14, new Dimension(5, 3)));
+    }
+
+    public static int pointToIndex(Point p, Dimension d) {
+        return p.y * d.width + p.x;
     }
 
     public static int round(double value) {

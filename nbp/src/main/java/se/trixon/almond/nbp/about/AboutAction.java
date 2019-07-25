@@ -18,16 +18,13 @@ package se.trixon.almond.nbp.about;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javafx.application.Platform;
-import javafx.scene.control.Button;
 import javax.swing.BorderFactory;
-import org.controlsfx.control.action.Action;
-import org.controlsfx.control.action.ActionUtils;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
 import se.trixon.almond.nbp.Almond;
+import se.trixon.almond.nbp.dialogs.NbAboutFx;
 import se.trixon.almond.util.AboutModel;
 import se.trixon.almond.util.Dict;
-import se.trixon.almond.util.fx.dialogs.about.AboutPane;
 import se.trixon.almond.util.swing.dialogs.about.AboutPanel;
 
 /**
@@ -40,7 +37,7 @@ public final class AboutAction implements ActionListener {
     private static boolean sFx;
 
     public static void setAboutModel(AboutModel aboutModel) {
-        AboutAction.sAboutModel = aboutModel;
+        sAboutModel = aboutModel;
     }
 
     public static void setFx(boolean fx) {
@@ -52,9 +49,8 @@ public final class AboutAction implements ActionListener {
         if (sFx) {
             Platform.runLater(() -> {
                 Almond.activateWindow(false);
-                Action action = AboutPane.getAction(null, sAboutModel);
-                Button b = ActionUtils.createButton(action);
-                b.fire();
+                NbAboutFx nbAboutFx = new NbAboutFx(sAboutModel);
+                nbAboutFx.display();
                 Almond.activateWindow(true);
             });
         } else {

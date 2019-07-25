@@ -24,14 +24,12 @@ import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import se.trixon.almond.util.Dict;
-import se.trixon.almond.util.icons.IconColor;
 import se.trixon.almond.util.icons.material.MaterialIcon;
 
 /**
@@ -180,9 +178,7 @@ public class FileChooserPanel extends javax.swing.JPanel {
     }
 
     private void init() {
-        IconColor iconColor = IconColor.getDefault();
-        ImageIcon imageIcon = MaterialIcon._File.FOLDER_OPEN.get(22, iconColor);
-        mButton.setIcon(imageIcon);
+        mButton.setIcon(MaterialIcon._File.FOLDER_OPEN.getImageIcon(22));
 
         mDropTarget = new DropTarget() {
             @Override

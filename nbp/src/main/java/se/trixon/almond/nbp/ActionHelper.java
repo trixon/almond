@@ -21,15 +21,12 @@ import javax.swing.Action;
 import javax.swing.ActionMap;
 import javax.swing.Icon;
 import org.openide.filesystems.FileUtil;
-import se.trixon.almond.util.icons.IconColor;
 
 /**
  *
  * @author Patrik Karlström
  */
 public class ActionHelper {
-
-    private static final IconColor sIconColor = IconColor.getDefault();
 
     public static void add(ActionMap actionMap, final String key, final Runnable runnable) {
 

@@ -43,6 +43,11 @@ public class GlobalState {
         return (T) (mKeyObjectMap.get(key));
     }
 
+    @SuppressWarnings("unchecked")
+    public <T> T getOrDefault(String key, Object o) {
+        return (T) (mKeyObjectMap.getOrDefault(key, o));
+    }
+
     synchronized public void put(String key, Object object) {
         put(key, object, false);
     }

@@ -22,6 +22,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javax.swing.SwingUtilities;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
 import se.trixon.almond.nbp.fx.FxDialogPanel;
@@ -63,8 +64,10 @@ public class NbAboutFx extends FxDialogPanel {
         initFx(() -> {
         });
 
-        setPreferredSize(SwingHelper.getUIScaledDim(520, 400));
-        DialogDisplayer.getDefault().notify(d);
+        SwingUtilities.invokeLater(() -> {
+            setPreferredSize(SwingHelper.getUIScaledDim(520, 400));
+            DialogDisplayer.getDefault().notify(d);
+        });
     }
 
     @Override

@@ -68,31 +68,52 @@ class GenerateMaterial {
     private void addHeader(StringBuilder builder) {
         builder.append("package se.trixon.almond.util.icons.material;").append("\n");
         builder.append("import java.awt.Image;").append("\n");
+        builder.append("import java.awt.image.BufferedImage;").append("\n");
+        builder.append("import javafx.embed.swing.SwingFXUtils;").append("\n");
+        builder.append("import javafx.scene.image.ImageView;").append("\n");
         builder.append("import javax.swing.ImageIcon;").append("\n");
+        builder.append("import se.trixon.almond.util.GraphicsHelper;").append("\n");
+        builder.append("import se.trixon.almond.util.fx.FxHelper;").append("\n");
         builder.append("import se.trixon.almond.util.icons.IconColor;").append("\n");
         builder.append("public class MaterialIcon {").append("\n");
 
-        builder.append("private static ImageIcon getImageIcon(String dir, String baseName, int size, IconColor iconColor) {").append("\n");
-        builder.append("String path = MaterialIcon.class.getPackage().getName().replace(\".\", \"/\");").append("\n");
-        builder.append("String fileName = String.format(\"/%s/%s/%s_%s.png\", path, dir, baseName.toLowerCase(), iconColor.name().toLowerCase());").append("\n");
-        builder.append("ImageIcon imageIcon = new ImageIcon(MaterialIcon.class.getResource(fileName));").append("\n");
-        builder.append("Image scaledImage = imageIcon.getImage().getScaledInstance(size, size, Image.SCALE_SMOOTH);").append("\n");
-        builder.append("return new ImageIcon(scaledImage);").append("\n");
-        builder.append("}").append("\n");
+        builder.append("    private static javafx.scene.paint.Color sDefaultColor=javafx.scene.paint.Color.BLACK;\n"
+                + "\n"
+                + "    public static javafx.scene.paint.Color getDefaultColor() {\n"
+                + "        return sDefaultColor;\n"
+                + "    }\n"
+                + "\n"
+                + "    public static void setDefaultColor(javafx.scene.paint.Color color) {\n"
+                + "        sDefaultColor = color;\n"
+                + "    }\n"
+                + "");
+        builder.append("\n");
 
-        builder.append("private static ImageView getImageView(String dir, String baseName, int size, IconColor iconColor) {").append("\n");
-        builder.append("BufferedImage bufferedImage = GraphicsHelper.toBufferedImage(getImageIcon(dir, baseName, size, iconColor).getImage());").append("\n");
-        builder.append("return new ImageView(SwingFXUtils.toFXImage(bufferedImage, null));").append("\n");
-        builder.append("}").append("\n");
+        builder.append("    private static ImageIcon getImageIcon(String dir, String baseName, int size, java.awt.Color color) {\n"
+                + "        String path = MaterialIcon.class.getPackage().getName().replace(\".\", \"/\");\n"
+                + "        String fileName = String.format(\"/%s/%s/%s_white.png\", path, dir, baseName.toLowerCase());\n"
+                + "        ImageIcon imageIcon = new ImageIcon(MaterialIcon.class.getResource(fileName));\n"
+                + "        ImageIcon scaledImageIcon = new ImageIcon(imageIcon.getImage().getScaledInstance(size, size, Image.SCALE_SMOOTH));\n"
+                + "\n"
+                + "        return new ImageIcon(GraphicsHelper.colorize(scaledImageIcon.getImage(), color));\n"
+                + "    }\n"
+                + "");
+        builder.append("\n");
 
-        builder.append("").append("\n");
+        builder.append("    private static ImageView getImageView(String dir, String baseName, int size, javafx.scene.paint.Color color) {\n"
+                + "        BufferedImage bufferedImage = GraphicsHelper.toBufferedImage(getImageIcon(dir, baseName, size, FxHelper.colorToColor(color)).getImage());\n"
+                + "\n"
+                + "        return new ImageView(SwingFXUtils.toFXImage(bufferedImage, null));\n"
+                + "    }\n"
+                + "");
+        builder.append("\n");
     }
 
     private void addFooter(StringBuilder builder) {
         builder.append("public interface IconGetter{").append("\n");
-        builder.append("public ImageIcon get(int size, IconColor iconColor);").append("\n");
-        builder.append("public ImageIcon get(int size);").append("\n");
-        builder.append("public ImageView getImageView(int size, IconColor iconColor);").append("\n");
+        builder.append("public ImageIcon getImageIcon(int size, java.awt.Color color);").append("\n");
+        builder.append("public ImageIcon getImageIcon(int size);").append("\n");
+        builder.append("public ImageView getImageView(int size, javafx.scene.paint.Color color);").append("\n");
         builder.append("public ImageView getImageView(int size);").append("\n");
         builder.append("}").append("\n");
         builder.append("").append("\n");
@@ -161,23 +182,23 @@ class GenerateMaterial {
                     builder.append(";").append("\n");
 
                     builder.append("@Override").append("\n");
-                    builder.append("public ImageIcon get(int size, IconColor iconColor) {").append("\n");
-                    builder.append("return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, iconColor);").append("\n");
+                    builder.append("public ImageIcon getImageIcon(int size, java.awt.Color color) {").append("\n");
+                    builder.append("return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, color);").append("\n");
                     builder.append("}").append("\n");
 
                     builder.append("@Override").append("\n");
-                    builder.append("public ImageIcon get(int size) {").append("\n");
-                    builder.append("return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, IconColor.getDefault());").append("\n");
+                    builder.append("public ImageIcon getImageIcon(int size) {").append("\n");
+                    builder.append("return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, FxHelper.colorToColor(getDefaultColor()));").append("\n");
                     builder.append("}").append("\n");
 
                     builder.append("@Override").append("\n");
-                    builder.append("public ImageView getImageView(int size, IconColor iconColor) {").append("\n");
-                    builder.append("return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, iconColor);").append("\n");
+                    builder.append("public ImageView getImageView(int size, javafx.scene.paint.Color color) {").append("\n");
+                    builder.append("return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, color);").append("\n");
                     builder.append("}").append("\n");
 
                     builder.append("@Override").append("\n");
                     builder.append("public ImageView getImageView(int size) {").append("\n");
-                    builder.append("return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, IconColor.getDefault());").append("\n");
+                    builder.append("return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, getDefaultColor());").append("\n");
                     builder.append("}").append("\n");
                 }
                 builder.append("}").append("\n");
