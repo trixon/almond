@@ -175,13 +175,20 @@
         </repository>
     </distributionManagement>
 
+    <repositories>
+        <repository>
+            <id>netbeans111</id>
+            <url>https://repository.apache.org/content/repositories/orgapachenetbeans-1034</url>
+        </repository>
+    </repositories>
+
     <properties>
         <bintray.repo>trixon/maven</bintray.repo>
         <bintray.package>almond3</bintray.package>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <netbeans.hint.license>apache20</netbeans.hint.license>
-        <netbeans.version>RELEASE110</netbeans.version>
+        <netbeans.version>RELEASE111</netbeans.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 </project>
