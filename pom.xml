@@ -175,13 +175,6 @@
         </repository>
     </distributionManagement>
 
-    <repositories>
-        <repository>
-            <id>netbeans111</id>
-            <url>https://repository.apache.org/content/repositories/orgapachenetbeans-1035</url>
-        </repository>
-    </repositories>
-
     <properties>
         <bintray.repo>trixon/maven</bintray.repo>
         <bintray.package>almond3</bintray.package>
