@@ -167,6 +167,7 @@ public enum Dict {
     FOREGROUND,
     FROM,
     FULL_SCREEN,
+    GENERAL,
     GENERATING_FILELIST,
     GLOBAL,
     GLOBAL_OPTIONS,
