@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package se.trixon.almond.nbp.news;
+package se.trixon.almond.util.news;
 
 /**
  *
