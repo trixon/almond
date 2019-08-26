@@ -21,8 +21,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.openide.util.Lookup;
 
 /**
@@ -30,6 +33,8 @@ import org.openide.util.Lookup;
  * @author Patrik Karlström
  */
 public class NewsBuilder {
+
+    private static final Logger LOGGER = Logger.getLogger(NewsBuilder.class.getName());
 
     private final Map<String, LinkedList<NewsItem>> mDateNewItemsMap = new HashMap<>();
 
@@ -40,12 +45,19 @@ public class NewsBuilder {
         Collection<? extends NewsProvider> newsProviders = Lookup.getDefault().lookupAll(NewsProvider.class);
 
         newsProviders.stream().forEach((provider) -> {
-            ResourceBundle bundle = provider.getNewsBundle();
-            if (bundle != null) {
-                String name = provider.getName();
-                bundle.keySet().stream().forEach((key) -> {
-                    getDateCollection(key).add(new NewsItem(name, bundle.getString(key)));
-                });
+            String bundlePath = provider.getBundlePath();
+            try {
+                ResourceBundle bundle = ResourceBundle.getBundle(bundlePath, Locale.getDefault(), provider.getClass().getClassLoader());
+                if (bundle != null) {
+                    String name = provider.getHeading();
+                    bundle.keySet().stream().forEach((key) -> {
+                        getDateCollection(key).add(new NewsItem(name, bundle.getString(key)));
+                    });
+                } else {
+                    LOGGER.log(Level.SEVERE, "Can't load bundle: {0}", bundlePath);
+                }
+            } catch (Exception e) {
+                LOGGER.log(Level.SEVERE, "Bundle not found: {0}", bundlePath);
             }
         });
 

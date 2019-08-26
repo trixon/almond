@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2019 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,15 +15,13 @@
  */
 package se.trixon.almond.nbp.core.news;
 
-import java.util.ResourceBundle;
-
 /**
  *
  * @author Patrik Karlström
  */
 public interface NewsProvider {
 
-    String getName();
+    String getBundlePath();
 
-    ResourceBundle getNewsBundle();
+    String getHeading();
 }
