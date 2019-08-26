@@ -15,8 +15,6 @@
  */
 package se.trixon.almond.nbp.core.news;
 
-import se.trixon.almond.util.news.NewsProvider;
-import se.trixon.almond.util.news.NewsItem;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -33,7 +31,7 @@ import org.openide.util.Lookup;
  */
 public class NewsBuilder {
 
-    private final Map<String, LinkedList<NewsItem>> mDateCollections = new HashMap<>();
+    private final Map<String, LinkedList<NewsItem>> mDateNewItemsMap = new HashMap<>();
 
     public NewsBuilder() {
     }
@@ -53,13 +51,13 @@ public class NewsBuilder {
 
         StringBuilder builder = new StringBuilder();
 
-        List<String> keys = new ArrayList<>(mDateCollections.keySet());
+        List<String> keys = new ArrayList<>(mDateNewItemsMap.keySet());
         Collections.sort(keys);
         Collections.reverse(keys);
 
         keys.stream().forEach((key) -> {
             builder.append("<h2>").append(key).append("</h2>");
-            LinkedList<NewsItem> newsItems = mDateCollections.get((String) key);
+            LinkedList<NewsItem> newsItems = mDateNewItemsMap.get((String) key);
             newsItems.sort((NewsItem o1, NewsItem o2) -> o1.getName().toLowerCase().compareTo(o2.getName().toLowerCase()));
 
             newsItems.stream().forEach((newsItem) -> {
@@ -71,10 +69,10 @@ public class NewsBuilder {
     }
 
     private LinkedList<NewsItem> getDateCollection(String key) {
-        if (!mDateCollections.containsKey(key)) {
-            mDateCollections.put(key, new LinkedList<>());
+        if (!mDateNewItemsMap.containsKey(key)) {
+            mDateNewItemsMap.put(key, new LinkedList<>());
         }
 
-        return mDateCollections.get(key);
+        return mDateNewItemsMap.get(key);
     }
 }

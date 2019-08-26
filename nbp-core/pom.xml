@@ -17,7 +17,7 @@
                 <extensions>true</extensions>
                 <configuration>
                     <publicPackages>
-                        <publicPackage>se.trixon.almond.nbp.core</publicPackage>
+                        <publicPackage>se.trixon.almond.nbp.core.*</publicPackage>
                     </publicPackages>
                 </configuration>
             </plugin>
@@ -43,6 +43,8 @@
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-openide-util-lookup</artifactId>
             <version>${netbeans.version}</version>
+            <type>nbm</type>
+
         </dependency>
 
         <!--Trixon-->

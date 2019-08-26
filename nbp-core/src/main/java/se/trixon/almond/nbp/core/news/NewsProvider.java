@@ -13,35 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package se.trixon.almond.util.news;
+package se.trixon.almond.nbp.core.news;
+
+import java.util.ResourceBundle;
 
 /**
  *
  * @author Patrik Karlström
  */
-public class NewsItem {
+public interface NewsProvider {
 
-    private String mName;
-    private String mNews;
+    String getName();
 
-    public NewsItem(String name, String news) {
-        mName = name;
-        mNews = news;
-    }
-
-    public String getName() {
-        return mName;
-    }
-
-    public String getNews() {
-        return mNews;
-    }
-
-    public void setName(String name) {
-        mName = name;
-    }
-
-    public void setNews(String news) {
-        mNews = news;
-    }
+    ResourceBundle getNewsBundle();
 }
