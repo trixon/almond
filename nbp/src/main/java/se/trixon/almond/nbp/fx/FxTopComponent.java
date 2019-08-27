@@ -16,9 +16,11 @@
 package se.trixon.almond.nbp.fx;
 
 import java.awt.BorderLayout;
+import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
+import org.openide.util.NbBundle;
 import org.openide.windows.TopComponent;
 import org.openide.windows.WindowManager;
 import se.trixon.almond.util.fx.FxHelper;
@@ -30,6 +32,7 @@ import se.trixon.almond.util.fx.FxHelper;
 public abstract class FxTopComponent extends TopComponent {
 
     private static final WindowManager WINDOW_MANAGER = WindowManager.getDefault();
+    private ResourceBundle mBundle;
 
     private final JFXPanel mFxPanel = new JFXPanel();
     private Scene mScene;
@@ -42,6 +45,18 @@ public abstract class FxTopComponent extends TopComponent {
             initFX();
             mFxPanel.setScene(mScene);
         });
+    }
+
+    public ResourceBundle getBundle() {
+        if (mBundle == null) {
+            mBundle = NbBundle.getBundle(getClass());
+        }
+
+        return mBundle;
+    }
+
+    public String getBundleString(String key) {
+        return getBundle().getString(key);
     }
 
     public JFXPanel getFxPanel() {
