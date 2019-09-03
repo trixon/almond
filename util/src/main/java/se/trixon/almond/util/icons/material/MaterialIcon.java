@@ -2,8 +2,12 @@ package se.trixon.almond.util.icons.material;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.ImageView;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import se.trixon.almond.util.GraphicsHelper;
 import se.trixon.almond.util.fx.FxHelper;
@@ -20,17 +24,27 @@ public class MaterialIcon {
         sDefaultColor = color;
     }
 
-    private static ImageIcon getImageIcon(String dir, String baseName, int size, java.awt.Color color) {
-        String path = MaterialIcon.class.getPackage().getName().replace(".", "/");
-        String fileName = String.format("/%s/%s/%s_white.png", path, dir, baseName.toLowerCase());
-        ImageIcon imageIcon = new ImageIcon(MaterialIcon.class.getResource(fileName));
-        ImageIcon scaledImageIcon = new ImageIcon(imageIcon.getImage().getScaledInstance(size, size, Image.SCALE_SMOOTH));
+    private static BufferedImage getBufferedImage(String dir, String baseName, int size, java.awt.Color color) {
+        BufferedImage bi = null;
 
-        return new ImageIcon(GraphicsHelper.colorize(scaledImageIcon.getImage(), color));
+        try {
+            bi = ImageIO.read(MaterialIcon.class.getResource(String.format("%s/%s_white.png", dir, baseName.toLowerCase())));
+            bi = GraphicsHelper.toBufferedImage(bi.getScaledInstance(size, size, Image.SCALE_SMOOTH));
+            bi = GraphicsHelper.colorize(bi, color);
+        } catch (IOException ex) {
+            Logger.getLogger(MaterialIcon.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return bi;
+    }
+
+    private static ImageIcon getImageIcon(String dir, String baseName, int size, java.awt.Color color) {
+        BufferedImage bufferedImage = getBufferedImage(dir, baseName, size, color);
+        return new ImageIcon(bufferedImage);
     }
 
     private static ImageView getImageView(String dir, String baseName, int size, javafx.scene.paint.Color color) {
-        BufferedImage bufferedImage = GraphicsHelper.toBufferedImage(getImageIcon(dir, baseName, size, FxHelper.colorToColor(color)).getImage());
+        BufferedImage bufferedImage = getBufferedImage(dir, baseName, size, FxHelper.colorToColor(color));
 
         return new ImageView(SwingFXUtils.toFXImage(bufferedImage, null));
     }

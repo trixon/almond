@@ -69,8 +69,12 @@ class GenerateMaterial {
         builder.append("package se.trixon.almond.util.icons.material;").append("\n");
         builder.append("import java.awt.Image;").append("\n");
         builder.append("import java.awt.image.BufferedImage;").append("\n");
+        builder.append("import java.io.IOException;").append("\n");
+        builder.append("import java.util.logging.Level;").append("\n");
+        builder.append("import java.util.logging.Logger;").append("\n");
         builder.append("import javafx.embed.swing.SwingFXUtils;").append("\n");
         builder.append("import javafx.scene.image.ImageView;").append("\n");
+        builder.append("import javax.imageio.ImageIO;").append("\n");
         builder.append("import javax.swing.ImageIcon;").append("\n");
         builder.append("import se.trixon.almond.util.GraphicsHelper;").append("\n");
         builder.append("import se.trixon.almond.util.fx.FxHelper;").append("\n");
@@ -89,19 +93,31 @@ class GenerateMaterial {
                 + "");
         builder.append("\n");
 
-        builder.append("    private static ImageIcon getImageIcon(String dir, String baseName, int size, java.awt.Color color) {\n"
-                + "        String path = MaterialIcon.class.getPackage().getName().replace(\".\", \"/\");\n"
-                + "        String fileName = String.format(\"/%s/%s/%s_white.png\", path, dir, baseName.toLowerCase());\n"
-                + "        ImageIcon imageIcon = new ImageIcon(MaterialIcon.class.getResource(fileName));\n"
-                + "        ImageIcon scaledImageIcon = new ImageIcon(imageIcon.getImage().getScaledInstance(size, size, Image.SCALE_SMOOTH));\n"
+        builder.append("    private static BufferedImage getBufferedImage(String dir, String baseName, int size, java.awt.Color color) {\n"
+                + "        BufferedImage bi = null;\n"
                 + "\n"
-                + "        return new ImageIcon(GraphicsHelper.colorize(scaledImageIcon.getImage(), color));\n"
+                + "        try {\n"
+                + "            bi = ImageIO.read(MaterialIcon.class.getResource(String.format(\"%s/%s_white.png\", dir, baseName.toLowerCase())));\n"
+                + "            bi = GraphicsHelper.toBufferedImage(bi.getScaledInstance(size, size, Image.SCALE_SMOOTH));\n"
+                + "            bi = GraphicsHelper.colorize(bi, color);\n"
+                + "        } catch (IOException ex) {\n"
+                + "            Logger.getLogger(MaterialIcon.class.getName()).log(Level.SEVERE, null, ex);\n"
+                + "        }\n"
+                + "\n"
+                + "        return bi;\n"
+                + "    }\n"
+                + "");
+        builder.append("\n");
+
+        builder.append("    private static ImageIcon getImageIcon(String dir, String baseName, int size, java.awt.Color color) {\n"
+                + "        BufferedImage bufferedImage = getBufferedImage(dir, baseName, size, color);\n"
+                + "        return new ImageIcon(bufferedImage);\n"
                 + "    }\n"
                 + "");
         builder.append("\n");
 
         builder.append("    private static ImageView getImageView(String dir, String baseName, int size, javafx.scene.paint.Color color) {\n"
-                + "        BufferedImage bufferedImage = GraphicsHelper.toBufferedImage(getImageIcon(dir, baseName, size, FxHelper.colorToColor(color)).getImage());\n"
+                + "        BufferedImage bufferedImage = getBufferedImage(dir, baseName, size, FxHelper.colorToColor(color));\n"
                 + "\n"
                 + "        return new ImageView(SwingFXUtils.toFXImage(bufferedImage, null));\n"
                 + "    }\n"
