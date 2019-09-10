@@ -16,7 +16,6 @@
 package se.trixon.almond.util;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 /**
  *
@@ -28,7 +27,15 @@ public class DateHelper {
      *
      * returns max of t1 and t2, if equal; t2
      */
-    public static Date getMax(Date t1, Date t2) {
+    public static java.util.Date getMax(java.util.Date t1, java.util.Date t2) {
+        return t1.after(t2) ? t1 : t2;
+    }
+
+    /**
+     *
+     * returns max of t1 and t2, if equal; t2
+     */
+    public static java.sql.Date getMax(java.sql.Date t1, java.sql.Date t2) {
         return t1.after(t2) ? t1 : t2;
     }
 
@@ -44,7 +51,15 @@ public class DateHelper {
      *
      * returns min of t1 and t2, if equal; t2
      */
-    public static Date getMin(Date t1, Date t2) {
+    public static java.util.Date getMin(java.util.Date t1, java.util.Date t2) {
+        return t1.before(t2) ? t1 : t2;
+    }
+
+    /**
+     *
+     * returns min of t1 and t2, if equal; t2
+     */
+    public static java.sql.Date getMin(java.sql.Date t1, java.sql.Date t2) {
         return t1.before(t2) ? t1 : t2;
     }
 
