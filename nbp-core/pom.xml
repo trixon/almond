@@ -4,7 +4,7 @@
     <parent>
         <groupId>se.trixon.almond</groupId>
         <artifactId>almond-parent</artifactId>
-        <version>3.0.5-SNAPSHOT</version>
+        <version>11.0.5-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>almond-nbp-core</artifactId>
@@ -43,14 +43,18 @@
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-openide-util-lookup</artifactId>
             <version>${netbeans.version}</version>
-            <type>nbm</type>
-
         </dependency>
 
         <!--Trixon-->
         <dependency>
             <groupId>se.trixon.almond</groupId>
             <artifactId>almond-util</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.openjfx</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 </project>

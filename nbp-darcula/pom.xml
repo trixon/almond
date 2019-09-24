@@ -4,7 +4,7 @@
     <parent>
         <groupId>se.trixon.almond</groupId>
         <artifactId>almond-parent</artifactId>
-        <version>3.0.5-SNAPSHOT</version>
+        <version>11.0.5-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>almond-nbp-darcula</artifactId>
@@ -32,10 +32,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
