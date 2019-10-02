@@ -433,6 +433,7 @@ public enum Dict {
     UP,
     UPDATE,
     UPDATED_S,
+    UPDATE_MANAGER,
     USER,
     USERNAME,
     VALUE,
