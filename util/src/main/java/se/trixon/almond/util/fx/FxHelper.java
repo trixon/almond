@@ -34,6 +34,7 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
@@ -246,16 +247,16 @@ public class FxHelper {
         return sScaledFontSize;
     }
 
-    public static Insets getUIScaledInsets(double topRightBottomLeft) {
-        return new Insets(topRightBottomLeft * SwingHelper.getUIScale());
-    }
-
     public static double getUIScaled(double value) {
         return value * SwingHelper.getUIScale();
     }
 
     public static int getUIScaled(int value) {
         return (int) (value * SwingHelper.getUIScale());
+    }
+
+    public static Insets getUIScaledInsets(double topRightBottomLeft) {
+        return new Insets(topRightBottomLeft * SwingHelper.getUIScale());
     }
 
     public static Insets getUIScaledInsets(double top, double right, double bottom, double left) {
@@ -377,6 +378,12 @@ public class FxHelper {
         alertStage.toFront();
 
         return dialog.showAndWait();
+    }
+
+    public static void slimToolBar(ToolBar toolBar) {
+        toolBar.setStyle("-fx-spacing: 0px; -fx-background-insets: 0, 0 0 0 0;");
+        toolBar.setPadding(Insets.EMPTY);
+        toolBar.setBorder(Border.EMPTY);
     }
 
     public static void undecorateButton(ButtonBase buttonBase) {
