@@ -432,6 +432,7 @@ public enum Dict {
     UNTITLED,
     UP,
     UPDATE,
+    UPDATER,
     UPDATED_S,
     UPDATE_MANAGER,
     USER,
