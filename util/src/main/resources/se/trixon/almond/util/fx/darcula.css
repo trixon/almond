@@ -1,8 +1,10 @@
 /*
  * This is an adjustment of the original modena.css for a consistent dark theme.
- * Original modena.css here: https://gist.github.com/maxd/63691840fc372f22f470.
+ * Original modena.css here: https://gist.github.com/maxd/63691840fc372f22f470
  */
-
+.root > * {
+    -fx-background-color: #3c3f41;
+}
 /* Redefine base colors */
 .root {
     -fx-base: #3c3f41;
