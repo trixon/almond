@@ -135,6 +135,10 @@ public class Log {
         mUseGlobalTag = useGlobalTag;
     }
 
+    public void setUseTimestamps(boolean useTimestamps) {
+        mUseTimestamps = useTimestamps;
+    }
+
     public synchronized void timedErr(String message) {
         mErr.println(getDate() + message);
     }
