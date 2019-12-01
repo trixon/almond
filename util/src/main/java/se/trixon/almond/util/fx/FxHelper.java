@@ -17,6 +17,8 @@ package se.trixon.almond.util.fx;
 
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 import java.util.stream.Stream;
@@ -345,6 +347,17 @@ public class FxHelper {
             } catch (InterruptedException ex) {
                 //Exceptions.printStackTrace(ex);
             }
+        }).start();
+    }
+
+    public static void runLaterDelayed(long delay, Runnable r) {
+        new Thread(() -> {
+            try {
+                Thread.sleep(delay);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(FxHelper.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            Platform.runLater(r);
         }).start();
     }
 
