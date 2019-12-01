@@ -213,6 +213,14 @@ public class SwingHelper {
         return sUIscale;
     }
 
+    public static double getUIScaled(double value) {
+        return value * getUIScale();
+    }
+
+    public static int getUIScaled(int value) {
+        return (int) (value * getUIScale());
+    }
+
     public static Dimension getUIScaledDim(int width, int height) {
         return new Dimension((int) (width * getUIScale()), (int) (height * getUIScale()));
     }
