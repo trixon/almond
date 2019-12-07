@@ -53,6 +53,16 @@ public class Almond {
         return getTopComponent(id, TopComponent.class);
     }
 
+    public static boolean isSelected(String preferredID) {
+        TopComponent topComponent = WINDOW_MANAGER.findTopComponent(preferredID);
+        try {
+            Mode mode = WINDOW_MANAGER.findMode(topComponent);
+            return mode.getSelectedTopComponent() == topComponent;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     public static void openAndActivateTopComponent(String id) {
         SwingUtilities.invokeLater(() -> {
             try {
@@ -116,4 +126,5 @@ public class Almond {
 
         return sWasSelected;
     }
+
 }
