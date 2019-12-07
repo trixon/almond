@@ -67,6 +67,10 @@ public abstract class FxTopComponent extends TopComponent {
         return mScene;
     }
 
+    public void requestSceneFocus() {
+        getScene().getWindow().requestFocus();
+    }
+
     public void resetFx() {
         removeAll();
         mFxPanel.setVisible(true);
