@@ -24,6 +24,8 @@ import java.awt.Window;
 import java.awt.event.HierarchyEvent;
 import java.util.Arrays;
 import java.util.Enumeration;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 import javax.swing.AbstractButton;
@@ -239,6 +241,17 @@ public class SwingHelper {
                 }
             }
         });
+    }
+
+    public static void runLaterDelayed(long delay, Runnable r) {
+        new Thread(() -> {
+            try {
+                Thread.sleep(delay);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(SwingHelper.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            SwingUtilities.invokeLater(r);
+        }).start();
     }
 
     public static void setComponentsFont(Container container, Font font) {
