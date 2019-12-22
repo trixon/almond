@@ -48,6 +48,7 @@ public enum Dict {
     APPEARANCE,
     APPEND,
     APPLICATION,
+    APPLICATION_NEWS,
     APPLICATION_TOOLS,
     APPLY,
     ARCHIVE,
