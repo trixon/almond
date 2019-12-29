@@ -57,6 +57,7 @@ public enum Dict {
     AVAILABLE,
     BACKGROUND,
     BACKGROUND_COLOR,
+    BACKGROUND_IMAGE,
     BASENAME,
     BASIC,
     BEARING,
