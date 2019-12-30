@@ -164,6 +164,7 @@ public enum Dict {
     FILE_PATTERN,
     FILE_REFERENCE,
     FILTER,
+    FIRST,
     FOLDER,
     FOLDERS,
     FOLLOW_LINKS,
