@@ -88,6 +88,7 @@ public enum Dict {
     COLLAPSE,
     COLOR,
     COMMAND,
+    COMMANDS,
     COMMENT,
     COMPARE,
     CONNECT,
