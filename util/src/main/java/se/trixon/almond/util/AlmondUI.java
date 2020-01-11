@@ -38,9 +38,9 @@ import se.trixon.almond.util.swing.SwingHelper;
  */
 public class AlmondUI extends AlmondGui {
 
+    protected final AlmondOptions mAlmondOptions = AlmondOptions.getInstance();
     private final ArrayList<AlmondOptionsWatcher> mAlmondOptionsWatchers = new ArrayList<>();
     private JFrame mFrame = null;
-    protected final AlmondOptions mAlmondOptions = AlmondOptions.getInstance();
 
     public static AlmondUI getInstance() {
         return Holder.INSTANCE;
@@ -124,8 +124,9 @@ public class AlmondUI extends AlmondGui {
         }
     }
 
-    public void installDarcula() {
-        UIManager.installLookAndFeel("Darcula", "com.bulenkov.darcula.DarculaLaf");
+    public void installFlatLaf() {
+        UIManager.installLookAndFeel("FlatDarkLaf", "com.formdev.flatlaf.FlatDarkLaf");
+        UIManager.installLookAndFeel("FlatLightLaf", "com.formdev.flatlaf.FlatLightLaf");
     }
 
     private void initClientOption(AlmondOptionsEvent almondOptionsEvent) {
