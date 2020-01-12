@@ -125,8 +125,8 @@ public class AlmondUI extends AlmondGui {
     }
 
     public void installFlatLaf() {
-        UIManager.installLookAndFeel("FlatDarkLaf", "com.formdev.flatlaf.FlatDarkLaf");
-        UIManager.installLookAndFeel("FlatLightLaf", "com.formdev.flatlaf.FlatLightLaf");
+        UIManager.installLookAndFeel("FlatLaf Dark", "com.formdev.flatlaf.FlatDarkLaf");
+        UIManager.installLookAndFeel("FlatLaf Light", "com.formdev.flatlaf.FlatLightLaf");
     }
 
     private void initClientOption(AlmondOptionsEvent almondOptionsEvent) {
