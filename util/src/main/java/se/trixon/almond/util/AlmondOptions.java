@@ -42,6 +42,7 @@ public class AlmondOptions {
 
     private static final MenuModePanel.MenuMode DEFAULT_MENU_MODE = SystemUtils.IS_OS_MAC ? MenuModePanel.MenuMode.BAR : MenuModePanel.MenuMode.BUTTON;
     private Color mButtonBackground;
+    private String mDefaultLookAndFeel = "System";
     private Preferences mPreferences = Preferences.userNodeForPackage(AlmondOptions.class);
     private boolean mRestartRequired;
 
@@ -65,6 +66,10 @@ public class AlmondOptions {
                 Logger.getLogger(AlmondOptions.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
+    }
+
+    public String getDefaultLookAndFeel() {
+        return mDefaultLookAndFeel;
     }
 
     public int getIconTheme() {
@@ -93,6 +98,10 @@ public class AlmondOptions {
 
     public boolean isMacLookAndFeel() {
         return (SystemUtils.IS_OS_MAC && getLookAndFeel().equalsIgnoreCase("system")) || getLookAndFeel().equalsIgnoreCase("mac os x");
+    }
+
+    public void setDefaultLookAndFeel(String defaultLookAndFeel) {
+        mDefaultLookAndFeel = defaultLookAndFeel;
     }
 
     public void setDisplayMenuIcons(boolean value) {
@@ -137,8 +146,9 @@ public class AlmondOptions {
         }
     }
 
-    private String getDefaultLookAndFeel() {
-        return "System";
+    private static class Holder {
+
+        private static final AlmondOptions INSTANCE = new AlmondOptions();
     }
 
     public enum AlmondOptionsEvent {
@@ -154,8 +164,4 @@ public class AlmondOptions {
         void onAlmondOptions(AlmondOptionsEvent almondOptionsEvent);
     }
 
-    private static class Holder {
-
-        private static final AlmondOptions INSTANCE = new AlmondOptions();
-    }
 }
