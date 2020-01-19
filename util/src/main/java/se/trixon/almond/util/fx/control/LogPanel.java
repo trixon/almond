@@ -18,6 +18,7 @@ package se.trixon.almond.util.fx.control;
 import javafx.application.Platform;
 import javafx.scene.control.TextArea;
 import javafx.scene.text.Font;
+import se.trixon.almond.util.fx.FxHelper;
 
 /**
  *
@@ -49,7 +50,7 @@ public class LogPanel extends TextArea {
     }
 
     public void setMonospaced() {
-        setFont(Font.font("monospaced"));
+        setFont(Font.font("monospaced", FxHelper.getScaledFontSize()));
     }
 
     private void init() {

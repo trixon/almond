@@ -69,7 +69,6 @@ public class FxHelper {
     private static final String STAGE_W = "AlmondStage_Width";
     private static final String STAGE_X = "AlmondStage_X";
     private static final String STAGE_Y = "AlmondStage_Y";
-    private static Double sScaledFontSize = null;
 
     public static void adjustButtonWidth(Stream<Node> stream, double prefWidth) {
         stream.filter((item) -> (item instanceof ButtonBase))
@@ -242,11 +241,7 @@ public class FxHelper {
     }
 
     public static double getScaledFontSize() {
-        if (sScaledFontSize == null) {
-            sScaledFontSize = Font.getDefault().getSize() * SwingHelper.getUIScale();
-        }
-
-        return sScaledFontSize;
+        return Font.getDefault().getSize() * SwingHelper.getUIScale();
     }
 
     public static double getUIScaled(double value) {
