@@ -401,6 +401,8 @@ public enum Dict {
     TAB_CLOSE_TO_LEFT,
     TAB_CLOSE_TO_RIGHT,
     TAB_NEW,
+    TAG,
+    TAGS,
     TASK,
     TASKS,
     TASKS_ACTIVE,
