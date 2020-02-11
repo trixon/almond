@@ -378,6 +378,12 @@ public class FxHelper {
         }
     }
 
+    public static void setPrefWidth(double width, Region... regions) {
+        for (Region region : regions) {
+            region.setPrefWidth(width);
+        }
+    }
+
     public static Optional showAndWait(Dialog dialog, Stage stage) {
         Stage alertStage = (Stage) dialog.getDialogPane().getScene().getWindow();
         if (stage != null) {
