@@ -142,6 +142,8 @@ public enum Dict {
     DYNAMIC,
     DYNAMIC_WORD_WRAP,
     EDIT,
+    EDITOR,
+    EDITORS,
     ELEVATION,
     EMPTY,
     ENABLE,
