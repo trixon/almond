@@ -16,6 +16,7 @@
 package se.trixon.almond.util.fx.dialogs;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.Optional;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -35,6 +36,7 @@ import se.trixon.almond.util.fx.FxHelper;
  */
 public class SimpleDialog {
 
+    private static final HashMap<String, ExtensionFilter> sExtensionFilters = new HashMap<>();
     private static final FileChooser sFileChooser = new FileChooser();
     private static ExtensionFilter sFilter;
     private static Window sOwner;
@@ -42,15 +44,22 @@ public class SimpleDialog {
     private static File[] sPaths = new File[0];
     private static String sTitle;
 
-    private SimpleDialog() {
-    }
-
     public static void addFilter(ExtensionFilter filter) {
         sFileChooser.getExtensionFilters().add(filter);
     }
 
+    public static void addFilters(String... filters) {
+        for (String filter : filters) {
+            addFilter(sExtensionFilters.get(filter));
+        }
+    }
+
     public static void clearFilters() {
         sFileChooser.getExtensionFilters().clear();
+    }
+
+    public static HashMap<String, ExtensionFilter> getExtensionFilters() {
+        return sExtensionFilters;
     }
 
 //    public static void clearSelection() {
@@ -149,6 +158,10 @@ public class SimpleDialog {
         return true;
     }
 
+    public static void setFilter(String filterExt) {
+        setFilter(sExtensionFilters.get(filterExt));
+    }
+
     public static void setFilter(ExtensionFilter filter) {
         sFilter = filter;
         sFileChooser.setSelectedExtensionFilter(filter);
@@ -174,6 +187,9 @@ public class SimpleDialog {
     public static void setTitle(String title) {
         sTitle = title;
         sFileChooser.setTitle(title);
+    }
+
+    private SimpleDialog() {
     }
 
 }

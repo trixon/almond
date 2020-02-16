@@ -18,6 +18,7 @@ package se.trixon.almond.util.swing.dialogs;
 import java.awt.Color;
 import java.awt.Component;
 import java.io.File;
+import java.util.HashMap;
 import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -31,6 +32,7 @@ import se.trixon.almond.util.Dict;
  */
 public class SimpleDialog {
 
+    private static final HashMap<String, FileNameExtensionFilter> sExtensionFilters = new HashMap<>();
     private static final JFileChooser sFileChooser = new JFileChooser();
     private static FileNameExtensionFilter sFilter;
     private static Component sParent;
@@ -40,6 +42,12 @@ public class SimpleDialog {
 
     public static void addFilter(FileNameExtensionFilter filter) {
         sFileChooser.addChoosableFileFilter(filter);
+    }
+
+    public static void addFilters(String... filters) {
+        for (String filter : filters) {
+            addFilter(sExtensionFilters.get(filter));
+        }
     }
 
     public static void clearFilters() {
@@ -52,6 +60,10 @@ public class SimpleDialog {
         sFileChooser.setSelectedFiles(new File[]{new File("")});
         sFileChooser.setCurrentDirectory(currentDirectory);
         sFileChooser.rescanCurrentDirectory();
+    }
+
+    public static HashMap<String, FileNameExtensionFilter> getExtensionFilters() {
+        return sExtensionFilters;
     }
 
     public static FileNameExtensionFilter getFilter() {
@@ -185,6 +197,10 @@ public class SimpleDialog {
     public static void setFilter(FileNameExtensionFilter filter) {
         sFilter = filter;
         sFileChooser.setFileFilter(filter);
+    }
+
+    public static void setFilter(String filterExt) {
+        setFilter(sExtensionFilters.get(filterExt));
     }
 
     public static void setParent(Component parent) {
