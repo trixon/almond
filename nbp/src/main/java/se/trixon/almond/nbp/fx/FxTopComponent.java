@@ -19,6 +19,7 @@ import java.awt.BorderLayout;
 import java.util.ResourceBundle;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
+import javax.swing.SwingUtilities;
 import org.openide.util.NbBundle;
 import org.openide.windows.TopComponent;
 import org.openide.windows.WindowManager;
@@ -30,11 +31,10 @@ import se.trixon.almond.util.fx.FxHelper;
  */
 public abstract class FxTopComponent extends TopComponent {
 
-    private static int FX_DELAY_LONG = 5000;
-    private static int FX_DELAY_SHORT = 500;
+    private static int FX_DELAY_LONG = 0;
+    private static int FX_DELAY_SHORT = 0;
     private static final WindowManager WINDOW_MANAGER = WindowManager.getDefault();
     private ResourceBundle mBundle;
-
     private final JFXPanel mFxPanel = new JFXPanel();
     private Scene mScene;
 
@@ -106,24 +106,30 @@ public abstract class FxTopComponent extends TopComponent {
     protected void componentClosed() {
         FxHelper.runLaterDelayed(FX_DELAY_SHORT, () -> {
             fxComponentClosed();
+            SwingUtilities.invokeLater(() -> {
+                super.componentClosed();
+            });
         });
-        super.componentClosed();
     }
 
     @Override
     protected void componentDeactivated() {
         FxHelper.runLaterDelayed(FX_DELAY_SHORT, () -> {
             fxComponentDeactivated();
+            SwingUtilities.invokeLater(() -> {
+                super.componentDeactivated();
+            });
         });
-        super.componentDeactivated();
     }
 
     @Override
     protected void componentHidden() {
         FxHelper.runLaterDelayed(FX_DELAY_SHORT, () -> {
             fxComponentHidden();
+            SwingUtilities.invokeLater(() -> {
+                super.componentHidden();
+            });
         });
-        super.componentHidden();
     }
 
     @Override
