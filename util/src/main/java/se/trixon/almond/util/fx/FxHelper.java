@@ -279,7 +279,7 @@ public class FxHelper {
 
     public static void loadDarkTheme(Scene scene) {
         if (isDarkThemeEnabled()) {
-            Platform.runLater(() -> {
+            runLater(() -> {
                 scene.getStylesheets().add(FxHelper.class.getResource("darcula.css").toExternalForm());
                 scene.getRoot().setStyle(String.format("-fx-font-size: %dpx;", (int) getScaledFontSize()));
             });
@@ -288,7 +288,7 @@ public class FxHelper {
 
     public static void loadDarkTheme(Parent parent) {
         if (isDarkThemeEnabled()) {
-            Platform.runLater(() -> {
+            runLater(() -> {
                 parent.getStylesheets().add(FxHelper.class.getResource("darcula.css").toExternalForm());
             });
         }
@@ -328,7 +328,7 @@ public class FxHelper {
     }
 
     public static void notify(String message, NotificationPane notificationPane, MaskerPane maskerPane, int iconSize) {
-        Platform.runLater(() -> {
+        runLater(() -> {
             maskerPane.setVisible(false);
             notificationPane.show(message, MaterialIcon._Action.INFO_OUTLINE.getImageView(iconSize));
         });
@@ -336,13 +336,26 @@ public class FxHelper {
         new Thread(() -> {
             try {
                 TimeUnit.MILLISECONDS.sleep(3000);
-                Platform.runLater(() -> {
+                runLater(() -> {
                     notificationPane.hide();
                 });
             } catch (InterruptedException ex) {
                 //Exceptions.printStackTrace(ex);
             }
         }).start();
+    }
+
+    /**
+     * Run r now if isFxApplicationThread, else runLater
+     *
+     * @param r
+     */
+    public static void runLater(Runnable r) {
+        if (Platform.isFxApplicationThread()) {
+            r.run();
+        } else {
+            Platform.runLater(r);
+        }
     }
 
     public static void runLaterDelayed(long delay, Runnable r) {
@@ -352,7 +365,7 @@ public class FxHelper {
             } catch (InterruptedException ex) {
                 Logger.getLogger(FxHelper.class.getName()).log(Level.SEVERE, null, ex);
             }
-            Platform.runLater(r);
+            runLater(r);
         }).start();
     }
 
