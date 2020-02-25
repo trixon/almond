@@ -271,7 +271,7 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <netbeans.hint.license>apache20</netbeans.hint.license>
-        <netbeans.version>RELEASE112</netbeans.version>
+        <netbeans.version>RELEASE113</netbeans.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <openjfx.version>13.0.2</openjfx.version>
     </properties>
