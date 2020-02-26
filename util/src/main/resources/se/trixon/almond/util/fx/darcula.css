@@ -14,14 +14,14 @@
     -fx-color: derive(-fx-base, 10%);
 
     /* text fields and table rows background */
-    -fx-control-inner-background: rgb(43, 43, 43);
+    -fx-control-inner-background: rgb(69,73,74);
     /* version of -fx-control-inner-background for alternative rows */
     -fx-control-inner-background-alt: derive(-fx-control-inner-background, 2.5%);
 
     /* text colors depending on background's brightness */
     -fx-light-text-color: rgb(220, 220, 220);
     -fx-mid-text-color: rgb(100, 100, 100);
-    -fx-dark-text-color: rgb(43, 43, 43);
+    -fx-dark-text-color: rgb(69,73,74);
 
     /* A bright blue for highlighting/accenting objects.  For example: selected
      * text; selected items in menus, lists, trees, and tables; progress bars */
