@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2019 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,7 +15,9 @@
  */
 package se.trixon.almond.util;
 
+import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
+import org.apache.commons.lang3.ArrayUtils;
 
 /**
  *
@@ -26,4 +28,27 @@ public class PrefsHelper {
     public static boolean keyExists(Preferences preferences, String key) {
         return preferences.get(key, null) != null;
     }
+
+    public static void put(Preferences preferences, String key, String value) {
+        preferences.put(key, value);
+    }
+
+    /**
+     * Put value for key if missing in preferences
+     *
+     * @param preferences
+     * @param key
+     * @param value
+     * @return
+     * @throws BackingStoreException
+     */
+    public static boolean putIfAbsent(Preferences preferences, String key, String value) throws BackingStoreException {
+        if (!ArrayUtils.contains(preferences.keys(), key)) {
+            put(preferences, key, value);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
