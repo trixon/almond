@@ -165,6 +165,7 @@ public enum Dict {
     EXTERNAL_FILE,
     FAILED,
     FILE,
+    FILES,
     FILELIST_EMPTY,
     FILENAME,
     FILE_MENU,
