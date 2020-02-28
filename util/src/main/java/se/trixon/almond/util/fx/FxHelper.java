@@ -34,6 +34,10 @@ import javafx.scene.control.Control;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.ToolBar;
+import javafx.scene.control.Tooltip;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
@@ -218,6 +222,18 @@ public class FxHelper {
                         CornerRadii.EMPTY,
                         Insets.EMPTY
                 ));
+    }
+
+    public static String createKeyCodeDisplayText(KeyCode code, KeyCombination.Modifier... modifiers) {
+        return new KeyCodeCombination(code, modifiers).getDisplayText();
+    }
+
+    public static String createTitleAndKeyCode(String title, KeyCode code, KeyCombination.Modifier... modifiers) {
+        return String.format("%s (%s)", title, createKeyCodeDisplayText(code, modifiers));
+    }
+
+    public static Tooltip createTitleAndKeyCodeTooltip(String title, KeyCode code, KeyCombination.Modifier... modifiers) {
+        return new Tooltip(createTitleAndKeyCode(title, code, modifiers));
     }
 
     public static void disableControls(ObservableList<Node> nodes, boolean disabled, Control... excludedControls) {
