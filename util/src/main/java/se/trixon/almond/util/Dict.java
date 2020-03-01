@@ -424,6 +424,8 @@ public enum Dict {
     TASK_COMPLETED,
     TEMPLATE,
     TEMPLATES,
+    TEMPORARY,
+    TEMPORARY_CONTENT,
     TEXT,
     TEXT_COLOR,
     THANKS_TO,
