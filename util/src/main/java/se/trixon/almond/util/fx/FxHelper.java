@@ -53,6 +53,7 @@ import javafx.stage.Stage;
 import org.apache.commons.lang3.ArrayUtils;
 import org.controlsfx.control.MaskerPane;
 import org.controlsfx.control.NotificationPane;
+import org.controlsfx.control.action.Action;
 import se.trixon.almond.util.PrefsHelper;
 import se.trixon.almond.util.icons.material.MaterialIcon;
 import se.trixon.almond.util.swing.SwingHelper;
@@ -254,6 +255,19 @@ public class FxHelper {
                 }
             }
         }
+    }
+
+    public static ButtonBase getButtonForAction(Action action, ObservableList<Node> items) {
+        for (Node item : items) {
+            if (item instanceof ButtonBase) {
+                ButtonBase buttonBase = (ButtonBase) item;
+                if (buttonBase.getOnAction().equals(action)) {
+                    return buttonBase;
+                }
+            }
+        }
+
+        return null;
     }
 
     public static double getScaledFontSize() {
