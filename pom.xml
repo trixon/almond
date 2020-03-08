@@ -148,8 +148,7 @@
                     <execution>
                         <id>attach-javadocs</id>
                         <goals>
-                            <!--TODO Make this work again after 8->11-->
-                            <!--<goal>jar</goal>-->
+                            <goal>jar</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -186,8 +185,6 @@
         <module>nbp-actions</module>
         <module>nbp-actions-osx</module>
         <module>nbp-core</module>
-        <!--TODO Make this work again after 8->11-->
-        <!--<module>nbp-darcula</module>-->
         <module>util</module>
     </modules>
 

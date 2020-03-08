@@ -51,10 +51,11 @@
             <artifactId>almond-util</artifactId>
             <exclusions>
                 <exclusion>
-                    <groupId>org.openjfx</groupId>
+                    <groupId>*</groupId>
                     <artifactId>*</artifactId>
                 </exclusion>
             </exclusions>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
 </project>
