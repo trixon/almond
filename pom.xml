@@ -40,7 +40,7 @@
                 <plugin>
                     <groupId>org.apache.netbeans.utilities</groupId>
                     <artifactId>nbm-maven-plugin</artifactId>
-                    <version>4.3</version>
+                    <version>4.4</version>
                     <extensions>true</extensions>
                     <configuration>
                     </configuration>
@@ -148,7 +148,7 @@
                     <execution>
                         <id>attach-javadocs</id>
                         <goals>
-                            <goal>jar</goal>
+                            <!--<goal>jar</goal>-->
                         </goals>
                     </execution>
                 </executions>
@@ -270,6 +270,6 @@
         <netbeans.hint.license>apache20</netbeans.hint.license>
         <netbeans.version>RELEASE113</netbeans.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <openjfx.version>13.0.2</openjfx.version>
+        <openjfx.version>14</openjfx.version>
     </properties>
 </project>
