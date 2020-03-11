@@ -199,6 +199,8 @@ public enum Dict {
     IMAGE_SIZE,
     IMPORT,
     INCLUDE,
+    INDICATOR,
+    INDICATORS,
     INFORMATION,
     INTERVAL,
     INVALID_ARGUMENT,
