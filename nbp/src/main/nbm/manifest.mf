@@ -1,4 +1,5 @@
 Manifest-Version: 1.0
+OpenIDE-Module-Module: se.trixon.almond.nbp
 OpenIDE-Module-Install: se/trixon/almond/nbp/Installer.class
 OpenIDE-Module-Layer: se/trixon/almond/nbp/layer.xml
 OpenIDE-Module-Localizing-Bundle: se/trixon/almond/nbp/Bundle.properties
