@@ -19,11 +19,13 @@ import java.awt.BorderLayout;
 import java.util.ResourceBundle;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
+import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
 import org.openide.util.NbBundle;
 import org.openide.windows.TopComponent;
 import org.openide.windows.WindowManager;
 import se.trixon.almond.util.fx.FxHelper;
+import se.trixon.almond.util.swing.SwingHelper;
 
 /**
  *
@@ -40,13 +42,29 @@ public abstract class FxTopComponent extends TopComponent {
 
     public FxTopComponent() {
         setLayout(new BorderLayout());
-        add(mFxPanel, BorderLayout.CENTER);
+        JProgressBar progressBar = new JProgressBar();
+        progressBar.setIndeterminate(true);
+        add(progressBar, BorderLayout.NORTH);
+        repaint();
+        revalidate();
 
-        FxHelper.runLaterDelayed(FX_DELAY_LONG, () -> {
-            initFX();
-            mFxPanel.setScene(mScene);
-            fxPostConstructor();
-        });
+        //System.out.println(getClass().getName());
+        new Thread(() -> {
+            FxHelper.runLaterDelayed(0, () -> {
+                initFX();
+                mFxPanel.setScene(mScene);
+
+                SwingHelper.runLaterDelayed(0, () -> {
+                    removeAll();
+                    add(mFxPanel, BorderLayout.CENTER);
+                    repaint();
+                    revalidate();
+                    FxHelper.runLaterDelayed(0, () -> {
+                        fxPostConstructor();
+                    });
+                });
+            });
+        }).start();
     }
 
     public ResourceBundle getBundle() {
