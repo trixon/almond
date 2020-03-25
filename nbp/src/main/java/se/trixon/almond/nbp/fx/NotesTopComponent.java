@@ -21,7 +21,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import org.netbeans.api.settings.ConvertAsProperties;
 import org.openide.awt.ActionID;
-import org.openide.awt.ActionReference;
 import org.openide.util.NbBundle.Messages;
 import org.openide.util.NbPreferences;
 import org.openide.windows.TopComponent;
@@ -41,7 +40,6 @@ import se.trixon.almond.util.Dict;
 )
 @TopComponent.Registration(mode = "editor", openAtStartup = false)
 @ActionID(category = "Window", id = "se.trixon.almond.nbp.fx.NotesTopComponent")
-@ActionReference(path = "Menu/Window" /*, position = 333 */)
 @TopComponent.OpenActionRegistration(
         displayName = "#CTL_NotesAction",
         preferredID = "NotesTopComponent"
