@@ -29,7 +29,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import se.trixon.almond.util.AlmondOptions.AlmondOptionsEvent;
 import se.trixon.almond.util.AlmondOptions.AlmondOptionsWatcher;
-import se.trixon.almond.util.icons.material.MaterialIcon;
+import se.trixon.almond.util.icons.material.swing.MaterialIcon;
 import se.trixon.almond.util.swing.SwingHelper;
 
 /**
