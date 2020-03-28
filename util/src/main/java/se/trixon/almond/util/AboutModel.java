@@ -16,14 +16,12 @@
 package se.trixon.almond.util;
 
 import java.util.ResourceBundle;
-import javafx.scene.image.ImageView;
-import javax.swing.ImageIcon;
 
 /**
  *
  * @author Patrik Karlström
  */
-public class AboutModel {
+public abstract class AboutModel {
 
     private String mAppCopyright;
     private String mAppDate;
@@ -36,8 +34,6 @@ public class AboutModel {
     private String mAppVersion;
     private String mAuthors;
     private ResourceBundle mBundle;
-    private ImageIcon mImageIcon = null;
-    private ImageView mImageView = null;
     private String mLibraries;
     private String mThanksTo;
     private String mTranslation;
@@ -47,16 +43,6 @@ public class AboutModel {
 
     public AboutModel(ResourceBundle resourceBundle) {
         setBundle(resourceBundle);
-    }
-
-    public AboutModel(ResourceBundle resourceBundle, ImageIcon imageIcon) {
-        setBundle(resourceBundle);
-        setImageIcon(imageIcon);
-    }
-
-    public AboutModel(ResourceBundle resourceBundle, ImageView imageView) {
-        setBundle(resourceBundle);
-        setImageView(imageView);
     }
 
     public String getAppCopyright() {
@@ -103,17 +89,11 @@ public class AboutModel {
         return mBundle;
     }
 
-    public ImageIcon getImageIcon() {
-        return mImageIcon;
-    }
-
-    public ImageView getImageView() {
-        return mImageView;
-    }
-
     public String getLibraries() {
         return mLibraries;
     }
+
+    public abstract Object getLogo();
 
     public String getThanksTo() {
         return mThanksTo;
@@ -179,17 +159,6 @@ public class AboutModel {
         setAuthors(getBundleValue("authors"));
         setTranslation(getBundleValue("translation"));
         setThanksTo(getBundleValue("thanksTo"));
-    }
-
-    public void setImageIcon(ImageIcon imageIcon) {
-        mImageIcon = imageIcon;
-    }
-
-    public void setImageView(ImageView imageView) {
-        mImageView = imageView;
-        mImageView.setPreserveRatio(true);
-        mImageView.setFitHeight(100);
-        mImageView.setFitWidth(100);
     }
 
     public void setLibraries(String libraries) {

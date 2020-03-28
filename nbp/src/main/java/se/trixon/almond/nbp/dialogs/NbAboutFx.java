@@ -17,6 +17,7 @@ package se.trixon.almond.nbp.dialogs;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
@@ -88,7 +89,7 @@ public class NbAboutFx extends FxDialogPanel {
         box.setAlignment(Pos.CENTER_LEFT);
         box.setPadding(new Insets(0, 0, 0, 22));
         BorderPane topBorderPane = new BorderPane(box);
-        topBorderPane.setLeft(mAboutModel.getImageView());
+        topBorderPane.setLeft((Node) mAboutModel.getLogo());
         topBorderPane.setPadding(new Insets(22));
         BorderPane mainBorderPane = new BorderPane(mAboutPane);
         mainBorderPane.setTop(topBorderPane);

@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2019 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,12 +23,12 @@ import org.netbeans.spi.options.OptionsPanelController;
 import org.openide.util.HelpCtx;
 import org.openide.util.Lookup;
 
-@OptionsPanelController.SubRegistration(
-        location = "Appearance",
-        displayName = "#AdvancedOption_DisplayName_Icon",
-        keywords = "#AdvancedOption_Keywords_Icon",
-        keywordsCategory = "Appearance/Icon"
-)
+//@OptionsPanelController.SubRegistration(
+//        location = "Appearance",
+//        displayName = "#AdvancedOption_DisplayName_Icon",
+//        keywords = "#AdvancedOption_Keywords_Icon",
+//        keywordsCategory = "Appearance/Icon"
+//)
 @org.openide.util.NbBundle.Messages({"AdvancedOption_DisplayName_Icon=Icon", "AdvancedOption_Keywords_Icon=almond icon"})
 public final class IconOptionsPanelController extends OptionsPanelController {
 

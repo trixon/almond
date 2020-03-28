@@ -193,13 +193,6 @@ public class GraphicsHelper {
                 + c.getBlue() * c.getBlue() * .068);
     }
 
-    public static int getBrightness(javafx.scene.paint.Color c) {
-        return (int) Math.sqrt(
-                c.getRed() * c.getRed() * .241
-                + c.getGreen() * c.getGreen() * .691
-                + c.getBlue() * c.getBlue() * .068);
-    }
-
     public static BufferedImage getBufferedImage(URL url) {
         BufferedImage bufferedImage = null;
         try {
