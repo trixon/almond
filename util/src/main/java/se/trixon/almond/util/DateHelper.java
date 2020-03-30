@@ -16,12 +16,21 @@
 package se.trixon.almond.util;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
 /**
  *
  * @author Patrik Karlström
  */
 public class DateHelper {
+
+    /**
+     *
+     * returns max of t1 and t2, if equal; t2
+     */
+    public static LocalDate getMax(LocalDate t1, LocalDate t2) {
+        return t1.isAfter(t2) ? t1 : t2;
+    }
 
     /**
      *
@@ -45,6 +54,14 @@ public class DateHelper {
      */
     public static Timestamp getMax(Timestamp t1, Timestamp t2) {
         return t1.after(t2) ? t1 : t2;
+    }
+
+    /**
+     *
+     * returns min of t1 and t2, if equal; t2
+     */
+    public static LocalDate getMin(LocalDate t1, LocalDate t2) {
+        return t1.isBefore(t2) ? t1 : t2;
     }
 
     /**
