@@ -587,6 +587,7 @@ public enum Dict {
     }
 
     public enum Time {
+        CURRENT,
         DATE,
         DAY,
         HOUR,
@@ -594,6 +595,7 @@ public enum Dict {
         MONTH,
         SECOND,
         TIME,
+        TODAY,
         WEEK,
         YEAR,
         ZZZ;
