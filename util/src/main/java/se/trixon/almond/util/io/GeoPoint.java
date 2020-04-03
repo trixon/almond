@@ -18,7 +18,6 @@ package se.trixon.almond.util.io;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
-import org.apache.commons.lang3.RegExUtils;
 import org.apache.commons.lang3.StringUtils;
 import se.trixon.almond.util.MathHelper;
 
@@ -35,22 +34,30 @@ public class GeoPoint extends CoordinatePoint {
     private String mRemark = "";
     private String mSpecialCode = "";
 
+    public static void setLineEnding(String lineEnding) {
+        GeoPoint.sLineEnding = lineEnding;
+    }
+
     public GeoPoint() {
     }
 
     public GeoPoint(String line) throws NumberFormatException {
-        line = RegExUtils.removeAll(line, "\"");
         line = StringUtils.removeStart(line.trim(), "Point");
-        String[] parts = StringUtils.splitPreserveAllTokens(line, ",");
+        String[] aa = getFirstItem(line);
+        setPointId(aa[0]);
 
-        setPointId(parts[0]);
-        mX = MathHelper.convertStringToDouble(parts[1]);
-        mY = MathHelper.convertStringToDouble(parts[2]);
-        mZ = MathHelper.convertStringToDouble(parts[3]);
+        String[] parts = StringUtils.splitPreserveAllTokens(aa[1], ",");
+        mX = MathHelper.convertStringToDouble(parts[0]);
+        mY = MathHelper.convertStringToDouble(parts[1]);
+        mZ = MathHelper.convertStringToDouble(parts[2]);
 
-        setPointCode(parts[4]);
-        setSpecialCode(parts[5]);
-        setRemark(parts[6]);
+        aa[1] = StringUtils.substring(aa[1], StringUtils.ordinalIndexOf(aa[1], ",", 3) + 1);
+        aa = getFirstItem(aa[1]);
+        setPointCode(aa[0]);
+        aa = getFirstItem(aa[1]);
+        setSpecialCode(aa[0]);
+        aa = getFirstItem(aa[1]);
+        setRemark(aa[0]);
     }
 
     public GeoPoint(String pointId, Double x, Double y, Double z, String pointCode) {
@@ -59,10 +66,6 @@ public class GeoPoint extends CoordinatePoint {
         mY = y;
         mZ = z;
         setPointCode(pointCode);
-    }
-
-    public static void setLineEnding(String lineEnding) {
-        GeoPoint.sLineEnding = lineEnding;
     }
 
     public String getPointCode() {
@@ -117,4 +120,20 @@ public class GeoPoint extends CoordinatePoint {
         return line;
     }
 
+    private String[] getFirstItem(String input) {
+        String segment;
+        String remaining;
+
+        if (StringUtils.startsWith(input, ",")) {
+            segment = "";
+            remaining = StringUtils.removeStart(input, ",");
+        } else {
+            int begin = StringUtils.ordinalIndexOf(input, "\"", 1) + 1;
+            int end = StringUtils.ordinalIndexOf(input, "\"", 2);
+            segment = StringUtils.substring(input, begin, end);
+            remaining = StringUtils.substring(input, end + 2);
+        }
+
+        return new String[]{segment, remaining};
+    }
 }

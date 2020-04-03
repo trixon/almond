@@ -2,14 +2,19 @@ package se.trixon.almond.util.icons.material;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.ImageView;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import se.trixon.almond.util.GraphicsHelper;
 import se.trixon.almond.util.fx.FxHelper;
 
 public class MaterialIcon {
 
+    private static final Class cls = se.trixon.almond.util.icons.material.MaterialIcon.class;
     private static javafx.scene.paint.Color sDefaultColor = javafx.scene.paint.Color.BLACK;
 
     public static javafx.scene.paint.Color getDefaultColor() {
@@ -20,17 +25,27 @@ public class MaterialIcon {
         sDefaultColor = color;
     }
 
-    private static ImageIcon getImageIcon(String dir, String baseName, int size, java.awt.Color color) {
-        String path = MaterialIcon.class.getPackage().getName().replace(".", "/");
-        String fileName = String.format("/%s/%s/%s_white.png", path, dir, baseName.toLowerCase());
-        ImageIcon imageIcon = new ImageIcon(MaterialIcon.class.getResource(fileName));
-        ImageIcon scaledImageIcon = new ImageIcon(imageIcon.getImage().getScaledInstance(size, size, Image.SCALE_SMOOTH));
+    private static BufferedImage getBufferedImage(String dir, String baseName, int size, java.awt.Color color) {
+        BufferedImage bi = null;
 
-        return new ImageIcon(GraphicsHelper.colorize(scaledImageIcon.getImage(), color));
+        try {
+            bi = ImageIO.read(cls.getResource(String.format("%s/%s_white.png", dir, baseName.toLowerCase())));
+            bi = GraphicsHelper.toBufferedImage(bi.getScaledInstance(size, size, Image.SCALE_SMOOTH));
+            bi = GraphicsHelper.colorize(bi, color);
+        } catch (IOException ex) {
+            Logger.getLogger(MaterialIcon.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return bi;
+    }
+
+    private static ImageIcon getImageIcon(String dir, String baseName, int size, java.awt.Color color) {
+        BufferedImage bufferedImage = getBufferedImage(dir, baseName, size, color);
+        return new ImageIcon(bufferedImage);
     }
 
     private static ImageView getImageView(String dir, String baseName, int size, javafx.scene.paint.Color color) {
-        BufferedImage bufferedImage = GraphicsHelper.toBufferedImage(getImageIcon(dir, baseName, size, FxHelper.colorToColor(color)).getImage());
+        BufferedImage bufferedImage = getBufferedImage(dir, baseName, size, FxHelper.colorToColor(color));
 
         return new ImageView(SwingFXUtils.toFXImage(bufferedImage, null));
     }
@@ -150,8 +165,7 @@ public class MaterialIcon {
         PAGEVIEW,
         PAN_TOOL,
         PAYMENT,
-        PERM_CAMERA_MBLACK,
-        PERM_CAMERA_MWHITE,
+        PERM_CAMERA,
         PERM_CONTACT_CALENDAR,
         PERM_DATA_SETTING,
         PERM_DEVICE_INFORMATION,
@@ -330,15 +344,13 @@ public class MaterialIcon {
         HIGH_QUALITY,
         LIBRARY_ADD,
         LIBRARY_BOOKS,
-        LIBRARY_MUSBLACK,
-        LIBRARY_MUSWHITE,
+        LIBRARY_MUSIC,
         LOOP,
-        MBLACK,
-        MNONE,
-        MOFF,
+        MIC,
+        MIC_NONE,
+        MIC_OFF,
         MOVIE,
         MUSVIDEO,
-        MWHITE,
         NEW_RELEASES,
         NOT_INTERESTED,
         NOTE,
@@ -352,8 +364,7 @@ public class MaterialIcon {
         PLAYLIST_ADD_CHECK,
         PLAYLIST_PLAY,
         QUEUE,
-        QUEUE_MUSBLACK,
-        QUEUE_MUSWHITE,
+        QUEUE_MUSIC,
         QUEUE_PLAY_NEXT,
         RADIO,
         RECENT_ACTORS,
@@ -674,8 +685,7 @@ public class MaterialIcon {
         FORMAT_COLOR_TEXT,
         FORMAT_INDENT_DECREASE,
         FORMAT_INDENT_INCREASE,
-        FORMAT_ITALBLACK,
-        FORMAT_ITALWHITE,
+        FORMAT_ITALIC,
         FORMAT_LINE_SPACING,
         FORMAT_LIST_BULLETED,
         FORMAT_LIST_NUMBERED,
@@ -787,8 +797,7 @@ public class MaterialIcon {
         DOCK,
         GAMEPAD,
         HEADSET,
-        HEADSET_MBLACK,
-        HEADSET_MWHITE,
+        HEADSET_MIC,
         KEYBOARD,
         KEYBOARD_ARROW_DOWN,
         KEYBOARD_ARROW_LEFT,
@@ -1089,8 +1098,7 @@ public class MaterialIcon {
         STREETVIEW,
         SUBWAY,
         TERRAIN,
-        TRAFFBLACK,
-        TRAFFWHITE,
+        TRAFFIC,
         TRAIN,
         TRAM,
         TRANSFER_WITHIN_A_STATION,

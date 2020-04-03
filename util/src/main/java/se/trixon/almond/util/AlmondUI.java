@@ -29,7 +29,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import se.trixon.almond.util.AlmondOptions.AlmondOptionsEvent;
 import se.trixon.almond.util.AlmondOptions.AlmondOptionsWatcher;
-import se.trixon.almond.util.icons.material.MaterialIcon;
+import se.trixon.almond.util.icons.material.swing.MaterialIcon;
 import se.trixon.almond.util.swing.SwingHelper;
 
 /**
@@ -38,9 +38,9 @@ import se.trixon.almond.util.swing.SwingHelper;
  */
 public class AlmondUI extends AlmondGui {
 
+    protected final AlmondOptions mAlmondOptions = AlmondOptions.getInstance();
     private final ArrayList<AlmondOptionsWatcher> mAlmondOptionsWatchers = new ArrayList<>();
     private JFrame mFrame = null;
-    protected final AlmondOptions mAlmondOptions = AlmondOptions.getInstance();
 
     public static AlmondUI getInstance() {
         return Holder.INSTANCE;
@@ -124,8 +124,9 @@ public class AlmondUI extends AlmondGui {
         }
     }
 
-    public void installDarcula() {
-        UIManager.installLookAndFeel("Darcula", "com.bulenkov.darcula.DarculaLaf");
+    public void installFlatLaf() {
+        UIManager.installLookAndFeel("FlatLaf Dark", "com.formdev.flatlaf.FlatDarkLaf");
+        UIManager.installLookAndFeel("FlatLaf Light", "com.formdev.flatlaf.FlatLightLaf");
     }
 
     private void initClientOption(AlmondOptionsEvent almondOptionsEvent) {

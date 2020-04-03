@@ -30,7 +30,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import se.trixon.almond.util.Dict;
-import se.trixon.almond.util.icons.material.MaterialIcon;
+import se.trixon.almond.util.icons.material.swing.MaterialIcon;
 
 /**
  *
@@ -179,7 +179,6 @@ public class FileChooserPanel extends javax.swing.JPanel {
 
     private void init() {
         mButton.setIcon(MaterialIcon._File.FOLDER_OPEN.getImageIcon(22));
-
         mDropTarget = new DropTarget() {
             @Override
             public synchronized void drop(DropTargetDropEvent evt) {

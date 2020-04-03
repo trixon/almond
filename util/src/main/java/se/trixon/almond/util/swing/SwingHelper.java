@@ -24,6 +24,8 @@ import java.awt.Window;
 import java.awt.event.HierarchyEvent;
 import java.util.Arrays;
 import java.util.Enumeration;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 import javax.swing.AbstractButton;
@@ -48,7 +50,6 @@ public class SwingHelper {
     private static final String FRAME_W = "Frame_Width";
     private static final String FRAME_X = "Frame_X";
     private static final String FRAME_Y = "Frame_Y";
-    private static Double sUIscale = null;
 
     public static void borderPainted(Container container, boolean enable) {
         Component[] components = container.getComponents();
@@ -167,7 +168,7 @@ public class SwingHelper {
     }
 
     public static DefaultComboBoxModel<String> getLookAndFeelComboBoxModel(boolean addSystem) {
-        return new DefaultComboBoxModel<String>(getLookAndFeelNames(addSystem));
+        return new DefaultComboBoxModel<>(getLookAndFeelNames(addSystem));
     }
 
     public static String[] getLookAndFeelNames(boolean addSystem) {
@@ -204,13 +205,18 @@ public class SwingHelper {
     }
 
     public static double getUIScale() {
-        if (sUIscale == null) {
-            double defaultFontSize = 12.0;
-            Integer fontSize = (Integer) UIManager.get("customFontSize");
-            sUIscale = fontSize == null ? 1.0 : fontSize / defaultFontSize;
-        }
+        double defaultFontSize = 12.0;
+        Integer fontSize = (Integer) UIManager.get("customFontSize");
 
-        return sUIscale;
+        return fontSize == null ? 1.0 : fontSize / defaultFontSize;
+    }
+
+    public static double getUIScaled(double value) {
+        return value * getUIScale();
+    }
+
+    public static int getUIScaled(int value) {
+        return (int) (value * getUIScale());
     }
 
     public static Dimension getUIScaledDim(int width, int height) {
@@ -231,6 +237,17 @@ public class SwingHelper {
                 }
             }
         });
+    }
+
+    public static void runLaterDelayed(long delay, Runnable r) {
+        new Thread(() -> {
+            try {
+                Thread.sleep(delay);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(SwingHelper.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            SwingUtilities.invokeLater(r);
+        }).start();
     }
 
     public static void setComponentsFont(Container container, Font font) {

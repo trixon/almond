@@ -4,7 +4,7 @@
 
     <groupId>se.trixon.almond</groupId>
     <artifactId>almond-parent</artifactId>
-    <version>3.0.4</version>
+    <version>11.0.5</version>
     <packaging>pom</packaging>
 
     <name>almond-parent</name>
@@ -12,7 +12,7 @@
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
         </license>
     </licenses>
     <developers>
@@ -40,23 +40,20 @@
                 <plugin>
                     <groupId>org.apache.netbeans.utilities</groupId>
                     <artifactId>nbm-maven-plugin</artifactId>
-                    <version>4.2</version>
+                    <version>4.5</version>
                     <extensions>true</extensions>
-                    <configuration>
-                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-release-plugin</artifactId>
-                    <version>2.5.3</version>
+                    <version>3.0.0-M1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.8.1</version>
                     <configuration>
-                        <source>1.8</source>
-                        <target>1.8</target>
+                        <release>11</release>
                         <showDeprecation>true</showDeprecation>
                         <compilerArgument>-Xlint:unchecked</compilerArgument>
                     </configuration>
@@ -64,34 +61,61 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>3.1.2</version>
+                    <version>3.2.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-deploy-plugin</artifactId>
-                    <version>2.8.2</version>
+                    <version>3.0.0-M1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
-                    <version>3.1.0</version>
+                    <version>3.2.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <version>3.1.1</version>
                 </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>versions-maven-plugin</artifactId>
+                    <version>2.7</version>
+                    <configuration>
+                        <generateBackupPoms>false</generateBackupPoms>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>3.1.0</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>3.0.0-M1</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>3.8.2</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>3.1.0</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>3.0.0-M4</version>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
             <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                    <showDeprecation>true</showDeprecation>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -122,8 +146,32 @@
                     <execution>
                         <id>attach-javadocs</id>
                         <goals>
-                            <goal>jar</goal>
+                            <!--<goal>jar</goal>-->
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>3.0.0-M3</version>
+                <executions>
+                    <execution>
+                        <id>enforce</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <banDuplicatePomDependencyVersions/>
+                                <requireMavenVersion>
+                                    <version>3.0.5</version>
+                                </requireMavenVersion>
+                                <requireJavaVersion>
+                                    <version>11</version>
+                                </requireJavaVersion>
+                            </rules>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -134,7 +182,7 @@
         <module>nbp</module>
         <module>nbp-actions</module>
         <module>nbp-actions-osx</module>
-        <module>nbp-darcula</module>
+        <module>nbp-core</module>
         <module>util</module>
     </modules>
 
@@ -143,7 +191,7 @@
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
-                <version>3.9</version>
+                <version>3.10</version>
             </dependency>
             <dependency>
                 <groupId>commons-io</groupId>
@@ -153,17 +201,17 @@
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-text</artifactId>
-                <version>1.7</version>
+                <version>1.8</version>
             </dependency>
             <dependency>
                 <groupId>org.controlsfx</groupId>
                 <artifactId>controlsfx</artifactId>
-                <version>8.40.15</version>
+                <version>11.0.1</version>
             </dependency>
             <dependency>
                 <groupId>se.trixon.almond</groupId>
                 <artifactId>almond-util</artifactId>
-                <version>3.0.4</version>
+                <version>11.0.5</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -175,20 +223,14 @@
         </repository>
     </distributionManagement>
 
-    <repositories>
-        <repository>
-            <id>netbeans111</id>
-            <url>https://repository.apache.org/content/repositories/orgapachenetbeans-1034</url>
-        </repository>
-    </repositories>
-
     <properties>
         <bintray.repo>trixon/maven</bintray.repo>
         <bintray.package>almond3</bintray.package>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
         <netbeans.hint.license>apache20</netbeans.hint.license>
-        <netbeans.version>RELEASE111</netbeans.version>
+        <netbeans.version>RELEASE113</netbeans.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <openjfx.version>14</openjfx.version>
     </properties>
 </project>

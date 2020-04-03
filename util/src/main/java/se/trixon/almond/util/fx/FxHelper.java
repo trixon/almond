@@ -17,6 +17,8 @@ package se.trixon.almond.util.fx;
 
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 import java.util.stream.Stream;
@@ -32,8 +34,13 @@ import javafx.scene.control.Control;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.ToolBar;
+import javafx.scene.control.Tooltip;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
@@ -46,6 +53,7 @@ import javafx.stage.Stage;
 import org.apache.commons.lang3.ArrayUtils;
 import org.controlsfx.control.MaskerPane;
 import org.controlsfx.control.NotificationPane;
+import org.controlsfx.control.action.Action;
 import se.trixon.almond.util.PrefsHelper;
 import se.trixon.almond.util.icons.material.MaterialIcon;
 import se.trixon.almond.util.swing.SwingHelper;
@@ -66,7 +74,6 @@ public class FxHelper {
     private static final String STAGE_W = "AlmondStage_Width";
     private static final String STAGE_X = "AlmondStage_X";
     private static final String STAGE_Y = "AlmondStage_Y";
-    private static Double sScaledFontSize = null;
 
     public static void adjustButtonWidth(Stream<Node> stream, double prefWidth) {
         stream.filter((item) -> (item instanceof ButtonBase))
@@ -218,6 +225,18 @@ public class FxHelper {
                 ));
     }
 
+    public static String createKeyCodeDisplayText(KeyCode code, KeyCombination.Modifier... modifiers) {
+        return new KeyCodeCombination(code, modifiers).getDisplayText();
+    }
+
+    public static String createTitleAndKeyCode(String title, KeyCode code, KeyCombination.Modifier... modifiers) {
+        return String.format("%s (%s)", title, createKeyCodeDisplayText(code, modifiers));
+    }
+
+    public static Tooltip createTitleAndKeyCodeTooltip(String title, KeyCode code, KeyCombination.Modifier... modifiers) {
+        return new Tooltip(createTitleAndKeyCode(title, code, modifiers));
+    }
+
     public static void disableControls(ObservableList<Node> nodes, boolean disabled, Control... excludedControls) {
         for (Node node : nodes) {
             if (!ArrayUtils.contains(excludedControls, node)) {
@@ -238,16 +257,21 @@ public class FxHelper {
         }
     }
 
-    public static double getScaledFontSize() {
-        if (sScaledFontSize == null) {
-            sScaledFontSize = Font.getDefault().getSize() * SwingHelper.getUIScale();
+    public static ButtonBase getButtonForAction(Action action, ObservableList<Node> items) {
+        for (Node item : items) {
+            if (item instanceof ButtonBase) {
+                ButtonBase buttonBase = (ButtonBase) item;
+                if (buttonBase.getOnAction().equals(action)) {
+                    return buttonBase;
+                }
+            }
         }
 
-        return sScaledFontSize;
+        return null;
     }
 
-    public static Insets getUIScaledInsets(double topRightBottomLeft) {
-        return new Insets(topRightBottomLeft * SwingHelper.getUIScale());
+    public static double getScaledFontSize() {
+        return Font.getDefault().getSize() * SwingHelper.getUIScale();
     }
 
     public static double getUIScaled(double value) {
@@ -256,6 +280,10 @@ public class FxHelper {
 
     public static int getUIScaled(int value) {
         return (int) (value * SwingHelper.getUIScale());
+    }
+
+    public static Insets getUIScaledInsets(double topRightBottomLeft) {
+        return new Insets(topRightBottomLeft * SwingHelper.getUIScale());
     }
 
     public static Insets getUIScaledInsets(double top, double right, double bottom, double left) {
@@ -281,7 +309,7 @@ public class FxHelper {
 
     public static void loadDarkTheme(Scene scene) {
         if (isDarkThemeEnabled()) {
-            Platform.runLater(() -> {
+            runLater(() -> {
                 scene.getStylesheets().add(FxHelper.class.getResource("darcula.css").toExternalForm());
                 scene.getRoot().setStyle(String.format("-fx-font-size: %dpx;", (int) getScaledFontSize()));
             });
@@ -290,7 +318,7 @@ public class FxHelper {
 
     public static void loadDarkTheme(Parent parent) {
         if (isDarkThemeEnabled()) {
-            Platform.runLater(() -> {
+            runLater(() -> {
                 parent.getStylesheets().add(FxHelper.class.getResource("darcula.css").toExternalForm());
             });
         }
@@ -330,7 +358,7 @@ public class FxHelper {
     }
 
     public static void notify(String message, NotificationPane notificationPane, MaskerPane maskerPane, int iconSize) {
-        Platform.runLater(() -> {
+        runLater(() -> {
             maskerPane.setVisible(false);
             notificationPane.show(message, MaterialIcon._Action.INFO_OUTLINE.getImageView(iconSize));
         });
@@ -338,12 +366,36 @@ public class FxHelper {
         new Thread(() -> {
             try {
                 TimeUnit.MILLISECONDS.sleep(3000);
-                Platform.runLater(() -> {
+                runLater(() -> {
                     notificationPane.hide();
                 });
             } catch (InterruptedException ex) {
                 //Exceptions.printStackTrace(ex);
             }
+        }).start();
+    }
+
+    /**
+     * Run r now if isFxApplicationThread, else runLater
+     *
+     * @param r
+     */
+    public static void runLater(Runnable r) {
+        if (Platform.isFxApplicationThread()) {
+            r.run();
+        } else {
+            Platform.runLater(r);
+        }
+    }
+
+    public static void runLaterDelayed(long delay, Runnable r) {
+        new Thread(() -> {
+            try {
+                Thread.sleep(delay);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(FxHelper.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            runLater(r);
         }).start();
     }
 
@@ -369,6 +421,12 @@ public class FxHelper {
         }
     }
 
+    public static void setPrefWidth(double width, Region... regions) {
+        for (Region region : regions) {
+            region.setPrefWidth(width);
+        }
+    }
+
     public static Optional showAndWait(Dialog dialog, Stage stage) {
         Stage alertStage = (Stage) dialog.getDialogPane().getScene().getWindow();
         if (stage != null) {
@@ -377,6 +435,12 @@ public class FxHelper {
         alertStage.toFront();
 
         return dialog.showAndWait();
+    }
+
+    public static void slimToolBar(ToolBar toolBar) {
+        toolBar.setStyle("-fx-spacing: 0px; -fx-background-insets: 0, 0 0 0 0;");
+        toolBar.setPadding(Insets.EMPTY);
+        toolBar.setBorder(Border.EMPTY);
     }
 
     public static void undecorateButton(ButtonBase buttonBase) {

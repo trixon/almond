@@ -24,6 +24,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.TabPane;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -53,7 +54,7 @@ public class AboutPane extends TabPane {
 
             ButtonType closeButtonType = new ButtonType(Dict.CLOSE.toString(), ButtonData.OK_DONE);
             alert.getButtonTypes().setAll(closeButtonType);
-            alert.setGraphic(aboutModel.getImageView());
+            alert.setGraphic((ImageView) aboutModel.getLogo());
             alert.setHeaderText(" ");
             alert.setResizable(true);
 

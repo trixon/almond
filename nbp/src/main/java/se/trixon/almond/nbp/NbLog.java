@@ -18,6 +18,7 @@ package se.trixon.almond.nbp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.swing.SwingUtilities;
+import org.apache.commons.lang3.StringUtils;
 import org.openide.windows.IOProvider;
 import org.openide.windows.InputOutput;
 import org.openide.windows.OutputWriter;
@@ -129,6 +130,10 @@ public class NbLog {
         sUseGlobalTag = useGlobalTag;
     }
 
+    public static void setUseTimestamps(boolean useTimestamps) {
+        sUseTimestamps = useTimestamps;
+    }
+
     public synchronized static void v(Class<?> c, String msg) {
         v(getTag(c.getCanonicalName()), msg);
     }
@@ -150,7 +155,11 @@ public class NbLog {
     }
 
     private static String getMessage(String s1, String s2) {
-        return String.format("[%s] %s", s1, s2);
+        if (StringUtils.isBlank(s1)) {
+            return s2;
+        } else {
+            return String.format("[%s] %s", s1, s2);
+        }
     }
 
     private static String getMessage(String s1, String s2, String s3) {

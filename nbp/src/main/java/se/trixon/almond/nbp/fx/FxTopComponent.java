@@ -16,12 +16,16 @@
 package se.trixon.almond.nbp.fx;
 
 import java.awt.BorderLayout;
-import javafx.application.Platform;
+import java.util.ResourceBundle;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
+import javax.swing.JProgressBar;
+import javax.swing.SwingUtilities;
+import org.openide.util.NbBundle;
 import org.openide.windows.TopComponent;
 import org.openide.windows.WindowManager;
 import se.trixon.almond.util.fx.FxHelper;
+import se.trixon.almond.util.swing.SwingHelper;
 
 /**
  *
@@ -29,19 +33,50 @@ import se.trixon.almond.util.fx.FxHelper;
  */
 public abstract class FxTopComponent extends TopComponent {
 
+    private static int FX_DELAY_LONG = 0;
+    private static int FX_DELAY_SHORT = 0;
     private static final WindowManager WINDOW_MANAGER = WindowManager.getDefault();
-
+    private ResourceBundle mBundle;
     private final JFXPanel mFxPanel = new JFXPanel();
     private Scene mScene;
 
     public FxTopComponent() {
         setLayout(new BorderLayout());
-        add(mFxPanel, BorderLayout.CENTER);
+        JProgressBar progressBar = new JProgressBar();
+        progressBar.setIndeterminate(true);
+        add(progressBar, BorderLayout.NORTH);
+        repaint();
+        revalidate();
 
-        Platform.runLater(() -> {
-            initFX();
-            mFxPanel.setScene(mScene);
-        });
+        //System.out.println(getClass().getName());
+        new Thread(() -> {
+            FxHelper.runLaterDelayed(0, () -> {
+                initFX();
+                mFxPanel.setScene(mScene);
+
+                SwingHelper.runLaterDelayed(0, () -> {
+                    removeAll();
+                    add(mFxPanel, BorderLayout.CENTER);
+                    repaint();
+                    revalidate();
+                    FxHelper.runLaterDelayed(0, () -> {
+                        fxPostConstructor();
+                    });
+                });
+            });
+        }).start();
+    }
+
+    public ResourceBundle getBundle() {
+        if (mBundle == null) {
+            mBundle = NbBundle.getBundle(getClass());
+        }
+
+        return mBundle;
+    }
+
+    public String getBundleString(String key) {
+        return getBundle().getString(key);
     }
 
     public JFXPanel getFxPanel() {
@@ -50,6 +85,10 @@ public abstract class FxTopComponent extends TopComponent {
 
     public Scene getScene() {
         return mScene;
+    }
+
+    public void requestSceneFocus() {
+        getScene().getWindow().requestFocus();
     }
 
     public void resetFx() {
@@ -76,39 +115,45 @@ public abstract class FxTopComponent extends TopComponent {
     @Override
     protected void componentActivated() {
         super.componentActivated();
-        Platform.runLater(() -> {
+        FxHelper.runLaterDelayed(FX_DELAY_SHORT, () -> {
             fxComponentActivated();
         });
     }
 
     @Override
     protected void componentClosed() {
-        Platform.runLater(() -> {
+        FxHelper.runLaterDelayed(FX_DELAY_SHORT, () -> {
             fxComponentClosed();
+            SwingUtilities.invokeLater(() -> {
+                super.componentClosed();
+            });
         });
-        super.componentClosed();
     }
 
     @Override
     protected void componentDeactivated() {
-        Platform.runLater(() -> {
+        FxHelper.runLaterDelayed(FX_DELAY_SHORT, () -> {
             fxComponentDeactivated();
+            SwingUtilities.invokeLater(() -> {
+                super.componentDeactivated();
+            });
         });
-        super.componentDeactivated();
     }
 
     @Override
     protected void componentHidden() {
-        Platform.runLater(() -> {
+        FxHelper.runLaterDelayed(FX_DELAY_SHORT, () -> {
             fxComponentHidden();
+            SwingUtilities.invokeLater(() -> {
+                super.componentHidden();
+            });
         });
-        super.componentHidden();
     }
 
     @Override
     protected void componentOpened() {
         super.componentOpened();
-        Platform.runLater(() -> {
+        FxHelper.runLaterDelayed(FX_DELAY_SHORT, () -> {
             fxComponentOpened();
         });
     }
@@ -116,7 +161,7 @@ public abstract class FxTopComponent extends TopComponent {
     @Override
     protected void componentShowing() {
         super.componentShowing();
-        Platform.runLater(() -> {
+        FxHelper.runLaterDelayed(FX_DELAY_SHORT, () -> {
             fxComponentShowing();
         });
     }
@@ -137,6 +182,13 @@ public abstract class FxTopComponent extends TopComponent {
     }
 
     protected void fxComponentShowing() {
+    }
+
+    /**
+     * Runs on the JavaFX Application Thread after initFX() and setScene()
+     */
+    protected void fxPostConstructor() {
+
     }
 
     /**

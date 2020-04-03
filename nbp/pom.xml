@@ -4,32 +4,29 @@
     <parent>
         <groupId>se.trixon.almond</groupId>
         <artifactId>almond-parent</artifactId>
-        <version>3.0.4</version>
+        <version>11.0.5</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>almond-nbp</artifactId>
-    <packaging>nbm</packaging>
+    <packaging>jar</packaging>
     <build>
         <plugins>
-            <plugin>
+            <!--            <plugin>
                 <groupId>org.apache.netbeans.utilities</groupId>
                 <artifactId>nbm-maven-plugin</artifactId>
                 <extensions>true</extensions>
                 <configuration>
                     <publicPackages>
-                        <publicPackage>org.apache.commons.*</publicPackage>
-                        <publicPackage>org.controlsfx.*</publicPackage>
-                        <publicPackage>se.trixon.almond.util.*</publicPackage>
                         <publicPackage>se.trixon.almond.nbp.*</publicPackage>
                     </publicPackages>
                 </configuration>
-            </plugin>
+            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <configuration>
                     <archive>
-                        <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+                        <!--<manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>-->
                     </archive>
                 </configuration>
             </plugin>
@@ -102,11 +99,22 @@
             <artifactId>org-netbeans-modules-settings</artifactId>
             <version>${netbeans.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.netbeans.api</groupId>
+            <artifactId>org-openide-nodes</artifactId>
+            <version>${netbeans.version}</version>
+        </dependency>
 
         <!--Trixon-->
         <dependency>
             <groupId>se.trixon.almond</groupId>
             <artifactId>almond-util</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.openjfx</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!--Other-->
