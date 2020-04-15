@@ -17,7 +17,7 @@ package se.trixon.almond.util.swing.dialogs;
 
 import javax.swing.ImageIcon;
 import se.trixon.almond.util.AlmondOptions;
-import se.trixon.almond.util.icons.material.MaterialIcon;
+import se.trixon.almond.util.icons.material.swing.MaterialIcon;
 
 /**
  *
