@@ -81,6 +81,10 @@ public class Log {
         }
     }
 
+    public synchronized void err(String message) {
+        mErr.println(message);
+    }
+
     public synchronized String getGlobalTag() {
         return mGlobalTag;
     }
@@ -109,6 +113,10 @@ public class Log {
 
     public synchronized boolean isUseTimestamps() {
         return mUseTimestamps;
+    }
+
+    public synchronized void out(String message) {
+        mOut.println(message);
     }
 
     public synchronized void setActive(boolean active) {
