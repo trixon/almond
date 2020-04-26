@@ -29,6 +29,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import org.apache.commons.lang3.StringUtils;
 import se.trixon.almond.util.Dict;
 import se.trixon.almond.util.icons.material.swing.MaterialIcon;
 
@@ -129,6 +130,15 @@ public class FileChooserPanel extends javax.swing.JPanel {
 
     public JButton getButton() {
         return mButton;
+    }
+
+    public File getFile() {
+        File file = null;
+        if (!StringUtils.isBlank(getPath())) {
+            file = new File(getPath());
+        }
+
+        return file;
     }
 
     public JLabel getLabel() {
