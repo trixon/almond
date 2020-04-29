@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2019 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,6 +17,7 @@ package se.trixon.almond.util.io;
 
 import java.util.LinkedList;
 import java.util.List;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
@@ -24,13 +25,30 @@ import java.util.List;
  */
 public class GeoLine {
 
-    private List<GeoAttribute> mAttributes = new LinkedList<>();
+    private LinkedList<GeoAttribute> mAttributes = new LinkedList<>();
     private boolean mClosedPolygon = false;
     private String mCode = "";
     private String mLineNumber = "";
-    private List<GeoPoint> mPoints = new LinkedList<>();
+    private LinkedList<GeoPoint> mPoints = new LinkedList<>();
 
     public GeoLine() {
+    }
+
+    public GeoLine(LinkedList<String> section) {
+        this(section.pollFirst());
+        if (!section.isEmpty()) {
+            section.pollFirst();
+            section.pollLast();
+            mPoints.addAll(GeoHelper.parsePointList(section));
+        }
+    }
+
+    public GeoLine(String line) {
+        line = StringUtils.removeStart(line.trim(), "Line");
+        String[] segments = StringUtils.splitPreserveAllTokens(line.trim(), ",");
+        mLineNumber = StringUtils.remove(segments[0], "\"");
+        mClosedPolygon = StringUtils.trim(segments[1]).equalsIgnoreCase("1");
+        mCode = StringUtils.remove(segments[2], "\"");
     }
 
     public List<GeoAttribute> getAttributes() {
@@ -53,7 +71,7 @@ public class GeoLine {
         return mClosedPolygon;
     }
 
-    public void setAttributes(List<GeoAttribute> attributes) {
+    public void setAttributes(LinkedList<GeoAttribute> attributes) {
         mAttributes = attributes;
     }
 
@@ -69,7 +87,18 @@ public class GeoLine {
         mLineNumber = lineNumber;
     }
 
-    public void setPoints(List<GeoPoint> points) {
+    public void setPoints(LinkedList<GeoPoint> points) {
         mPoints = points;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("Line \"%s\",%s,\"%s\"", mLineNumber, mClosedPolygon ? "1" : "0", mCode)).append(Geo.LINE_ENDING);
+        sb.append("\tbegin").append(Geo.LINE_ENDING);
+        sb.append(GeoHelper.pointListToStringBuilder(mPoints, 2));
+        sb.append("\tend").append(Geo.LINE_ENDING);
+
+        return sb.toString();
     }
 }

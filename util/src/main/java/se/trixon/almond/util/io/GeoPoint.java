@@ -41,6 +41,14 @@ public class GeoPoint extends CoordinatePoint {
     public GeoPoint() {
     }
 
+    public GeoPoint(LinkedList<String> section) {
+        this(section.pollFirst());
+        if (!section.isEmpty()) {
+            //TODO Parse attributes
+            //System.out.println(String.join("\n", section));
+        }
+    }
+
     public GeoPoint(String line) throws NumberFormatException {
         line = StringUtils.removeStart(line.trim(), "Point");
         String[] aa = getFirstItem(line);
@@ -107,7 +115,7 @@ public class GeoPoint extends CoordinatePoint {
     @Override
     public String toString() {
 //        Point "5647",60039.3739,3670.4064,0,"141",,
-        String line = String.format(Locale.ENGLISH, "\t\tPoint \"%s\",%f,%f,%f,\"%s\",\"%s\",\"%s\"%s",
+        String line = String.format(Locale.ENGLISH, "Point \"%s\",%f,%f,%f,\"%s\",\"%s\",\"%s\"%s",
                 getPointId(),
                 getX(),
                 getY(),

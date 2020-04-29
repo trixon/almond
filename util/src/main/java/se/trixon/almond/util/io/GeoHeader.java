@@ -15,8 +15,9 @@
  */
 package se.trixon.almond.util.io;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -26,8 +27,7 @@ import org.apache.commons.lang3.StringUtils;
 public class GeoHeader {
 
     private String mFileHeader;
-    private String mLineEnding = "\r\n";
-    private final LinkedHashMap<String, String> mMap = new LinkedHashMap<>();
+    private final LinkedHashMap<String, String> mFileInfos = new LinkedHashMap<>();
 
     public GeoHeader() {
     }
@@ -38,60 +38,43 @@ public class GeoHeader {
 
     public GeoHeader(String fileHeader, LinkedHashMap<String, String> map) {
         mFileHeader = "FileHeader " + fileHeader;
-        mMap.putAll(map);
+        mFileInfos.putAll(map);
     }
 
-    public GeoHeader(ArrayList<String> lines) {
-        boolean begin = false;
-
+    public GeoHeader(LinkedList<String> lines) {
+        mFileHeader = lines.get(0);
         for (String line : lines) {
-            if (StringUtils.startsWithIgnoreCase(line, "FileHeader")) {
-                mFileHeader = line;
+            if (StringUtils.startsWithIgnoreCase(line, "FileHeader") || StringUtils.equalsAny(line.trim(), "begin", "end")) {
+                continue;
             }
 
-            if (StringUtils.startsWithIgnoreCase(line, "end")) {
-                break;
-            }
-
-            if (begin) {
-                int a = StringUtils.indexOf(line, '"', 0);
-                int b = StringUtils.indexOf(line, '"', a + 1);
-                int c = StringUtils.indexOf(line, '"', b + 1);
-                int d = StringUtils.indexOf(line, '"', c + 1);
-
-                String key = StringUtils.substring(line, a + 1, b);
-                String val = "";
-                if (c > b) {
-                    val = StringUtils.substring(line, c + 1, d);
-                }
-
-                mMap.put(key, val);
-            }
-
-            if (mFileHeader != null && StringUtils.startsWithIgnoreCase(line, "begin")) {
-                begin = true;
-            }
+            String[] keyVal = GeoHelper.getKeyVal(line);
+            mFileInfos.put(keyVal[0], keyVal[1]);
         }
     }
 
     public String get(String key) {
-        return mMap.get(key);
+        return mFileInfos.get(key);
     }
 
     public void put(String key, String value) {
-        mMap.put(key, value);
+        mFileInfos.put(key, value);
     }
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append(mFileHeader).append(mLineEnding);
-        builder.append("begin").append(mLineEnding);
-        for (String key : mMap.keySet()) {
-            builder.append(String.format("\tFileInfo \"%s\",\"%s\"", key, mMap.get(key))).append(mLineEnding);
-        }
-        builder.append("end").append(mLineEnding);
+        return toStringBuilder().toString();
+    }
 
-        return builder.toString();
+    public StringBuilder toStringBuilder() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(mFileHeader).append(Geo.LINE_ENDING);
+        sb.append("begin").append(Geo.LINE_ENDING);
+        for (Map.Entry<String, String> entry : mFileInfos.entrySet()) {
+            sb.append(String.format("\tFileInfo \"%s\",\"%s\"", entry.getKey(), entry.getValue())).append(Geo.LINE_ENDING);
+        }
+        sb.append("end").append(Geo.LINE_ENDING);
+
+        return sb;
     }
 }

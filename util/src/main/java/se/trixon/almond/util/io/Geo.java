@@ -17,12 +17,9 @@ package se.trixon.almond.util.io;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  *
@@ -30,18 +27,24 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class Geo extends CoordinateFile {
 
-    private List<GeoAttribute> mAttributes = new LinkedList<>();
+    public static final String LINE_ENDING = "\r\n";
+
+    private final String NO_NEXT_SECTION = "DONOTBREAKONTHISSTOPSTRING";
+    private LinkedList<GeoAttribute> mAttributes = new LinkedList<>();
     private GeoHeader mHeader;
-    private List<GeoLine> mLines = new LinkedList<>();
-    private List<GeoPoint> mPoints = new LinkedList<>();
-    private ArrayList<String> mRawLines;
+    private LinkedList<GeoLine> mLines = new LinkedList<>();
+    private LinkedList<GeoPoint> mPoints = new LinkedList<>();
+    private LinkedList<String> mRawLines;
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        new TestMain();
+    }
 
     public Geo() {
         GeoPoint.setLineEnding("\r\n");
-    }
-
-    public static FileNameExtensionFilter getFileNameExtensionFilter() {
-        return new FileNameExtensionFilter("*.geo", "geo");
     }
 
     public void addPoint(GeoPoint geoPoint) {
@@ -80,12 +83,14 @@ public class Geo extends CoordinateFile {
     }
 
     public void read(File file) throws IOException {
-        mRawLines = (ArrayList<String>) FileUtils.readLines(file, mCharset);
-        mHeader = new GeoHeader(mRawLines);
-        parsePoints();
+        mRawLines = new LinkedList<>(FileUtils.readLines(file, mCharset));
+        mHeader = new GeoHeader(GeoHelper.getSection("FileHeader", "PointList", mRawLines));
+        parsePointList(GeoHelper.getSection("PointList", "LineList", mRawLines));
+        parseLineList(GeoHelper.getSection("LineList", "AttributeList", mRawLines));
+        parseAttributeList(GeoHelper.getSection("AttributeList", NO_NEXT_SECTION, mRawLines));
     }
 
-    public void setAttributes(List<GeoAttribute> attributes) {
+    public void setAttributes(LinkedList<GeoAttribute> attributes) {
         mAttributes = attributes;
     }
 
@@ -99,12 +104,23 @@ public class Geo extends CoordinateFile {
         GeoPoint.setLineEnding(lineEnding);
     }
 
-    public void setLines(List<GeoLine> lines) {
+    public void setLines(LinkedList<GeoLine> lines) {
         mLines = lines;
     }
 
-    public void setPoints(List<GeoPoint> points) {
+    public void setPoints(LinkedList<GeoPoint> points) {
         mPoints = points;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(mHeader.toStringBuilder());
+        sb.append(GeoHelper.pointListToStringBuilder(mPoints, 0));
+        sb.append(GeoHelper.lineListToStringBuilder(mLines));
+        sb.append(attributeListToStringBuilder());
+
+        return sb.toString();
     }
 
     public void write(GeoPoint geoPoint) throws IOException {
@@ -112,33 +128,36 @@ public class Geo extends CoordinateFile {
     }
 
     public void write(File file) throws IOException {
-        openWriter(file);
 
-        mWriter.write(mHeader.toString());
-        writePointList();
-        writeLineList();
-        writeAttributeList();
-
-        closeWriter();
+        FileUtils.writeStringToFile(file, toString(), mCharset);
     }
 
-    private void parsePoints() {
-        mPoints.clear();
-        boolean hitPointList = false;
-        for (String line : mRawLines) {
-            if (hitPointList && StringUtils.startsWithIgnoreCase(line.trim(), "Point")) {
-                GeoPoint geoPoint = new GeoPoint(StringUtils.removeStart(line.trim(), "Point"));
-                mPoints.add(geoPoint);
-            }
+    private StringBuilder attributeListToStringBuilder() {
+        StringBuilder sb = new StringBuilder("AttributeList").append(mLineEnding);
 
-            if (StringUtils.startsWithIgnoreCase(line, "PointList")) {
-                hitPointList = true;
-            }
+        return sb;
+    }
 
-            if (StringUtils.startsWithIgnoreCase(line, "LineList")) {
-                break;
-            }
+    private void parseAttributeList(LinkedList<String> section) {
+        //TODO
+    }
+
+    private void parseLine(LinkedList<String> section) {
+//        stripWrapper(section);
+        mLines.add(new GeoLine(section));
+    }
+
+    private void parseLineList(LinkedList<String> section) {
+        GeoHelper.stripWrapper(section);
+
+        while (!section.isEmpty()) {
+            parseLine(GeoHelper.getSection("Line", NO_NEXT_SECTION, section));
         }
+    }
+
+    private void parsePointList(LinkedList<String> section) {
+//        GeoHelper.stripWrapper(section);
+        mPoints.addAll(GeoHelper.parsePointList(section));
     }
 
     private void writeAttributeList() throws IOException {
@@ -150,34 +169,6 @@ public class Geo extends CoordinateFile {
 //            for (GeoPoint geoPoint : mPoints) {
 //                mWriter.write(geoPoint.toString());
 //            }
-            mWriter.write("end");
-            mWriter.write(mLineEnding);
-        }
-    }
-
-    private void writeLineList() throws IOException {
-        mWriter.write("LineList");
-        mWriter.write(mLineEnding);
-        if (!mLines.isEmpty()) {
-            mWriter.write("begin");
-            mWriter.write(mLineEnding);
-            for (GeoLine geoLine : mLines) {
-                mWriter.write(geoLine.toString());
-            }
-            mWriter.write("end");
-            mWriter.write(mLineEnding);
-        }
-    }
-
-    private void writePointList() throws IOException {
-        mWriter.write("PointList");
-        mWriter.write(mLineEnding);
-        if (!mPoints.isEmpty()) {
-            mWriter.write("begin");
-            mWriter.write(mLineEnding);
-            for (GeoPoint geoPoint : mPoints) {
-                mWriter.write(geoPoint.toString());
-            }
             mWriter.write("end");
             mWriter.write(mLineEnding);
         }
