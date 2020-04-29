@@ -40,7 +40,7 @@ public class TestMain {
         Geo geo = new Geo();
         try {
             geo.read(in);
-            System.out.println(geo);
+//            System.out.println(geo);
             geo.write(out);
         } catch (IOException ex) {
             Logger.getLogger(TestMain.class.getName()).log(Level.SEVERE, null, ex);

@@ -25,7 +25,6 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class GeoLine {
 
-    private LinkedList<GeoAttribute> mAttributes = new LinkedList<>();
     private boolean mClosedPolygon = false;
     private String mCode = "";
     private String mLineNumber = "";
@@ -51,10 +50,6 @@ public class GeoLine {
         mCode = StringUtils.remove(segments[2], "\"");
     }
 
-    public List<GeoAttribute> getAttributes() {
-        return mAttributes;
-    }
-
     public String getCode() {
         return mCode;
     }
@@ -69,10 +64,6 @@ public class GeoLine {
 
     public boolean isClosedPolygon() {
         return mClosedPolygon;
-    }
-
-    public void setAttributes(LinkedList<GeoAttribute> attributes) {
-        mAttributes = attributes;
     }
 
     public void setClosedPolygon(boolean closedPolygon) {
@@ -93,12 +84,16 @@ public class GeoLine {
 
     @Override
     public String toString() {
+        return toStringBuilder().toString();
+    }
+
+    public StringBuilder toStringBuilder() {
         StringBuilder sb = new StringBuilder();
         sb.append(String.format("Line \"%s\",%s,\"%s\"", mLineNumber, mClosedPolygon ? "1" : "0", mCode)).append(Geo.LINE_ENDING);
         sb.append("\tbegin").append(Geo.LINE_ENDING);
         sb.append(GeoHelper.pointListToStringBuilder(mPoints, 2));
         sb.append("\tend").append(Geo.LINE_ENDING);
 
-        return sb.toString();
+        return sb;
     }
 }

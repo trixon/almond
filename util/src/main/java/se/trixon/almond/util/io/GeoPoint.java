@@ -15,8 +15,8 @@
  */
 package se.trixon.almond.util.io;
 
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Locale;
 import org.apache.commons.lang3.StringUtils;
 import se.trixon.almond.util.MathHelper;
@@ -28,7 +28,7 @@ import se.trixon.almond.util.MathHelper;
 public class GeoPoint extends CoordinatePoint {
 
     private static String sLineEnding = "\r\n";
-    private List<GeoAttribute> mAttributes = new LinkedList<>();
+    private LinkedHashMap<String, String> mAttributes = new LinkedHashMap<>();
     private String mPointCode = "";
     private String mPointId = "";
     private String mRemark = "";
@@ -44,8 +44,9 @@ public class GeoPoint extends CoordinatePoint {
     public GeoPoint(LinkedList<String> section) {
         this(section.pollFirst());
         if (!section.isEmpty()) {
-            //TODO Parse attributes
-            //System.out.println(String.join("\n", section));
+            section.pollFirst();
+            section.pollLast();
+            mAttributes.putAll(GeoHelper.getAttributes(section));
         }
     }
 
@@ -76,6 +77,10 @@ public class GeoPoint extends CoordinatePoint {
         setPointCode(pointCode);
     }
 
+    public LinkedHashMap<String, String> getAttributes() {
+        return mAttributes;
+    }
+
     public String getPointCode() {
         return mPointCode;
     }
@@ -92,7 +97,7 @@ public class GeoPoint extends CoordinatePoint {
         return mSpecialCode;
     }
 
-    public void setAttributes(List<GeoAttribute> attributes) {
+    public void setAttributes(LinkedHashMap<String, String> attributes) {
         mAttributes = attributes;
     }
 
@@ -114,6 +119,10 @@ public class GeoPoint extends CoordinatePoint {
 
     @Override
     public String toString() {
+        return toStringBuilder().toString();
+    }
+
+    public StringBuilder toStringBuilder() {
 //        Point "5647",60039.3739,3670.4064,0,"141",,
         String line = String.format(Locale.ENGLISH, "Point \"%s\",%f,%f,%f,\"%s\",\"%s\",\"%s\"%s",
                 getPointId(),
@@ -125,7 +134,10 @@ public class GeoPoint extends CoordinatePoint {
                 getRemark(),
                 sLineEnding);
 
-        return line;
+        StringBuilder sb = new StringBuilder(line);
+
+        //TODO Set attributes here?
+        return sb;
     }
 
     private String[] getFirstItem(String input) {

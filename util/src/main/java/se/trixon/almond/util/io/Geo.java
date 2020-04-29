@@ -17,6 +17,7 @@ package se.trixon.almond.util.io;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import org.apache.commons.io.FileUtils;
@@ -29,8 +30,8 @@ public class Geo extends CoordinateFile {
 
     public static final String LINE_ENDING = "\r\n";
 
-    private final String NO_NEXT_SECTION = "DONOTBREAKONTHISSTOPSTRING";
-    private LinkedList<GeoAttribute> mAttributes = new LinkedList<>();
+    public static final String NO_NEXT_SECTION = "DONOTBREAKONTHISSTOPSTRING";
+    private LinkedHashMap<String, String> mAttributes = new LinkedHashMap<>();
     private GeoHeader mHeader;
     private LinkedList<GeoLine> mLines = new LinkedList<>();
     private LinkedList<GeoPoint> mPoints = new LinkedList<>();
@@ -61,7 +62,7 @@ public class Geo extends CoordinateFile {
         mPoints.add(geoPoint);
     }
 
-    public List<GeoAttribute> getAttributes() {
+    public LinkedHashMap<String, String> getAttributes() {
         return mAttributes;
     }
 
@@ -86,11 +87,11 @@ public class Geo extends CoordinateFile {
         mRawLines = new LinkedList<>(FileUtils.readLines(file, mCharset));
         mHeader = new GeoHeader(GeoHelper.getSection("FileHeader", "PointList", mRawLines));
         parsePointList(GeoHelper.getSection("PointList", "LineList", mRawLines));
-        parseLineList(GeoHelper.getSection("LineList", "AttributeList", mRawLines));
+        parseLineList(GeoHelper.getSection("LineList", NO_NEXT_SECTION, mRawLines));
         parseAttributeList(GeoHelper.getSection("AttributeList", NO_NEXT_SECTION, mRawLines));
     }
 
-    public void setAttributes(LinkedList<GeoAttribute> attributes) {
+    public void setAttributes(LinkedHashMap<String, String> attributes) {
         mAttributes = attributes;
     }
 
@@ -118,7 +119,7 @@ public class Geo extends CoordinateFile {
         sb.append(mHeader.toStringBuilder());
         sb.append(GeoHelper.pointListToStringBuilder(mPoints, 0));
         sb.append(GeoHelper.lineListToStringBuilder(mLines));
-        sb.append(attributeListToStringBuilder());
+        sb.append(GeoHelper.attributeListToStringBuilder(mAttributes, 0));
 
         return sb.toString();
     }
@@ -128,22 +129,14 @@ public class Geo extends CoordinateFile {
     }
 
     public void write(File file) throws IOException {
-
         FileUtils.writeStringToFile(file, toString(), mCharset);
     }
 
-    private StringBuilder attributeListToStringBuilder() {
-        StringBuilder sb = new StringBuilder("AttributeList").append(mLineEnding);
-
-        return sb;
-    }
-
     private void parseAttributeList(LinkedList<String> section) {
-        //TODO
+        mAttributes.putAll(GeoHelper.getAttributes(section));
     }
 
     private void parseLine(LinkedList<String> section) {
-//        stripWrapper(section);
         mLines.add(new GeoLine(section));
     }
 
@@ -156,21 +149,6 @@ public class Geo extends CoordinateFile {
     }
 
     private void parsePointList(LinkedList<String> section) {
-//        GeoHelper.stripWrapper(section);
         mPoints.addAll(GeoHelper.parsePointList(section));
-    }
-
-    private void writeAttributeList() throws IOException {
-        mWriter.write("AttributeList");
-        mWriter.write(mLineEnding);
-        if (!mAttributes.isEmpty()) {
-            mWriter.write("begin");
-//            mWriter.write(mLineEnding);
-//            for (GeoPoint geoPoint : mPoints) {
-//                mWriter.write(geoPoint.toString());
-//            }
-            mWriter.write("end");
-            mWriter.write(mLineEnding);
-        }
     }
 }
