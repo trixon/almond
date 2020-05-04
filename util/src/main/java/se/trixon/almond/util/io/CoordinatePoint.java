@@ -21,9 +21,37 @@ package se.trixon.almond.util.io;
  */
 public class CoordinatePoint {
 
+    private static int DECIMALS_X = 3;
+    private static int DECIMALS_Y = 3;
+    private static int DECIMALS_Z = 3;
+
     protected Double mX;
     protected Double mY;
     protected Double mZ;
+
+    public static int getDecimalsX() {
+        return DECIMALS_X;
+    }
+
+    public static int getDecimalsY() {
+        return DECIMALS_Y;
+    }
+
+    public static int getDecimalsZ() {
+        return DECIMALS_Z;
+    }
+
+    public static void setDecimalsX(int decimals) {
+        CoordinatePoint.DECIMALS_X = decimals;
+    }
+
+    public static void setDecimalsY(int decimals) {
+        CoordinatePoint.DECIMALS_Y = decimals;
+    }
+
+    public static void setDecimalsZ(int decimals) {
+        CoordinatePoint.DECIMALS_Z = decimals;
+    }
 
     public Double getX() {
         return mX;
