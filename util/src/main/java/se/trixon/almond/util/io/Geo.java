@@ -86,9 +86,22 @@ public class Geo extends CoordinateFile {
     public void read(File file) throws IOException {
         mRawLines = new LinkedList<>(FileUtils.readLines(file, mCharset));
         mHeader = new GeoHeader(GeoHelper.getSection("FileHeader", "PointList", mRawLines));
-        parsePointList(GeoHelper.getSection("PointList", "LineList", mRawLines));
-        parseLineList(GeoHelper.getSection("LineList", NO_NEXT_SECTION, mRawLines));
-        parseAttributeList(GeoHelper.getSection("AttributeList", NO_NEXT_SECTION, mRawLines));
+
+        try {
+            parsePointList(GeoHelper.getSection("PointList", "LineList", mRawLines));
+        } catch (Exception e) {
+            System.err.println("Parse PointList Failed: " + e);
+        }
+        try {
+            parseLineList(GeoHelper.getSection("LineList", "AttributeList", mRawLines));
+        } catch (Exception e) {
+            System.err.println("Parse LineList Failed: " + e);
+        }
+        try {
+            parseAttributeList(GeoHelper.getSection("AttributeList", NO_NEXT_SECTION, mRawLines));
+        } catch (Exception e) {
+            System.err.println("Parse AttributeList Failed: " + e);
+        }
     }
 
     public void setAttributes(LinkedHashMap<String, String> attributes) {
