@@ -32,6 +32,7 @@ public enum Dict {
     ACCESS_DENIED,
     ACTIVATE,
     ACTIVE,
+    ACTIVE_ALT,
     ADD,
     ADD_BOOKMARK,
     ADD_REMOVE,
