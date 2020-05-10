@@ -243,10 +243,10 @@ public class SwingHelper {
         new Thread(() -> {
             try {
                 Thread.sleep(delay);
+                SwingUtilities.invokeLater(r);
             } catch (InterruptedException ex) {
                 Logger.getLogger(SwingHelper.class.getName()).log(Level.SEVERE, null, ex);
             }
-            SwingUtilities.invokeLater(r);
         }).start();
     }
 

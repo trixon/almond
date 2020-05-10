@@ -392,10 +392,10 @@ public class FxHelper {
         new Thread(() -> {
             try {
                 Thread.sleep(delay);
+                runLater(r);
             } catch (InterruptedException ex) {
                 Logger.getLogger(FxHelper.class.getName()).log(Level.SEVERE, null, ex);
             }
-            runLater(r);
         }).start();
     }
 
