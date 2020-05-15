@@ -284,6 +284,17 @@ public class SystemHelper {
         }
     }
 
+    public static void runLaterDelayed(long delay, Runnable r) {
+        new Thread(() -> {
+            try {
+                Thread.sleep(delay);
+                r.run();
+            } catch (InterruptedException ex) {
+                Logger.getLogger(SystemHelper.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }, r.getClass().getName()).start();
+    }
+
     public static void setMacApplicationName(String name) {
         System.setProperty("com.apple.mrj.application.apple.menu.about.name", name);
         System.setProperty("apple.awt.application.name", name);
