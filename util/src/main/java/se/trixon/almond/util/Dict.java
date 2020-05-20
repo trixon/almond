@@ -308,6 +308,7 @@ public enum Dict {
     PASSWORD,
     PASTE,
     PATH,
+    PATIENCE_IS_A_VIRTUE,
     @Deprecated
     PATH_GAP_GFX,
     @Deprecated
