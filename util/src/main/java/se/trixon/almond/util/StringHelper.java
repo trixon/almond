@@ -186,6 +186,18 @@ public class StringHelper {
         return out;
     }
 
+    public static String getTheOtherOne(String s, String s1, String s2) {
+        if (s == null) {
+            return null;
+        } else if (StringUtils.equals(s, s1)) {
+            return s2;
+        } else if (StringUtils.equals(s, s2)) {
+            return s1;
+        } else {
+            return null;
+        }
+    }
+
     public static String[] intervalStringToArray(String intervalString) {
         ArrayList<String> arrayList = new ArrayList<>();
 
