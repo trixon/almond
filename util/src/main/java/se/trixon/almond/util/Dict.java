@@ -114,6 +114,7 @@ public enum Dict {
     CUSTOM_TEXT,
     CUSTOM_TIME_ZONE,
     DARK,
+    DATABASE,
     DATA_SOURCES,
     DATE,
     DATE_PATTERN,
