@@ -37,6 +37,7 @@ public abstract class FxTopComponent extends TopComponent {
     private static int FX_DELAY_SHORT = 0;
     private static final WindowManager WINDOW_MANAGER = WindowManager.getDefault();
     private ResourceBundle mBundle;
+    private boolean mComponentOpenedFirstTime = true;
     private final JFXPanel mFxPanel = new JFXPanel();
     private Scene mScene;
 
@@ -47,24 +48,6 @@ public abstract class FxTopComponent extends TopComponent {
         add(progressBar, BorderLayout.NORTH);
         repaint();
         revalidate();
-
-        //System.out.println(getClass().getName());
-        new Thread(() -> {
-            FxHelper.runLaterDelayed(0, () -> {
-                initFX();
-                mFxPanel.setScene(mScene);
-
-                SwingHelper.runLaterDelayed(0, () -> {
-                    removeAll();
-                    add(mFxPanel, BorderLayout.CENTER);
-                    repaint();
-                    revalidate();
-                    FxHelper.runLaterDelayed(0, () -> {
-                        fxPostConstructor();
-                    });
-                });
-            });
-        }).start();
     }
 
     public ResourceBundle getBundle() {
@@ -154,6 +137,22 @@ public abstract class FxTopComponent extends TopComponent {
     protected void componentOpened() {
         super.componentOpened();
         FxHelper.runLaterDelayed(FX_DELAY_SHORT, () -> {
+            if (mComponentOpenedFirstTime) {
+                mComponentOpenedFirstTime = false;
+                initFX();
+                mFxPanel.setScene(mScene);
+
+                SwingHelper.runLaterDelayed(0, () -> {
+                    removeAll();
+                    add(mFxPanel, BorderLayout.CENTER);
+                    repaint();
+                    revalidate();
+                    FxHelper.runLaterDelayed(0, () -> {
+                        fxPostConstructor();
+                    });
+                });
+            }
+
             fxComponentOpened();
         });
     }
