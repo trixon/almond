@@ -239,6 +239,19 @@ public class SwingHelper {
         });
     }
 
+    /**
+     * Run r now if isEventDispatchThread, else invokeLater
+     *
+     * @param r
+     */
+    public static void runLater(Runnable r) {
+        if (SwingUtilities.isEventDispatchThread()) {
+            r.run();
+        } else {
+            SwingUtilities.invokeLater(r);
+        }
+    }
+
     public static void runLaterDelayed(long delay, Runnable r) {
         new Thread(() -> {
             try {
