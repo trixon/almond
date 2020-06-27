@@ -21,7 +21,9 @@ package se.trixon.almond.nbp.core.news;
  */
 public interface NewsProvider {
 
-    String getBundlePath();
+    default String getBundlePath() {
+        return getClass().getPackage().getName().replace(".", "/") + "/" + "News";
+    }
 
     String getHeading();
 }
