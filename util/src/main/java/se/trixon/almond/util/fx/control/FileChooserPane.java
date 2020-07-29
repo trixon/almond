@@ -384,11 +384,15 @@ public class FileChooserPane extends BorderPane {
     }
 
     private void setInitialDirectory(FileChooser chooser) {
-        String firstPath = StringUtils.split(mTextField.getText(), File.pathSeparatorChar)[0];
-        File f = new File(firstPath);
-        if (f.isFile()) {
-            chooser.setInitialDirectory(f.getParentFile());
-            chooser.setInitialFileName(f.getName());
+        try {
+            String firstPath = StringUtils.split(mTextField.getText(), File.pathSeparatorChar)[0];
+            File f = new File(firstPath);
+            if (f.isFile()) {
+                chooser.setInitialDirectory(f.getParentFile());
+                chooser.setInitialFileName(f.getName());
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            //nvm
         }
     }
 
