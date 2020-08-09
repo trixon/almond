@@ -223,14 +223,19 @@
             <url>https://api.bintray.com/maven/${bintray.repo}/${bintray.package}/</url>
         </repository>
     </distributionManagement>
-
+    <repositories>
+        <!--        <repository>
+            <id>netbeans-next</id>
+            <url>https://repository.apache.org/content/repositories/orgapachenetbeans-1061</url>
+        </repository>-->
+    </repositories>
     <properties>
         <bintray.repo>trixon/maven</bintray.repo>
         <bintray.package>almond3</bintray.package>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <netbeans.hint.license>apache20</netbeans.hint.license>
-        <netbeans.version>RELEASE120-1</netbeans.version>
+        <netbeans.version>RELEASE120-u1</netbeans.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!--<openjfx.version>14</openjfx.version>-->
     </properties>
