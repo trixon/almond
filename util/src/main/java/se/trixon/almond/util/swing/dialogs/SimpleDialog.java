@@ -44,6 +44,12 @@ public class SimpleDialog {
         sFileChooser.addChoosableFileFilter(filter);
     }
 
+    public static void addFilters(FileNameExtensionFilter... filters) {
+        for (FileNameExtensionFilter filter : filters) {
+            addFilter(filter);
+        }
+    }
+
     public static void addFilters(String... filters) {
         for (String filter : filters) {
             addFilter(sExtensionFilters.get(filter));
