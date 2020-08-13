@@ -23,7 +23,6 @@ import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import org.apache.commons.io.FilenameUtils;
 import se.trixon.almond.util.Dict;
 
 /**
@@ -134,38 +133,34 @@ public class SimpleDialog {
         return result == JFileChooser.APPROVE_OPTION;
     }
 
+    @Deprecated
     public static boolean saveFile(String... extensions) {
-        int result = sFileChooser.showSaveDialog(sParent);
-        if (result != JFileChooser.APPROVE_OPTION) {
+        return saveFile();
+    }
+
+    public static boolean saveFile() {
+        if (sFileChooser.showSaveDialog(sParent) != JFileChooser.APPROVE_OPTION) {
             return false;
         }
 
         File file = sFileChooser.getSelectedFile();
 
-        if (extensions != null && extensions.length > 0) {
-            String fileExt = FilenameUtils.getExtension(file.getName());
-            boolean validExt = false;
+        if (!sFileChooser.getFileFilter().accept(file)) {
+            var fileNameExtensionFilter = (FileNameExtensionFilter) sFileChooser.getFileFilter();
+            var extensions = fileNameExtensionFilter.getExtensions();
+            String suffix;
 
-            for (String extension : extensions) {
-                if (fileExt.toLowerCase().equalsIgnoreCase(extension)) {
-                    validExt = true;
-                    break;
-                }
+            if (file.getName().endsWith(".")) {
+                suffix = extensions[0];
+            } else {
+                suffix = "." + extensions[0];
             }
 
-            if (!validExt) {
-                String suffix;
-                if (file.getName().endsWith(".")) {
-                    suffix = extensions[0];
-                } else {
-                    suffix = "." + extensions[0];
-                }
-                file = new File(file.getAbsolutePath() + suffix);
-            }
+            file = new File(file.getAbsolutePath() + suffix);
         }
 
         if (file.exists()) {
-            result = JOptionPane.showConfirmDialog(sParent,
+            var result = JOptionPane.showConfirmDialog(sParent,
                     String.format(Dict.Dialog.MESSAGE_FILE_EXISTS.toString(), file.getAbsolutePath()),
                     Dict.Dialog.TITLE_FILE_EXISTS.toString(),
                     JOptionPane.YES_NO_OPTION);
