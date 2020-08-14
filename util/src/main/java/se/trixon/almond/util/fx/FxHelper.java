@@ -32,9 +32,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.ButtonBase;
 import javafx.scene.control.Control;
 import javafx.scene.control.Dialog;
+import javafx.scene.control.ListView;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.ToolBar;
 import javafx.scene.control.Tooltip;
+import javafx.scene.control.skin.ListViewSkin;
+import javafx.scene.control.skin.VirtualFlow;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -397,6 +400,21 @@ public class FxHelper {
                 Logger.getLogger(FxHelper.class.getName()).log(Level.SEVERE, null, ex);
             }
         }).start();
+    }
+
+    public static void scrollToItemIfNotVisible(ListView listview, Object item) {
+        try {
+            ListViewSkin<?> listViewSkin = (ListViewSkin<?>) listview.getSkin();
+            VirtualFlow<?> virtualFlow = (VirtualFlow<?>) listViewSkin.getChildren().get(0);
+            int firstIndex = virtualFlow.getFirstVisibleCell().getIndex();
+            int lastIndex = virtualFlow.getLastVisibleCell().getIndex();
+            int index = listview.getItems().indexOf(item);
+            if (index < firstIndex || index > lastIndex) {
+                listview.scrollTo(item);
+            }
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+        }
     }
 
     public static void setDarkThemeEnabled(boolean enabled) {
