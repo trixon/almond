@@ -30,7 +30,7 @@ import org.openide.windows.WindowManager;
 @ActionRegistration(
         displayName = "#CTL_StayOnTopAction"
 )
-@Messages("CTL_StayOnTopAction=Always on top")
+@Messages("CTL_StayOnTopAction=&Always on top")
 public final class StayOnTopAction implements ActionListener {
 
     @Override

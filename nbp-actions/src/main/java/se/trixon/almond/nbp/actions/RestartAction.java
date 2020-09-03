@@ -33,7 +33,7 @@ import org.openide.util.NbBundle.Messages;
 )
 @ActionReferences({
     @ActionReference(path = "Menu/File", position = 2699),})
-@Messages("CTL_RestartAction=Restart")
+@Messages("CTL_RestartAction=&Restart")
 public final class RestartAction implements ActionListener {
 
     @Override
