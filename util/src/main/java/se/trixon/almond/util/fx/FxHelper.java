@@ -311,12 +311,12 @@ public class FxHelper {
     }
 
     public static void loadDarkTheme(Scene scene) {
-        if (isDarkThemeEnabled()) {
-            runLater(() -> {
+        runLater(() -> {
+            if (isDarkThemeEnabled()) {
                 scene.getStylesheets().add(FxHelper.class.getResource("darcula.css").toExternalForm());
-                scene.getRoot().setStyle(String.format("-fx-font-size: %dpx;", (int) getScaledFontSize()));
-            });
-        }
+            }
+            scene.getRoot().setStyle(String.format("-fx-font-size: %dpx;", (int) getScaledFontSize()));
+        });
     }
 
     public static void loadDarkTheme(Parent parent) {
