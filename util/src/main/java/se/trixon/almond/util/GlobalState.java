@@ -15,8 +15,11 @@
  */
 package se.trixon.almond.util;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 import org.apache.commons.lang3.ArrayUtils;
 
 /**
@@ -25,9 +28,9 @@ import org.apache.commons.lang3.ArrayUtils;
  */
 public class GlobalState {
 
-    private final HashMap<String, Object> mKeyObjectMap = new HashMap<>();
-    private final HashMap<GlobalStateChangeListener, String[]> mListenerKeyMap = new HashMap<>();
-    private final HashSet<GlobalStateChangeListener> mListeners = new HashSet<>();
+    private final Map<String, Object> mKeyObjectMap = Collections.synchronizedMap(new HashMap<>());
+    private final Map<GlobalStateChangeListener, String[]> mListenerKeyMap = Collections.synchronizedMap(new HashMap<>());
+    private final Set<GlobalStateChangeListener> mListeners = Collections.synchronizedSet(new HashSet<>());
 
     synchronized public void addListener(GlobalStateChangeListener listener, String... keys) {
         mListeners.add(listener);
