@@ -82,7 +82,7 @@ public class GlobalState {
         };
 
         synchronized (this) {
-            for (GlobalStateChangeListener listener : mListeners) {
+            for (GlobalStateChangeListener listener : new HashSet<>(mListeners)) {
                 final String[] listenerKeys = mListenerKeyMap.get(listener);
                 if (listenerKeys.length == 0 || ArrayUtils.contains(listenerKeys, key)) {
                     listener.globalStateChange(event);
