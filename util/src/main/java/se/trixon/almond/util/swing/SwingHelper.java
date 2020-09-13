@@ -20,6 +20,7 @@ import java.awt.Container;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Insets;
 import java.awt.Window;
 import java.awt.event.HierarchyEvent;
 import java.util.Arrays;
@@ -225,6 +226,14 @@ public class SwingHelper {
 
     public static Dimension getUIScaledDim(double width, double height) {
         return new Dimension((int) (width * getUIScale()), (int) (height * getUIScale()));
+    }
+
+    public static Insets getUIScaledInsets(int value) {
+        return getUIScaledInsets(value, value, value, value);
+    }
+
+    public static Insets getUIScaledInsets(int top, int left, int bottom, int right) {
+        return new Insets((int) (top * getUIScale()), (int) (left * getUIScale()), (int) (bottom * getUIScale()), (int) (right * getUIScale()));
     }
 
     public static void makeWindowResizable(Component component) {
