@@ -75,6 +75,7 @@ public enum Dict {
     CANCEL,
     CANCELED,
     CACHE,
+    CACHING,
     CATEGORY,
     CHANGE,
     CHANGE_TO,
@@ -474,6 +475,7 @@ public enum Dict {
     VERIFY,
     VERSION,
     VIEW,
+    WARMING_UP,
     WARNING,
     @Deprecated
     WIDTH,
