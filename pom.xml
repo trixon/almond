@@ -224,10 +224,10 @@
         </repository>
     </distributionManagement>
     <repositories>
-        <repository>
+        <!--        <repository>
             <id>netbeans-next</id>
             <url>https://repository.apache.org/content/repositories/orgapachenetbeans-1068</url>
-        </repository>
+        </repository>-->
     </repositories>
     <properties>
         <bintray.repo>trixon/maven</bintray.repo>
