@@ -264,7 +264,7 @@ public class SystemHelper {
     public static boolean isReachable(String host) {
         try {
             InetAddress inetAddress = InetAddress.getByName(host);
-            return true;
+            return inetAddress.isReachable(5000);
         } catch (IOException ex) {
             return false;
         }
