@@ -357,6 +357,7 @@ public enum Dict {
     REMOVE_ALL,
     RENAME,
     RENDER,
+    RENDERING,
     REPLACE,
     REPORT,
     REPORTS,
