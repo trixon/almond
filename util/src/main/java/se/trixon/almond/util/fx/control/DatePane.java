@@ -114,13 +114,13 @@ public class DatePane extends GridPane {
         GridPane.setColumnSpan(mDateSlider, GridPane.REMAINING);
 
         mFromDatePicker = new DatePicker();
-        mFromDatePicker.setValue(LocalDate.now().minusDays(7));
+        mFromDatePicker.setValue(LocalDate.of(1900, 1, 1));
         mFromDatePicker.setEditable(false);
         GridPane.setFillWidth(mFromDatePicker, true);
         GridPane.setHgrow(mFromDatePicker, Priority.ALWAYS);
 
         mToDatePicker = new DatePicker();
-        mToDatePicker.setValue(LocalDate.now());
+        mToDatePicker.setValue(LocalDate.of(2099, 12, 31));
         mToDatePicker.setEditable(false);
         GridPane.setFillWidth(mToDatePicker, true);
         GridPane.setHgrow(mToDatePicker, Priority.ALWAYS);
