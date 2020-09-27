@@ -110,11 +110,15 @@ public class DateRangeSlider extends RangeSlider {
 
     private void initListeners() {
         lowValueProperty().addListener((ObservableValue<? extends Number> ov, Number t, Number t1) -> {
-            lowDateProperty().setValue(getMinDate().plusDays(t1.intValue()));
+            if (getMinDate() != null) {
+                lowDateProperty().setValue(getMinDate().plusDays(t1.intValue()));
+            }
         });
 
         highValueProperty().addListener((ObservableValue<? extends Number> ov, Number t, Number t1) -> {
-            highDateProperty().setValue(getMinDate().plusDays(t1.intValue()));
+            if (getMinDate() != null) {
+                highDateProperty().setValue(getMinDate().plusDays(t1.intValue()));
+            }
         });
 
         lowDateProperty().addListener((ObservableValue<? extends LocalDate> ov, LocalDate t, LocalDate t1) -> {
