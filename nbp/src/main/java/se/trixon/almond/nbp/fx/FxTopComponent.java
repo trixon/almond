@@ -38,10 +38,11 @@ public abstract class FxTopComponent extends TopComponent {
     private static final WindowManager WINDOW_MANAGER = WindowManager.getDefault();
     private ResourceBundle mBundle;
     private boolean mComponentOpenedFirstTime = true;
-    private final JFXPanel mFxPanel = new JFXPanel();
+    private final JFXPanel mFxPanel;
     private Scene mScene;
 
     public FxTopComponent() {
+        mFxPanel = new JFXPanel();
         setLayout(new BorderLayout());
         JProgressBar progressBar = new JProgressBar();
         progressBar.setIndeterminate(true);
@@ -136,7 +137,7 @@ public abstract class FxTopComponent extends TopComponent {
     @Override
     protected void componentOpened() {
         super.componentOpened();
-        FxHelper.runLaterDelayed(FX_DELAY_SHORT, () -> {
+        FxHelper.runLaterDelayed(500, () -> {
             if (mComponentOpenedFirstTime) {
                 mComponentOpenedFirstTime = false;
                 initFX();
@@ -147,7 +148,7 @@ public abstract class FxTopComponent extends TopComponent {
                     add(mFxPanel, BorderLayout.CENTER);
                     repaint();
                     revalidate();
-                    FxHelper.runLaterDelayed(0, () -> {
+                    FxHelper.runLaterDelayed(100, () -> {
                         fxPostConstructor();
                     });
                 });
