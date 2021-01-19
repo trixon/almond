@@ -35,8 +35,8 @@ public enum Dict {
     ACTIVE_ALT,
     ADD,
     ADD_BOOKMARK,
-    ADD_REMOVE,
     ADD_ONS,
+    ADD_REMOVE,
     ADMIN,
     ADMINISTRATION,
     ADMINISTRATOR,
@@ -71,17 +71,15 @@ public enum Dict {
     BORDER,
     BORDER_SIZE,
     BROWSE,
+    CACHE,
+    CACHING,
     CALENDAR_LANGUAGE,
     CANCEL,
     CANCELED,
-    CACHE,
-    CACHING,
     CATEGORY,
     CHANGE,
     CHANGE_TO,
     CHART,
-    @Deprecated
-    CIRCLE,
     CLEAR,
     CLEAR_COMMENTS,
     CLEAR_SELECTION,
@@ -191,8 +189,6 @@ public enum Dict {
     GLOBAL,
     GLOBAL_OPTIONS,
     GROUP,
-    @Deprecated
-    HEIGHT,
     HELP,
     HIDE,
     HISTORY,
@@ -233,13 +229,11 @@ public enum Dict {
     LAST,
     LATITUDE,
     LAYER,
-    LAYER_SEARCH,
     LAYERS,
+    LAYER_SEARCH,
     LIBRARIES,
     LICENSE,
     LIGHT,
-    @Deprecated
-    LINE,
     LINE_SEPARATOR,
     LIST,
     LOCAL,
@@ -315,10 +309,6 @@ public enum Dict {
     PASTE,
     PATH,
     PATIENCE_IS_A_VIRTUE,
-    @Deprecated
-    PATH_GAP_GFX,
-    @Deprecated
-    PATH_GFX,
     PATTERN,
     PHOTO,
     PHOTOS,
@@ -455,9 +445,9 @@ public enum Dict {
     TOOLS,
     TOOLS_SEARCH,
     TO_MANY_CLIENTS,
-    TRANSLATION,
     TRACK,
     TRACKS,
+    TRANSLATION,
     TYPE,
     UNCATEGORISED,
     UNDO,
@@ -467,8 +457,8 @@ public enum Dict {
     UNTITLED,
     UP,
     UPDATE,
-    UPDATER,
     UPDATED_S,
+    UPDATER,
     UPDATE_MANAGER,
     UPPER,
     USER,
@@ -479,13 +469,11 @@ public enum Dict {
     VIEW,
     WARMING_UP,
     WARNING,
-    @Deprecated
-    WIDTH,
     WINDOW,
     WINDOW_ALREADY_OPEN,
     YES,
-    ZOOM_EXTENTS,
-    ZOOM;
+    ZOOM,
+    ZOOM_EXTENTS;
 
     private final ResourceBundle mResourceBundle = ResourceBundle.getBundle(SystemHelper.getPackageAsPath(Dict.class) + "Dict", Locale.getDefault());
 
@@ -520,6 +508,7 @@ public enum Dict {
         ERROR_PROFILE_NOT_FOUND,
         ERROR_VALIDATION,
         MESSAGE_ARE_YOU_SURE,
+        MESSAGE_BOOKMARK_REMOVE_ALL,
         MESSAGE_DELETE_OBJECT,
         MESSAGE_DELETE_OBJECTS,
         MESSAGE_FILE_CLOSE,
@@ -530,7 +519,6 @@ public enum Dict {
         MESSAGE_NO_PROFILES_FOUND,
         MESSAGE_PROFILE_REMOVE,
         MESSAGE_PROFILE_REMOVE_ALL,
-        MESSAGE_BOOKMARK_REMOVE_ALL,
         MESSAGE_REMOVE_FILE,
         MESSAGE_REMOVE_FILES,
         MESSAGE_RESTART_REQUIRED,
@@ -562,8 +550,7 @@ public enum Dict {
         TITLE_REMOVE_S,
         TITLE_RESTART_REQUIRED,
         TITLE_ROWS_NOT_SELECTED,
-        TITLE_SELECT_COLOR,
-        ZZZ;
+        TITLE_SELECT_COLOR;
         private final ResourceBundle mResourceBundle = ResourceBundle.getBundle(SystemHelper.getPackageAsPath(Dict.class) + "DictDialog", Locale.getDefault());
 
         @Override
@@ -594,8 +581,7 @@ public enum Dict {
         RADIUS,
         RECTANGLE,
         SQUARE,
-        WIDTH,
-        ZZZ;
+        WIDTH;
         private final ResourceBundle mResourceBundle = ResourceBundle.getBundle(SystemHelper.getPackageAsPath(Dict.class) + "DictGeometry", Locale.getDefault());
 
         @Override
@@ -615,8 +601,7 @@ public enum Dict {
         TIME,
         TODAY,
         WEEK,
-        YEAR,
-        ZZZ;
+        YEAR;
         private final ResourceBundle mResourceBundle = ResourceBundle.getBundle(SystemHelper.getPackageAsPath(Dict.class) + "DictTime", Locale.getDefault());
 
         @Override
@@ -629,28 +614,27 @@ public enum Dict {
         ARCADE,
         BOARD,
         CARD,
-        STRATEGY,
         DICE,
         GAME,
         GAME_OVER,
         GAME_SELECTOR,
         GAME_TYPE,
-        GO_HOME,
         GOAL,
+        GO_HOME,
         HOLD,
-        INSTALL_GAMES,
         INSTALLED_GAMES,
+        INSTALL_GAMES,
         LEVEL,
         NEW_ROUND,
-        NUMBER_OF_PLAYERS,
         NO_INSTALLED_GAMES,
+        NUMBER_OF_PLAYERS,
         PLAYER,
         PLAYERS,
-        SELECT_PLAYER,
         SCORECARD,
+        SELECT_PLAYER,
         SHUFFLE,
-        VARIANT,
-        ZZZ;
+        STRATEGY,
+        VARIANT;
         private final ResourceBundle mResourceBundle = ResourceBundle.getBundle(SystemHelper.getPackageAsPath(Dict.class) + "DictGame", Locale.getDefault());
 
         @Override
