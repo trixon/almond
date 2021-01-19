@@ -277,6 +277,10 @@ public class FxHelper {
         return Font.getDefault().getSize() * SwingHelper.getUIScale();
     }
 
+    public static Tooltip getTooltip(String text, KeyCodeCombination keyCodeCombination) {
+        return new Tooltip(String.format("%s (%s)", text, keyCodeCombination.getDisplayText()));
+    }
+
     public static double getUIScaled(double value) {
         return value * SwingHelper.getUIScale();
     }
@@ -443,6 +447,10 @@ public class FxHelper {
         for (Region region : regions) {
             region.setPrefWidth(width);
         }
+    }
+
+    public static void setTooltip(Action action, KeyCodeCombination keyCodeCombination) {
+        action.setLongText(String.format("%s (%s)", action.getText(), keyCodeCombination.getDisplayText()));
     }
 
     public static Optional showAndWait(Dialog dialog, Stage stage) {

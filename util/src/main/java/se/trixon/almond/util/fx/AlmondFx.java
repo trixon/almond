@@ -19,7 +19,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import se.trixon.almond.util.AlmondGui;
 
 /**
@@ -40,7 +39,7 @@ public class AlmondFx extends AlmondGui {
 
     public void addStageWatcher(Stage stage, Class c) {
         mStage = stage;
-        stage.setOnCloseRequest((WindowEvent we) -> {
+        stage.setOnCloseRequest(windowEvent -> {
             FxHelper.windowStateSave(stage, c);
         });
 
