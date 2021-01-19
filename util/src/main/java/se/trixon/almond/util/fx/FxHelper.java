@@ -78,10 +78,18 @@ public class FxHelper {
     private static final String STAGE_X = "AlmondStage_X";
     private static final String STAGE_Y = "AlmondStage_Y";
 
+    public static void adjustButtonHeight(Stream<Node> stream, double prefHeight) {
+        stream.filter(item -> (item instanceof ButtonBase))
+                .map(item -> (ButtonBase) item)
+                .forEachOrdered(buttonBase -> {
+                    buttonBase.setPrefHeight(prefHeight);
+                });
+    }
+
     public static void adjustButtonWidth(Stream<Node> stream, double prefWidth) {
-        stream.filter((item) -> (item instanceof ButtonBase))
-                .map((item) -> (ButtonBase) item)
-                .forEachOrdered((buttonBase) -> {
+        stream.filter(item -> (item instanceof ButtonBase))
+                .map(item -> (ButtonBase) item)
+                .forEachOrdered(buttonBase -> {
                     buttonBase.setPrefWidth(prefWidth);
                 });
     }
