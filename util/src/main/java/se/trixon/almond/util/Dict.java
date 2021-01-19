@@ -626,6 +626,10 @@ public enum Dict {
     }
 
     public enum Game {
+        ARCADE,
+        BOARD,
+        CARD,
+        STRATEGY,
         DICE,
         GAME,
         GAME_OVER,
