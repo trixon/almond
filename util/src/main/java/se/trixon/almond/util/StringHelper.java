@@ -15,6 +15,7 @@
  */
 package se.trixon.almond.util;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -27,6 +28,8 @@ import org.apache.commons.lang3.StringUtils;
  * @author Patrik Karlström
  */
 public class StringHelper {
+
+    private static final byte[] HEX_ARRAY = "0123456789ABCDEF".getBytes(StandardCharsets.US_ASCII);
 
     public static String arrayToIntervalString(int[] indices) {
         if (indices == null || indices.length == 0) {
@@ -49,13 +52,7 @@ public class StringHelper {
         int lastStart = 0;
         int length = 0;
 
-        log(StringUtils.repeat("FOR ", 10));
-        log(StringUtils.repeat(indices.length + " ", 40));
-
         for (int i = 0; i < indices.length; i++) {
-            log(StringUtils.repeat("I ", 30));
-            log(StringUtils.repeat(i + " ", 30));
-
             int current = indices[i];
 
             if (i == 0) {
@@ -78,15 +75,6 @@ public class StringHelper {
                 endOfBlock = current + 1 < next;
             }
 
-            log("count=" + indices.length);
-            log("i=" + i);
-            log("prev=" + prev);
-            log("current=" + current);
-            log("next=" + next);
-            log("length=" + length);
-            log("lastStart=" + lastStart);
-            log("endOfBlock=" + endOfBlock);
-
             if (endOfBlock) {
                 BlockItem blockItem = new BlockItem();
                 blockItem.length = length;
@@ -99,8 +87,6 @@ public class StringHelper {
         }
 
         for (BlockItem blockItem : blockItems) {
-            log(blockItem.toString());
-
             builder.append(blockItem.start);
 
             if (blockItem.length == 2) {
@@ -117,13 +103,23 @@ public class StringHelper {
             builder.deleteCharAt(builder.length() - 1);
         }
 
-        log(builder.toString());
-
         return builder.toString();
     }
 
     public static String booleanToYesNo(boolean value) {
         return value ? Dict.YES.toString() : Dict.NO.toString();
+    }
+
+    public static String bytesToHex(byte[] bytes) {
+        byte[] hexChars = new byte[bytes.length * 2];
+
+        for (int j = 0; j < bytes.length; j++) {
+            int v = bytes[j] & 0xFF;
+            hexChars[j * 2] = HEX_ARRAY[v >>> 4];
+            hexChars[j * 2 + 1] = HEX_ARRAY[v & 0x0F];
+        }
+
+        return new String(hexChars, StandardCharsets.UTF_8);
     }
 
     /**
@@ -132,7 +128,7 @@ public class StringHelper {
      * @return 1,2,3,7,8,9 from "1-3,7-9"
      */
     public static TreeSet<Integer> convertStringToIntSet(String string) {
-        TreeSet<Integer> treeSet = new TreeSet<Integer>();
+        TreeSet<Integer> treeSet = new TreeSet<>();
         String[] args = string.split(",");
 
         for (String arg : args) {
@@ -224,10 +220,8 @@ public class StringHelper {
     /**
      * @param searchIn the string to search in
      * @param glob the glob pattern
-     * @param ignoreCase <code>true</code> if the match is case insensitive,
-     * else <code>false</code>.
-     * @param autoWrap <code>true</code> if two * should wrap the @param glob,
-     * else <code>false</code>.
+     * @param ignoreCase <code>true</code> if the match is case insensitive, else <code>false</code>.
+     * @param autoWrap <code>true</code> if two * should wrap the @param glob, else <code>false</code>.
      * @return The result of the match
      */
     public static boolean matchesSimpleGlob(String searchIn, String glob, boolean ignoreCase, boolean autoWrap) {
@@ -248,11 +242,6 @@ public class StringHelper {
         } catch (PatternSyntaxException e) {
             return false;
         }
-    }
-
-    private static void log(String string) {
-//        System.out.println(string);
-//        Xlog.v(StringHelper.class, string);
     }
 
     private static class BlockItem {
