@@ -16,13 +16,8 @@
 package se.trixon.almond.util;
 
 import java.util.ArrayList;
-import java.util.Properties;
 import org.apache.commons.lang3.StringUtils;
 import oshi.SystemInfo;
-import oshi.hardware.GraphicsCard;
-import oshi.hardware.HWDiskStore;
-import oshi.hardware.HardwareAbstractionLayer;
-import oshi.software.os.OperatingSystem;
 import oshi.util.FormatUtil;
 
 /**
@@ -46,11 +41,11 @@ public class SystemInformation {
     }
 
     public String generateSystemInformation() {
-        SystemInfo systemInfo = new SystemInfo();
-        HardwareAbstractionLayer hw = systemInfo.getHardware();
-        OperatingSystem os = systemInfo.getOperatingSystem();
+        var systemInfo = new SystemInfo();
+        var hw = systemInfo.getHardware();
+        var os = systemInfo.getOperatingSystem();
 
-        ArrayList<String> hwItems = new ArrayList<>();
+        var hwItems = new ArrayList<String>();
 
         hwItems.add(String.format("%s %s (%s)",
                 hw.getComputerSystem().getManufacturer(),
@@ -60,21 +55,21 @@ public class SystemInformation {
         hwItems.add(hw.getProcessor().getProcessorIdentifier().getName());
         hwItems.add(hw.getProcessor().getProcessorIdentifier().getIdentifier());
 //        hwItems.add(String.format("Available memory %s/%s", FormatUtil.formatBytes(hw.getMemory().getAvailable()), FormatUtil.formatBytes(hw.getMemory().getTotal())));
-        for (GraphicsCard graphicsCard : hw.getGraphicsCards()) {
+        hw.getGraphicsCards().forEach(graphicsCard -> {
             hwItems.add(String.format("%s %s", graphicsCard.getName(), graphicsCard.getVendor()));
-        }
+        });
 
-        for (HWDiskStore diskStore : hw.getDiskStores()) {
+        hw.getDiskStores().forEach(diskStore -> {
             hwItems.add(diskStore.toString());
-        }
+        });
 
         hwItems.add(hw.getMemory().toString());
         hwItems.add(hw.getMemory().getVirtualMemory().toString());
 
-        ArrayList<String> osItems = new ArrayList<>();
+        var osItems = new ArrayList<String>();
         osItems.add(os.toString());
 
-        StringBuilder sb = new StringBuilder();
+        var sb = new StringBuilder();
         sb.append(">HARDWARE").append("\n");
         sb.append(String.join("\n", hwItems));
 
@@ -156,10 +151,10 @@ public class SystemInformation {
             len = Math.max(len, key.length());
         }
 
-        ArrayList<String> envItems = new ArrayList<>();
+        var envItems = new ArrayList<String>();
 
-        Properties p = System.getProperties();
-        for (String key : keys) {
+        var p = System.getProperties();
+        for (var key : keys) {
             if (StringUtils.isBlank(key)) {
                 envItems.add("");
             } else if (p.containsKey(key)) {
