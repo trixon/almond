@@ -322,6 +322,13 @@ public class FxHelper {
         return Preferences.userNodeForPackage(c).getBoolean(STAGE_FULL_SCREEN, false);
     }
 
+    public static void unloadDarkTheme(Scene scene) {
+        runLater(() -> {
+            setDarkThemeEnabled(false);
+            scene.getStylesheets().remove(FxHelper.class.getResource("darcula.css").toExternalForm());
+        });
+    }
+
     public static void loadDarkTheme(Scene scene) {
         runLater(() -> {
             if (isDarkThemeEnabled()) {
