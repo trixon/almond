@@ -78,10 +78,18 @@ public class FxHelper {
     private static final String STAGE_X = "AlmondStage_X";
     private static final String STAGE_Y = "AlmondStage_Y";
 
+    public static void adjustButtonHeight(Stream<Node> stream, double prefHeight) {
+        stream.filter(item -> (item instanceof ButtonBase))
+                .map(item -> (ButtonBase) item)
+                .forEachOrdered(buttonBase -> {
+                    buttonBase.setPrefHeight(prefHeight);
+                });
+    }
+
     public static void adjustButtonWidth(Stream<Node> stream, double prefWidth) {
-        stream.filter((item) -> (item instanceof ButtonBase))
-                .map((item) -> (ButtonBase) item)
-                .forEachOrdered((buttonBase) -> {
+        stream.filter(item -> (item instanceof ButtonBase))
+                .map(item -> (ButtonBase) item)
+                .forEachOrdered(buttonBase -> {
                     buttonBase.setPrefWidth(prefWidth);
                 });
     }
@@ -277,6 +285,10 @@ public class FxHelper {
         return Font.getDefault().getSize() * SwingHelper.getUIScale();
     }
 
+    public static Tooltip getTooltip(String text, KeyCodeCombination keyCodeCombination) {
+        return new Tooltip(String.format("%s (%s)", text, keyCodeCombination.getDisplayText()));
+    }
+
     public static double getUIScaled(double value) {
         return value * SwingHelper.getUIScale();
     }
@@ -308,6 +320,13 @@ public class FxHelper {
 
     public static boolean isFullScreen(Class c) {
         return Preferences.userNodeForPackage(c).getBoolean(STAGE_FULL_SCREEN, false);
+    }
+
+    public static void unloadDarkTheme(Scene scene) {
+        runLater(() -> {
+            setDarkThemeEnabled(false);
+            scene.getStylesheets().remove(FxHelper.class.getResource("darcula.css").toExternalForm());
+        });
     }
 
     public static void loadDarkTheme(Scene scene) {
@@ -443,6 +462,10 @@ public class FxHelper {
         for (Region region : regions) {
             region.setPrefWidth(width);
         }
+    }
+
+    public static void setTooltip(Action action, KeyCodeCombination keyCodeCombination) {
+        action.setLongText(String.format("%s (%s)", action.getText(), keyCodeCombination.getDisplayText()));
     }
 
     public static Optional showAndWait(Dialog dialog, Stage stage) {

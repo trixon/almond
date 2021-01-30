@@ -4,7 +4,7 @@
 
     <groupId>se.trixon.almond</groupId>
     <artifactId>almond-parent</artifactId>
-    <version>11.0.6</version>
+    <version>11.0.7-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>almond-parent</name>
@@ -20,7 +20,6 @@
             <id>trixon</id>
             <name>Patrik Karlström</name>
             <roles>
-                <role>architect</role>
                 <role>developer</role>
             </roles>
             <email>patrik@trixon.se</email>
@@ -77,12 +76,12 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>3.1.1</version>
+                    <version>3.2.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>versions-maven-plugin</artifactId>
-                    <version>2.7</version>
+                    <version>2.8.1</version>
                     <configuration>
                         <generateBackupPoms>false</generateBackupPoms>
                     </configuration>
@@ -97,15 +96,15 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-site-plugin</artifactId>
-                    <version>3.8.2</version>
+                    <version>3.9.1</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-resources-plugin</artifactId>
-                    <version>3.1.0</version>
+                    <version>3.2.0</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>3.0.0-M4</version>
+                    <version>3.0.0-M5</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -207,12 +206,12 @@
             <dependency>
                 <groupId>org.controlsfx</groupId>
                 <artifactId>controlsfx</artifactId>
-                <version>11.0.2</version>
+                <version>11.0.3</version>
             </dependency>
             <dependency>
                 <groupId>se.trixon.almond</groupId>
                 <artifactId>almond-util</artifactId>
-                <version>11.0.6</version>
+                <version>11.0.7-SNAPSHOT</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -226,17 +225,24 @@
     <repositories>
         <!--        <repository>
             <id>netbeans-next</id>
-            <url>https://repository.apache.org/content/repositories/orgapachenetbeans-1068</url>
+            <url>https://repository.apache.org/content/repositories/orgapachenetbeans-1077</url>
         </repository>-->
     </repositories>
+
+    <pluginRepositories>
+        <!--        <pluginRepository>
+            <id>netbeans-next</id>
+            <url>https://repository.apache.org/content/repositories/orgapachenetbeans-1075/</url>
+        </pluginRepository>-->
+    </pluginRepositories>
+
     <properties>
         <bintray.repo>trixon/maven</bintray.repo>
         <bintray.package>almond3</bintray.package>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <netbeans.hint.license>apache20</netbeans.hint.license>
-        <netbeans.version>RELEASE121</netbeans.version>
+        <netbeans.version>RELEASE122</netbeans.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!--<openjfx.version>14</openjfx.version>-->
     </properties>
 </project>

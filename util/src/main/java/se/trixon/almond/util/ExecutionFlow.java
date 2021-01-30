@@ -63,7 +63,7 @@ public class ExecutionFlow {
      */
     public void setReady(String key) {
         if (mExecutedKeys.add(key)) {
-            mKeyToRunnablesMap.entrySet().stream()
+            new HashMap<>(mKeyToRunnablesMap).entrySet().stream()
                     .filter(entry -> (entry.getKey().equals(key)))
                     .forEachOrdered(entry -> {
                         entry.getValue().forEach(runnable -> {
