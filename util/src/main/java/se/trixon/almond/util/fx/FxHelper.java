@@ -421,15 +421,15 @@ public class FxHelper {
         }).start();
     }
 
-    public static void scrollToItemIfNotVisible(ListView listview, Object item) {
+    public static void scrollToItemIfNotVisible(ListView<?> listview, Object item) {
         try {
-            ListViewSkin<?> listViewSkin = (ListViewSkin<?>) listview.getSkin();
-            VirtualFlow<?> virtualFlow = (VirtualFlow<?>) listViewSkin.getChildren().get(0);
+            var listViewSkin = (ListViewSkin<?>) listview.getSkin();
+            var virtualFlow = (VirtualFlow<?>) listViewSkin.getChildren().get(0);
             int firstIndex = virtualFlow.getFirstVisibleCell().getIndex();
             int lastIndex = virtualFlow.getLastVisibleCell().getIndex();
             int index = listview.getItems().indexOf(item);
             if (index < firstIndex || index > lastIndex) {
-                listview.scrollTo(item);
+                listview.scrollTo(index);
             }
         } catch (Exception ex) {
             System.err.println(ex.getMessage());

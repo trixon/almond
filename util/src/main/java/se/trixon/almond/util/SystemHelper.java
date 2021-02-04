@@ -116,9 +116,9 @@ public class SystemHelper {
         int code;
 
         if (SystemUtils.IS_OS_MAC) {
-            code = InputEvent.META_MASK;
+            code = InputEvent.META_DOWN_MASK;
         } else {
-            code = InputEvent.CTRL_MASK;
+            code = InputEvent.CTRL_DOWN_MASK;
         }
 
         return code;

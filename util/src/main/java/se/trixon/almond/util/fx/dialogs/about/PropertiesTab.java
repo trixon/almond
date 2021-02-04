@@ -66,7 +66,8 @@ public class PropertiesTab extends Tab implements AboutPane.ResetableTab {
         valCol.prefWidthProperty().bind(mTableView.widthProperty().multiply(0.65));
 
         mTableView.setItems(mData);
-        mTableView.getColumns().addAll(keyCol, valCol);
+        mTableView.getColumns().add(keyCol);
+        mTableView.getColumns().add(valCol);
 
         mContextMenu = new ContextMenu();
         MenuItem copyMenuItem = new MenuItem(Dict.COPY.toString());

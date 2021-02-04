@@ -95,7 +95,7 @@ public class GeoHelper {
             }
         }
 
-        LinkedList<String> section = new LinkedList(lines.subList(0, rowCounter));
+        LinkedList<String> section = new LinkedList<>(lines.subList(0, rowCounter));
 
         GeoHelper.removeHead(lines, rowCounter);
 //        System.out.println("SECTION " + sectionHeader);
