@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2019 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,8 +15,8 @@
  */
 package se.trixon.almond.nbp.fx;
 
-import org.openide.DialogDescriptor;
 import org.openide.NotificationLineSupport;
+import org.openide.NotifyDescriptor;
 
 /**
  *
@@ -24,14 +24,14 @@ import org.openide.NotificationLineSupport;
  */
 public abstract class FxDialogPanel extends FxPanel {
 
-    protected DialogDescriptor mDialogDescriptor;
+    protected NotifyDescriptor mNotifyDescriptor;
     protected NotificationLineSupport mNotificationLineSupport;
 
     public void createNotificationLineSupport() {
-        mNotificationLineSupport = mDialogDescriptor.createNotificationLineSupport();
+        mNotificationLineSupport = mNotifyDescriptor.createNotificationLineSupport();
     }
 
-    public void setDialogDescriptor(DialogDescriptor dialogDescriptor) {
-        mDialogDescriptor = dialogDescriptor;
+    public void setNotifyDescriptor(NotifyDescriptor notifyDescriptor) {
+        mNotifyDescriptor = notifyDescriptor;
     }
 }
