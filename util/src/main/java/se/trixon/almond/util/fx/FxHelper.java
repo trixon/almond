@@ -53,6 +53,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import org.apache.commons.lang3.ArrayUtils;
 import org.controlsfx.control.MaskerPane;
 import org.controlsfx.control.NotificationPane;
@@ -77,6 +78,7 @@ public class FxHelper {
     private static final String STAGE_W = "AlmondStage_Width";
     private static final String STAGE_X = "AlmondStage_X";
     private static final String STAGE_Y = "AlmondStage_Y";
+    private static Color sDarkColor = Color.web("#3c3f41");
 
     public static void adjustButtonHeight(Stream<Node> stream, double prefHeight) {
         stream.filter(item -> (item instanceof ButtonBase))
@@ -281,6 +283,10 @@ public class FxHelper {
         return null;
     }
 
+    public static Color getDarkColor() {
+        return sDarkColor;
+    }
+
     public static double getScaledFontSize() {
         return Font.getDefault().getSize() * SwingHelper.getUIScale();
     }
@@ -320,13 +326,6 @@ public class FxHelper {
 
     public static boolean isFullScreen(Class c) {
         return Preferences.userNodeForPackage(c).getBoolean(STAGE_FULL_SCREEN, false);
-    }
-
-    public static void unloadDarkTheme(Scene scene) {
-        runLater(() -> {
-            setDarkThemeEnabled(false);
-            scene.getStylesheets().remove(FxHelper.class.getResource("darcula.css").toExternalForm());
-        });
     }
 
     public static void loadDarkTheme(Scene scene) {
@@ -397,6 +396,18 @@ public class FxHelper {
         }).start();
     }
 
+    public static void removeSceneInitFlicker(Window window) {
+        if (isDarkThemeEnabled()) {
+            window.getScene().setFill(FxHelper.getDarkColor());
+        }
+    }
+
+    public static void removeSceneInitFlicker(Node node) {
+        if (isDarkThemeEnabled()) {
+            node.getScene().setFill(FxHelper.getDarkColor());
+        }
+    }
+
     /**
      * Run r now if isFxApplicationThread, else runLater
      *
@@ -434,6 +445,10 @@ public class FxHelper {
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }
+    }
+
+    public static void setDarkColor(Color darkColor) {
+        sDarkColor = darkColor;
     }
 
     public static void setDarkThemeEnabled(boolean enabled) {
@@ -496,6 +511,13 @@ public class FxHelper {
                 .forEachOrdered((buttonBase) -> {
                     undecorateButton(buttonBase);
                 });
+    }
+
+    public static void unloadDarkTheme(Scene scene) {
+        runLater(() -> {
+            setDarkThemeEnabled(false);
+            scene.getStylesheets().remove(FxHelper.class.getResource("darcula.css").toExternalForm());
+        });
     }
 
     public static void windowStateRestore(Stage stage, double defaultWidth, double defaultHeight, Class c) throws BackingStoreException {
