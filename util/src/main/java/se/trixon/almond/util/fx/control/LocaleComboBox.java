@@ -15,61 +15,62 @@
  */
 package se.trixon.almond.util.fx.control;
 
-//import com.sun.javafx.scene.control.skin.ComboBoxListViewSkin;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Locale;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.Event;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListView;
-import org.apache.commons.lang3.StringUtils;
+import javafx.util.StringConverter;
 
 /**
+ * Might suffer from https://bugs.openjdk.java.net/browse/JDK-8129123
  *
  * @author Patrik Karlström
  */
-public class LocaleComboBox extends ComboBox<String> {
+public class LocaleComboBox extends ComboBox<Locale> {
 
     public LocaleComboBox() {
         init();
     }
 
+    @Deprecated
     public Locale getLocale() {
-        for (Locale locale : Locale.getAvailableLocales()) {
-            if (StringUtils.equals((String) getSelectionModel().getSelectedItem(), locale.getDisplayName())) {
-                return locale;
-            }
-        }
-
-        return null;
+        return getValue();
     }
 
+    @Deprecated
     public void setLocale(Locale locale) {
-        getSelectionModel().select(locale.getDisplayName());
+        setValue(locale);
     }
 
     private void init() {
-        ObservableList<String> data = FXCollections.observableArrayList();
-        ArrayList<Locale> locales = new ArrayList<>(Arrays.asList(Locale.getAvailableLocales()));
-
+        ObservableList<Locale> data = FXCollections.observableArrayList();
+        var locales = new ArrayList<>(Arrays.asList(Locale.getAvailableLocales()));
         locales.sort((Locale o1, Locale o2) -> o1.getDisplayName().compareTo(o2.getDisplayName()));
 
+        HashMap<String, Locale> displayNameToLocale = new HashMap<>();
         locales.forEach((locale) -> {
-            data.add(locale.getDisplayName());
+            data.add(locale);
+            displayNameToLocale.put(locale.getDisplayName(), locale);
         });
 
         setItems(data);
-        setLocale(Locale.getDefault());
-//        setOnShown((Event event) -> {
-//            /*
-//             * This is a workaround for https://bugs.openjdk.java.net/browse/JDK-8129123
-//             * It uses com.sun...
-//             * Should be removed when resolved.
-//             */
-//            ComboBoxListViewSkin<?> skin = (ComboBoxListViewSkin<?>) getSkin();
-//            ((ListView<?>) skin.getPopupContent()).scrollTo(getSelectionModel().getSelectedIndex());
-//        });
+        setValue(Locale.getDefault());
+
+        StringConverter<Locale> converter = new StringConverter<Locale>() {
+            @Override
+            public Locale fromString(String string) {
+                return displayNameToLocale.get(string);
+            }
+
+            @Override
+            public String toString(Locale locale) {
+                return locale.getDisplayName();
+            }
+        };
+
+        setConverter(converter);
     }
 }
