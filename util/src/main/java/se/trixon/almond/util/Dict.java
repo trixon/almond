@@ -310,6 +310,7 @@ public enum Dict {
     PATH,
     PATIENCE_IS_A_VIRTUE,
     PATTERN,
+    PATTERNS,
     PHOTO,
     PHOTOS,
     PIN,
