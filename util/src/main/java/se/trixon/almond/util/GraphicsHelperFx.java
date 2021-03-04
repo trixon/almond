@@ -15,17 +15,26 @@
  */
 package se.trixon.almond.util;
 
+import javafx.scene.paint.Color;
+
 /**
  *
  * @author Patrik Karlström
  */
 public class GraphicsHelperFx extends GraphicsHelper {
 
-    public static int getBrightness(javafx.scene.paint.Color c) {
+    public static int getBrightness(Color c) {
         return (int) Math.sqrt(
                 c.getRed() * c.getRed() * .241
                 + c.getGreen() * c.getGreen() * .691
                 + c.getBlue() * c.getBlue() * .068);
     }
 
+    public static Color getContrastColor(Color c) {
+        return getContrastColor(c, Color.WHITE, Color.BLACK);
+    }
+
+    private static Color getContrastColor(Color c, Color brightColor, Color darkColor) {
+        return getBrightness(c) < 128 ? brightColor : darkColor;
+    }
 }
