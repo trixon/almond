@@ -39,7 +39,7 @@
                 <plugin>
                     <groupId>org.apache.netbeans.utilities</groupId>
                     <artifactId>nbm-maven-plugin</artifactId>
-                    <version>4.5</version>
+                    <version>4.6</version>
                     <extensions>true</extensions>
                 </plugin>
                 <plugin>
@@ -236,17 +236,17 @@
         </repository>
     </distributionManagement>
     <repositories>
-        <!--        <repository>
+        <repository>
             <id>netbeans-next</id>
-            <url>https://repository.apache.org/content/repositories/orgapachenetbeans-1077</url>
-        </repository>-->
+            <url>https://repository.apache.org/content/repositories/orgapachenetbeans-1082</url>
+        </repository>
     </repositories>
 
     <pluginRepositories>
-        <!--        <pluginRepository>
+        <pluginRepository>
             <id>netbeans-next</id>
-            <url>https://repository.apache.org/content/repositories/orgapachenetbeans-1075/</url>
-        </pluginRepository>-->
+            <url>https://repository.apache.org/content/repositories/orgapachenetbeans-1081/</url>
+        </pluginRepository>
     </pluginRepositories>
 
     <properties>
@@ -255,7 +255,7 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <netbeans.hint.license>apache20</netbeans.hint.license>
-        <netbeans.version>RELEASE122</netbeans.version>
+        <netbeans.version>RELEASE123</netbeans.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 </project>
