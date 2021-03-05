@@ -386,6 +386,7 @@ public enum Dict {
     SERVER_START,
     SHOW,
     SHOW_ALL,
+    SHOW_THIS_AGAIN,
     SHUTDOWN,
     SHUTDOWN_AND_QUIT,
     SHUTDOWN_SERVER_AND_QUIT,
