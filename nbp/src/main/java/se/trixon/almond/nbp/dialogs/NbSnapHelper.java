@@ -13,22 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package se.trixon.almond.util;
+package se.trixon.almond.nbp.dialogs;
 
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.scene.control.Alert.AlertType;
-import javafx.stage.Window;
-import se.trixon.almond.util.fx.dialogs.OptionalDialog;
+import org.openide.NotifyDescriptor;
+import se.trixon.almond.util.Dict;
+import se.trixon.almond.util.SnapHelper;
 
 /**
  *
  * @author Patrik Karlström
  */
-public class SnapHelperFx {
+public class NbSnapHelper {
 
-    public static void checkSnapStatus(Class cls, String id, Window window, String snapName, String... plugsAndSlots) {
+    public static void checkSnapStatus(Class cls, String id, String snapName, String... plugsAndSlots) {
         try {
             if (SnapHelper.isSnap()) {
                 StringBuilder sb = new StringBuilder();
@@ -39,17 +39,15 @@ public class SnapHelperFx {
                 }
 
                 if (sb.length() > 0) {
-                    String message = "For a better experience, consider executing:\n\n"
+                    String message = String.format("It looks like you are running '%s' as a snap", snapName) + "\n\nFor a better experience, consider executing:\n\n"
                             + sb.toString()
                             + "\nor through the Permissions UI in the snap-store application.";
 
-                    OptionalDialog.requestShowDialog(
+                    NbOptionalDialog.requestShowDialog(
                             cls,
                             id,
-                            AlertType.INFORMATION,
-                            window,
+                            NotifyDescriptor.INFORMATION_MESSAGE,
                             Dict.INFORMATION.toString(),
-                            String.format("It looks like you are running '%s' as a snap", snapName),
                             message,
                             null
                     );
