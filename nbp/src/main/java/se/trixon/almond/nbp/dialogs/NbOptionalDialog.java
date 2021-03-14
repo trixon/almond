@@ -18,6 +18,7 @@ package se.trixon.almond.nbp.dialogs;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
+import java.util.prefs.Preferences;
 import javax.swing.JCheckBox;
 import org.apache.commons.lang3.StringUtils;
 import org.openide.DialogDescriptor;
@@ -78,6 +79,10 @@ public class NbOptionalDialog {
         } catch (BackingStoreException ex) {
             Logger.getLogger(NbOptionalDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public static void setPreferences(Preferences preferences) {
+        sOptions.setPreferences(preferences);
     }
 
     public static class Options extends OptionsBase {
