@@ -236,17 +236,17 @@
         </repository>
     </distributionManagement>
     <repositories>
-        <repository>
+        <!--        <repository>
             <id>netbeans-next</id>
             <url>https://repository.apache.org/content/repositories/orgapachenetbeans-1082</url>
-        </repository>
+        </repository>-->
     </repositories>
 
     <pluginRepositories>
-        <pluginRepository>
+        <!--        <pluginRepository>
             <id>netbeans-next</id>
             <url>https://repository.apache.org/content/repositories/orgapachenetbeans-1081/</url>
-        </pluginRepository>
+        </pluginRepository>-->
     </pluginRepositories>
 
     <properties>
