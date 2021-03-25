@@ -128,9 +128,19 @@ public class SystemHelper {
         String hostname = "Unknown";
 
         try {
-            InetAddress inetAddress;
-            inetAddress = InetAddress.getLocalHost();
-            hostname = inetAddress.getHostName();
+            hostname = InetAddress.getLocalHost().getHostName();
+        } catch (UnknownHostException ex) {
+            Xlog.e("SystemHelper", "Hostname can not be resolved.");
+        }
+
+        return hostname;
+    }
+
+    public static String getHostnameCanonical() {
+        String hostname = "Unknown";
+
+        try {
+            hostname = InetAddress.getLocalHost().getCanonicalHostName();
         } catch (UnknownHostException ex) {
             Xlog.e("SystemHelper", "Hostname can not be resolved.");
         }
