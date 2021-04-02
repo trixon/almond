@@ -34,6 +34,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Scanner;
+import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -48,6 +49,17 @@ import org.apache.commons.lang3.SystemUtils;
 public class SystemHelper {
 
     private static final Logger LOGGER = Logger.getLogger(SystemHelper.class.getName());
+    private static Consumer<String> sDesktopBrowser;
+
+    static {
+        sDesktopBrowser = url -> new Thread(() -> {
+            try {
+                Desktop.getDesktop().browse(new URI(url));
+            } catch (URISyntaxException | IOException ex) {
+                LOGGER.log(Level.SEVERE, null, ex);
+            }
+        }).start();
+    }
 
     /**
      *
@@ -63,13 +75,7 @@ public class SystemHelper {
     }
 
     public static void desktopBrowse(String url) {
-        new Thread(() -> {
-            try {
-                Desktop.getDesktop().browse(new URI(url));
-            } catch (URISyntaxException | IOException ex) {
-                LOGGER.log(Level.SEVERE, null, ex);
-            }
-        }).start();
+        sDesktopBrowser.accept(url);
     }
 
     public static void desktopOpen(File file) {
@@ -303,6 +309,10 @@ public class SystemHelper {
                 Logger.getLogger(SystemHelper.class.getName()).log(Level.SEVERE, null, ex);
             }
         }, r.getClass().getName()).start();
+    }
+
+    public static void setDesktopBrowser(Consumer<String> desktopBrowser) {
+        sDesktopBrowser = desktopBrowser;
     }
 
     public static void setMacApplicationName(String name) {
