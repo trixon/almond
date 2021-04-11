@@ -296,6 +296,7 @@ public enum Dict {
     OK,
     OPACITY,
     OPEN,
+    OPENING_S,
     OPEN_DIRECTORY,
     OPEN_IN_WEB_BROWSER,
     OPERATION,
