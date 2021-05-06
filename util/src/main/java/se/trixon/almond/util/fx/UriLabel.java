@@ -20,7 +20,7 @@ import java.net.URISyntaxException;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Hyperlink;
-import se.trixon.almond.util.SystemHelper;
+import se.trixon.almond.util.MailHelper;
 
 /**
  *
@@ -62,7 +62,7 @@ public class UriLabel extends Hyperlink {
 
     private void init() {
         setOnAction((ActionEvent event) -> {
-            SystemHelper.desktopBrowse(mUri.toString());
+            MailHelper.mail(mUri);
         });
     }
 }

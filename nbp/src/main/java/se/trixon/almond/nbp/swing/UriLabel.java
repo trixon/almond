@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2019 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,12 +22,12 @@ package se.trixon.almond.nbp.swing;
 import java.awt.Cursor;
 import java.awt.Desktop;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import javax.swing.Icon;
 import javax.swing.JLabel;
 import se.trixon.almond.nbp.NbLog;
+import se.trixon.almond.util.MailHelper;
 
 public class UriLabel extends JLabel {
 
@@ -93,8 +93,8 @@ public class UriLabel extends JLabel {
     private void launchURI(MouseEvent evt) {
         if (mUri != null && Desktop.isDesktopSupported()) {
             try {
-                Desktop.getDesktop().browse(mUri);
-            } catch (IOException | UnsupportedOperationException ex) {
+                MailHelper.mail(mUri);
+            } catch (UnsupportedOperationException ex) {
                 NbLog.e(this.getClass(), ex.getLocalizedMessage());
             }
         }

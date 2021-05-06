@@ -22,11 +22,11 @@ package se.trixon.almond.util.swing;
 import java.awt.Cursor;
 import java.awt.Desktop;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import javax.swing.Icon;
 import javax.swing.JLabel;
+import se.trixon.almond.util.MailHelper;
 import se.trixon.almond.util.Xlog;
 
 public class UriLabel extends JLabel {
@@ -93,8 +93,8 @@ public class UriLabel extends JLabel {
     private void launchURI(MouseEvent evt) {
         if (mUri != null && Desktop.isDesktopSupported()) {
             try {
-                Desktop.getDesktop().browse(mUri);
-            } catch (IOException | UnsupportedOperationException ex) {
+                MailHelper.mail(mUri);
+            } catch (UnsupportedOperationException ex) {
                 Xlog.e(getClass(), ex.getLocalizedMessage());
             }
         }
