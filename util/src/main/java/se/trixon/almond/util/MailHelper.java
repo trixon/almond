@@ -15,11 +15,15 @@
  */
 package se.trixon.almond.util;
 
+import java.awt.Desktop;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -45,6 +49,14 @@ public class MailHelper {
             return null;
         }
 
+    }
+
+    public static void mail(URI mailToURI) {
+        try {
+            Desktop.getDesktop().mail(mailToURI);
+        } catch (IOException ex) {
+            Logger.getLogger(MailHelper.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private static void add(LinkedHashMap<String, String> map, String key, String value) {
