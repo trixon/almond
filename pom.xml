@@ -231,15 +231,16 @@
 
     <distributionManagement>
         <repository>
-            <id>bintray-trixon-maven</id>
-            <url>https://api.bintray.com/maven/${bintray.repo}/${bintray.package}/</url>
+            <id>github</id>
+            <name>GitHub trixon Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/trixon/almond3</url>
         </repository>
     </distributionManagement>
     <repositories>
-        <!--        <repository>
+        <repository>
             <id>netbeans-next</id>
-            <url>https://repository.apache.org/content/repositories/orgapachenetbeans-1082</url>
-        </repository>-->
+            <url>https://repository.apache.org/content/repositories/orgapachenetbeans-1087</url>
+        </repository>
     </repositories>
 
     <pluginRepositories>
@@ -250,12 +251,10 @@
     </pluginRepositories>
 
     <properties>
-        <bintray.repo>trixon/maven</bintray.repo>
-        <bintray.package>almond3</bintray.package>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <netbeans.hint.license>apache20</netbeans.hint.license>
-        <netbeans.version>RELEASE123</netbeans.version>
+        <netbeans.version>RELEASE124</netbeans.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 </project>
