@@ -17,10 +17,11 @@ package se.trixon.almond.util.fx;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Hyperlink;
+import org.apache.commons.lang3.StringUtils;
 import se.trixon.almond.util.MailHelper;
+import se.trixon.almond.util.SystemHelper;
 
 /**
  *
@@ -61,8 +62,12 @@ public class UriLabel extends Hyperlink {
     }
 
     private void init() {
-        setOnAction((ActionEvent event) -> {
-            MailHelper.mail(mUri);
+        setOnAction(actionEvent -> {
+            if (StringUtils.startsWith(mUri.getScheme(), "http")) {
+                SystemHelper.desktopBrowse(mUri.toString());
+            } else {
+                MailHelper.mail(mUri);
+            }
         });
     }
 }
