@@ -239,8 +239,8 @@ public class GraphicsHelper {
         rotMap.put(8, 270);
 
         double rotation = Math.toRadians(rotMap.getOrDefault(orientation, 0));
-        double x = w / 2;
-        double y = h / 2;
+        double x = w / 2d;
+        double y = h / 2d;
 
         AffineTransform affineTransform = AffineTransform.getRotateInstance(rotation, x, y);
         AffineTransformOp affineTransformOp = new AffineTransformOp(affineTransform, AffineTransformOp.TYPE_BILINEAR);
@@ -252,7 +252,7 @@ public class GraphicsHelper {
             g2 = rotatedImage.createGraphics();
             affineTransform = AffineTransform.getRotateInstance(rotation, x, x);
             if (orientation == 6) {
-                affineTransform.translate(0, w - h);
+                affineTransform.translate(0d, (double) w - h);
             }
 
             g2.drawImage(bufferedImage, affineTransform, null);

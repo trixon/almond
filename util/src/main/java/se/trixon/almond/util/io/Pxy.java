@@ -20,8 +20,8 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.MalformedInputException;
 import java.nio.file.Files;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -49,7 +49,7 @@ public class Pxy extends CoordinateFile {
     private String mVersion = "V1.00";
 
     public Pxy() {
-        mDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis()));
+        mDate = LocalDate.now().format(DateTimeFormatter.ISO_DATE);
         PxyPoint.setLineEnding("\r\n");
     }
 

@@ -35,16 +35,6 @@ public class LocaleComboBox extends ComboBox<Locale> {
         init();
     }
 
-    @Deprecated
-    public Locale getLocale() {
-        return getValue();
-    }
-
-    @Deprecated
-    public void setLocale(Locale locale) {
-        setValue(locale);
-    }
-
     private void init() {
         ObservableList<Locale> data = FXCollections.observableArrayList();
         var locales = new ArrayList<>(Arrays.asList(Locale.getAvailableLocales()));

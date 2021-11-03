@@ -15,7 +15,6 @@
  */
 package se.trixon.almond.nbp.osx.actions;
 
-import java.awt.Frame;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,14 +37,14 @@ public final class ToggleFullScreenAction implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        requestToggleFullScreen(Frame.getWindows()[0]);
+        requestToggleFullScreen(Window.getWindows()[0]);
     }
 
     @SuppressWarnings({"unchecked", "rawtypes"})
     private void requestToggleFullScreen(Window window) {
         try {
             Class appClass = Class.forName("com.apple.eawt.Application");
-            Class params[] = new Class[]{};
+            Class[] params = new Class[]{};
 
             Method getApplication = appClass.getMethod("getApplication", params);
             Object application = getApplication.invoke(appClass);

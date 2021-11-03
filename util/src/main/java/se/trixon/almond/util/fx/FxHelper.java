@@ -392,6 +392,7 @@ public class FxHelper {
                 });
             } catch (InterruptedException ex) {
                 //Exceptions.printStackTrace(ex);
+                Thread.currentThread().interrupt();
             }
         }).start();
     }
@@ -428,6 +429,7 @@ public class FxHelper {
                 runLater(r);
             } catch (InterruptedException ex) {
                 Logger.getLogger(FxHelper.class.getName()).log(Level.SEVERE, null, ex);
+                Thread.currentThread().interrupt();
             }
         }).start();
     }

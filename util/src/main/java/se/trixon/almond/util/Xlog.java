@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2019 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,8 +16,8 @@
 package se.trixon.almond.util;
 
 import java.io.PrintStream;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -33,7 +33,7 @@ public class Xlog {
     public static final int WARN = 5;
     public static String sGlobalTag = "";
     private static boolean sActive = true;
-    private static final SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd HH.mm.ss.SSS: ");
+    private static DateTimeFormatter sDateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH.mm.ss: ");
     private static int sLevel = VERBOSE;
     private static boolean sUseGlobalTag = false;
     private static boolean sUseTimestamps = true;
@@ -179,7 +179,7 @@ public class Xlog {
 
     private static void printDate(PrintStream printStream) {
         if (sUseTimestamps) {
-            printStream.print(sDateFormat.format(Calendar.getInstance().getTime()));
+            printStream.print(LocalDateTime.now().format(sDateTimeFormatter));
         }
     }
 

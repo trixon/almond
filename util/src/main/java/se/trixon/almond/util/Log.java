@@ -15,8 +15,9 @@
  */
 package se.trixon.almond.util;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
@@ -32,7 +33,7 @@ public class Log {
     public static final int WARN = 5;
     public String mGlobalTag = "";
     private boolean mActive = true;
-    private final SimpleDateFormat mDateFormat = new SimpleDateFormat("yyyy-MM-dd HH.mm.ss.SSS: ");
+    private DateTimeFormatter mDateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH.mm.ss: ");
     private LogListener mErr = (String s) -> {
         System.err.println(s);
     };
@@ -57,7 +58,7 @@ public class Log {
 
     public synchronized void a(String tag, String msg) {
         if (mActive && mLevel <= ASSERT) {
-            printErr("ASSERT", getMessage(getTag(tag), getNullSafeMsg(msg)));
+            printErr("ASSERT", getMessage(getTag(tag), StringUtils.defaultString(msg, "NULL")));
         }
     }
 
@@ -67,7 +68,7 @@ public class Log {
 
     public synchronized void d(String tag, String msg) {
         if (mActive && mLevel <= DEBUG) {
-            print("DEBUG", getMessage(getTag(tag), getNullSafeMsg(msg)));
+            print("DEBUG", getMessage(getTag(tag), StringUtils.defaultString(msg, "NULL")));
         }
     }
 
@@ -77,7 +78,7 @@ public class Log {
 
     public synchronized void e(String tag, String msg) {
         if (mActive && mLevel <= ERROR) {
-            printErr("ERROR", getMessage(getTag(tag), getNullSafeMsg(msg)));
+            printErr("ERROR", getMessage(getTag(tag), StringUtils.defaultString(msg, "NULL")));
         }
     }
 
@@ -99,7 +100,7 @@ public class Log {
 
     public synchronized void i(String tag, String msg) {
         if (mActive && mLevel <= INFO) {
-            print("INFO", getMessage(getTag(tag), getNullSafeMsg(msg)));
+            print("INFO", getMessage(getTag(tag), StringUtils.defaultString(msg, "NULL")));
         }
     }
 
@@ -143,7 +144,7 @@ public class Log {
         mUseGlobalTag = useGlobalTag;
     }
 
-    public void setUseTimestamps(boolean useTimestamps) {
+    public synchronized void setUseTimestamps(boolean useTimestamps) {
         mUseTimestamps = useTimestamps;
     }
 
@@ -161,7 +162,7 @@ public class Log {
 
     public synchronized void v(String tag, String msg) {
         if (mActive && mLevel <= VERBOSE) {
-            print("VERBOSE", getMessage(getTag(tag), getNullSafeMsg(msg)));
+            print("VERBOSE", getMessage(getTag(tag), StringUtils.defaultString(msg, "NULL")));
         }
     }
 
@@ -171,12 +172,12 @@ public class Log {
 
     public synchronized void w(String tag, String msg) {
         if (mActive && mLevel <= WARN) {
-            printErr("WARNING", getMessage(getTag(tag), getNullSafeMsg(msg)));
+            printErr("WARNING", getMessage(getTag(tag), StringUtils.defaultString(msg, "NULL")));
         }
     }
 
     private String getDate() {
-        return mUseTimestamps ? mDateFormat.format(Calendar.getInstance().getTime()) : "";
+        return mUseTimestamps ? LocalDateTime.now().format(mDateTimeFormatter) : "";
     }
 
     private String getMessage(String s1, String s2) {
@@ -185,14 +186,6 @@ public class Log {
 
     private String getMessage(String s1, String s2, String s3) {
         return String.format("[%s] [%s] %s", s1, s2, s3);
-    }
-
-    private String getNullSafeMsg(String msg) {
-        if (msg == null) {
-            return "NULL";
-        } else {
-            return msg;
-        }
     }
 
     private String getTag(String localTag) {

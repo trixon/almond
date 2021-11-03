@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2019 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,8 +15,8 @@
  */
 package se.trixon.almond.nbp;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import org.openide.windows.IOProvider;
 import org.openide.windows.InputOutput;
 import org.openide.windows.OutputWriter;
@@ -27,6 +27,7 @@ import org.openide.windows.OutputWriter;
  */
 public class Monitor {
 
+    private DateTimeFormatter mDateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH.mm.ss: ");
     private OutputWriter mErr;
     private final InputOutput mIo;
     private OutputWriter mOut;
@@ -68,9 +69,7 @@ public class Monitor {
 
     private void printDate(OutputWriter anOutputWriter) {
         if (mUseTimestamps) {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH.mm.ss");
-            Calendar calendar = Calendar.getInstance();
-            anOutputWriter.print(sdf.format(calendar.getTime()) + ": ");
+            anOutputWriter.print(LocalDateTime.now().format(mDateTimeFormatter));
         }
     }
 }

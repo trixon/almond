@@ -148,7 +148,7 @@ public class SimpleDialog {
             alert.getButtonTypes().setAll(replaceButtonType, cancelButtonType);
             Optional<ButtonType> result = FxHelper.showAndWait(alert, (Stage) sOwner);
 
-            if (result.get() == cancelButtonType) {
+            if (result.isPresent() && result.get() == cancelButtonType) {
                 return saveFile();
             }
         }

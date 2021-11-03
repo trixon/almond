@@ -307,6 +307,7 @@ public class SystemHelper {
                 r.run();
             } catch (InterruptedException ex) {
                 Logger.getLogger(SystemHelper.class.getName()).log(Level.SEVERE, null, ex);
+                Thread.currentThread().interrupt();
             }
         }, r.getClass().getName()).start();
     }

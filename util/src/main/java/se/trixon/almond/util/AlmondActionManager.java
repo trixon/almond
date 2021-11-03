@@ -92,7 +92,7 @@ public abstract class AlmondActionManager {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                SystemHelper.desktopBrowse("https://docs.oracle.com/javase/8/docs/api/java/text/SimpleDateFormat.html");
+                SystemHelper.desktopBrowse("https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html");
             }
         };
 

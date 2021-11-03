@@ -95,6 +95,7 @@ public class Almond {
                 SwingUtilities.invokeAndWait(r);
             } catch (InterruptedException | InvocationTargetException ex) {
                 Exceptions.printStackTrace(ex);
+                Thread.currentThread().interrupt();
             }
         } else {
             SwingUtilities.invokeLater(r);
@@ -121,6 +122,7 @@ public class Almond {
                 SwingUtilities.invokeAndWait(r);
             } catch (InterruptedException | InvocationTargetException ex) {
                 Exceptions.printStackTrace(ex);
+                Thread.currentThread().interrupt();
             }
         }
 

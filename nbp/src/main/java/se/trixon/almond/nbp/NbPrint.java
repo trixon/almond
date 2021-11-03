@@ -15,8 +15,8 @@
  */
 package se.trixon.almond.nbp;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import javax.swing.SwingUtilities;
 import org.apache.commons.lang3.StringUtils;
 import org.openide.windows.IOProvider;
@@ -25,7 +25,7 @@ import org.openide.windows.OutputWriter;
 
 public class NbPrint {
 
-    private SimpleDateFormat mDateFormat = new SimpleDateFormat("yyyy-MM-dd HH.mm.ss.SSS: ");
+    private DateTimeFormatter mDateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH.mm.ss: ");
     private InputOutput mInputOutput;
     private boolean mUseTimestamps = true;
 
@@ -37,7 +37,7 @@ public class NbPrint {
 
     public void err(String x) {
         SwingUtilities.invokeLater(() -> {
-            try (OutputWriter outputWriter = mInputOutput.getErr()) {
+            try ( OutputWriter outputWriter = mInputOutput.getErr()) {
                 printDate(outputWriter);
                 outputWriter.println(StringUtils.defaultString(x, "NULL"));
             }
@@ -58,7 +58,7 @@ public class NbPrint {
 
     public void out(String x) {
         SwingUtilities.invokeLater(() -> {
-            try (OutputWriter outputWriter = mInputOutput.getOut()) {
+            try ( OutputWriter outputWriter = mInputOutput.getOut()) {
                 printDate(outputWriter);
                 outputWriter.println(StringUtils.defaultString(x, "NULL"));
             }
@@ -79,17 +79,17 @@ public class NbPrint {
         });
     }
 
-    public void setDateFormat(SimpleDateFormat dateFormat) {
-        mDateFormat = dateFormat;
+    public void setDateTimeFormatter(DateTimeFormatter dateTimeFormatter) {
+        mDateTimeFormatter = dateTimeFormatter;
     }
 
-    public void setUseTimestamps(boolean useTimestamps) {
+    public synchronized void setUseTimestamps(boolean useTimestamps) {
         mUseTimestamps = useTimestamps;
     }
 
     private void printDate(OutputWriter outputWriter) {
         if (mUseTimestamps) {
-            outputWriter.print(mDateFormat.format(Calendar.getInstance().getTime()));
+            outputWriter.print(LocalDateTime.now().format(mDateTimeFormatter));
         }
     }
 }

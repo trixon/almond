@@ -81,6 +81,6 @@ public class MathHelper {
             throw new IllegalArgumentException();
         }
 
-        return new BigDecimal(value).setScale(places, RoundingMode.HALF_UP).doubleValue();
+        return BigDecimal.valueOf(value).setScale(places, RoundingMode.HALF_UP).doubleValue();
     }
 }

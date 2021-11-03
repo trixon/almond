@@ -268,6 +268,7 @@ public class SwingHelper {
                 SwingUtilities.invokeLater(r);
             } catch (InterruptedException ex) {
                 Logger.getLogger(SwingHelper.class.getName()).log(Level.SEVERE, null, ex);
+                Thread.currentThread().interrupt();
             }
         }).start();
     }

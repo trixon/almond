@@ -55,6 +55,7 @@ public class NbSnapHelper {
             }
         } catch (IOException | InterruptedException ex) {
             Logger.getLogger(cls.getName()).log(Level.SEVERE, null, ex);
+            Thread.currentThread().interrupt();
         }
     }
 }

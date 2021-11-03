@@ -29,7 +29,7 @@ import org.apache.commons.lang3.StringUtils;
 public class LocaleComboBox extends JComboBox<String> {
 
     public LocaleComboBox() {
-        init();
+        initialize();
     }
 
     public Locale getSelectedLocale() {
@@ -46,7 +46,7 @@ public class LocaleComboBox extends JComboBox<String> {
         setSelectedItem(locale.getDisplayName());
     }
 
-    private void init() {
+    private void initialize() {
         DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
         ArrayList<Locale> locales = new ArrayList<>(Arrays.asList(Locale.getAvailableLocales()));
 

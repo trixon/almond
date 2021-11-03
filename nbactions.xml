@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>CUSTOM-sonar</actionName>
+            <displayName>sonar</displayName>
+            <goals>
+                <goal>verify</goal>
+                <goal>org.sonarsource.scanner.maven:sonar-maven-plugin:sonar</goal>
+                <goal>-Dsonar.projectKey=trixon_almond3</goal>
+            </goals>
+        </action>
+    </actions>
