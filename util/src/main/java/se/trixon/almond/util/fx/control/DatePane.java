@@ -39,7 +39,6 @@ public class DatePane extends GridPane {
 
     public DatePane() {
         createUI();
-        initListeners();
     }
 
     public void addFromDatePickerListener(ChangeListener<Object> changeListener) {
@@ -132,8 +131,5 @@ public class DatePane extends GridPane {
         addRow(1, mFromDatePicker, mToDatePicker);
 
         setDateSelectionMode(DateSelectionMode.INTERVAL);
-    }
-
-    private void initListeners() {
     }
 }

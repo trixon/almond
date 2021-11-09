@@ -31,9 +31,6 @@ public class NbSystemInformation {
 
     private final SystemInformation mSystemInformation = new SystemInformation();
 
-    public NbSystemInformation() {
-    }
-
     public void displayDialog() {
         LogPanel logPanel = new LogPanel();
         logPanel.println(mSystemInformation.generateSystemInformation());

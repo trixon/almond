@@ -93,8 +93,5 @@ public class OptionalDialog {
     }
 
     public static class Options extends OptionsBase {
-
-        public Options() {
-        }
     }
 }

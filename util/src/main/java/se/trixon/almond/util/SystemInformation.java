@@ -33,9 +33,6 @@ public class SystemInformation {
         System.out.println(si.generateSystemInformation());
     }
 
-    public SystemInformation() {
-    }
-
     public void copy() {
         SystemHelper.copyToClipboard(mData);
     }

@@ -38,9 +38,6 @@ public class NewsBuilder {
 
     private final Map<String, LinkedList<NewsItem>> mDateNewItemsMap = new HashMap<>();
 
-    public NewsBuilder() {
-    }
-
     public StringBuilder getNews() {
         Collection<? extends NewsProvider> newsProviders = Lookup.getDefault().lookupAll(NewsProvider.class);
 

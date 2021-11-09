@@ -15,8 +15,8 @@
  */
 package se.trixon.almond.util.swing.dialogs.about;
 
-import se.trixon.almond.util.AboutModel;
 import org.apache.commons.lang3.StringUtils;
+import se.trixon.almond.util.AboutModel;
 
 /**
  *
@@ -24,7 +24,7 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class AuthorsTab extends BaseListTab {
 
-    private final AboutModel mAboutModel;
+    private transient final AboutModel mAboutModel;
 
     public AuthorsTab(AboutModel aboutModel) {
         super();

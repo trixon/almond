@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2019 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,11 +29,7 @@ public enum AlmondOptions {
     public static final boolean DEFAULT_CONFIRM_EXIT = true;
     public static final String KEY_ALWAYS_ON_TOP = "alwaysOnTop";
     public static final String KEY_CONFIRM_EXIT = "confirmExit";
-    private static Preferences mPreferences = NbPreferences.forModule(AlmondOptions.class);
-
-    public static Preferences getPreferences() {
-        return mPreferences;
-    }
+    private Preferences mPreferences = NbPreferences.forModule(AlmondOptions.class);
 
     public boolean getAlwaysOnTop() {
         return mPreferences.getBoolean(KEY_ALWAYS_ON_TOP, DEFAULT_ALWAYS_ON_TOP);
@@ -41,6 +37,10 @@ public enum AlmondOptions {
 
     public boolean getConfirmExit() {
         return mPreferences.getBoolean(KEY_CONFIRM_EXIT, DEFAULT_CONFIRM_EXIT);
+    }
+
+    public Preferences getPreferences() {
+        return mPreferences;
     }
 
     public void setAlwaysOnTop(boolean alwaysOnTop) {

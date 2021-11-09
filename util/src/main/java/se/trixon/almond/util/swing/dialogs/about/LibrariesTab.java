@@ -15,10 +15,10 @@
  */
 package se.trixon.almond.util.swing.dialogs.about;
 
-import se.trixon.almond.util.AboutModel;
 import java.util.ArrayList;
 import java.util.Arrays;
 import org.apache.commons.lang3.StringUtils;
+import se.trixon.almond.util.AboutModel;
 
 /**
  *
@@ -26,7 +26,7 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class LibrariesTab extends BaseListTab {
 
-    private final AboutModel mAboutModel;
+    private transient final AboutModel mAboutModel;
     private final ArrayList<String> mLibraries = new ArrayList<>();
 
     public LibrariesTab(AboutModel aboutModel) {

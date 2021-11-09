@@ -24,8 +24,8 @@ import org.openide.NotifyDescriptor;
  */
 public abstract class FxDialogPanel extends FxPanel {
 
-    protected NotifyDescriptor mNotifyDescriptor;
-    protected NotificationLineSupport mNotificationLineSupport;
+    protected transient NotifyDescriptor mNotifyDescriptor;
+    protected transient NotificationLineSupport mNotificationLineSupport;
 
     public void createNotificationLineSupport() {
         mNotificationLineSupport = mNotifyDescriptor.createNotificationLineSupport();

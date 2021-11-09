@@ -50,8 +50,8 @@ import se.trixon.almond.util.Dict;
 public final class NotesHtmlTopComponent extends FxTopComponent {
 
     private static final String KEY_NOTES_HTML = "noteshtml";
-    private final Preferences mPreferences = NbPreferences.forModule(NotesHtmlTopComponent.class);
-    private HTMLEditor mEditor;
+    private transient final Preferences mPreferences = NbPreferences.forModule(NotesHtmlTopComponent.class);
+    private transient HTMLEditor mEditor;
 
     public NotesHtmlTopComponent() {
         setName(Dict.NOTES.toString());

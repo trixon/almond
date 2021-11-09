@@ -142,6 +142,7 @@ class GenerateMaterial {
         private boolean mInterrupted;
         private String mCategory;
         private final Set<String> mEnums = new TreeSet<>();
+        private String mOverride = "@Override";
 
         public FileVisitor(File destDir) {
             mDestDir = destDir;
@@ -197,22 +198,22 @@ class GenerateMaterial {
                     builder.deleteCharAt(builder.length() - 1);
                     builder.append(";").append("\n");
 
-                    builder.append("@Override").append("\n");
+                    builder.append(mOverride).append("\n");
                     builder.append("public ImageIcon getImageIcon(int size, java.awt.Color color) {").append("\n");
                     builder.append("return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, color);").append("\n");
                     builder.append("}").append("\n");
 
-                    builder.append("@Override").append("\n");
+                    builder.append(mOverride).append("\n");
                     builder.append("public ImageIcon getImageIcon(int size) {").append("\n");
                     builder.append("return MaterialIcon.getImageIcon(getClass().getSimpleName().toLowerCase(), name(), size, FxHelper.colorToColor(getDefaultColor()));").append("\n");
                     builder.append("}").append("\n");
 
-                    builder.append("@Override").append("\n");
+                    builder.append(mOverride).append("\n");
                     builder.append("public ImageView getImageView(int size, javafx.scene.paint.Color color) {").append("\n");
                     builder.append("return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, color);").append("\n");
                     builder.append("}").append("\n");
 
-                    builder.append("@Override").append("\n");
+                    builder.append(mOverride).append("\n");
                     builder.append("public ImageView getImageView(int size) {").append("\n");
                     builder.append("return MaterialIcon.getImageView(getClass().getSimpleName().toLowerCase(), name(), size, getDefaultColor());").append("\n");
                     builder.append("}").append("\n");

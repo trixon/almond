@@ -37,9 +37,6 @@ public class ExecutionFlow {
     private final Set<String> mExecutedKeys = Collections.synchronizedSet(new HashSet<>());
     private final Map<String, ArrayList<Runnable>> mKeyToRunnablesMap = Collections.synchronizedMap(new HashMap<>());
 
-    public ExecutionFlow() {
-    }
-
     /**
      * Register a runnable to a key.
      *

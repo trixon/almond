@@ -70,6 +70,10 @@ public class FxHelper {
 
     public static final String STYLE_HOVERED_BUTTON = "-fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;";
     public static final String STYLE_IDLE_BUTTON = "-fx-background-color: transparent;";
+    private static final String DARCULA = "darcula.css";
+    private static final String FORMAT_HEX_3 = "%02X%02X%02X";
+    private static final String FORMAT_HEX_4 = "%02X%02X%02X%02X";
+    private static final String FORMAT_TITLE_DESC = "%s (%s)";
 
     private static final String STAGE_ALWAYS_ON_TOP = "AlmondStage_AlwaysOnTop";
     private static final String STAGE_FULL_SCREEN = "AlmondStage_FullScreen";
@@ -146,14 +150,14 @@ public class FxHelper {
 
     @Deprecated
     public static String colorToHex(Color color) {
-        return String.format("%02X%02X%02X",
+        return String.format(FORMAT_HEX_3,
                 (int) (color.getRed() * 0xff),
                 (int) (color.getGreen() * 0xff),
                 (int) (color.getBlue() * 0xff));
     }
 
     public static String colorToHexABGR(Color color) {
-        return String.format("%02X%02X%02X%02X",
+        return String.format(FORMAT_HEX_4,
                 (int) (color.getOpacity() * 0xff),
                 (int) (color.getBlue() * 0xff),
                 (int) (color.getGreen() * 0xff),
@@ -161,7 +165,7 @@ public class FxHelper {
     }
 
     public static String colorToHexABGR(java.awt.Color color) {
-        return String.format("%02X%02X%02X%02X",
+        return String.format(FORMAT_HEX_4,
                 color.getAlpha(),
                 color.getBlue(),
                 color.getGreen(),
@@ -169,14 +173,14 @@ public class FxHelper {
     }
 
     public static String colorToHexBGR(Color color) {
-        return String.format("%02X%02X%02X",
+        return String.format(FORMAT_HEX_3,
                 (int) (color.getBlue() * 0xff),
                 (int) (color.getGreen() * 0xff),
                 (int) (color.getRed() * 0xff));
     }
 
     public static String colorToHexBGR(java.awt.Color color) {
-        return String.format("%02X%02X%02X",
+        return String.format(FORMAT_HEX_3,
                 color.getBlue(),
                 color.getGreen(),
                 color.getRed());
@@ -187,21 +191,21 @@ public class FxHelper {
     }
 
     public static String colorToHexRGB(Color color) {
-        return String.format("%02X%02X%02X",
+        return String.format(FORMAT_HEX_3,
                 (int) (color.getRed() * 0xff),
                 (int) (color.getGreen() * 0xff),
                 (int) (color.getBlue() * 0xff));
     }
 
     public static String colorToHexRGB(java.awt.Color color) {
-        return String.format("%02X%02X%02X",
+        return String.format(FORMAT_HEX_3,
                 color.getBlue(),
                 color.getGreen(),
                 color.getRed());
     }
 
     public static String colorToHexRGBA(java.awt.Color color) {
-        return String.format("%02X%02X%02X%02X",
+        return String.format(FORMAT_HEX_4,
                 color.getRed(),
                 color.getGreen(),
                 color.getBlue(),
@@ -210,7 +214,7 @@ public class FxHelper {
     }
 
     public static String colorToHexRGBA(Color color) {
-        return String.format("%02X%02X%02X%02X",
+        return String.format(FORMAT_HEX_4,
                 (int) (color.getRed() * 0xff),
                 (int) (color.getGreen() * 0xff),
                 (int) (color.getBlue() * 0xff),
@@ -243,7 +247,7 @@ public class FxHelper {
     }
 
     public static String createTitleAndKeyCode(String title, KeyCode code, KeyCombination.Modifier... modifiers) {
-        return String.format("%s (%s)", title, createKeyCodeDisplayText(code, modifiers));
+        return String.format(FORMAT_TITLE_DESC, title, createKeyCodeDisplayText(code, modifiers));
     }
 
     public static Tooltip createTitleAndKeyCodeTooltip(String title, KeyCode code, KeyCombination.Modifier... modifiers) {
@@ -292,7 +296,7 @@ public class FxHelper {
     }
 
     public static Tooltip getTooltip(String text, KeyCodeCombination keyCodeCombination) {
-        return new Tooltip(String.format("%s (%s)", text, keyCodeCombination.getDisplayText()));
+        return new Tooltip(String.format(FORMAT_TITLE_DESC, text, keyCodeCombination.getDisplayText()));
     }
 
     public static double getUIScaled(double value) {
@@ -331,7 +335,7 @@ public class FxHelper {
     public static void loadDarkTheme(Scene scene) {
         runLater(() -> {
             if (isDarkThemeEnabled()) {
-                scene.getStylesheets().add(FxHelper.class.getResource("darcula.css").toExternalForm());
+                scene.getStylesheets().add(FxHelper.class.getResource(DARCULA).toExternalForm());
             }
             scene.getRoot().setStyle(String.format("-fx-font-size: %dpx;", (int) getScaledFontSize()));
         });
@@ -340,7 +344,7 @@ public class FxHelper {
     public static void loadDarkTheme(Parent parent) {
         if (isDarkThemeEnabled()) {
             runLater(() -> {
-                parent.getStylesheets().add(FxHelper.class.getResource("darcula.css").toExternalForm());
+                parent.getStylesheets().add(FxHelper.class.getResource(DARCULA).toExternalForm());
             });
         }
     }
@@ -482,7 +486,7 @@ public class FxHelper {
     }
 
     public static void setTooltip(Action action, KeyCodeCombination keyCodeCombination) {
-        action.setLongText(String.format("%s (%s)", action.getText(), keyCodeCombination.getDisplayText()));
+        action.setLongText(String.format(FORMAT_TITLE_DESC, action.getText(), keyCodeCombination.getDisplayText()));
     }
 
     public static Optional showAndWait(Dialog dialog, Stage stage) {
@@ -518,7 +522,7 @@ public class FxHelper {
     public static void unloadDarkTheme(Scene scene) {
         runLater(() -> {
             setDarkThemeEnabled(false);
-            scene.getStylesheets().remove(FxHelper.class.getResource("darcula.css").toExternalForm());
+            scene.getStylesheets().remove(FxHelper.class.getResource(DARCULA).toExternalForm());
         });
     }
 

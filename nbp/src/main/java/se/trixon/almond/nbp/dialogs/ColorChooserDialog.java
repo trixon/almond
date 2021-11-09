@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2019 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,6 +23,7 @@ import javax.swing.JColorChooser;
 import javax.swing.border.EmptyBorder;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
+import org.openide.NotifyDescriptor;
 import org.openide.util.NbBundle;
 
 /**
@@ -57,7 +58,7 @@ public class ColorChooserDialog {
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == resetButton) {
                     mColorChooser.setColor(mCurrentColor);
-                } else if (mDialogDescriptor.getValue() == DialogDescriptor.CANCEL_OPTION) {
+                } else if (mDialogDescriptor.getValue() == NotifyDescriptor.CANCEL_OPTION) {
                     mColorChooser.setColor(mCurrentColor);
                 }
             }
@@ -67,8 +68,8 @@ public class ColorChooserDialog {
                 mColorChooser,
                 dialogTitle,
                 true,
-                new Object[]{DialogDescriptor.OK_OPTION, DialogDescriptor.CANCEL_OPTION},
-                DialogDescriptor.OK_OPTION,
+                new Object[]{NotifyDescriptor.OK_OPTION, NotifyDescriptor.CANCEL_OPTION},
+                NotifyDescriptor.OK_OPTION,
                 DialogDescriptor.DEFAULT_ALIGN,
                 null,
                 actionListener);

@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2019 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -46,7 +46,7 @@ public class Installer extends ModuleInstall {
 
     @Override
     public void restored() {
-        AlmondOptions.getPreferences().addPreferenceChangeListener((PreferenceChangeEvent evt) -> {
+        AlmondOptions.INSTANCE.getPreferences().addPreferenceChangeListener((PreferenceChangeEvent evt) -> {
             if (evt.getKey().equalsIgnoreCase(AlmondOptions.KEY_ALWAYS_ON_TOP)) {
                 mFrame.setAlwaysOnTop(mOptions.getAlwaysOnTop());
             }

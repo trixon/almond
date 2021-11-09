@@ -25,7 +25,7 @@ import se.trixon.almond.util.icons.material.swing.MaterialIcon;
  */
 public class NotificationLine extends javax.swing.JPanel {
 
-    private final AlmondOptions mOptions = AlmondOptions.getInstance();
+    private transient final AlmondOptions mOptions = AlmondOptions.getInstance();
     private final int ICON_SIZE = 16;
 
     /**

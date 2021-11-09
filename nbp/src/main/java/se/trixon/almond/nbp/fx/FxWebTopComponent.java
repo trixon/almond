@@ -25,7 +25,7 @@ import javafx.scene.web.WebView;
  */
 public class FxWebTopComponent extends FxTopComponent {
 
-    private WebView mWebView;
+    private transient WebView mWebView;
 
     public FxWebTopComponent() {
         setName("WEB");

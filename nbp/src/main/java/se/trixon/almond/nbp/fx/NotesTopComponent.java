@@ -50,8 +50,8 @@ import se.trixon.almond.util.Dict;
 public final class NotesTopComponent extends FxTopComponent {
 
     private static final String KEY_NOTES = "notes";
-    private final Preferences mPreferences = NbPreferences.forModule(NotesTopComponent.class);
-    private TextArea mTextArea;
+    private transient final Preferences mPreferences = NbPreferences.forModule(NotesTopComponent.class);
+    private transient TextArea mTextArea;
 
     public NotesTopComponent() {
         setName(Dict.NOTES.toString());

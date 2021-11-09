@@ -15,10 +15,8 @@
  */
 package se.trixon.almond.util.swing.dialogs;
 
-import java.util.ResourceBundle;
 import se.trixon.almond.util.AlmondOptions;
 import se.trixon.almond.util.Dict;
-import se.trixon.almond.util.SystemHelper;
 import se.trixon.almond.util.swing.SwingHelper;
 
 /**
@@ -27,8 +25,7 @@ import se.trixon.almond.util.swing.SwingHelper;
  */
 public class LookAndFeelPanel extends javax.swing.JPanel {
 
-    private final AlmondOptions mAlmondOptions = AlmondOptions.getInstance();
-    private final ResourceBundle mBundle = SystemHelper.getBundle(LookAndFeelPanel.class, "Bundle");
+    private transient final AlmondOptions mAlmondOptions = AlmondOptions.getInstance();
 
     /**
      * Creates new form LookAndFeelPanel

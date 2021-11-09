@@ -148,6 +148,10 @@ public class AlmondUI extends AlmondGui {
                     }
                 }
                 break;
+
+            default:
+                //Do nothing
+                break;
         }
     }
 

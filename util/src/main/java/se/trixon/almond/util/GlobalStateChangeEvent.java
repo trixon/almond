@@ -15,14 +15,16 @@
  */
 package se.trixon.almond.util;
 
+import java.util.EventObject;
+
 /**
  *
  * @author Patrik Karlström
  */
-public abstract class GlobalStateChangeEvent extends java.util.EventObject {
+public abstract class GlobalStateChangeEvent extends EventObject {
 
     private String mKey;
-    private Object mObject;
+    private transient Object mObject;
     private boolean mVolatile;
 
     public GlobalStateChangeEvent(String key, Object object, Object source, boolean _volatile) {

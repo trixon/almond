@@ -29,7 +29,7 @@ import se.trixon.almond.util.swing.dialogs.NotificationLine;
 public class CronPanel extends javax.swing.JPanel implements CronExprChangeListener {
 
     ElementPanel[] mElementPanels = new ElementPanel[5];
-    private final ResourceBundle mBundle = SystemHelper.getBundle(CronPanel.class, "Bundle");
+    private transient final ResourceBundle mBundle = SystemHelper.getBundle(CronPanel.class, "Bundle");
     protected CronExprChangeListener mCronExprChangeListener;
 
     /**

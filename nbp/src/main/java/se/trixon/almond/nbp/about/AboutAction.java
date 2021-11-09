@@ -21,6 +21,7 @@ import javafx.application.Platform;
 import javax.swing.BorderFactory;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
+import org.openide.NotifyDescriptor;
 import se.trixon.almond.nbp.Almond;
 import se.trixon.almond.nbp.dialogs.NbAboutFx;
 import se.trixon.almond.util.AboutModel;
@@ -61,8 +62,8 @@ public final class AboutAction implements ActionListener {
                     aboutPanel,
                     String.format(Dict.ABOUT_S.toString(), sAboutModel.getAppName()),
                     false,
-                    new Object[]{DialogDescriptor.CLOSED_OPTION},
-                    DialogDescriptor.CLOSED_OPTION,
+                    new Object[]{NotifyDescriptor.CLOSED_OPTION},
+                    NotifyDescriptor.CLOSED_OPTION,
                     DialogDescriptor.DEFAULT_ALIGN,
                     null,
                     null);

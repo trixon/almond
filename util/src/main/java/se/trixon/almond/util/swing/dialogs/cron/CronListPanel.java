@@ -24,7 +24,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import org.apache.commons.lang3.StringUtils;
-import se.trixon.almond.util.AlmondUI;
+import se.trixon.almond.util.AlmondGui;
 import se.trixon.almond.util.Dict;
 import se.trixon.almond.util.SystemHelper;
 import se.trixon.almond.util.icons.material.swing.MaterialIcon;
@@ -37,10 +37,10 @@ import se.trixon.almond.util.swing.dialogs.Message;
  */
 public class CronListPanel extends JPanel {
 
-    private static final int ICON_SIZE = AlmondUI.ICON_SIZE_NORMAL;
+    private static final int ICON_SIZE = AlmondGui.ICON_SIZE_NORMAL;
     private DefaultListModel<String> mModel = new DefaultListModel<>();
     private static final String CRON_ITEM_SEPARATOR = "|";
-    private final ResourceBundle mBundle = SystemHelper.getBundle(CronListPanel.class, "Bundle");
+    private transient final ResourceBundle mBundle = SystemHelper.getBundle(CronListPanel.class, "Bundle");
 
     /**
      * Creates new form EditPanel

@@ -36,7 +36,7 @@ public abstract class ElementPanel extends javax.swing.JPanel {
     protected final DefaultListModel<String> mListModel = new DefaultListModel<>();
     protected final ArrayList<String> mArray = new ArrayList<>();
     private int mOffset = 0;
-    private CronExprChangeListener mCronExprChangeListener;
+    private transient CronExprChangeListener mCronExprChangeListener;
     private boolean mHasLast;
 
     /**

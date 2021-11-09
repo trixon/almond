@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2019 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -40,10 +40,12 @@ public class RootPaneLayout implements LayoutManager2 {
 
     @Override
     public void addLayoutComponent(String name, Component comp) {
+        //NOP
     }
 
     @Override
     public void addLayoutComponent(Component comp, Object constraints) {
+        //NOP
     }
 
     @Override
@@ -58,6 +60,7 @@ public class RootPaneLayout implements LayoutManager2 {
 
     @Override
     public void invalidateLayout(Container target) {
+        //NOP
     }
 
     @Override
@@ -169,5 +172,6 @@ public class RootPaneLayout implements LayoutManager2 {
 
     @Override
     public void removeLayoutComponent(Component comp) {
+        //NOP
     }
 }

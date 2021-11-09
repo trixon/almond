@@ -28,6 +28,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.net.UnknownHostException;
+import java.nio.charset.StandardCharsets;
 import java.security.CodeSource;
 import java.util.LinkedHashMap;
 import java.util.Locale;
@@ -178,10 +179,10 @@ public class SystemHelper {
     public static String getLocalizedResourceAsString(Class cls, String patternName, String defaultName) {
         String s = null;
         try {
-            s = new Scanner(cls.getResourceAsStream(String.format(patternName, SystemHelper.getUserLanguage())), "UTF-8").useDelimiter("\\A").next();
+            s = new Scanner(cls.getResourceAsStream(String.format(patternName, SystemHelper.getUserLanguage())), StandardCharsets.UTF_8).useDelimiter("\\A").next();
         } catch (NullPointerException e) {
             try {
-                s = new Scanner(cls.getResourceAsStream(defaultName), "UTF-8").useDelimiter("\\A").next();
+                s = new Scanner(cls.getResourceAsStream(defaultName), StandardCharsets.UTF_8).useDelimiter("\\A").next();
             } catch (NullPointerException e2) {
             }
         }
@@ -208,7 +209,7 @@ public class SystemHelper {
     public static String getResourceAsString(Class cls, String name) {
         String s = null;
         try {
-            s = new Scanner(cls.getResourceAsStream(name), "UTF-8").useDelimiter("\\A").next();
+            s = new Scanner(cls.getResourceAsStream(name), StandardCharsets.UTF_8).useDelimiter("\\A").next();
         } catch (NullPointerException e) {
             s = "crap";
         }

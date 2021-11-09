@@ -28,9 +28,9 @@ import javafx.scene.layout.StackPane;
  */
 public class ImagePanel extends JFXPanel {
 
-    private StackPane mRoot;
-    private Scene mScene;
-    private ImageView mImageView;
+    private transient StackPane mRoot;
+    private transient Scene mScene;
+    private transient ImageView mImageView;
 
     public ImagePanel() {
         setPreferredSize(new Dimension(640, 480));

@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2019 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,8 +26,8 @@ import se.trixon.almond.util.swing.dialogs.cron.CronPanel;
  */
 public class NbCronPanel extends CronPanel implements CronExprChangeListener {
 
-    private DialogDescriptor mDialogDescriptor;
-    private NotificationLineSupport mNotificationLineSupport;
+    private transient DialogDescriptor mDialogDescriptor;
+    private transient NotificationLineSupport mNotificationLineSupport;
 
     public NbCronPanel() {
         getNotificationLine().setVisible(false);

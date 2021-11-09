@@ -34,7 +34,7 @@ import se.trixon.almond.util.swing.SwingHelper;
  */
 public class AboutPanel extends javax.swing.JPanel {
 
-    private AboutModel mAboutModel;
+    private transient AboutModel mAboutModel;
     private static String sAppName;
     private final HashSet<TabComponentListener> mTabComponentListeners = new HashSet<>();
 

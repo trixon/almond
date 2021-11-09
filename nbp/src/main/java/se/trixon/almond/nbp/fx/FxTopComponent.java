@@ -36,10 +36,10 @@ public abstract class FxTopComponent extends TopComponent {
     private static int FX_DELAY_LONG = 0;
     private static int FX_DELAY_SHORT = 0;
     private static final WindowManager WINDOW_MANAGER = WindowManager.getDefault();
-    private ResourceBundle mBundle;
+    private transient ResourceBundle mBundle;
     private boolean mComponentOpenedFirstTime = true;
     private final JFXPanel mFxPanel;
-    private Scene mScene;
+    private transient Scene mScene;
 
     public FxTopComponent() {
         mFxPanel = new JFXPanel();

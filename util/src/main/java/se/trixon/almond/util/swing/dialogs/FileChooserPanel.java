@@ -43,7 +43,7 @@ public class FileChooserPanel extends javax.swing.JPanel {
     private DropTarget mDropTarget;
     private final JFileChooser mFileChooser = new JFileChooser();
     private int mMode;
-    private FileChooserButtonListener mFileChooserButtonListener;
+    private transient FileChooserButtonListener mFileChooserButtonListener;
     private String mTitle;
     private DropMode mDropMode = DropMode.SINGLE;
     private File[] mPaths;

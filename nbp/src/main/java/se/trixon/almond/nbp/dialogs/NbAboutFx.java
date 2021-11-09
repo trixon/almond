@@ -39,8 +39,8 @@ import se.trixon.almond.util.swing.SwingHelper;
  */
 public class NbAboutFx extends FxDialogPanel {
 
-    private final AboutModel mAboutModel;
-    private final AboutPane mAboutPane;
+    private transient final AboutModel mAboutModel;
+    private transient final AboutPane mAboutPane;
 
     public NbAboutFx(AboutModel aboutModel) {
         mAboutModel = aboutModel;

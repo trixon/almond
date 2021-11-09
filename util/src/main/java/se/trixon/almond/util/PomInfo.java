@@ -27,9 +27,11 @@ import java.util.logging.Logger;
  */
 public class PomInfo {
 
-    private String mArtifactId = "NOT SET";
-    private String mGroupId = "NOT SET";
-    private String mVersion = "NOT SET";
+    private static final String NOT_SET = "NOT SET";
+
+    private String mArtifactId = NOT_SET;
+    private String mGroupId = NOT_SET;
+    private String mVersion = NOT_SET;
 
     public PomInfo(Class c, String groupId, String artifactId) {
         InputStream inputStream = c.getResourceAsStream(String.format("/META-INF/maven/%s/%s/pom.properties", groupId, artifactId));

@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2019 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -35,10 +35,10 @@ import se.trixon.almond.util.Scaler;
  */
 public class ImagePanel extends JPanel {
 
-    private Image mImage;
+    private transient Image mImage;
     private Dimension mImageDimension = new Dimension();
     private boolean mIsTransparentAdd = true;
-    private Paint mPaint;
+    private transient Paint mPaint;
 
     public ImagePanel() {
         super();

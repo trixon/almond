@@ -33,9 +33,6 @@ public class FileRemover {
 
     private final Set<String> mDeniedRemoves = new HashSet<>();
 
-    public FileRemover() {
-    }
-
     public Set<String> getDeniedRemoves() {
         return mDeniedRemoves;
     }

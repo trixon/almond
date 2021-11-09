@@ -56,8 +56,8 @@ public abstract class AlmondAction extends AbstractAction {
             if (mIconEnum instanceof IconGetter) {
                 //MaterialIcon
                 IconGetter iconGetter = (IconGetter) mIconEnum;
-                putValue(Action.LARGE_ICON_KEY, iconGetter.getImageIcon(AlmondUI.ICON_SIZE_NORMAL));
-                ImageIcon imageIcon = iconGetter.getImageIcon(AlmondUI.ICON_SIZE_SMALL);
+                putValue(Action.LARGE_ICON_KEY, iconGetter.getImageIcon(AlmondGui.ICON_SIZE_NORMAL));
+                ImageIcon imageIcon = iconGetter.getImageIcon(AlmondGui.ICON_SIZE_SMALL);
                 putValue(ALMOND_SMALL_ICON_KEY, imageIcon);
                 putValue(Action.SMALL_ICON, AlmondOptions.getInstance().isDisplayMenuIcons() ? imageIcon : null);
             } else {
