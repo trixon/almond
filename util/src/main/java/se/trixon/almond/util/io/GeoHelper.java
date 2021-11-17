@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Patrik Karlström.
+ * Copyright 2021 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,15 +27,18 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class GeoHelper {
 
+    private final static String KEY_BEGIN = "begin";
+    private final static String KEY_END = "end";
+
     static StringBuilder attributeListToStringBuilder(LinkedHashMap<String, String> attributes, int indentLevel) {
-        StringBuilder sb = new StringBuilder();
+        var sb = new StringBuilder();
         sb.append("\t".repeat(indentLevel)).append("AttributeList").append(Geo.LINE_ENDING);
         if (!attributes.isEmpty()) {
-            sb.append("\t".repeat(indentLevel)).append("begin").append(Geo.LINE_ENDING);
+            sb.append("\t".repeat(indentLevel)).append(KEY_BEGIN).append(Geo.LINE_ENDING);
             for (Map.Entry<String, String> entry : attributes.entrySet()) {
                 sb.append("\t".repeat(indentLevel + 1)).append(String.format("Attribute \"%s\",\"%s\"", entry.getKey(), entry.getValue())).append(Geo.LINE_ENDING);
             }
-            sb.append("\t".repeat(indentLevel)).append("end").append(Geo.LINE_ENDING);
+            sb.append("\t".repeat(indentLevel)).append(KEY_END).append(Geo.LINE_ENDING);
         }
 
         return sb;
@@ -43,9 +46,9 @@ public class GeoHelper {
 
     static LinkedHashMap<String, String> getAttributes(LinkedList<String> section) {
         LinkedHashMap<String, String> attributes = new LinkedHashMap<>();
-        GeoHelper.stripWrapper(section);
+        stripWrapper(section);
 
-        for (String line : section) {
+        for (var line : section) {
             line = StringUtils.removeStart(line.trim(), "Attribute");
             String[] segments = StringUtils.splitPreserveAllTokens(line.trim(), ",");
             attributes.put(StringUtils.remove(segments[0], "\""), StringUtils.remove(segments[1], "\""));
@@ -74,30 +77,42 @@ public class GeoHelper {
         int open = 0;
         boolean hitSection = false;
 
-        for (String line : lines) {
+        for (var line : lines) {
             if (hitSection && StringUtils.startsWithIgnoreCase(line.trim(), sectionHeader)) {
                 break;
             }
             rowCounter++;
 
             if (hitSection) {
-                if (line.trim().equalsIgnoreCase("begin")) {
+                if (line.trim().equalsIgnoreCase(KEY_BEGIN)) {
                     open++;
-                } else if (line.trim().equalsIgnoreCase("end")) {
+                } else if (line.trim().equalsIgnoreCase(KEY_END)) {
                     open--;
                 }
 
-                if (open == 0 || StringUtils.startsWithIgnoreCase(line.trim(), nextSectionHeader) && hitSection) {
+                if (open == 0 || StringUtils.startsWithIgnoreCase(line.stripTrailing(), nextSectionHeader) && hitSection) {
                     break;
                 }
-            } else if (StringUtils.startsWithIgnoreCase(line.trim(), sectionHeader)) {
+            } else if (StringUtils.startsWithIgnoreCase(line.stripTrailing(), sectionHeader)) {
                 hitSection = true;
             }
         }
 
-        LinkedList<String> section = new LinkedList<>(lines.subList(0, rowCounter));
+        boolean addEmptyBlock = false;
+        var section = new LinkedList<>(lines.subList(0, rowCounter));
+        if (StringUtils.startsWith(section.peekLast(), nextSectionHeader)) {
+            lines.addFirst(section.pollLast());
+            addEmptyBlock = true;
+        } else if (rowCounter == 1) {
+            addEmptyBlock = true;
+        }
 
-        GeoHelper.removeHead(lines, rowCounter);
+        if (addEmptyBlock) {
+            section.add(KEY_BEGIN);
+            section.add(KEY_END);
+        }
+
+        removeHead(lines, rowCounter);
 //        System.out.println("SECTION " + sectionHeader);
 //        System.out.println(String.join("\n", section));
 //        System.out.println("REMAINING");
@@ -110,11 +125,11 @@ public class GeoHelper {
         sb.append("LineList").append(Geo.LINE_ENDING);
 
         if (!geoLines.isEmpty()) {
-            sb.append("begin").append(Geo.LINE_ENDING);
+            sb.append(KEY_BEGIN).append(Geo.LINE_ENDING);
             for (GeoLine geoLine : geoLines) {
                 sb.append("\t".repeat(1)).append(geoLine.toStringBuilder());
             }
-            sb.append("end").append(Geo.LINE_ENDING);
+            sb.append(KEY_END).append(Geo.LINE_ENDING);
         }
 
         return sb;
@@ -125,7 +140,7 @@ public class GeoHelper {
         LinkedList<GeoPoint> points = new LinkedList<>();
 
         while (!section.isEmpty()) {
-            points.add(new GeoPoint(GeoHelper.getSection("Point ", "Point", section)));
+            points.add(new GeoPoint(getSection("Point ", "Point", section)));
         }
 
         return points;
@@ -136,16 +151,16 @@ public class GeoHelper {
         sb.append("\t".repeat(indentLevel)).append("PointList").append(Geo.LINE_ENDING);
 
         if (!geoPoints.isEmpty()) {
-            sb.append("\t".repeat(indentLevel)).append("begin").append(Geo.LINE_ENDING);
+            sb.append("\t".repeat(indentLevel)).append(KEY_BEGIN).append(Geo.LINE_ENDING);
             for (GeoPoint geoPoint : geoPoints) {
                 sb.append("\t".repeat(indentLevel + 1)).append(geoPoint.toString());
                 if (!geoPoint.getAttributes().isEmpty()) {
-                    sb.append("\t".repeat(indentLevel + 1)).append("begin").append(Geo.LINE_ENDING);
+                    sb.append("\t".repeat(indentLevel + 1)).append(KEY_BEGIN).append(Geo.LINE_ENDING);
                     sb.append(attributeListToStringBuilder(geoPoint.getAttributes(), indentLevel + 2));
-                    sb.append("\t".repeat(indentLevel + 1)).append("end").append(Geo.LINE_ENDING);
+                    sb.append("\t".repeat(indentLevel + 1)).append(KEY_END).append(Geo.LINE_ENDING);
                 }
             }
-            sb.append("\t".repeat(indentLevel)).append("end").append(Geo.LINE_ENDING);
+            sb.append("\t".repeat(indentLevel)).append(KEY_END).append(Geo.LINE_ENDING);
         }
 
         return sb;
@@ -159,7 +174,7 @@ public class GeoHelper {
 
     static void stripWrapper(LinkedList<String> section) {
         if (section.size() > 2) {
-            GeoHelper.removeHead(section, 2);
+            removeHead(section, 2);
             section.removeLast();
         }
     }

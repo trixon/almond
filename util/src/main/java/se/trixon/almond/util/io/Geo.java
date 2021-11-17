@@ -85,20 +85,26 @@ public class Geo extends CoordinateFile {
 
     public void read(File file) throws IOException {
         mRawLines = new LinkedList<>(FileUtils.readLines(file, mCharset));
-        mHeader = new GeoHeader(GeoHelper.getSection("FileHeader", "PointList", mRawLines));
+        var headerSection = GeoHelper.getSection("FileHeader", "PointList", mRawLines);
+        mHeader = new GeoHeader(headerSection);
 
         try {
-            parsePointList(GeoHelper.getSection("PointList", "LineList", mRawLines));
+            var pointSection = GeoHelper.getSection("PointList", "LineList", mRawLines);
+            parsePointList(pointSection);
         } catch (Exception e) {
             System.err.println("Parse PointList Failed: " + e);
         }
+
         try {
-            parseLineList(GeoHelper.getSection("LineList", "AttributeList", mRawLines));
+            var lineSection = GeoHelper.getSection("LineList", "AttributeList", mRawLines);
+            parseLineList(lineSection);
         } catch (Exception e) {
             System.err.println("Parse LineList Failed: " + e);
         }
+
         try {
-            parseAttributeList(GeoHelper.getSection("AttributeList", NO_NEXT_SECTION, mRawLines));
+            var attributSection = GeoHelper.getSection("AttributeList", NO_NEXT_SECTION, mRawLines);
+            parseAttributeList(attributSection);
         } catch (Exception e) {
             System.err.println("Parse AttributeList Failed: " + e);
         }
@@ -128,7 +134,7 @@ public class Geo extends CoordinateFile {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
+        var sb = new StringBuilder();
         sb.append(mHeader.toStringBuilder());
         sb.append(GeoHelper.pointListToStringBuilder(mPoints, 0));
         sb.append(GeoHelper.lineListToStringBuilder(mLines));
@@ -157,7 +163,8 @@ public class Geo extends CoordinateFile {
         GeoHelper.stripWrapper(section);
 
         while (!section.isEmpty()) {
-            parseLine(GeoHelper.getSection("Line", NO_NEXT_SECTION, section));
+            var lineSection = GeoHelper.getSection("Line", NO_NEXT_SECTION, section);
+            parseLine(lineSection);
         }
     }
 

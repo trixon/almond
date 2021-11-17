@@ -43,7 +43,7 @@ public class GeoHeader {
 
     public GeoHeader(LinkedList<String> lines) {
         mFileHeader = lines.get(0);
-        for (String line : lines) {
+        for (var line : lines) {
             if (StringUtils.startsWithIgnoreCase(line, "FileHeader") || StringUtils.equalsAny(line.trim(), "begin", "end")) {
                 continue;
             }
