@@ -30,8 +30,9 @@ public class TestMain {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        new TestMain();
+    public static void main(String[] args) throws IOException {
+//        new TestMain();
+        new GeoScanner();
     }
 
     public TestMain() {

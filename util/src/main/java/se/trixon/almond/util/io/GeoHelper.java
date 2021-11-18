@@ -27,8 +27,15 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class GeoHelper {
 
-    private final static String KEY_BEGIN = "begin";
-    private final static String KEY_END = "end";
+    public final static String KEY_BEGIN = "begin";
+    public final static String KEY_END = "end";
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        new TestMain();
+    }
 
     static StringBuilder attributeListToStringBuilder(LinkedHashMap<String, String> attributes, int indentLevel) {
         var sb = new StringBuilder();
@@ -44,14 +51,69 @@ public class GeoHelper {
         return sb;
     }
 
+    static LinkedList<String> extractSection(String sectionHeader, String nextSectionHeader, LinkedList<String> lines) {
+        int rowCounter = 0;
+        int open = 0;
+        boolean hitSection = false;
+
+        for (var line : lines) {
+            if (hitSection && StringUtils.startsWithIgnoreCase(line.trim(), sectionHeader)) {
+                break;
+            }
+            rowCounter++;
+
+            if (hitSection) {
+                if (line.trim().equalsIgnoreCase(KEY_BEGIN)) {
+                    open++;
+                } else if (line.trim().equalsIgnoreCase(KEY_END)) {
+                    open--;
+                }
+
+                if (open < 1 || StringUtils.startsWithIgnoreCase(line.stripTrailing(), nextSectionHeader) && hitSection) {
+                    break;
+                }
+            } else if (StringUtils.startsWithIgnoreCase(line.strip(), sectionHeader)) {
+                hitSection = true;
+            }
+        }
+        if (open < 0) {
+            rowCounter--;
+        }
+        boolean addEmptyBlock = false;
+        var section = new LinkedList<>(lines.subList(0, rowCounter));
+        if (StringUtils.startsWith(section.peekLast(), nextSectionHeader)) {
+            lines.addFirst(section.pollLast());
+            addEmptyBlock = true;
+        } else if (rowCounter == 1) {
+            addEmptyBlock = true;
+        }
+
+        if (addEmptyBlock) {
+            section.add(KEY_BEGIN);
+            section.add(KEY_END);
+        }
+
+        if (open < 0) {
+            rowCounter++;
+        }
+        removeHead(lines, rowCounter);
+//        System.out.println("SECTION " + sectionHeader);
+//        System.out.println(String.join("\n", section));
+//        System.out.println("REMAINING");
+//        System.out.println(String.join("\n", lines));
+        return section;
+    }
+
     static LinkedHashMap<String, String> getAttributes(LinkedList<String> section) {
         LinkedHashMap<String, String> attributes = new LinkedHashMap<>();
-        stripWrapper(section);
+        if (section.size() > 2) {
+            stripWrapper(section);
 
-        for (var line : section) {
-            line = StringUtils.removeStart(line.trim(), "Attribute");
-            String[] segments = StringUtils.splitPreserveAllTokens(line.trim(), ",");
-            attributes.put(StringUtils.remove(segments[0], "\""), StringUtils.remove(segments[1], "\""));
+            for (var line : section) {
+                line = StringUtils.removeStart(line.trim(), "Attribute");
+                String[] segments = StringUtils.splitPreserveAllTokens(line.trim(), ",");
+                attributes.put(StringUtils.remove(segments[0], "\""), StringUtils.remove(segments[1], "\""));
+            }
         }
 
         return attributes;
@@ -72,54 +134,6 @@ public class GeoHelper {
         return new String[]{key, val};
     }
 
-    static LinkedList<String> getSection(String sectionHeader, String nextSectionHeader, LinkedList<String> lines) {
-        int rowCounter = 0;
-        int open = 0;
-        boolean hitSection = false;
-
-        for (var line : lines) {
-            if (hitSection && StringUtils.startsWithIgnoreCase(line.trim(), sectionHeader)) {
-                break;
-            }
-            rowCounter++;
-
-            if (hitSection) {
-                if (line.trim().equalsIgnoreCase(KEY_BEGIN)) {
-                    open++;
-                } else if (line.trim().equalsIgnoreCase(KEY_END)) {
-                    open--;
-                }
-
-                if (open == 0 || StringUtils.startsWithIgnoreCase(line.stripTrailing(), nextSectionHeader) && hitSection) {
-                    break;
-                }
-            } else if (StringUtils.startsWithIgnoreCase(line.stripTrailing(), sectionHeader)) {
-                hitSection = true;
-            }
-        }
-
-        boolean addEmptyBlock = false;
-        var section = new LinkedList<>(lines.subList(0, rowCounter));
-        if (StringUtils.startsWith(section.peekLast(), nextSectionHeader)) {
-            lines.addFirst(section.pollLast());
-            addEmptyBlock = true;
-        } else if (rowCounter == 1) {
-            addEmptyBlock = true;
-        }
-
-        if (addEmptyBlock) {
-            section.add(KEY_BEGIN);
-            section.add(KEY_END);
-        }
-
-        removeHead(lines, rowCounter);
-//        System.out.println("SECTION " + sectionHeader);
-//        System.out.println(String.join("\n", section));
-//        System.out.println("REMAINING");
-//        System.out.println(String.join("\n", lines));
-        return section;
-    }
-
     static StringBuilder lineListToStringBuilder(LinkedList<GeoLine> geoLines) {
         StringBuilder sb = new StringBuilder();
         sb.append("LineList").append(Geo.LINE_ENDING);
@@ -135,12 +149,27 @@ public class GeoHelper {
         return sb;
     }
 
-    static LinkedList<GeoPoint> parsePointList(LinkedList<String> section) {
-        stripWrapper(section);
-        LinkedList<GeoPoint> points = new LinkedList<>();
+    static LinkedList<GeoPoint> parsePointList(GeoLine geoLine, LinkedList<String> pointsSection) {
+        stripWrapper(pointsSection);
+        var points = new LinkedList<GeoPoint>();
 
-        while (!section.isEmpty()) {
-            points.add(new GeoPoint(getSection("Point ", "Point", section)));
+        while (!pointsSection.isEmpty()) {
+            var pointSection = extractSection("Point ", "Point", pointsSection);
+            String key = pointSection.peek().trim();
+            if (key.startsWith("Point ")) {
+                points.add(new GeoPoint(pointSection));
+            } else if (key.startsWith("AttributeList")) {
+                if (geoLine != null) {
+                    if (!pointSection.peekLast().trim().equalsIgnoreCase(KEY_END)) {
+                        String s = String.join("\n", pointSection);
+                        if (StringUtils.containsIgnoreCase(s, "AttributeList")
+                                && StringUtils.containsIgnoreCase(s, KEY_BEGIN)) {
+                            pointSection.add(KEY_END);
+                        }
+                    }
+                    geoLine.setAttributes(GeoHelper.getAttributes(pointSection));
+                }
+            }
         }
 
         return points;

@@ -15,6 +15,7 @@
  */
 package se.trixon.almond.util.io;
 
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
@@ -24,6 +25,8 @@ import org.apache.commons.lang3.StringUtils;
  * @author Patrik Karlström
  */
 public class GeoLine {
+
+    private LinkedHashMap<String, String> mAttributes = new LinkedHashMap<>();
 
     private boolean mClosedPolygon = false;
     private String mCode = "";
@@ -38,7 +41,11 @@ public class GeoLine {
         if (!section.isEmpty()) {
             section.pollFirst();
             section.pollLast();
-            mPoints.addAll(GeoHelper.parsePointList(section));
+            if (section.size() == 1) {
+                section.add(GeoHelper.KEY_BEGIN);
+                section.add(GeoHelper.KEY_END);
+            }
+            mPoints.addAll(GeoHelper.parsePointList(this, section));
         }
     }
 
@@ -48,6 +55,10 @@ public class GeoLine {
         mLineNumber = StringUtils.remove(segments[0], "\"");
         mClosedPolygon = StringUtils.trim(segments[1]).equalsIgnoreCase("1");
         mCode = StringUtils.remove(segments[2], "\"");
+    }
+
+    public LinkedHashMap<String, String> getAttributes() {
+        return mAttributes;
     }
 
     public String getCode() {
@@ -64,6 +75,10 @@ public class GeoLine {
 
     public boolean isClosedPolygon() {
         return mClosedPolygon;
+    }
+
+    public void setAttributes(LinkedHashMap<String, String> attributes) {
+        mAttributes = attributes;
     }
 
     public void setClosedPolygon(boolean closedPolygon) {

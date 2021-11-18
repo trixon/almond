@@ -19,6 +19,7 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Locale;
 
 /**
  *
@@ -28,6 +29,20 @@ public class MathHelper {
 
     public static double convertDoubleToDouble(Double d) {
         return d == null ? 0 : d;
+    }
+
+    public static String convertDoubleToString(Locale locale, Double d, int decimals) {
+        if (d == null) {
+            return "";
+        } else {
+            String format = String.format(locale, "%%.%df", decimals);
+
+            return String.format(String.format(format, d));
+        }
+    }
+
+    public static String convertDoubleToString(Double d, int decimals) {
+        return convertDoubleToString(Locale.getDefault(), d, decimals);
     }
 
     public static Integer convertIntegerToInteger(Integer i) {

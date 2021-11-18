@@ -45,7 +45,7 @@ public class Geo extends CoordinateFile {
     }
 
     public Geo() {
-        GeoPoint.setLineEnding("\r\n");
+        GeoPoint.setLineEnding(LINE_ENDING);
     }
 
     public void addPoint(GeoPoint geoPoint) {
@@ -85,28 +85,34 @@ public class Geo extends CoordinateFile {
 
     public void read(File file) throws IOException {
         mRawLines = new LinkedList<>(FileUtils.readLines(file, mCharset));
-        var headerSection = GeoHelper.getSection("FileHeader", "PointList", mRawLines);
+        var headerSection = GeoHelper.extractSection("FileHeader", "PointList", mRawLines);
         mHeader = new GeoHeader(headerSection);
 
         try {
-            var pointSection = GeoHelper.getSection("PointList", "LineList", mRawLines);
-            parsePointList(pointSection);
+            var section = GeoHelper.extractSection("PointList", "LineList", mRawLines);
+            var points = GeoHelper.parsePointList(null, section);
+            mPoints.addAll(points);
         } catch (Exception e) {
-            System.err.println("Parse PointList Failed: " + e);
+            throw new IOException("Parse PointList Failed: ", e);
         }
 
         try {
-            var lineSection = GeoHelper.getSection("LineList", "AttributeList", mRawLines);
-            parseLineList(lineSection);
+            var section = GeoHelper.extractSection("LineList", "AttributeList", mRawLines);
+            GeoHelper.stripWrapper(section);
+
+            while (!section.isEmpty()) {
+                var lineSection = GeoHelper.extractSection("Line", NO_NEXT_SECTION, section);
+                mLines.add(new GeoLine(lineSection));
+            }
         } catch (Exception e) {
-            System.err.println("Parse LineList Failed: " + e);
+            throw new IOException("Parse LineList Failed: ", e);
         }
 
         try {
-            var attributSection = GeoHelper.getSection("AttributeList", NO_NEXT_SECTION, mRawLines);
-            parseAttributeList(attributSection);
+            var section = GeoHelper.extractSection("AttributeList", NO_NEXT_SECTION, mRawLines);
+            mAttributes.putAll(GeoHelper.getAttributes(section));
         } catch (Exception e) {
-            System.err.println("Parse AttributeList Failed: " + e);
+            throw new IOException("Parse AttributeList Failed: ", e);
         }
     }
 
@@ -149,26 +155,5 @@ public class Geo extends CoordinateFile {
 
     public void write(File file) throws IOException {
         FileUtils.writeStringToFile(file, toString(), mCharset);
-    }
-
-    private void parseAttributeList(LinkedList<String> section) {
-        mAttributes.putAll(GeoHelper.getAttributes(section));
-    }
-
-    private void parseLine(LinkedList<String> section) {
-        mLines.add(new GeoLine(section));
-    }
-
-    private void parseLineList(LinkedList<String> section) {
-        GeoHelper.stripWrapper(section);
-
-        while (!section.isEmpty()) {
-            var lineSection = GeoHelper.getSection("Line", NO_NEXT_SECTION, section);
-            parseLine(lineSection);
-        }
-    }
-
-    private void parsePointList(LinkedList<String> section) {
-        mPoints.addAll(GeoHelper.parsePointList(section));
     }
 }

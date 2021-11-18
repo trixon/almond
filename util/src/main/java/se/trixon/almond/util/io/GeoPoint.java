@@ -47,6 +47,8 @@ public class GeoPoint extends CoordinatePoint {
             section.pollFirst();
             section.pollLast();
             mAttributes.putAll(GeoHelper.getAttributes(section));
+            //TODO Replicate empty lines on writing
+            //TODO Replicate empty attributes on writing
         }
     }
 
@@ -124,27 +126,18 @@ public class GeoPoint extends CoordinatePoint {
 
     public StringBuilder toStringBuilder() {
 //        Point "5647",60039.3739,3670.4064,0,"141",,
-        String xFormat = String.format("%%.%df", getDecimalsX());
-        String yFormat = String.format("%%.%df", getDecimalsY());
-        String zFormat = String.format("%%.%df", getDecimalsZ());
 
-        String format = String.format("Point \"%%s\",%s,%s,%s,\"%%s\",\"%%s\",\"%%s\"%%s",
-                xFormat,
-                yFormat,
-                zFormat
-        );
-
-        String line = String.format(Locale.ENGLISH, format,
+        String line = String.format(Locale.ENGLISH, "Point \"%s\",%s,%s,%s,\"%s\",\"%s\",\"%s\"%s",
                 getPointId(),
-                getX(),
-                getY(),
-                getZ(),
+                MathHelper.convertDoubleToString(Locale.ENGLISH, getX(), getDecimalsX()),
+                MathHelper.convertDoubleToString(Locale.ENGLISH, getY(), getDecimalsY()),
+                MathHelper.convertDoubleToString(Locale.ENGLISH, getZ(), getDecimalsZ()),
                 getPointCode(),
                 getSpecialCode(),
                 getRemark(),
                 sLineEnding);
 
-        StringBuilder sb = new StringBuilder(line);
+        var sb = new StringBuilder(line);
 
         //TODO Set attributes here?
         return sb;
