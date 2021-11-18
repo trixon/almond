@@ -17,7 +17,6 @@ package se.trixon.almond.util.io;
 
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
-import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -67,11 +66,12 @@ public class GeoHeader {
     }
 
     public StringBuilder toStringBuilder() {
-        StringBuilder sb = new StringBuilder();
+        var sb = new StringBuilder();
         sb.append(mFileHeader).append(Geo.LINE_ENDING);
         sb.append("begin").append(Geo.LINE_ENDING);
-        for (Map.Entry<String, String> entry : mFileInfos.entrySet()) {
-            sb.append(String.format("\tFileInfo \"%s\",\"%s\"", entry.getKey(), entry.getValue())).append(Geo.LINE_ENDING);
+        for (var entry : mFileInfos.entrySet()) {
+            String value = GeoHelper.toQuotedString(entry.getValue());
+            sb.append(String.format("\tFileInfo \"%s\",%s", entry.getKey(), value)).append(Geo.LINE_ENDING);
         }
         sb.append("end").append(Geo.LINE_ENDING);
 

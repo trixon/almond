@@ -39,7 +39,7 @@ public class GeoHelper {
 
     static StringBuilder attributeListToStringBuilder(LinkedHashMap<String, String> attributes, int indentLevel) {
         var sb = new StringBuilder();
-        sb.append("\t".repeat(indentLevel)).append("AttributeList").append(Geo.LINE_ENDING);
+        sb.append("\t".repeat(indentLevel)).append("AttributeList ").append(Geo.LINE_ENDING);
         if (!attributes.isEmpty()) {
             sb.append("\t".repeat(indentLevel)).append(KEY_BEGIN).append(Geo.LINE_ENDING);
             for (Map.Entry<String, String> entry : attributes.entrySet()) {
@@ -136,7 +136,7 @@ public class GeoHelper {
 
     static StringBuilder lineListToStringBuilder(LinkedList<GeoLine> geoLines) {
         StringBuilder sb = new StringBuilder();
-        sb.append("LineList").append(Geo.LINE_ENDING);
+        sb.append("LineList ").append(Geo.LINE_ENDING);
 
         if (!geoLines.isEmpty()) {
             sb.append(KEY_BEGIN).append(Geo.LINE_ENDING);
@@ -177,11 +177,11 @@ public class GeoHelper {
 
     static StringBuilder pointListToStringBuilder(LinkedList<GeoPoint> geoPoints, int indentLevel) {
         StringBuilder sb = new StringBuilder();
-        sb.append("\t".repeat(indentLevel)).append("PointList").append(Geo.LINE_ENDING);
+        sb.append("\t".repeat(indentLevel)).append("PointList ").append(Geo.LINE_ENDING);
 
         if (!geoPoints.isEmpty()) {
             sb.append("\t".repeat(indentLevel)).append(KEY_BEGIN).append(Geo.LINE_ENDING);
-            for (GeoPoint geoPoint : geoPoints) {
+            for (var geoPoint : geoPoints) {
                 sb.append("\t".repeat(indentLevel + 1)).append(geoPoint.toString());
                 if (!geoPoint.getAttributes().isEmpty()) {
                     sb.append("\t".repeat(indentLevel + 1)).append(KEY_BEGIN).append(Geo.LINE_ENDING);
@@ -206,5 +206,14 @@ public class GeoHelper {
             removeHead(section, 2);
             section.removeLast();
         }
+    }
+
+    /**
+     *
+     * @param s
+     * @return a quoted string if not blank
+     */
+    static String toQuotedString(String s) {
+        return StringUtils.isBlank(s) ? "" : String.format("\"%s\"", s);
     }
 }

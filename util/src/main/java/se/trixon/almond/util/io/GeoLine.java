@@ -104,9 +104,18 @@ public class GeoLine {
 
     public StringBuilder toStringBuilder() {
         StringBuilder sb = new StringBuilder();
-        sb.append(String.format("Line \"%s\",%s,\"%s\"", mLineNumber, mClosedPolygon ? "1" : "0", mCode)).append(Geo.LINE_ENDING);
+        sb.append(String.format("Line %s,%s,%s",
+                GeoHelper.toQuotedString(mLineNumber),
+                mClosedPolygon ? "1" : "0",
+                GeoHelper.toQuotedString(mCode)
+        )).append(Geo.LINE_ENDING);
         sb.append("\tbegin").append(Geo.LINE_ENDING);
-        sb.append(GeoHelper.pointListToStringBuilder(mPoints, 2));
+        final int indentLevel = 2;
+        sb.append(GeoHelper.pointListToStringBuilder(mPoints, indentLevel));
+        if (!mAttributes.isEmpty()) {
+            sb.append(GeoHelper.attributeListToStringBuilder(mAttributes, indentLevel));
+        }
+
         sb.append("\tend").append(Geo.LINE_ENDING);
 
         return sb;

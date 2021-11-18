@@ -127,14 +127,14 @@ public class GeoPoint extends CoordinatePoint {
     public StringBuilder toStringBuilder() {
 //        Point "5647",60039.3739,3670.4064,0,"141",,
 
-        String line = String.format(Locale.ENGLISH, "Point \"%s\",%s,%s,%s,\"%s\",\"%s\",\"%s\"%s",
-                getPointId(),
+        String line = String.format("Point %s,%s,%s,%s,%s,%s,%s%s",
+                GeoHelper.toQuotedString(getPointId()),
                 MathHelper.convertDoubleToString(Locale.ENGLISH, getX(), getDecimalsX()),
                 MathHelper.convertDoubleToString(Locale.ENGLISH, getY(), getDecimalsY()),
                 MathHelper.convertDoubleToString(Locale.ENGLISH, getZ(), getDecimalsZ()),
-                getPointCode(),
-                getSpecialCode(),
-                getRemark(),
+                GeoHelper.toQuotedString(getPointCode()),
+                GeoHelper.toQuotedString(getSpecialCode()),
+                GeoHelper.toQuotedString(getRemark()),
                 sLineEnding);
 
         var sb = new StringBuilder(line);

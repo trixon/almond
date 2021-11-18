@@ -35,9 +35,9 @@ public class MathHelper {
         if (d == null) {
             return "";
         } else {
-            String format = String.format(locale, "%%.%df", decimals);
+            String format = String.format("%%.%df", decimals);
 
-            return String.format(String.format(format, d));
+            return String.format(locale, format, d);
         }
     }
 
