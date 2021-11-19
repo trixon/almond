@@ -26,7 +26,7 @@ import org.apache.commons.lang3.StringUtils;
 public class GeoPoint extends CoordinatePoint {
 
     private static String sLineEnding = "\r\n";
-    private LinkedHashMap<String, String> mAttributes = new LinkedHashMap<>();
+    private LinkedHashMap<String, String> mAttributes;
     private String mPointCode = "";
     private String mPointId = "";
     private String mRemark = "";
@@ -44,15 +44,17 @@ public class GeoPoint extends CoordinatePoint {
         if (!section.isEmpty()) {
             section.pollFirst();
             section.pollLast();
-            mAttributes.putAll(GeoHelper.getAttributes(section));
+            if (!section.isEmpty()) {
+                mAttributes = new LinkedHashMap<>();
+                mAttributes.putAll(GeoHelper.getAttributes(section));
+            }
             //TODO Replicate empty lines on writing
-            //TODO Replicate empty attributes on writing
         }
     }
 
-    public GeoPoint(String line) throws NumberFormatException {
-        line = StringUtils.removeStart(line.trim(), "Point");
-        var aa = getFirstItem(line);
+    public GeoPoint(String row) throws NumberFormatException {
+        row = StringUtils.removeStart(row.trim(), "Point");
+        var aa = getFirstItem(row);
         setPointId(aa[0]);
 
         var parts = StringUtils.splitPreserveAllTokens(aa[1], ",");
@@ -137,7 +139,6 @@ public class GeoPoint extends CoordinatePoint {
 
         var sb = new StringBuilder(line);
 
-        //TODO Set attributes here?
         return sb;
     }
 

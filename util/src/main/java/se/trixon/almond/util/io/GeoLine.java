@@ -27,8 +27,7 @@ import org.apache.commons.lang3.StringUtils;
 public class GeoLine {
 
     private LinkedHashMap<String, String> mAttributes = new LinkedHashMap<>();
-
-    private boolean mClosedPolygon = false;
+    private String mClosedPolygon = "";
     private String mCode = "";
     private String mLineNumber = "";
     private LinkedList<GeoPoint> mPoints = new LinkedList<>();
@@ -51,9 +50,9 @@ public class GeoLine {
 
     public GeoLine(String line) {
         line = StringUtils.removeStart(line.trim(), "Line");
-        String[] segments = StringUtils.splitPreserveAllTokens(line.trim(), ",");
+        var segments = StringUtils.splitPreserveAllTokens(line.trim(), ",");
         mLineNumber = StringUtils.remove(segments[0], "\"");
-        mClosedPolygon = StringUtils.trim(segments[1]).equalsIgnoreCase("1");
+        mClosedPolygon = StringUtils.trim(segments[1]);
         mCode = StringUtils.remove(segments[2], "\"");
     }
 
@@ -74,7 +73,7 @@ public class GeoLine {
     }
 
     public boolean isClosedPolygon() {
-        return mClosedPolygon;
+        return mClosedPolygon.equals("1");
     }
 
     public void setAttributes(LinkedHashMap<String, String> attributes) {
@@ -82,7 +81,7 @@ public class GeoLine {
     }
 
     public void setClosedPolygon(boolean closedPolygon) {
-        mClosedPolygon = closedPolygon;
+        mClosedPolygon = closedPolygon ? "1" : "";
     }
 
     public void setCode(String code) {
@@ -103,10 +102,10 @@ public class GeoLine {
     }
 
     public StringBuilder toStringBuilder() {
-        StringBuilder sb = new StringBuilder();
+        var sb = new StringBuilder();
         sb.append(String.format("Line %s,%s,%s",
                 GeoHelper.toQuotedString(mLineNumber),
-                mClosedPolygon ? "1" : "0",
+                mClosedPolygon,
                 GeoHelper.toQuotedString(mCode)
         )).append(Geo.LINE_ENDING);
         sb.append("\tbegin").append(Geo.LINE_ENDING);

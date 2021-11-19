@@ -183,9 +183,13 @@ public class GeoHelper {
             sb.append("\t".repeat(indentLevel)).append(KEY_BEGIN).append(Geo.LINE_ENDING);
             for (var geoPoint : geoPoints) {
                 sb.append("\t".repeat(indentLevel + 1)).append(geoPoint.toString());
-                if (!geoPoint.getAttributes().isEmpty()) {
+                if (geoPoint.getAttributes() != null) {
                     sb.append("\t".repeat(indentLevel + 1)).append(KEY_BEGIN).append(Geo.LINE_ENDING);
-                    sb.append(attributeListToStringBuilder(geoPoint.getAttributes(), indentLevel + 2));
+                    if (geoPoint.getAttributes().isEmpty()) {
+                        sb.append("\t".repeat(indentLevel + 2)).append("AttributeList ").append(Geo.LINE_ENDING);
+                    } else {
+                        sb.append(attributeListToStringBuilder(geoPoint.getAttributes(), indentLevel + 2));
+                    }
                     sb.append("\t".repeat(indentLevel + 1)).append(KEY_END).append(Geo.LINE_ENDING);
                 }
             }
