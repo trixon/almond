@@ -41,8 +41,20 @@ public class MathHelper {
         }
     }
 
+    public static String convertDoubleToString(Locale locale, Double d) {
+        if (d == null) {
+            return "";
+        } else {
+            return String.format(locale, "%f", d);
+        }
+    }
+
     public static String convertDoubleToString(Double d, int decimals) {
         return convertDoubleToString(Locale.getDefault(), d, decimals);
+    }
+
+    public static String convertDoubleToString(Double d) {
+        return convertDoubleToString(Locale.getDefault(), d);
     }
 
     public static Integer convertIntegerToInteger(Integer i) {

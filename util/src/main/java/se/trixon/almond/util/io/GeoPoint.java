@@ -17,9 +17,7 @@ package se.trixon.almond.util.io;
 
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
-import java.util.Locale;
 import org.apache.commons.lang3.StringUtils;
-import se.trixon.almond.util.MathHelper;
 
 /**
  *
@@ -54,13 +52,13 @@ public class GeoPoint extends CoordinatePoint {
 
     public GeoPoint(String line) throws NumberFormatException {
         line = StringUtils.removeStart(line.trim(), "Point");
-        String[] aa = getFirstItem(line);
+        var aa = getFirstItem(line);
         setPointId(aa[0]);
 
-        String[] parts = StringUtils.splitPreserveAllTokens(aa[1], ",");
-        mX = MathHelper.convertStringToDouble(parts[0]);
-        mY = MathHelper.convertStringToDouble(parts[1]);
-        mZ = MathHelper.convertStringToDouble(parts[2]);
+        var parts = StringUtils.splitPreserveAllTokens(aa[1], ",");
+        setXRaw(parts[0]);
+        setYRaw(parts[1]);
+        setZRaw(parts[2]);
 
         aa[1] = StringUtils.substring(aa[1], StringUtils.ordinalIndexOf(aa[1], ",", 3) + 1);
         aa = getFirstItem(aa[1]);
@@ -73,9 +71,9 @@ public class GeoPoint extends CoordinatePoint {
 
     public GeoPoint(String pointId, Double x, Double y, Double z, String pointCode) {
         setPointId(pointId);
-        mX = x;
-        mY = y;
-        mZ = z;
+        setX(x);
+        setY(y);
+        setZ(z);
         setPointCode(pointCode);
     }
 
@@ -129,9 +127,9 @@ public class GeoPoint extends CoordinatePoint {
 
         String line = String.format("Point %s,%s,%s,%s,%s,%s,%s%s",
                 GeoHelper.toQuotedString(getPointId()),
-                MathHelper.convertDoubleToString(Locale.ENGLISH, getX(), getDecimalsX()),
-                MathHelper.convertDoubleToString(Locale.ENGLISH, getY(), getDecimalsY()),
-                MathHelper.convertDoubleToString(Locale.ENGLISH, getZ(), getDecimalsZ()),
+                getXRaw(),
+                getYRaw(),
+                getZRaw(),
                 GeoHelper.toQuotedString(getPointCode()),
                 GeoHelper.toQuotedString(getSpecialCode()),
                 GeoHelper.toQuotedString(getRemark()),

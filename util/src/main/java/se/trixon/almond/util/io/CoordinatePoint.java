@@ -15,6 +15,9 @@
  */
 package se.trixon.almond.util.io;
 
+import java.util.Locale;
+import se.trixon.almond.util.MathHelper;
+
 /**
  *
  * @author Patrik Karlström
@@ -26,8 +29,11 @@ public class CoordinatePoint {
     private static int DECIMALS_Z = 3;
 
     protected Double mX;
+    protected String mXRaw;
     protected Double mY;
+    protected String mYRaw;
     protected Double mZ;
+    protected String mZRaw;
 
     public static int getDecimalsX() {
         return DECIMALS_X;
@@ -42,39 +48,92 @@ public class CoordinatePoint {
     }
 
     public static void setDecimalsX(int decimals) {
-        CoordinatePoint.DECIMALS_X = decimals;
+        DECIMALS_X = decimals;
     }
 
     public static void setDecimalsY(int decimals) {
-        CoordinatePoint.DECIMALS_Y = decimals;
+        DECIMALS_Y = decimals;
     }
 
     public static void setDecimalsZ(int decimals) {
-        CoordinatePoint.DECIMALS_Z = decimals;
+        DECIMALS_Z = decimals;
     }
 
     public Double getX() {
         return mX;
     }
 
+    public String getXFormatted() {
+        return getXFormatted(Locale.ENGLISH);
+    }
+
+    public String getXFormatted(Locale locale) {
+        return MathHelper.convertDoubleToString(locale, getX(), getDecimalsX());
+    }
+
+    public String getXRaw() {
+        return mXRaw;
+    }
+
     public Double getY() {
         return mY;
+    }
+
+    public String getYFormatted() {
+        return getXFormatted(Locale.ENGLISH);
+    }
+
+    public String getYFormatted(Locale locale) {
+        return MathHelper.convertDoubleToString(locale, getY(), getDecimalsY());
+    }
+
+    public String getYRaw() {
+        return mYRaw;
     }
 
     public Double getZ() {
         return mZ;
     }
 
-    public void setX(Double x) {
-        mX = x;
+    public String getZFormatted() {
+        return getZFormatted(Locale.ENGLISH);
     }
 
-    public void setY(Double y) {
-        mY = y;
+    public String getZFormatted(Locale locale) {
+        return MathHelper.convertDoubleToString(locale, getZ(), getDecimalsZ());
     }
 
-    public void setZ(Double z) {
-        mZ = z;
+    public String getZRaw() {
+        return mZRaw;
     }
 
+    public void setX(Double value) {
+        mX = value;
+        mXRaw = MathHelper.convertDoubleToString(Locale.ENGLISH, value);
+    }
+
+    public void setXRaw(String raw) {
+        mXRaw = raw;
+        mX = MathHelper.convertStringToDouble(raw);
+    }
+
+    public void setY(Double value) {
+        mY = value;
+        mYRaw = MathHelper.convertDoubleToString(Locale.ENGLISH, value);
+    }
+
+    public void setYRaw(String raw) {
+        mYRaw = raw;
+        mY = MathHelper.convertStringToDouble(raw);
+    }
+
+    public void setZ(Double value) {
+        mZ = value;
+        mZRaw = MathHelper.convertDoubleToString(Locale.ENGLISH, value);
+    }
+
+    public void setZRaw(String raw) {
+        mZRaw = raw;
+        mZ = MathHelper.convertStringToDouble(raw);
+    }
 }
