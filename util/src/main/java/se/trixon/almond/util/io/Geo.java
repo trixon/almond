@@ -34,6 +34,7 @@ public class Geo extends CoordinateFile {
 
     public static final String NO_NEXT_SECTION = "DONOTBREAKONTHISSTOPSTRING";
     private LinkedHashMap<String, String> mAttributes = new LinkedHashMap<>();
+    private CoordinateFormat mCoordinateFormat;
     private GeoHeader mHeader;
     private LinkedList<GeoLine> mLines = new LinkedList<>();
     private LinkedList<GeoPoint> mPoints = new LinkedList<>();
@@ -70,6 +71,10 @@ public class Geo extends CoordinateFile {
 
     public LinkedHashMap<String, String> getAttributes() {
         return mAttributes;
+    }
+
+    public CoordinateFormat getCoordinateFormat() {
+        return mCoordinateFormat;
     }
 
     public GeoHeader getHeader() {
@@ -154,8 +159,8 @@ public class Geo extends CoordinateFile {
     public String toString() {
         var sb = new StringBuilder();
         sb.append(mHeader.toStringBuilder());
-        sb.append(GeoHelper.pointListToStringBuilder(mPoints, 0));
-        sb.append(GeoHelper.lineListToStringBuilder(mLines));
+        sb.append(GeoHelper.pointListToStringBuilder(this, mPoints, 0));
+        sb.append(GeoHelper.lineListToStringBuilder(this, mLines));
         sb.append(GeoHelper.attributeListToStringBuilder(mAttributes, 0));
 
         return sb.toString();
@@ -166,6 +171,11 @@ public class Geo extends CoordinateFile {
     }
 
     public void write(File file) throws IOException {
+        write(file, CoordinateFormat.FORMATTED);
+    }
+
+    public void write(File file, CoordinateFormat coordinateFormat) throws IOException {
+        mCoordinateFormat = coordinateFormat;
         FileUtils.writeStringToFile(file, toString(), mCharset);
     }
 }

@@ -31,6 +31,7 @@ public class GeoLine {
     private String mCode = "";
     private String mLineNumber = "";
     private LinkedList<GeoPoint> mPoints = new LinkedList<>();
+    private transient Geo mGeo;
 
     public GeoLine() {
     }
@@ -88,6 +89,10 @@ public class GeoLine {
         mCode = code;
     }
 
+    public void setGeo(Geo geo) {
+        mGeo = geo;
+    }
+
     public void setLineNumber(String lineNumber) {
         mLineNumber = lineNumber;
     }
@@ -98,10 +103,6 @@ public class GeoLine {
 
     @Override
     public String toString() {
-        return toStringBuilder().toString();
-    }
-
-    public StringBuilder toStringBuilder() {
         var sb = new StringBuilder();
         sb.append(String.format("Line %s,%s,%s",
                 GeoHelper.toQuotedString(mLineNumber),
@@ -110,13 +111,13 @@ public class GeoLine {
         )).append(Geo.LINE_ENDING);
         sb.append("\tbegin").append(Geo.LINE_ENDING);
         final int indentLevel = 2;
-        sb.append(GeoHelper.pointListToStringBuilder(mPoints, indentLevel));
+        sb.append(GeoHelper.pointListToStringBuilder(mGeo, mPoints, indentLevel));
         if (!mAttributes.isEmpty()) {
             sb.append(GeoHelper.attributeListToStringBuilder(mAttributes, indentLevel));
         }
 
         sb.append("\tend").append(Geo.LINE_ENDING);
 
-        return sb;
+        return sb.toString();
     }
 }

@@ -59,6 +59,19 @@ public class CoordinatePoint {
         DECIMALS_Z = decimals;
     }
 
+    public String getX(CoordinateFormat coordinateFormat) {
+        switch (coordinateFormat) {
+            case FORMATTED:
+                return getXFormatted();
+
+            case RAW:
+                return getXRaw();
+
+            default:
+                return MathHelper.convertDoubleToString(getX());
+        }
+    }
+
     public Double getX() {
         return mX;
     }
@@ -75,6 +88,19 @@ public class CoordinatePoint {
         return mXRaw;
     }
 
+    public String getY(CoordinateFormat coordinateFormat) {
+        switch (coordinateFormat) {
+            case FORMATTED:
+                return getYFormatted();
+
+            case RAW:
+                return getYRaw();
+
+            default:
+                return MathHelper.convertDoubleToString(getY());
+        }
+    }
+
     public Double getY() {
         return mY;
     }
@@ -89,6 +115,19 @@ public class CoordinatePoint {
 
     public String getYRaw() {
         return mYRaw;
+    }
+
+    public String getZ(CoordinateFormat coordinateFormat) {
+        switch (coordinateFormat) {
+            case FORMATTED:
+                return getZFormatted();
+
+            case RAW:
+                return getZRaw();
+
+            default:
+                return MathHelper.convertDoubleToString(getZ());
+        }
     }
 
     public Double getZ() {

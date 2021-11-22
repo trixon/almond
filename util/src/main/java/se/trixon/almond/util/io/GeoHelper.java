@@ -134,14 +134,15 @@ public class GeoHelper {
         return new String[]{key, val};
     }
 
-    static StringBuilder lineListToStringBuilder(LinkedList<GeoLine> geoLines) {
-        StringBuilder sb = new StringBuilder();
+    static StringBuilder lineListToStringBuilder(Geo geo, LinkedList<GeoLine> geoLines) {
+        var sb = new StringBuilder();
         sb.append("LineList ").append(Geo.LINE_ENDING);
 
         if (!geoLines.isEmpty()) {
             sb.append(KEY_BEGIN).append(Geo.LINE_ENDING);
-            for (GeoLine geoLine : geoLines) {
-                sb.append("\t".repeat(1)).append(geoLine.toStringBuilder());
+            for (var geoLine : geoLines) {
+                geoLine.setGeo(geo);
+                sb.append("\t".repeat(1)).append(geoLine.toString());
             }
             sb.append(KEY_END).append(Geo.LINE_ENDING);
         }
@@ -175,13 +176,14 @@ public class GeoHelper {
         return points;
     }
 
-    static StringBuilder pointListToStringBuilder(LinkedList<GeoPoint> geoPoints, int indentLevel) {
-        StringBuilder sb = new StringBuilder();
+    static StringBuilder pointListToStringBuilder(Geo geo, LinkedList<GeoPoint> geoPoints, int indentLevel) {
+        var sb = new StringBuilder();
         sb.append("\t".repeat(indentLevel)).append("PointList ").append(Geo.LINE_ENDING);
 
         if (!geoPoints.isEmpty()) {
             sb.append("\t".repeat(indentLevel)).append(KEY_BEGIN).append(Geo.LINE_ENDING);
             for (var geoPoint : geoPoints) {
+                geoPoint.setGeo(geo);
                 sb.append("\t".repeat(indentLevel + 1)).append(geoPoint.toString());
                 if (geoPoint.getAttributes() != null) {
                     sb.append("\t".repeat(indentLevel + 1)).append(KEY_BEGIN).append(Geo.LINE_ENDING);

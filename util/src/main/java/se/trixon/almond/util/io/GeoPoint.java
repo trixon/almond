@@ -31,6 +31,7 @@ public class GeoPoint extends CoordinatePoint {
     private String mPointId = "";
     private String mRemark = "";
     private String mSpecialCode = "";
+    private transient Geo mGeo;
 
     public static void setLineEnding(String lineEnding) {
         GeoPoint.sLineEnding = lineEnding;
@@ -121,25 +122,21 @@ public class GeoPoint extends CoordinatePoint {
 
     @Override
     public String toString() {
-        return toStringBuilder().toString();
-    }
-
-    public StringBuilder toStringBuilder() {
-//        Point "5647",60039.3739,3670.4064,0,"141",,
-
-        String line = String.format("Point %s,%s,%s,%s,%s,%s,%s%s",
+        String row = String.format("Point %s,%s,%s,%s,%s,%s,%s%s",
                 GeoHelper.toQuotedString(getPointId()),
-                getXRaw(),
-                getYRaw(),
-                getZRaw(),
+                getX(mGeo.getCoordinateFormat()),
+                getY(mGeo.getCoordinateFormat()),
+                getZ(mGeo.getCoordinateFormat()),
                 GeoHelper.toQuotedString(getPointCode()),
                 GeoHelper.toQuotedString(getSpecialCode()),
                 GeoHelper.toQuotedString(getRemark()),
                 sLineEnding);
 
-        var sb = new StringBuilder(line);
+        return row;
+    }
 
-        return sb;
+    void setGeo(Geo geo) {
+        mGeo = geo;
     }
 
     private String[] getFirstItem(String input) {
