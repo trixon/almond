@@ -31,8 +31,7 @@ public class TestMain {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException {
-//        new TestMain();
-        new GeoScanner();
+        new TestMain();
     }
 
     public TestMain() {

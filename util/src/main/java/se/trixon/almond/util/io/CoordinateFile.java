@@ -32,7 +32,7 @@ import java.nio.file.Path;
  */
 public abstract class CoordinateFile {
 
-    protected Charset mCharset = StandardCharsets.ISO_8859_1;
+    protected Charset mCharset = StandardCharsets.UTF_8;
     protected String mLineEnding = "\r\n";
     protected Path mPath;
     protected final Path2D.Double mPath2D = new Path2D.Double();

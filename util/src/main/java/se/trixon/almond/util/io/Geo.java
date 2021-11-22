@@ -17,10 +17,12 @@ package se.trixon.almond.util.io;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
@@ -46,6 +48,10 @@ public class Geo extends CoordinateFile {
 
     public Geo() {
         GeoPoint.setLineEnding(LINE_ENDING);
+    }
+
+    public Geo(GeoHeader geoHeader) {
+        setHeader(geoHeader);
     }
 
     public void addPoint(GeoPoint geoPoint) {
@@ -85,6 +91,12 @@ public class Geo extends CoordinateFile {
 
     public void read(File file) throws IOException {
         mRawLines = new LinkedList<>(FileUtils.readLines(file, mCharset));
+        var elements = StringUtils.split(mRawLines.peek(), ",");
+        if (elements.length < 3 || !StringUtils.containsIgnoreCase(elements[2], "UTF-8")) {
+            mCharset = StandardCharsets.ISO_8859_1;
+            mRawLines = new LinkedList<>(FileUtils.readLines(file, mCharset));
+        }
+
         var headerSection = GeoHelper.extractSection("FileHeader", "PointList", mRawLines);
         mHeader = new GeoHeader(headerSection);
 

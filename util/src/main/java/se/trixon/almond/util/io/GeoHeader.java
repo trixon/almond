@@ -40,6 +40,10 @@ public class GeoHeader {
         mFileInfos.putAll(map);
     }
 
+    public GeoHeader(LinkedHashMap<String, String> map) {
+        this("\"SBG Object Text v2.01\",\"Coordinate Document\",\"UTF-8\"", map);
+    }
+
     public GeoHeader(LinkedList<String> lines) {
         mFileHeader = lines.get(0);
         for (var line : lines) {
@@ -68,12 +72,13 @@ public class GeoHeader {
     public StringBuilder toStringBuilder() {
         var sb = new StringBuilder();
         sb.append(mFileHeader).append(Geo.LINE_ENDING);
-        sb.append("begin").append(Geo.LINE_ENDING);
+        sb.append(GeoHelper.KEY_BEGIN).append(Geo.LINE_ENDING);
+
         for (var entry : mFileInfos.entrySet()) {
             String value = GeoHelper.toQuotedString(entry.getValue());
             sb.append(String.format("\tFileInfo \"%s\",%s", entry.getKey(), value)).append(Geo.LINE_ENDING);
         }
-        sb.append("end").append(Geo.LINE_ENDING);
+        sb.append(GeoHelper.KEY_END).append(Geo.LINE_ENDING);
 
         return sb;
     }
