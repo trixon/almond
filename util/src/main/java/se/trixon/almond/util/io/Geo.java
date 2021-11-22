@@ -34,7 +34,7 @@ public class Geo extends CoordinateFile {
 
     public static final String NO_NEXT_SECTION = "DONOTBREAKONTHISSTOPSTRING";
     private LinkedHashMap<String, String> mAttributes = new LinkedHashMap<>();
-    private CoordinateFormat mCoordinateFormat;
+    private CoordinateFormat mCoordinateFormat = CoordinateFormat.FORMATTED;
     private GeoHeader mHeader;
     private LinkedList<GeoLine> mLines = new LinkedList<>();
     private LinkedList<GeoPoint> mPoints = new LinkedList<>();
@@ -43,8 +43,8 @@ public class Geo extends CoordinateFile {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        new TestMain();
+    public static void main(String[] args) throws IOException {
+        TestMain.main(args);
     }
 
     public Geo() {

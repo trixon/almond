@@ -55,21 +55,19 @@ public class GeoPoint extends CoordinatePoint {
 
     public GeoPoint(String row) throws NumberFormatException {
         row = StringUtils.removeStart(row.trim(), "Point");
-        var aa = getFirstItem(row);
-        setPointId(aa[0]);
-
-        var parts = StringUtils.splitPreserveAllTokens(aa[1], ",");
+        var elements = getFirstItem(row);
+        setPointId(elements[0]);
+        var parts = StringUtils.splitPreserveAllTokens(elements[1], ",");
         setXRaw(parts[0]);
         setYRaw(parts[1]);
         setZRaw(parts[2]);
-
-        aa[1] = StringUtils.substring(aa[1], StringUtils.ordinalIndexOf(aa[1], ",", 3) + 1);
-        aa = getFirstItem(aa[1]);
-        setPointCode(aa[0]);
-        aa = getFirstItem(aa[1]);
-        setSpecialCode(aa[0]);
-        aa = getFirstItem(aa[1]);
-        setRemark(aa[0]);
+        elements[1] = StringUtils.substring(elements[1], StringUtils.ordinalIndexOf(elements[1], ",", 3) + 1);
+        elements = getFirstItem(elements[1]);
+        setPointCode(elements[0]);
+        elements = getFirstItem(elements[1]);
+        setSpecialCode(elements[0]);
+        elements = getFirstItem(elements[1]);
+        setRemark(elements[0]);
     }
 
     public GeoPoint(String pointId, Double x, Double y, Double z, String pointCode) {
@@ -142,7 +140,7 @@ public class GeoPoint extends CoordinatePoint {
     private String[] getFirstItem(String input) {
         String segment;
         String remaining;
-
+        input = input.strip();
         if (StringUtils.startsWith(input, ",")) {
             segment = "";
             remaining = StringUtils.removeStart(input, ",");
