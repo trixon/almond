@@ -106,7 +106,7 @@ public class CoordinatePoint {
     }
 
     public String getYFormatted() {
-        return getXFormatted(Locale.ENGLISH);
+        return getYFormatted(Locale.ENGLISH);
     }
 
     public String getYFormatted(Locale locale) {
