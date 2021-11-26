@@ -40,13 +40,6 @@ public class Geo extends CoordinateFile {
     private LinkedList<GeoPoint> mPoints = new LinkedList<>();
     private LinkedList<String> mRawLines;
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) throws IOException {
-        TestMain.main(args);
-    }
-
     public Geo() {
         GeoPoint.setLineEnding(LINE_ENDING);
     }

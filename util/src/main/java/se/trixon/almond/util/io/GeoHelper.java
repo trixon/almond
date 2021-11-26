@@ -15,7 +15,6 @@
  */
 package se.trixon.almond.util.io;
 
-import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -30,13 +29,6 @@ public class GeoHelper {
 
     public final static String KEY_BEGIN = "begin";
     public final static String KEY_END = "end";
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) throws IOException {
-        TestMain.main(args);
-    }
 
     static StringBuilder attributeListToStringBuilder(LinkedHashMap<String, String> attributes, int indentLevel) {
         var sb = new StringBuilder();
