@@ -17,6 +17,7 @@ package se.trixon.almond.nbp.dialogs;
 
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
+import se.trixon.almond.nbp.NbHelper;
 import se.trixon.almond.util.Dict;
 import se.trixon.almond.util.SystemHelper;
 import se.trixon.almond.util.SystemInformation;
@@ -29,16 +30,21 @@ import se.trixon.almond.util.swing.SwingHelper;
  */
 public class NbSystemInformation {
 
-    private final SystemInformation mSystemInformation = new SystemInformation();
+    private SystemInformation mSystemInformation;
 
     public void displayDialog() {
-        LogPanel logPanel = new LogPanel();
+        var progressHandle = NbHelper.createAndStartProgressHandle(Dict.SYSTEM_INFORMATION.toString(), true);
+        var logPanel = new LogPanel();
+        if (mSystemInformation == null) {
+            mSystemInformation = new SystemInformation();
+        }
         logPanel.println(mSystemInformation.generateSystemInformation());
         logPanel.scrollToTop();
         logPanel.getTextArea().setEditable(true);
         logPanel.setPreferredSize(SwingHelper.getUIScaledDim(800, 600));
+        progressHandle.finish();
 
-        NotifyDescriptor d = new NotifyDescriptor(
+        var d = new NotifyDescriptor(
                 logPanel,
                 Dict.SYSTEM_INFORMATION.toString(),
                 NotifyDescriptor.OK_CANCEL_OPTION,
