@@ -59,4 +59,7 @@
             <version>${netbeans.version}</version>
         </dependency>
     </dependencies>
+    <properties>
+        <netbeans.hint.license>apache20</netbeans.hint.license>
+    </properties>
 </project>
