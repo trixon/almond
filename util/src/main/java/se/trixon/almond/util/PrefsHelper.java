@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,6 +18,7 @@ package se.trixon.almond.util;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
@@ -51,4 +52,9 @@ public class PrefsHelper {
         }
     }
 
+    public static void replaceIfPresent(Preferences preferences, String key, String oldValue, String newValue) {
+        if (keyExists(preferences, key) && StringUtils.equals(preferences.get(key, null), oldValue)) {
+            preferences.put(key, newValue);
+        }
+    }
 }
