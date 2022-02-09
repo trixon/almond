@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -47,6 +47,10 @@ import org.apache.commons.lang3.StringUtils;
  * @author Patrik Karlström
  */
 public class GraphicsHelper {
+
+    public static Color colorAddAlpha(Color color, int alpha) {
+        return new Color(color.getRed(), color.getGreen(), color.getBlue(), alpha);
+    }
 
     public static Color colorAndMask(Color color, int mask) {
         int baseColor = GraphicsHelper.colorToHexInt(color);
