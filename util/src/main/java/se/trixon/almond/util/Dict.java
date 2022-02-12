@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -592,6 +592,7 @@ public enum Dict {
         RADIUS,
         RECTANGLE,
         SQUARE,
+        SURFACE,
         WIDTH;
         private final ResourceBundle mResourceBundle = ResourceBundle.getBundle(SystemHelper.getPackageAsPath(Dict.class) + "DictGeometry", Locale.getDefault());
 
