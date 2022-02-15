@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,36 +30,52 @@ import javax.swing.SortOrder;
  */
 public class CollectionHelper {
 
-    public static void decDouble(Map<String, Double> map, String key) {
+    public static Double decDouble(Map<String, Double> map, String key) {
         incDouble(map, key, -1);
+
+        return map.get(key);
     }
 
-    public static void decDouble(Map<String, Double> map, String key, double d) {
+    public static Double decDouble(Map<String, Double> map, String key, double d) {
         incDouble(map, key, -d);
+
+        return map.get(key);
     }
 
-    public static void decInteger(Map<String, Integer> map, String key) {
+    public static Integer decInteger(Map<String, Integer> map, String key) {
         incInteger(map, key, -1);
+
+        return map.get(key);
     }
 
-    public static void decInteger(Map<String, Integer> map, String key, int i) {
+    public static Integer decInteger(Map<String, Integer> map, String key, int i) {
         incInteger(map, key, -i);
+
+        return map.get(key);
     }
 
-    public static void incDouble(Map<String, Double> map, String key) {
+    public static Double incDouble(Map<String, Double> map, String key) {
         incDouble(map, key, 1.0);
+
+        return map.get(key);
     }
 
-    public static void incDouble(Map<String, Double> map, String key, double d) {
+    public static Double incDouble(Map<String, Double> map, String key, double d) {
         map.put(key, map.getOrDefault(key, 0.0) + d);
+
+        return map.get(key);
     }
 
-    public static void incInteger(Map<String, Integer> map, String key, int i) {
+    public static Integer incInteger(Map<String, Integer> map, String key, int i) {
         map.put(key, map.getOrDefault(key, 0) + i);
+
+        return map.get(key);
     }
 
-    public static void incInteger(Map<String, Integer> map, String key) {
+    public static Integer incInteger(Map<String, Integer> map, String key) {
         incInteger(map, key, 1);
+
+        return map.get(key);
     }
 
     public static void replaceIfAfter(Map<String, Timestamp> map, String key, Timestamp newTimestamp) {
