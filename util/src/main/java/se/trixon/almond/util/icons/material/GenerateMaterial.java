@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -81,47 +81,51 @@ class GenerateMaterial {
         builder.append("import se.trixon.almond.util.icons.IconColor;").append("\n");
         builder.append("public class MaterialIcon {").append("\n");
 
-        builder.append("    private static javafx.scene.paint.Color sDefaultColor=javafx.scene.paint.Color.BLACK;\n"
-                + "\n"
-                + "    public static javafx.scene.paint.Color getDefaultColor() {\n"
-                + "        return sDefaultColor;\n"
-                + "    }\n"
-                + "\n"
-                + "    public static void setDefaultColor(javafx.scene.paint.Color color) {\n"
-                + "        sDefaultColor = color;\n"
-                + "    }\n"
-                + "");
+        builder.append("""
+                           private static javafx.scene.paint.Color sDefaultColor=javafx.scene.paint.Color.BLACK;
+
+                           public static javafx.scene.paint.Color getDefaultColor() {
+                               return sDefaultColor;
+                           }
+
+                           public static void setDefaultColor(javafx.scene.paint.Color color) {
+                               sDefaultColor = color;
+                           }
+                       """);
         builder.append("\n");
 
-        builder.append("    private static BufferedImage getBufferedImage(String dir, String baseName, int size, java.awt.Color color) {\n"
-                + "        BufferedImage bi = null;\n"
-                + "\n"
-                + "        try {\n"
-                + "            bi = ImageIO.read(MaterialIcon.class.getResource(String.format(\"%s/%s_white.png\", dir, baseName.toLowerCase())));\n"
-                + "            bi = GraphicsHelper.toBufferedImage(bi.getScaledInstance(size, size, Image.SCALE_SMOOTH));\n"
-                + "            bi = GraphicsHelper.colorize(bi, color);\n"
-                + "        } catch (IOException ex) {\n"
-                + "            Logger.getLogger(MaterialIcon.class.getName()).log(Level.SEVERE, null, ex);\n"
-                + "        }\n"
-                + "\n"
-                + "        return bi;\n"
-                + "    }\n"
-                + "");
+        builder.append("""
+                           private static BufferedImage getBufferedImage(String dir, String baseName, int size, java.awt.Color color) {
+                               BufferedImage bi = null;
+
+                               try {
+                                   bi = ImageIO.read(MaterialIcon.class.getResource(String.format("%s/%s_white.png", dir, baseName.toLowerCase())));
+                                   bi = GraphicsHelper.toBufferedImage(bi.getScaledInstance(size, size, Image.SCALE_SMOOTH));
+                                   bi = GraphicsHelper.colorize(bi, color);
+                               } catch (IOException ex) {
+                                   Logger.getLogger(MaterialIcon.class.getName()).log(Level.SEVERE, null, ex);
+                               }
+
+                               return bi;
+                           }
+                       """);
         builder.append("\n");
 
-        builder.append("    private static ImageIcon getImageIcon(String dir, String baseName, int size, java.awt.Color color) {\n"
-                + "        BufferedImage bufferedImage = getBufferedImage(dir, baseName, size, color);\n"
-                + "        return new ImageIcon(bufferedImage);\n"
-                + "    }\n"
-                + "");
+        builder.append("""
+                           private static ImageIcon getImageIcon(String dir, String baseName, int size, java.awt.Color color) {
+                               BufferedImage bufferedImage = getBufferedImage(dir, baseName, size, color);
+                               return new ImageIcon(bufferedImage);
+                           }
+                       """);
         builder.append("\n");
 
-        builder.append("    private static ImageView getImageView(String dir, String baseName, int size, javafx.scene.paint.Color color) {\n"
-                + "        BufferedImage bufferedImage = getBufferedImage(dir, baseName, size, FxHelper.colorToColor(color));\n"
-                + "\n"
-                + "        return new ImageView(SwingFXUtils.toFXImage(bufferedImage, null));\n"
-                + "    }\n"
-                + "");
+        builder.append("""
+                           private static ImageView getImageView(String dir, String baseName, int size, javafx.scene.paint.Color color) {
+                               BufferedImage bufferedImage = getBufferedImage(dir, baseName, size, FxHelper.colorToColor(color));
+
+                               return new ImageView(SwingFXUtils.toFXImage(bufferedImage, null));
+                           }
+                       """);
         builder.append("\n");
     }
 
