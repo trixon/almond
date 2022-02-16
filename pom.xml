@@ -8,7 +8,7 @@
     <packaging>pom</packaging>
 
     <name>almond-parent</name>
-    <url>https://github.com/trixon/almond3</url>
+    <url>https://github.com/trixon/almond</url>
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
@@ -28,9 +28,9 @@
         </developer>
     </developers>
     <scm>
-        <url>https://github.com/trixon/almond3</url>
-        <connection>scm:git:git://github.com/trixon/almond3.git</connection>
-        <developerConnection>scm:git:git@github.com:trixon/almond3.git</developerConnection>
+        <url>https://github.com/trixon/almond</url>
+        <connection>scm:git:git://github.com/trixon/almond.git</connection>
+        <developerConnection>scm:git:git@github.com:trixon/almond.git</developerConnection>
     </scm>
 
     <build>
@@ -258,7 +258,7 @@
         <repository>
             <id>github</id>
             <name>GitHub trixon Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/trixon/almond3</url>
+            <url>https://maven.pkg.github.com/trixon/almond</url>
         </repository>
     </distributionManagement>
     <repositories>
