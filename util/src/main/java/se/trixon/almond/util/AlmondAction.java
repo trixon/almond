@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -53,9 +53,8 @@ public abstract class AlmondAction extends AbstractAction {
 
     public void updateIcon() {
         if (mIconEnum != null) {
-            if (mIconEnum instanceof IconGetter) {
+            if (mIconEnum instanceof IconGetter iconGetter) {
                 //MaterialIcon
-                IconGetter iconGetter = (IconGetter) mIconEnum;
                 putValue(Action.LARGE_ICON_KEY, iconGetter.getImageIcon(AlmondGui.ICON_SIZE_NORMAL));
                 ImageIcon imageIcon = iconGetter.getImageIcon(AlmondGui.ICON_SIZE_SMALL);
                 putValue(ALMOND_SMALL_ICON_KEY, imageIcon);

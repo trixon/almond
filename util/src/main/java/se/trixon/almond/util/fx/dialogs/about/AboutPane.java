@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,7 +17,6 @@ package se.trixon.almond.util.fx.dialogs.about;
 
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
@@ -62,18 +61,18 @@ public class AboutPane extends TabPane {
             dialogPane.setContent(aboutPane);
             double scale = SwingHelper.getUIScale();
             dialogPane.setPrefSize(520 * scale, 400 * scale);
-            for (Node node : dialogPane.getChildren()) {
-                if (node instanceof GridPane) {
-                    GridPane gridPane = (GridPane) node;
-                    Label appLabel = new Label(aboutModel.getAppName());
+
+            for (var node : dialogPane.getChildren()) {
+                if (node instanceof GridPane gridPane) {
+                    var appLabel = new Label(aboutModel.getAppName());
                     double scaledFontSize = FxHelper.getScaledFontSize();
                     appLabel.setFont(new Font(scaledFontSize * 1.8));
-                    Label verLabel = new Label(String.format("%s %s", Dict.VERSION.toString(), aboutModel.getAppVersion()));
+                    var verLabel = new Label(String.format("%s %s", Dict.VERSION.toString(), aboutModel.getAppVersion()));
                     verLabel.setFont(new Font(scaledFontSize * 1.2));
-                    Label dateLabel = new Label(aboutModel.getAppDate());
+                    var dateLabel = new Label(aboutModel.getAppDate());
                     dateLabel.setFont(new Font(scaledFontSize * 1.2));
 
-                    VBox box = new VBox(appLabel, verLabel, dateLabel);
+                    var box = new VBox(appLabel, verLabel, dateLabel);
                     box.setAlignment(Pos.CENTER_LEFT);
                     gridPane.add(box, 0, 0);
                     break;

@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,8 +21,6 @@ import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Insets;
-import java.awt.Window;
-import java.awt.event.HierarchyEvent;
 import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.logging.Level;
@@ -53,21 +51,19 @@ public class SwingHelper {
     private static final String FRAME_Y = "Frame_Y";
 
     public static void borderPainted(Container container, boolean enable) {
-        Component[] components = container.getComponents();
-        for (Component component : components) {
-            if (component instanceof AbstractButton) {
-                ((AbstractButton) component).setBorderPainted(enable);
+        for (var component : container.getComponents()) {
+            if (component instanceof AbstractButton abstractButton) {
+                abstractButton.setBorderPainted(enable);
             }
         }
     }
 
     public static void clearText(Container container) {
-        Component[] components = container.getComponents();
-        for (Component component : components) {
-            if (component instanceof AbstractButton) {
-                ((AbstractButton) component).setText(null);
-            } else if (component instanceof Container) {
-                clearText((Container) component);
+        for (var component : container.getComponents()) {
+            if (component instanceof AbstractButton abstractButton) {
+                abstractButton.setText(null);
+            } else if (component instanceof Container container2) {
+                clearText(container2);
             }
         }
     }
@@ -81,19 +77,19 @@ public class SwingHelper {
     public static void clearToolTipText(Container container) {
         Component[] components;
 
-        if (container instanceof JMenu) {
-            components = ((JMenu) container).getMenuComponents();
+        if (container instanceof JMenu menu) {
+            components = menu.getMenuComponents();
         } else {
             components = container.getComponents();
         }
 
-        for (Component component : components) {
-            if (component instanceof JMenu) {
-                clearToolTipText((JMenu) component);
-            } else if (component instanceof AbstractButton) {
-                ((AbstractButton) component).setToolTipText(null);
-            } else if (component instanceof Container) {
-                clearToolTipText((Container) component);
+        for (var component : components) {
+            if (component instanceof JMenu menu) {
+                clearToolTipText(menu);
+            } else if (component instanceof AbstractButton abstractButton) {
+                abstractButton.setToolTipText(null);
+            } else if (component instanceof Container container2) {
+                clearToolTipText(container2);
             }
         }
     }
@@ -111,12 +107,11 @@ public class SwingHelper {
     }
 
     public static void enableComponents(Container container, boolean enable, Component... excludedComponents) {
-        Component[] components = container.getComponents();
-        for (Component component : components) {
+        for (var component : container.getComponents()) {
             if (!ArrayUtils.contains(excludedComponents, component)) {
                 component.setEnabled(enable);
-                if (component instanceof Container) {
-                    enableComponents((Container) component, enable);
+                if (component instanceof Container container2) {
+                    enableComponents(container2, enable);
                 }
             }
         }
@@ -237,10 +232,9 @@ public class SwingHelper {
     }
 
     public static void makeWindowResizable(Component component) {
-        component.addHierarchyListener((HierarchyEvent e) -> {
-            Window window = SwingUtilities.getWindowAncestor(component);
-            if (window instanceof Dialog) {
-                Dialog dialog = (Dialog) window;
+        component.addHierarchyListener(hierarchyEvent -> {
+            var window = SwingUtilities.getWindowAncestor(component);
+            if (window instanceof Dialog dialog) {
                 if (!dialog.isResizable()) {
                     dialog.setResizable(true);
                 }
@@ -274,13 +268,12 @@ public class SwingHelper {
     }
 
     public static void setComponentsFont(Container container, Font font) {
-        Component[] components = container.getComponents();
         container.setFont(font);
 
-        for (Component component : components) {
+        for (var component : container.getComponents()) {
             component.setFont(font);
-            if (component instanceof JMenu) {
-                setComponentsFont((Container) component, font);
+            if (component instanceof JMenu menu) {
+                setComponentsFont(menu, font);
             }
         }
     }

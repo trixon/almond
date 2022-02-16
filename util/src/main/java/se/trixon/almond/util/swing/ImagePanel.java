@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,6 @@
 package se.trixon.almond.util.swing;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -26,7 +25,6 @@ import java.awt.Rectangle;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JViewport;
 import se.trixon.almond.util.Scaler;
 
 /**
@@ -139,14 +137,13 @@ public class ImagePanel extends JPanel {
     private void makeComponentTransparent(JComponent component) {
         component.setOpaque(false);
 
-        if (component instanceof JScrollPane) {
-            JScrollPane scrollPane = (JScrollPane) component;
-            JViewport viewport = scrollPane.getViewport();
+        if (component instanceof JScrollPane scrollPane) {
+            var viewport = scrollPane.getViewport();
             viewport.setOpaque(false);
-            Component c = viewport.getView();
 
-            if (c instanceof JComponent) {
-                ((JComponent) c).setOpaque(false);
+            var c = viewport.getView();
+            if (c instanceof JComponent compoment2) {
+                compoment2.setOpaque(false);
             }
         }
     }

@@ -301,13 +301,12 @@ public class GraphicsHelper {
     }
 
     public static BufferedImage toBufferedImage(Image image) {
-        if (image instanceof BufferedImage) {
-            return (BufferedImage) image;
+        if (image instanceof BufferedImage bi) {
+            return bi;
         }
 
-        BufferedImage bufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
-
-        Graphics2D g = bufferedImage.createGraphics();
+        var bufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+        var g = bufferedImage.createGraphics();
         g.drawImage(image, 0, 0, null);
         g.dispose();
 

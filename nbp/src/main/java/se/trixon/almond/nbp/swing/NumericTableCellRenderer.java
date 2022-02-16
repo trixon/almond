@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -42,8 +42,7 @@ public class NumericTableCellRenderer extends DefaultTableCellRenderer {
     public void setValue(Object value) {
         Object result = value;
 
-        if ((value != null) && (value instanceof Number)) {
-            Number numberValue = (Number) value;
+        if ((value != null) && (value instanceof Number numberValue)) {
             NumberFormat formatter;
 
             if (mClass == Double.class || mClass == Float.class) {

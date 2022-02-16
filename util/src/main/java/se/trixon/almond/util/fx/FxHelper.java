@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -257,11 +257,9 @@ public class FxHelper {
     public static void disableControls(ObservableList<Node> nodes, boolean disabled, Control... excludedControls) {
         for (Node node : nodes) {
             if (!ArrayUtils.contains(excludedControls, node)) {
-                if (node instanceof Pane) {
-                    Pane pane = (Pane) node;
+                if (node instanceof Pane pane) {
                     disableControls(pane.getChildrenUnmodifiable(), disabled, excludedControls);
-                } else if (node instanceof ToolBar) {
-                    ToolBar toolBar = (ToolBar) node;
+                } else if (node instanceof ToolBar toolBar) {
                     disableControls(toolBar.getItems(), disabled, excludedControls);
                 } else {
                     try {
@@ -276,8 +274,7 @@ public class FxHelper {
 
     public static ButtonBase getButtonForAction(Action action, ObservableList<Node> items) {
         for (Node item : items) {
-            if (item instanceof ButtonBase) {
-                ButtonBase buttonBase = (ButtonBase) item;
+            if (item instanceof ButtonBase buttonBase) {
                 if (buttonBase.getOnAction().equals(action)) {
                     return buttonBase;
                 }
