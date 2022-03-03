@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,11 +17,13 @@ package se.trixon.almond.nbp;
 
 import java.awt.Frame;
 import java.lang.reflect.InvocationTargetException;
+import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import org.openide.util.Exceptions;
 import org.openide.windows.Mode;
 import org.openide.windows.TopComponent;
 import org.openide.windows.WindowManager;
+import se.trixon.almond.util.swing.dialogs.SimpleDialog;
 
 /**
  *
@@ -33,6 +35,7 @@ public class Almond {
     public static int ICON_LARGE = 24;
     public static int ICON_SMALL = 16;
     private final static WindowManager WINDOW_MANAGER = WindowManager.getDefault();
+    private static JFrame sFrame;
     private static boolean sWasSelected;
 
     public static void activateWindow(boolean active) {
@@ -42,7 +45,7 @@ public class Almond {
     }
 
     public static Frame getFrame() {
-        return WindowManager.getDefault().getMainWindow();
+        return sFrame;
     }
 
     public static <T extends TopComponent> T getTopComponent(String id, Class<T> type) {
@@ -129,4 +132,8 @@ public class Almond {
         return sWasSelected;
     }
 
+    public static void setFrame(JFrame frame) {
+        SimpleDialog.setParent(frame);
+        sFrame = frame;
+    }
 }

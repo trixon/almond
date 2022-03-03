@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 package se.trixon.almond.nbp;
 
 import java.awt.Frame;
-import java.util.prefs.PreferenceChangeEvent;
+import javax.swing.JFrame;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
 import org.openide.modules.ModuleInstall;
@@ -46,8 +46,8 @@ public class Installer extends ModuleInstall {
 
     @Override
     public void restored() {
-        AlmondOptions.INSTANCE.getPreferences().addPreferenceChangeListener((PreferenceChangeEvent evt) -> {
-            if (evt.getKey().equalsIgnoreCase(AlmondOptions.KEY_ALWAYS_ON_TOP)) {
+        AlmondOptions.INSTANCE.getPreferences().addPreferenceChangeListener(pce -> {
+            if (pce.getKey().equalsIgnoreCase(AlmondOptions.KEY_ALWAYS_ON_TOP)) {
                 mFrame.setAlwaysOnTop(mOptions.getAlwaysOnTop());
             }
         });
@@ -55,6 +55,7 @@ public class Installer extends ModuleInstall {
         WindowManager.getDefault().invokeWhenUIReady(() -> {
             mFrame = WindowManager.getDefault().getMainWindow();
             mFrame.setAlwaysOnTop(mOptions.getAlwaysOnTop());
+            Almond.setFrame((JFrame) mFrame);
         });
     }
 }
