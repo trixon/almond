@@ -282,7 +282,7 @@
 
     <properties>
         <netbeans.hint.license>apache20</netbeans.hint.license>
-        <netbeans.version>RELEASE126</netbeans.version>
+        <netbeans.version>RELEASE130</netbeans.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 </project>
