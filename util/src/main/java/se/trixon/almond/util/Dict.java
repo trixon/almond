@@ -372,6 +372,7 @@ public enum Dict {
     RUN_AFTER,
     RUN_BEFORE,
     SAVE,
+    SAVE_ALL,
     SAVE_AS,
     SAVE_LOG,
     SAVING,
