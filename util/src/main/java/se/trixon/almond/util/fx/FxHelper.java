@@ -26,6 +26,7 @@ import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Point3D;
+import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -111,6 +112,12 @@ public class FxHelper {
     public static void autoCommitSpinners(Spinner... spinners) {
         for (Spinner spinner : spinners) {
             autoCommitSpinner(spinner);
+        }
+    }
+
+    public static void setValignment(VPos value, Node... nodes) {
+        for (var node : nodes) {
+            GridPane.setValignment(node, value);
         }
     }
 
