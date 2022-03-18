@@ -416,6 +416,7 @@ public enum Dict {
     STYLE,
     SUBDIRECTORIES,
     SYMBOL,
+    SYMBOLS,
     SYSTEM,
     SYSTEM_ADMINISTRATION,
     SYSTEM_CODE,
@@ -599,6 +600,7 @@ public enum Dict {
         POLYGON,
         RADIUS,
         RECTANGLE,
+        SHAPE,
         SQUARE,
         SURFACE,
         WIDTH;
