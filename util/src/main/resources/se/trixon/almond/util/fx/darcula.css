@@ -48,6 +48,15 @@
 .popover > .border {
     -fx-fill: #3c3f41 !important;
 }
+
+.undo-redo-box > .undo-button > .ikonli-font-icon{
+     -fx-fill: -fx-light-text-color !important;
+}
+
+.undo-redo-box > .redo-button > .ikonli-font-icon{
+     -fx-fill: -fx-light-text-color !important;
+}
+
 .tool-bar {
     -fx-background-color: #3c3f41;
 }
