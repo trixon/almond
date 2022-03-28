@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,6 +18,7 @@ package se.trixon.almond.util.io;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -95,35 +96,13 @@ public class Geo extends CoordinateFile {
             mRawLines = new LinkedList<>(FileUtils.readLines(file, mCharset));
         }
 
-        var headerSection = GeoHelper.extractSection("FileHeader", "PointList", mRawLines);
-        mHeader = new GeoHeader(headerSection);
+        read();
+    }
 
-        try {
-            var section = GeoHelper.extractSection("PointList", "LineList", mRawLines);
-            var points = GeoHelper.parsePointList(null, section);
-            mPoints.addAll(points);
-        } catch (Exception e) {
-            throw new IOException("Parse PointList Failed: ", e);
-        }
+    public void read(String string) throws IOException {
+        mRawLines = new LinkedList<>(Arrays.asList(StringUtils.split(string, LINE_ENDING)));
 
-        try {
-            var section = GeoHelper.extractSection("LineList", "AttributeList", mRawLines);
-            GeoHelper.stripWrapper(section);
-
-            while (!section.isEmpty()) {
-                var lineSection = GeoHelper.extractSection("Line", NO_NEXT_SECTION, section);
-                mLines.add(new GeoLine(lineSection));
-            }
-        } catch (Exception e) {
-            throw new IOException("Parse LineList Failed: ", e);
-        }
-
-        try {
-            var section = GeoHelper.extractSection("AttributeList", NO_NEXT_SECTION, mRawLines);
-            mAttributes.putAll(GeoHelper.getAttributes(section));
-        } catch (Exception e) {
-            throw new IOException("Parse AttributeList Failed: ", e);
-        }
+        read();
     }
 
     public void setAttributes(LinkedHashMap<String, String> attributes) {
@@ -170,5 +149,37 @@ public class Geo extends CoordinateFile {
     public void write(File file, CoordinateFormat coordinateFormat) throws IOException {
         mCoordinateFormat = coordinateFormat;
         FileUtils.writeStringToFile(file, toString(), mCharset);
+    }
+
+    private void read() throws IOException {
+        var headerSection = GeoHelper.extractSection("FileHeader", "PointList", mRawLines);
+        mHeader = new GeoHeader(headerSection);
+
+        try {
+            var section = GeoHelper.extractSection("PointList", "LineList", mRawLines);
+            var points = GeoHelper.parsePointList(null, section);
+            mPoints.addAll(points);
+        } catch (Exception e) {
+            throw new IOException("Parse PointList Failed: ", e);
+        }
+
+        try {
+            var section = GeoHelper.extractSection("LineList", "AttributeList", mRawLines);
+            GeoHelper.stripWrapper(section);
+
+            while (!section.isEmpty()) {
+                var lineSection = GeoHelper.extractSection("Line", NO_NEXT_SECTION, section);
+                mLines.add(new GeoLine(lineSection));
+            }
+        } catch (Exception e) {
+            throw new IOException("Parse LineList Failed: ", e);
+        }
+
+        try {
+            var section = GeoHelper.extractSection("AttributeList", NO_NEXT_SECTION, mRawLines);
+            mAttributes.putAll(GeoHelper.getAttributes(section));
+        } catch (Exception e) {
+            throw new IOException("Parse AttributeList Failed: ", e);
+        }
     }
 }
