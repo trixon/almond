@@ -78,6 +78,14 @@ public class CollectionHelper {
         return map.get(key);
     }
 
+    public static void moveItem(List list, int sourceIndex, int targetIndex) {
+        if (sourceIndex <= targetIndex) {
+            Collections.rotate(list.subList(sourceIndex, targetIndex + 1), -1);
+        } else {
+            Collections.rotate(list.subList(targetIndex, sourceIndex + 1), 1);
+        }
+    }
+
     public static void replaceIfAfter(Map<String, Timestamp> map, String key, Timestamp newTimestamp) {
         Timestamp oldTimestamp = map.getOrDefault(key, new Timestamp(Long.MIN_VALUE));
         map.put(key, DateHelper.getMax(oldTimestamp, newTimestamp));
