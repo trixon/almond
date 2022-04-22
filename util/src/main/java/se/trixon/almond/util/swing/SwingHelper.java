@@ -15,12 +15,15 @@
  */
 package se.trixon.almond.util.swing;
 
+import java.awt.AWTException;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Insets;
+import java.awt.Robot;
+import java.awt.event.InputEvent;
 import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.logging.Level;
@@ -240,6 +243,35 @@ public class SwingHelper {
                 }
             }
         });
+    }
+
+    /**
+     * Tries to activate a window and excute a runnable after that.
+     *
+     * Usually needed when using drag and drop
+     *
+     *
+     * @param c the component to find its window
+     * @param r the runnable to execute when focused
+     */
+    public static void requestWindowFocusAndRun(Component c, Runnable r) {
+        try {
+            //The Robot is needed to override Focus stealing prevention
+            var robot = new Robot();
+            robot.mousePress(InputEvent.BUTTON2_DOWN_MASK);
+            robot.mouseRelease(InputEvent.BUTTON2_DOWN_MASK);
+        } catch (AWTException ex) {
+            //If the platform configuration does not allow low-level input control,
+            //for example, if the X-Window systems XTEST 2.2 extension is not activated.
+            //
+            //Request focus and hope for the best
+            SwingUtilities.invokeLater(() -> {
+                SwingUtilities.getWindowAncestor(c).requestFocus();
+            });
+        } finally {
+            //Give it some time to get activated before running...
+            runLaterDelayed(20, r);
+        }
     }
 
     /**
