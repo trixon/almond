@@ -115,12 +115,6 @@ public class FxHelper {
         }
     }
 
-    public static void setValignment(VPos value, Node... nodes) {
-        for (var node : nodes) {
-            GridPane.setValignment(node, value);
-        }
-    }
-
     public static void autoSizeColumn(GridPane gridPane, int columnCount) {
         gridPane.getColumnConstraints().clear();
 
@@ -131,11 +125,24 @@ public class FxHelper {
         }
     }
 
+    @Deprecated
     public static void autoSizeRegion(Region... regions) {
+        autoSizeRegionHorizontal(regions);
+    }
+
+    public static void autoSizeRegionHorizontal(Region... regions) {
         for (Region region : regions) {
             GridPane.setHgrow(region, Priority.ALWAYS);
             GridPane.setFillWidth(region, true);
             region.setMaxWidth(Double.MAX_VALUE);
+        }
+    }
+
+    public static void autoSizeRegionVertical(Region... regions) {
+        for (Region region : regions) {
+            GridPane.setVgrow(region, Priority.ALWAYS);
+            GridPane.setFillHeight(region, true);
+            region.setMaxHeight(Double.MAX_VALUE);
         }
     }
 
@@ -491,6 +498,12 @@ public class FxHelper {
 
     public static void setTooltip(Action action, KeyCodeCombination keyCodeCombination) {
         action.setLongText(String.format(FORMAT_TITLE_DESC, action.getText(), keyCodeCombination.getDisplayText()));
+    }
+
+    public static void setValignment(VPos value, Node... nodes) {
+        for (var node : nodes) {
+            GridPane.setValignment(node, value);
+        }
     }
 
     public static Optional showAndWait(Dialog dialog, Stage stage) {
