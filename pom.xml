@@ -259,17 +259,10 @@
         </dependencies>
     </dependencyManagement>
 
-    <distributionManagement>
-        <repository>
-            <id>github</id>
-            <name>GitHub trixon Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/trixon/almond</url>
-        </repository>
-    </distributionManagement>
     <repositories>
         <repository>
             <id>netbeans-next</id>
-            <url>https://repository.apache.org/content/repositories/orgapachenetbeans-1104</url>
+            <url>https://repository.apache.org/content/repositories/orgapachenetbeans-1109</url>
         </repository>
     </repositories>
 
