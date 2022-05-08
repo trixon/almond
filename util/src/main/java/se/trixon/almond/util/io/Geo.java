@@ -109,6 +109,10 @@ public class Geo extends CoordinateFile {
         mAttributes = attributes;
     }
 
+    public void setCoordinateFormat(CoordinateFormat coordinateFormat) {
+        mCoordinateFormat = coordinateFormat;
+    }
+
     public void setHeader(GeoHeader header) {
         mHeader = header;
     }
