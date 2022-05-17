@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,6 +25,14 @@ import java.util.ResourceBundle;
 public class BooleanHelper {
 
     private static final ResourceBundle sBundle = ResourceBundle.getBundle(SystemHelper.getPackageAsPath(Dict.class) + "BooleanBundle", Locale.getDefault());
+
+    public static String asCheckBox(boolean value) {
+        return value ? "☑" : "☐";
+    }
+
+    public static String asCheckBox(boolean value, String text) {
+        return (value ? "☑" : "☐") + " " + text;
+    }
 
     public static String asLocalized(boolean value) {
         return sBundle.getString(value ? "true" : "false");
