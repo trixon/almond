@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -44,12 +44,9 @@ public final class IconOptionsPanelController extends OptionsPanelController {
 
     @Override
     public void applyChanges() {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                getPanel().store();
-                mChanged = false;
-            }
+        SwingUtilities.invokeLater(() -> {
+            getPanel().store();
+            mChanged = false;
         });
     }
 

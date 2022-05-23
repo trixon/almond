@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,6 @@
 package se.trixon.almond.nbp.dialogs;
 
 import java.awt.Color;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
@@ -52,15 +51,11 @@ public class ColorChooserDialog {
         mColorChooser.setBorder(new EmptyBorder(10, 10, 0, 10));
         final JButton resetButton = new JButton(NbBundle.getMessage(ColorChooserDialog.class, "CTL_Reset"));
 
-        ActionListener actionListener = new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == resetButton) {
-                    mColorChooser.setColor(mCurrentColor);
-                } else if (mDialogDescriptor.getValue() == NotifyDescriptor.CANCEL_OPTION) {
-                    mColorChooser.setColor(mCurrentColor);
-                }
+        ActionListener actionListener = actionEvent -> {
+            if (actionEvent.getSource() == resetButton) {
+                mColorChooser.setColor(mCurrentColor);
+            } else if (mDialogDescriptor.getValue() == NotifyDescriptor.CANCEL_OPTION) {
+                mColorChooser.setColor(mCurrentColor);
             }
         };
 

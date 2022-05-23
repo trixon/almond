@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -105,10 +105,8 @@ public class Demo extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Demo().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Demo().setVisible(true);
         });
     }
 
