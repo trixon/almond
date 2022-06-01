@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,12 +20,41 @@ import java.awt.Point;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Locale;
+import javafx.geometry.Point2D;
 
 /**
  *
  * @author Patrik Karlström
  */
 public class MathHelper {
+
+    /**
+     * Calculates circle center from two points and a radius. A negative radius
+     * returns the other center.
+     *
+     * @param p1
+     * @param p2
+     * @param r
+     * @return
+     */
+    public static Point2D calculateCircleCenter(Point2D p1, Point2D p2, double r) {
+        var x1 = p1.getX();
+        var y1 = p1.getY();
+        var x2 = p2.getX();
+        var y2 = p2.getY();
+
+        var d = p1.distance(p2);
+        var x3 = (x1 + x2) / 2;
+        var y3 = (y1 + y2) / 2;
+        var q = Math.signum(r) * Math.sqrt(r * r - Math.pow((d / 2), 2)) / d;
+
+//        var x = x3 - Math.signum(r) * Math.sqrt(r * r - Math.pow((d / 2), 2)) * (y1 - y2) / d;
+//        var y = y3 - Math.signum(r) * Math.sqrt(r * r - Math.pow((d / 2), 2)) * (x2 - x1) / d;
+        var x = x3 - q * (y1 - y2);
+        var y = y3 - q * (x2 - x1);
+
+        return new Point2D(x, y);
+    }
 
     public static double convertDoubleToDouble(Double d) {
         return d == null ? 0 : d;
