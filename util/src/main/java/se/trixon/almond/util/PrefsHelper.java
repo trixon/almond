@@ -26,6 +26,25 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class PrefsHelper {
 
+    public static int dec(Preferences preferences, String key, int step) {
+        return inc(preferences, key, -step);
+    }
+
+    public static int dec(Preferences preferences, String key) {
+        return inc(preferences, key, -1);
+    }
+
+    public static int inc(Preferences preferences, String key, int step) {
+        int value = preferences.getInt(key, 0) + step;
+        preferences.putInt(key, value);
+
+        return value;
+    }
+
+    public static int inc(Preferences preferences, String key) {
+        return inc(preferences, key, 1);
+    }
+
     public static boolean keyExists(Preferences preferences, String key) {
         return preferences.get(key, null) != null;
     }
