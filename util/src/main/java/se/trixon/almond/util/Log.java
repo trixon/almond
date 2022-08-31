@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -181,11 +181,11 @@ public class Log {
     }
 
     private String getMessage(String s1, String s2) {
-        return String.format("[%s] %s", s1, s2);
+        return "[%s] %s".formatted(s1, s2);
     }
 
     private String getMessage(String s1, String s2, String s3) {
-        return String.format("[%s] [%s] %s", s1, s2, s3);
+        return "[%s] [%s] %s".formatted(s1, s2, s3);
     }
 
     private String getTag(String localTag) {
@@ -201,11 +201,11 @@ public class Log {
     }
 
     private void print(String levelClass, String message) {
-        mOut.println(String.format("%s%s %s", getDate(), levelClass, message));
+        mOut.println("%s%s %s".formatted(getDate(), levelClass, message));
     }
 
     private void printErr(String levelClass, String message) {
-        mErr.println(String.format("%s%s %s", getDate(), levelClass, message));
+        mErr.println("%s%s %s".formatted(getDate(), levelClass, message));
     }
 
 }

@@ -99,7 +99,7 @@ class GenerateMaterial {
                                BufferedImage bi = null;
 
                                try {
-                                   bi = ImageIO.read(MaterialIcon.class.getResource(String.format("%s/%s_white.png", dir, baseName.toLowerCase())));
+                                   bi = ImageIO.read(MaterialIcon.class.getResource("%s/%s_white.png".formatted(dir, baseName.toLowerCase())));
                                    bi = GraphicsHelper.toBufferedImage(bi.getScaledInstance(size, size, Image.SCALE_SMOOTH));
                                    bi = GraphicsHelper.colorize(bi, color);
                                } catch (IOException ex) {
@@ -172,7 +172,7 @@ class GenerateMaterial {
             if (dir.toString().contains("2x_web")) {
                 mCategory = dir.getParent().getFileName().toString();
                 StringBuilder builder = new StringBuilder();
-                builder.append(String.format("public enum _%s implements IconGetter{", StringUtils.capitalize(mCategory.toLowerCase()))).append("\n");
+                builder.append("public enum _%s implements IconGetter{".formatted(StringUtils.capitalize(mCategory.toLowerCase()))).append("\n");
                 File categoryDir = new File(mDestDir, "_" + mCategory);
                 FileUtils.forceMkdir(categoryDir);
 

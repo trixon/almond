@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,7 +23,8 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * This class handles the execution flow of runnables with regard to whether a it's key is marked ready or not.
+ * This class handles the execution flow of runnables with regard to whether a
+ * it's key is marked ready or not.
  *
  * It makes no guarantees as to the order of runnables within each key.
  *
@@ -40,7 +41,8 @@ public class ExecutionFlow {
     /**
      * Register a runnable to a key.
      *
-     * The runnable will be executed once the key is marked ready, if the key is marked ready, it will be run immediately.
+     * The runnable will be executed once the key is marked ready, if the key is
+     * marked ready, it will be run immediately.
      *
      * @param key
      * @param runnable
@@ -54,7 +56,8 @@ public class ExecutionFlow {
     }
 
     /**
-     * Mark a key as ready and execute all runnables for that key in their own threads.
+     * Mark a key as ready and execute all runnables for that key in their own
+     * threads.
      *
      * @param key
      */
@@ -72,6 +75,6 @@ public class ExecutionFlow {
     }
 
     private void execute(String key, Runnable runnable) {
-        new Thread(runnable, String.format("%s/%s", getClass().getSimpleName(), key)).start();
+        new Thread(runnable, "%s/%s".formatted(getClass().getSimpleName(), key)).start();
     }
 }

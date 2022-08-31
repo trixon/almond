@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -53,7 +53,7 @@ public class NbAboutFx extends FxDialogPanel {
 
         DialogDescriptor d = new DialogDescriptor(
                 this,
-                String.format(Dict.ABOUT_S.toString(), mAboutModel.getAppName()),
+                Dict.ABOUT_S.toString().formatted(mAboutModel.getAppName()),
                 true,
                 new Object[]{Dict.CLOSE.toString()},
                 Dict.CLOSE.toString(),
@@ -80,7 +80,7 @@ public class NbAboutFx extends FxDialogPanel {
         double scaledFontSize = FxHelper.getScaledFontSize();
         Label appLabel = new Label(mAboutModel.getAppName());
         appLabel.setFont(new Font(scaledFontSize * 1.8));
-        Label verLabel = new Label(String.format("%s %s", Dict.VERSION.toString(), mAboutModel.getAppVersion()));
+        Label verLabel = new Label("%s %s".formatted(Dict.VERSION.toString(), mAboutModel.getAppVersion()));
         verLabel.setFont(new Font(scaledFontSize * 1.2));
         Label dateLabel = new Label(mAboutModel.getAppDate());
         dateLabel.setFont(new Font(scaledFontSize * 1.2));

@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -44,7 +44,7 @@ public class SystemInformation {
 
         var hwItems = new ArrayList<String>();
 
-        hwItems.add(String.format("%s %s (%s)",
+        hwItems.add("%s %s (%s)".formatted(
                 hw.getComputerSystem().getManufacturer(),
                 hw.getComputerSystem().getModel(),
                 FormatUtil.formatHertz(hw.getProcessor().getMaxFreq())
@@ -53,7 +53,7 @@ public class SystemInformation {
         hwItems.add(hw.getProcessor().getProcessorIdentifier().getIdentifier());
 //        hwItems.add(String.format("Available memory %s/%s", FormatUtil.formatBytes(hw.getMemory().getAvailable()), FormatUtil.formatBytes(hw.getMemory().getTotal())));
         hw.getGraphicsCards().forEach(graphicsCard -> {
-            hwItems.add(String.format("%s %s", graphicsCard.getName(), graphicsCard.getVendor()));
+            hwItems.add("%s %s".formatted(graphicsCard.getName(), graphicsCard.getVendor()));
         });
 
         hw.getDiskStores().forEach(diskStore -> {

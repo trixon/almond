@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -145,11 +145,11 @@ public class Xlog {
     }
 
     private static String getMessage(String s1, String s2) {
-        return String.format("[%s] %s", s1, s2);
+        return "[%s] %s".formatted(s1, s2);
     }
 
     private static String getMessage(String s1, String s2, String s3) {
-        return String.format("[%s] [%s] %s", s1, s2, s3);
+        return "[%s] [%s] %s".formatted(s1, s2, s3);
     }
 
     private static String getNullSafeMsg(String msg) {
@@ -174,7 +174,7 @@ public class Xlog {
 
     private static void print(String levelClass, String message) {
         printDate(System.out);
-        System.out.println(String.format("%s %s", levelClass, message));
+        System.out.println("%s %s".formatted(levelClass, message));
     }
 
     private static void printDate(PrintStream printStream) {
@@ -185,6 +185,6 @@ public class Xlog {
 
     private static void printErr(String levelClass, String message) {
         printDate(System.err);
-        System.out.println(String.format("%s %s", levelClass, message));
+        System.out.println("%s %s".formatted(levelClass, message));
     }
 }

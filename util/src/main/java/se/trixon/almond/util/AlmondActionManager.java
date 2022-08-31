@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -87,7 +87,7 @@ public abstract class AlmondActionManager {
 
     protected void initAboutDateFormatAction() {
         KeyStroke keyStroke = null;
-        String title = String.format(Dict.ABOUT_S.toString(), Dict.DATE_PATTERN.toString().toLowerCase());
+        String title = Dict.ABOUT_S.toString().formatted(Dict.DATE_PATTERN.toString().toLowerCase());
         AlmondAction action = new AlmondAction(title) {
 
             @Override
@@ -108,7 +108,7 @@ public abstract class AlmondActionManager {
             shortcut = StringUtils.replace(shortcut, " Pressed ", "+");
             shortcut = StringUtils.replace(shortcut, "Pressed ", "");
 
-            shortDescription = String.format("%s (%s)",
+            shortDescription = "%s (%s)".formatted(
                     shortDescription,
                     shortcut
             );

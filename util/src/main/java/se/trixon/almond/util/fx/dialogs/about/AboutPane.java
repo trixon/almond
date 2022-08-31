@@ -49,7 +49,7 @@ public class AboutPane extends TabPane {
             aboutPane.reset();
             Alert alert = new Alert(Alert.AlertType.NONE);
             alert.initOwner(stage);
-            alert.setTitle(String.format(Dict.ABOUT_S.toString(), aboutModel.getAppName()));
+            alert.setTitle(Dict.ABOUT_S.toString().formatted(aboutModel.getAppName()));
 
             ButtonType closeButtonType = new ButtonType(Dict.CLOSE.toString(), ButtonData.OK_DONE);
             alert.getButtonTypes().setAll(closeButtonType);
@@ -67,7 +67,7 @@ public class AboutPane extends TabPane {
                     var appLabel = new Label(aboutModel.getAppName());
                     double scaledFontSize = FxHelper.getScaledFontSize();
                     appLabel.setFont(new Font(scaledFontSize * 1.8));
-                    var verLabel = new Label(String.format("%s %s", Dict.VERSION.toString(), aboutModel.getAppVersion()));
+                    var verLabel = new Label("%s %s".formatted(Dict.VERSION.toString(), aboutModel.getAppVersion()));
                     verLabel.setFont(new Font(scaledFontSize * 1.2));
                     var dateLabel = new Label(aboutModel.getAppDate());
                     dateLabel.setFont(new Font(scaledFontSize * 1.2));

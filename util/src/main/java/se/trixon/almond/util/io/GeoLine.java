@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -104,7 +104,7 @@ public class GeoLine {
     @Override
     public String toString() {
         var sb = new StringBuilder();
-        sb.append(String.format("Line %s,%s,%s",
+        sb.append("Line %s,%s,%s".formatted(
                 GeoHelper.toQuotedString(mLineNumber),
                 mClosedPolygon,
                 GeoHelper.toQuotedString(mCode)

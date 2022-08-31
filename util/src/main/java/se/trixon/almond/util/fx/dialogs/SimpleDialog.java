@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -140,7 +140,7 @@ public class SimpleDialog {
             alert.initOwner(sOwner);
 
             alert.setTitle(Dict.Dialog.TITLE_FILE_EXISTS.toString());
-            alert.setHeaderText(String.format(Dict.Dialog.MESSAGE_FILE_EXISTS.toString(), file.getAbsolutePath()));
+            alert.setHeaderText(Dict.Dialog.MESSAGE_FILE_EXISTS.toString().formatted(file.getAbsolutePath()));
 
             ButtonType replaceButtonType = new ButtonType(Dict.REPLACE.toString(), ButtonData.YES);
             ButtonType cancelButtonType = new ButtonType(Dict.CANCEL.toString(), ButtonData.NO);

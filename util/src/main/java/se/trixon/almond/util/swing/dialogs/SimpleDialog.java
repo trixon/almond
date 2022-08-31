@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -161,7 +161,7 @@ public class SimpleDialog {
 
         if (file.exists()) {
             var result = JOptionPane.showConfirmDialog(sParent,
-                    String.format(Dict.Dialog.MESSAGE_FILE_EXISTS.toString(), file.getAbsolutePath()),
+                    Dict.Dialog.MESSAGE_FILE_EXISTS.toString().formatted(file.getAbsolutePath()),
                     Dict.Dialog.TITLE_FILE_EXISTS.toString(),
                     JOptionPane.YES_NO_OPTION);
 

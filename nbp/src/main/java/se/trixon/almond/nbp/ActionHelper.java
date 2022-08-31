@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -40,7 +40,7 @@ public class ActionHelper {
     }
 
     public static Action getAction(String category, String id) {
-        String path = String.format("%s/%s.instance", category, id.replace(".", "-"));
+        String path = "%s/%s.instance".formatted(category, id.replace(".", "-"));
         //System.out.println(path);
         return FileUtil.getConfigObject(path, Action.class);
     }

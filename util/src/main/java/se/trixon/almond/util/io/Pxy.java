@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -124,13 +124,13 @@ public class Pxy extends CoordinateFile {
     @Override
     public void openWriter(File file) throws IOException {
         StringBuilder builder = new StringBuilder();
-        builder.append(String.format("%-16s,", mIdText));
-        builder.append(String.format("%-5s,", mVersion));
-        builder.append(String.format("%-10s,", mDate));
-        builder.append(String.format("%-40s", mReserved1));
+        builder.append("%-16s,".formatted(mIdText));
+        builder.append("%-5s,".formatted(mVersion));
+        builder.append("%-10s,".formatted(mDate));
+        builder.append("%-40s".formatted(mReserved1));
         builder.append(",").append(mLineEnding);
-        builder.append(String.format("%-40s,", mDescription));
-        builder.append(String.format("%-33s", mReserved2));
+        builder.append("%-40s,".formatted(mDescription));
+        builder.append("%-33s".formatted(mReserved2));
         builder.append(",").append(mLineEnding);
 
         mWriter = Files.newBufferedWriter(file.toPath(), mCharset);

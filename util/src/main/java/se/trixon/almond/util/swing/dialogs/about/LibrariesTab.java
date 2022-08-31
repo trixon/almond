@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -38,7 +38,7 @@ public class LibrariesTab extends BaseListTab {
     private void init() {
         String javaVersion = System.getProperty("java.runtime.version");
         String javaName = System.getProperty("java.runtime.name");
-        String java = String.format("%s %s", javaName, javaVersion);
+        String java = "%s %s".formatted(javaName, javaVersion);
         mLibraries.add(java);
 
         ArrayList<String> libraries = new ArrayList<>();

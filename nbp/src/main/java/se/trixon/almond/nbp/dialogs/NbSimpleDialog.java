@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -139,7 +139,7 @@ public class NbSimpleDialog {
 
         if (file.exists()) {
             NotifyDescriptor notifyDescriptor = new NotifyDescriptor(
-                    String.format(Dict.Dialog.MESSAGE_FILE_EXISTS.toString(), file.getAbsolutePath()),
+                    Dict.Dialog.MESSAGE_FILE_EXISTS.toString().formatted(file.getAbsolutePath()),
                     Dict.Dialog.TITLE_FILE_EXISTS.toString(),
                     NotifyDescriptor.DEFAULT_OPTION,
                     NotifyDescriptor.QUESTION_MESSAGE,

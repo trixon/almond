@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -36,7 +36,7 @@ public class AboutTab extends Tab {
         Label desc = new Label(aboutModel.getAppDescription());
         Label copyright = new Label(aboutModel.getAppCopyright());
         UriLabel appHyperlink = new UriLabel(aboutModel.getAppUrlTitle());
-        UriLabel licenseHyperlink = new UriLabel(String.format("%s: %s", Dict.LICENSE.toString(), aboutModel.getAppLicenseUrlTitle()));
+        UriLabel licenseHyperlink = new UriLabel("%s: %s".formatted(Dict.LICENSE.toString(), aboutModel.getAppLicenseUrlTitle()));
 
         appHyperlink.setUri(aboutModel.getAppUrl());
         licenseHyperlink.setUri(aboutModel.getAppLicenseUrl());

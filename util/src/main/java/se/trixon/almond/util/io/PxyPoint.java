@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -128,16 +128,16 @@ public class PxyPoint extends CoordinatePoint {
         String zFormat = String.format(Locale.ENGLISH, "%%%d.%df", 12 - MAX_DECIMALS + mZPrecision - zInt, mZPrecision);
 
         StringBuilder builder = new StringBuilder();
-        builder.append(String.format("%-12s", mPointId));
+        builder.append("%-12s".formatted(mPointId));
         builder.append("  ");
         builder.append(String.format(Locale.ENGLISH, xyFormat, mX)).append(xyPadding);
         builder.append(String.format(Locale.ENGLISH, xyFormat, mY)).append(xyPadding);
         builder.append(String.format(Locale.ENGLISH, zFormat, mZ)).append(zPadding);
         builder.append(" ");
-        builder.append(String.format("%-8s", mPointCode));
+        builder.append("%-8s".formatted(mPointCode));
         builder.append(" ");
-        builder.append(String.format("%-2s", mSpecialCode));
-        builder.append(String.format("%-12s", mRemark));
+        builder.append("%-2s".formatted(mSpecialCode));
+        builder.append("%-12s".formatted(mRemark));
         builder.append(",").append(sLineEnding);
 
         return builder.toString();

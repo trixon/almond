@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -42,7 +42,7 @@ public class SystemHelperFx extends SystemHelper {
     public static Image getResourceAsImage(Class cls, String name) {
         Image image = null;
         try {
-            String path = String.format("/%s%s", getPackageAsPath(cls), name);
+            String path = "/%s%s".formatted(getPackageAsPath(cls), name);
             image = new Image(path);
         } catch (Exception e) {
             System.err.println(e.getMessage());
@@ -54,7 +54,7 @@ public class SystemHelperFx extends SystemHelper {
     public static ImageView getResourceAsImageView(Class cls, String name) {
         ImageView imageView = null;
         try {
-            String path = String.format("/%s%s", getPackageAsPath(cls), name);
+            String path = "/%s%s".formatted(getPackageAsPath(cls), name);
             imageView = new ImageView(new Image(path));
         } catch (Exception e) {
             System.err.println(e.getMessage());

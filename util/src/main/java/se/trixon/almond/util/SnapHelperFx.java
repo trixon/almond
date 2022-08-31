@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -34,7 +34,7 @@ public class SnapHelperFx {
                 StringBuilder sb = new StringBuilder();
                 for (String plugsAndSlot : plugsAndSlots) {
                     if (!SnapHelper.isConnected(plugsAndSlot)) {
-                        sb.append(String.format("sudo snap connect %s:%s\n", snapName, plugsAndSlot));
+                        sb.append("sudo snap connect %s:%s\n".formatted(snapName, plugsAndSlot));
                     }
                 }
 
@@ -49,7 +49,7 @@ public class SnapHelperFx {
                             AlertType.INFORMATION,
                             window,
                             Dict.INFORMATION.toString(),
-                            String.format("It looks like you are running '%s' as a snap", snapName),
+                            "It looks like you are running '%s' as a snap".formatted(snapName),
                             message,
                             null
                     );

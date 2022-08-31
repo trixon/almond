@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -36,7 +36,7 @@ public class GeoHelper {
         if (!attributes.isEmpty()) {
             sb.append("\t".repeat(indentLevel)).append(KEY_BEGIN).append(Geo.LINE_ENDING);
             for (Map.Entry<String, String> entry : attributes.entrySet()) {
-                sb.append("\t".repeat(indentLevel + 1)).append(String.format("Attribute \"%s\",\"%s\"", entry.getKey(), entry.getValue())).append(Geo.LINE_ENDING);
+                sb.append("\t".repeat(indentLevel + 1)).append("Attribute \"%s\",\"%s\"".formatted(entry.getKey(), entry.getValue())).append(Geo.LINE_ENDING);
             }
             sb.append("\t".repeat(indentLevel)).append(KEY_END).append(Geo.LINE_ENDING);
         }
@@ -213,6 +213,6 @@ public class GeoHelper {
      * @return a quoted string if not blank
      */
     static String toQuotedString(String s) {
-        return StringUtils.isBlank(s) ? "" : String.format("\"%s\"", s);
+        return StringUtils.isBlank(s) ? "" : "\"%s\"".formatted(s);
     }
 }

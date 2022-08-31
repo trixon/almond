@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -158,12 +158,12 @@ public class NbLog {
         if (StringUtils.isBlank(s1)) {
             return s2;
         } else {
-            return String.format("[%s] %s", s1, s2);
+            return "[%s] %s".formatted(s1, s2);
         }
     }
 
     private static String getMessage(String s1, String s2, String s3) {
-        return String.format("[%s] [%s] %s", s1, s2, s3);
+        return "[%s] [%s] %s".formatted(s1, s2, s3);
     }
 
     private static String getTag(String localTag) {

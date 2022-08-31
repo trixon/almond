@@ -64,7 +64,7 @@ public class MathHelper {
         if (d == null) {
             return "";
         } else {
-            String format = String.format("%%.%df", decimals);
+            String format = "%%.%df".formatted(decimals);
 
             return String.format(locale, format, d);
         }

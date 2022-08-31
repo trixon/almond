@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -76,7 +76,7 @@ public class ColorChooserButton extends JButton {
         mText = text;
         String color = GraphicsHelper.colorToHex(mColor);
         String textColor = GraphicsHelper.colorToHex(mTextColor);
-        super.setText(String.format("<html><font color=%s>%s <font color=%s>%s</html>", color, COLOR_SYMBOL, textColor, text));
+        super.setText("<html><font color=%s>%s <font color=%s>%s</html>".formatted(color, COLOR_SYMBOL, textColor, text));
     }
 
     public void setTextColor(Color textColor) {

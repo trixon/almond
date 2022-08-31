@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -76,7 +76,7 @@ public class GeoHeader {
 
         for (var entry : mFileInfos.entrySet()) {
             String value = GeoHelper.toQuotedString(entry.getValue());
-            sb.append(String.format("\tFileInfo \"%s\",%s", entry.getKey(), value)).append(Geo.LINE_ENDING);
+            sb.append("\tFileInfo \"%s\",%s".formatted(entry.getKey(), value)).append(Geo.LINE_ENDING);
         }
         sb.append(GeoHelper.KEY_END).append(Geo.LINE_ENDING);
 

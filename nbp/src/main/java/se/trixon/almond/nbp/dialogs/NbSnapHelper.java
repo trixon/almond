@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -34,12 +34,12 @@ public class NbSnapHelper {
                 StringBuilder sb = new StringBuilder();
                 for (String plugsAndSlot : plugsAndSlots) {
                     if (!SnapHelper.isConnected(plugsAndSlot)) {
-                        sb.append(String.format("sudo snap connect %s:%s\n", snapName, plugsAndSlot));
+                        sb.append("sudo snap connect %s:%s\n".formatted(snapName, plugsAndSlot));
                     }
                 }
 
                 if (sb.length() > 0) {
-                    String message = String.format("It looks like you are running '%s' as a snap", snapName) + "\n\nFor a better experience, consider executing:\n\n"
+                    String message = "It looks like you are running '%s' as a snap".formatted(snapName) + "\n\nFor a better experience, consider executing:\n\n"
                             + sb.toString()
                             + "\nor through the Permissions UI in the snap-store application.";
 

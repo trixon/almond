@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -34,7 +34,7 @@ public class PomInfo {
     private String mVersion = NOT_SET;
 
     public PomInfo(Class c, String groupId, String artifactId) {
-        InputStream inputStream = c.getResourceAsStream(String.format("/META-INF/maven/%s/%s/pom.properties", groupId, artifactId));
+        InputStream inputStream = c.getResourceAsStream("/META-INF/maven/%s/%s/pom.properties".formatted(groupId, artifactId));
         Properties p = new Properties();
 
         if (inputStream != null) {

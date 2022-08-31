@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -60,7 +60,7 @@ public final class AboutAction implements ActionListener {
 
             DialogDescriptor dialogDescriptor = new DialogDescriptor(
                     aboutPanel,
-                    String.format(Dict.ABOUT_S.toString(), sAboutModel.getAppName()),
+                    Dict.ABOUT_S.toString().formatted(sAboutModel.getAppName()),
                     false,
                     new Object[]{NotifyDescriptor.CLOSED_OPTION},
                     NotifyDescriptor.CLOSED_OPTION,

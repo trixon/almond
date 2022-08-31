@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -44,7 +44,7 @@ public class MaterialIcon {
         BufferedImage bi = null;
 
         try {
-            bi = ImageIO.read(cls.getResource(String.format("%s/%s_white.png", dir, baseName.toLowerCase())));
+            bi = ImageIO.read(cls.getResource("%s/%s_white.png".formatted(dir, baseName.toLowerCase())));
             bi = GraphicsHelper.toBufferedImage(bi.getScaledInstance(size, size, Image.SCALE_SMOOTH));
             bi = GraphicsHelper.colorize(bi, color);
         } catch (IOException ex) {

@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -179,7 +179,7 @@ public class SystemHelper {
     public static String getLocalizedResourceAsString(Class cls, String patternName, String defaultName) {
         String s = null;
         try {
-            s = new Scanner(cls.getResourceAsStream(String.format(patternName, SystemHelper.getUserLanguage())), StandardCharsets.UTF_8).useDelimiter("\\A").next();
+            s = new Scanner(cls.getResourceAsStream(patternName.formatted(SystemHelper.getUserLanguage())), StandardCharsets.UTF_8).useDelimiter("\\A").next();
         } catch (NullPointerException e) {
             try {
                 s = new Scanner(cls.getResourceAsStream(defaultName), StandardCharsets.UTF_8).useDelimiter("\\A").next();
@@ -197,7 +197,7 @@ public class SystemHelper {
     public static ImageIcon getResourceAsImageIcon(Class cls, String name) {
         ImageIcon imageIcon = null;
         try {
-            String path = String.format("/%s%s", getPackageAsPath(cls), name);
+            String path = "/%s%s".formatted(getPackageAsPath(cls), name);
             imageIcon = new ImageIcon(cls.getResource(path));
         } catch (Exception e) {
             System.err.println(e.getMessage());
@@ -219,23 +219,23 @@ public class SystemHelper {
 
     public static String getSystemInfo() {
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
-        map.put("Operating System", String.format("%s version %s running on %s",
+        map.put("Operating System", "%s version %s running on %s".formatted(
                 System.getProperty("os.name"),
                 System.getProperty("os.version"),
                 System.getProperty("os.arch")
         ));
-        map.put("Java; VM; Vendor", String.format("%s; %s %s; %s",
+        map.put("Java; VM; Vendor", "%s; %s %s; %s".formatted(
                 System.getProperty("java.version"),
                 System.getProperty("java.vm.name"),
                 System.getProperty("java.vm.version"),
                 System.getProperty("java.vendor")
         ));
-        map.put("Runtime", String.format("%s %s",
+        map.put("Runtime", "%s %s".formatted(
                 System.getProperty("java.runtime.name"),
                 System.getProperty("java.runtime.version")
         ));
         map.put("Java Home", System.getProperty("java.home"));
-        map.put("System Locale; Encoding", String.format("%s; %s",
+        map.put("System Locale; Encoding", "%s; %s".formatted(
                 Locale.getDefault().toString(),
                 System.getProperty("file.encoding")
         ));
@@ -294,9 +294,9 @@ public class SystemHelper {
     public static void printEvery(int counter, int total, int every, Logger logger, String formatMessage) {
         if (counter % every == 0) {
             if (logger != null) {
-                logger.info(String.format(formatMessage, counter));
+                logger.info(formatMessage.formatted(counter));
             } else {
-                System.out.println(String.format(formatMessage, counter, total));
+                System.out.println(formatMessage.formatted(counter, total));
             }
         }
     }

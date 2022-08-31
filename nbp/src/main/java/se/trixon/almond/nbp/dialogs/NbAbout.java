@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -43,7 +43,7 @@ public class NbAbout {
     public void display() {
         DialogDescriptor d = new DialogDescriptor(
                 mAboutPanel,
-                String.format(Dict.ABOUT_S.toString(), mAboutModel.getAppName()),
+                Dict.ABOUT_S.toString().formatted(mAboutModel.getAppName()),
                 true,
                 new Object[]{Dict.CLOSE.toString()},
                 Dict.CLOSE.toString(),

@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,8 +18,8 @@ package se.trixon.almond.util.fx.dialogs.about;
 import java.util.ArrayList;
 import java.util.Arrays;
 import org.apache.commons.lang3.StringUtils;
-import se.trixon.almond.util.Dict;
 import se.trixon.almond.util.AboutModel;
+import se.trixon.almond.util.Dict;
 
 /**
  *
@@ -37,7 +37,7 @@ public class LibrariesTab extends BaseListTab {
     private void init() {
         String javaVersion = System.getProperty("java.runtime.version");
         String javaName = System.getProperty("java.runtime.name");
-        String java = String.format("%s %s", javaName, javaVersion);
+        String java = "%s %s".formatted(javaName, javaVersion);
         mLibraries.add(java);
 
         ArrayList<String> libraries = new ArrayList<>();

@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -66,7 +66,7 @@ public class UriLabel extends JLabel {
 
     @Override
     public void setText(String text) {
-        super.setText(String.format("<html><a href=\"\">%s</a></html>", text));
+        super.setText("<html><a href=\"\">%s</a></html>".formatted(text));
     }
 
     public void setUri(URI uri) {

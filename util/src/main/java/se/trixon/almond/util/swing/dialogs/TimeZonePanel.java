@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -36,7 +36,7 @@ public class TimeZonePanel extends javax.swing.JPanel {
             if (i == 0) {
                 timeZones.add("UTC");
             } else {
-                timeZones.add(String.format("UTC%+d", i));
+                timeZones.add("UTC%+d".formatted(i));
             }
         }
         tzCustomComboBox.setModel(new DefaultComboBoxModel<>(timeZones.toArray(new String[0])));

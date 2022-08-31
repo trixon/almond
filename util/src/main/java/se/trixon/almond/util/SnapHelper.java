@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,7 +25,7 @@ import org.apache.commons.lang3.StringUtils;
 public class SnapHelper {
 
     public static boolean isConnected(String plugOrSlot) throws IOException, InterruptedException {
-        var processBuilder = new ProcessBuilder(StringUtils.split(String.format("snapctl is-connected %s", plugOrSlot)));
+        var processBuilder = new ProcessBuilder(StringUtils.split("snapctl is-connected %s".formatted(plugOrSlot)));
         var process = processBuilder.start();
 
         return 0 == process.waitFor();

@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -120,7 +120,7 @@ public class GeoPoint extends CoordinatePoint {
 
     @Override
     public String toString() {
-        String row = String.format("Point %s,%s,%s,%s,%s,%s,%s%s",
+        String row = "Point %s,%s,%s,%s,%s,%s,%s%s".formatted(
                 GeoHelper.toQuotedString(getPointId()),
                 getX(mGeo.getCoordinateFormat()),
                 getY(mGeo.getCoordinateFormat()),

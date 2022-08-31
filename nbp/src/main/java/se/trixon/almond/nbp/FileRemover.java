@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -50,14 +50,14 @@ public class FileRemover {
             String message = numOfFiles == 1 ? Dict.Dialog.MESSAGE_REMOVE_FILE.toString() : Dict.Dialog.MESSAGE_REMOVE_FILES.toString();
 
             if (numOfFiles == 1) {
-                message = String.format(message, paths[0]);
+                message = message.formatted(paths[0]);
             } else {
                 StringBuilder builder = new StringBuilder();
                 for (String path : paths) {
                     builder.append(path).append("\n");
                 }
                 builder.deleteCharAt(builder.length() - 1);
-                message = String.format(message, numOfFiles, builder.toString());
+                message = message.formatted(numOfFiles, builder.toString());
             }
 
             NotifyDescriptor notifyDescriptor = new NotifyDescriptor(

@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -36,7 +36,7 @@ public class AboutTab extends javax.swing.JPanel {
         appUriLabel.setUri(aboutModel.getAppUrl());
 
         if (aboutModel.getAppLicenseUrlTitle() != null) {
-            licenseUriLabel.setText(String.format("%s: %s", Dict.LICENSE.toString(), aboutModel.getAppLicenseUrlTitle()));
+            licenseUriLabel.setText("%s: %s".formatted(Dict.LICENSE.toString(), aboutModel.getAppLicenseUrlTitle()));
             licenseUriLabel.setUri(aboutModel.getAppLicenseUrl());
         } else {
             licenseUriLabel.setVisible(false);

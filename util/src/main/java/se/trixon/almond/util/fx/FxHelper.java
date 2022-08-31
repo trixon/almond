@@ -164,14 +164,14 @@ public class FxHelper {
 
     @Deprecated
     public static String colorToHex(Color color) {
-        return String.format(FORMAT_HEX_3,
+        return FORMAT_HEX_3.formatted(
                 (int) (color.getRed() * 0xff),
                 (int) (color.getGreen() * 0xff),
                 (int) (color.getBlue() * 0xff));
     }
 
     public static String colorToHexABGR(Color color) {
-        return String.format(FORMAT_HEX_4,
+        return FORMAT_HEX_4.formatted(
                 (int) (color.getOpacity() * 0xff),
                 (int) (color.getBlue() * 0xff),
                 (int) (color.getGreen() * 0xff),
@@ -179,7 +179,7 @@ public class FxHelper {
     }
 
     public static String colorToHexABGR(java.awt.Color color) {
-        return String.format(FORMAT_HEX_4,
+        return FORMAT_HEX_4.formatted(
                 color.getAlpha(),
                 color.getBlue(),
                 color.getGreen(),
@@ -187,14 +187,14 @@ public class FxHelper {
     }
 
     public static String colorToHexBGR(Color color) {
-        return String.format(FORMAT_HEX_3,
+        return FORMAT_HEX_3.formatted(
                 (int) (color.getBlue() * 0xff),
                 (int) (color.getGreen() * 0xff),
                 (int) (color.getRed() * 0xff));
     }
 
     public static String colorToHexBGR(java.awt.Color color) {
-        return String.format(FORMAT_HEX_3,
+        return FORMAT_HEX_3.formatted(
                 color.getBlue(),
                 color.getGreen(),
                 color.getRed());
@@ -205,21 +205,21 @@ public class FxHelper {
     }
 
     public static String colorToHexRGB(Color color) {
-        return String.format(FORMAT_HEX_3,
+        return FORMAT_HEX_3.formatted(
                 (int) (color.getRed() * 0xff),
                 (int) (color.getGreen() * 0xff),
                 (int) (color.getBlue() * 0xff));
     }
 
     public static String colorToHexRGB(java.awt.Color color) {
-        return String.format(FORMAT_HEX_3,
+        return FORMAT_HEX_3.formatted(
                 color.getBlue(),
                 color.getGreen(),
                 color.getRed());
     }
 
     public static String colorToHexRGBA(java.awt.Color color) {
-        return String.format(FORMAT_HEX_4,
+        return FORMAT_HEX_4.formatted(
                 color.getRed(),
                 color.getGreen(),
                 color.getBlue(),
@@ -228,7 +228,7 @@ public class FxHelper {
     }
 
     public static String colorToHexRGBA(Color color) {
-        return String.format(FORMAT_HEX_4,
+        return FORMAT_HEX_4.formatted(
                 (int) (color.getRed() * 0xff),
                 (int) (color.getGreen() * 0xff),
                 (int) (color.getBlue() * 0xff),
@@ -261,7 +261,7 @@ public class FxHelper {
     }
 
     public static String createTitleAndKeyCode(String title, KeyCode code, KeyCombination.Modifier... modifiers) {
-        return String.format(FORMAT_TITLE_DESC, title, createKeyCodeDisplayText(code, modifiers));
+        return FORMAT_TITLE_DESC.formatted(title, createKeyCodeDisplayText(code, modifiers));
     }
 
     public static Tooltip createTitleAndKeyCodeTooltip(String title, KeyCode code, KeyCombination.Modifier... modifiers) {
@@ -307,7 +307,7 @@ public class FxHelper {
     }
 
     public static Tooltip getTooltip(String text, KeyCodeCombination keyCodeCombination) {
-        return new Tooltip(String.format(FORMAT_TITLE_DESC, text, keyCodeCombination.getDisplayText()));
+        return new Tooltip(FORMAT_TITLE_DESC.formatted(text, keyCodeCombination.getDisplayText()));
     }
 
     public static double getUIScaled(double value) {
@@ -348,7 +348,7 @@ public class FxHelper {
             if (isDarkThemeEnabled()) {
                 scene.getStylesheets().add(FxHelper.class.getResource(DARCULA).toExternalForm());
             }
-            scene.getRoot().setStyle(String.format("-fx-font-size: %dpx;", (int) getScaledFontSize()));
+            scene.getRoot().setStyle("-fx-font-size: %dpx;".formatted((int) getScaledFontSize()));
         });
     }
 
@@ -497,7 +497,7 @@ public class FxHelper {
     }
 
     public static void setTooltip(Action action, KeyCodeCombination keyCodeCombination) {
-        action.setLongText(String.format(FORMAT_TITLE_DESC, action.getText(), keyCodeCombination.getDisplayText()));
+        action.setLongText(FORMAT_TITLE_DESC.formatted(action.getText(), keyCodeCombination.getDisplayText()));
     }
 
     public static void setValignment(VPos value, Node... nodes) {
