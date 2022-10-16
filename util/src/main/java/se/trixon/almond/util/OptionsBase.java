@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,6 +22,11 @@ import java.util.prefs.Preferences;
  * @author Patrik Karlström
  */
 public abstract class OptionsBase {
+
+    public static final String KEY_APP_FIRST_RUN = "app.first_run";
+    public static final String KEY_APP_START_COUNTER = "app.start_counter";
+    public static final String KEY_FULL_SCREEN = "fullscreen";
+    public static final boolean DEFAULT_FULL_SCREEN = false;
 
     protected Preferences mPreferences;
 

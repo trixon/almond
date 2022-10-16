@@ -53,7 +53,7 @@ public class NbAbout {
         );
 
         SwingUtilities.invokeLater(() -> {
-            mAboutPanel.setPreferredSize(SwingHelper.getUIScaledDim(520, 400));
+            mAboutPanel.setPreferredSize(SwingHelper.getUIScaledDim(700, 400));
             DialogDisplayer.getDefault().notify(d);
         });
     }
