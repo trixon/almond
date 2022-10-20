@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -33,13 +33,14 @@ public class TranslationTab extends BaseListTab {
     }
 
     private void init() {
-        String[] translators = StringUtils.split(mAboutModel.getTranslation(), ";");
+        var translators = StringUtils.split(mAboutModel.getTranslation(), ";");
+        var builder = new StringBuilder();
 
-        StringBuilder builder = new StringBuilder();
-        for (String translator : translators) {
+        for (var translator : translators) {
             builder.append(LIST_SIGN).append(translator).append("\n");
         }
 
         editorPane.setText(builder.toString());
+        reset();
     }
 }

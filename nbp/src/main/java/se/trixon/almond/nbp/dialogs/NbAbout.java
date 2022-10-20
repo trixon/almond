@@ -36,12 +36,12 @@ public class NbAbout {
     public NbAbout(AboutModel aboutModel) {
         mAboutModel = aboutModel;
         mAboutPanel = new AboutPanel(aboutModel);
-
-        mAboutPanel.setBorder(new EmptyBorder(SwingHelper.getUIScaledInsets(16)));
+        int inset = 16;
+        mAboutPanel.setBorder(new EmptyBorder(SwingHelper.getUIScaledInsets(inset, inset, 0, inset)));
     }
 
     public void display() {
-        DialogDescriptor d = new DialogDescriptor(
+        var d = new DialogDescriptor(
                 mAboutPanel,
                 Dict.ABOUT_S.toString().formatted(mAboutModel.getAppName()),
                 true,
@@ -52,9 +52,9 @@ public class NbAbout {
                 null
         );
 
+        DialogDisplayer.getDefault().notify(d);
         SwingUtilities.invokeLater(() -> {
             mAboutPanel.setPreferredSize(SwingHelper.getUIScaledDim(700, 400));
-            DialogDisplayer.getDefault().notify(d);
         });
     }
 }

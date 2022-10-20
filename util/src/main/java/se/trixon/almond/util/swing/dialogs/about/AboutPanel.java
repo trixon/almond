@@ -39,7 +39,7 @@ public class AboutPanel extends javax.swing.JPanel {
     private final HashSet<TabComponentListener> mTabComponentListeners = new HashSet<>();
 
     public static AlmondAction getAction(Component parentComponent, AboutPanel aboutPanel) {
-        AlmondAction action = new AlmondAction(Dict.ABOUT.toString()) {
+        var action = new AlmondAction(Dict.ABOUT.toString()) {
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -78,16 +78,17 @@ public class AboutPanel extends javax.swing.JPanel {
 
     private void addLastComponent() {
         mTabComponentListeners.add((TabComponentListener) tabbedPane.getComponentAt(tabbedPane.getTabCount() - 1));
-
     }
 
     private void init() {
         if (mAboutModel.getLogo() != null) {
             populateIcon((ImageIcon) mAboutModel.getLogo());
         }
+
         appNameLabel.setText(mAboutModel.getAppName());
         sAppName = mAboutModel.getAppName();
         appVersionLabel.setText("%s %s".formatted(Dict.VERSION.toString(), mAboutModel.getAppVersion()));
+        appDateLabel.setText(mAboutModel.getAppDate());
 
         tabbedPane.add(new AboutTab(mAboutModel), Dict.ABOUT.toString());
         tabbedPane.add(new LibrariesTab(mAboutModel), Dict.LIBRARIES.toString());
@@ -113,12 +114,12 @@ public class AboutPanel extends javax.swing.JPanel {
     }
 
     private void populateIcon(ImageIcon imageIcon) {
-        Scaler scaler = new Scaler(new Dimension(imageIcon.getIconWidth(), imageIcon.getIconHeight()));
-        int maxSize = 72;
+        var scaler = new Scaler(new Dimension(imageIcon.getIconWidth(), imageIcon.getIconHeight()));
+        int maxSize = SwingHelper.getUIScaled(100);
         scaler.setHeight(maxSize);
         scaler.setWidth(maxSize);
 
-        Image image = imageIcon.getImage().getScaledInstance(scaler.getDimension().width, scaler.getDimension().height, Image.SCALE_SMOOTH);
+        var image = imageIcon.getImage().getScaledInstance(scaler.getDimension().width, scaler.getDimension().height, Image.SCALE_SMOOTH);
         iconLabel.setIcon(new ImageIcon(image));
     }
 
@@ -143,6 +144,7 @@ public class AboutPanel extends javax.swing.JPanel {
         panel = new javax.swing.JPanel();
         appNameLabel = new javax.swing.JLabel();
         appVersionLabel = new javax.swing.JLabel();
+        appDateLabel = new javax.swing.JLabel();
         tabbedPane = new javax.swing.JTabbedPane();
 
         setLayout(new java.awt.GridBagLayout());
@@ -153,17 +155,24 @@ public class AboutPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 16);
         add(iconLabel, gridBagConstraints);
 
-        appNameLabel.setFont(appNameLabel.getFont().deriveFont(appNameLabel.getFont().getSize()+5f));
+        appNameLabel.setFont(appNameLabel.getFont().deriveFont(appNameLabel.getFont().getStyle() | java.awt.Font.BOLD, appNameLabel.getFont().getSize()+8));
         appNameLabel.setText("NAME"); // NOI18N
 
+        appVersionLabel.setFont(appVersionLabel.getFont().deriveFont(appVersionLabel.getFont().getSize()+2f));
         appVersionLabel.setText("VERSION"); // NOI18N
+
+        appDateLabel.setFont(appDateLabel.getFont().deriveFont(appDateLabel.getFont().getSize()+2f));
+        appDateLabel.setText("DATE"); // NOI18N
 
         javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
         panel.setLayout(panelLayout);
         panelLayout.setHorizontalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(appNameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(appVersionLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(panelLayout.createSequentialGroup()
+                .addComponent(appDateLabel)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(appVersionLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE)
         );
         panelLayout.setVerticalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,6 +180,8 @@ public class AboutPanel extends javax.swing.JPanel {
                 .addComponent(appNameLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(appVersionLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(appDateLabel)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -191,6 +202,7 @@ public class AboutPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel appDateLabel;
     private javax.swing.JLabel appNameLabel;
     private javax.swing.JLabel appVersionLabel;
     private javax.swing.JLabel iconLabel;

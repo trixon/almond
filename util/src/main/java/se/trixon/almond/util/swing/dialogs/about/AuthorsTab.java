@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -33,13 +33,14 @@ public class AuthorsTab extends BaseListTab {
     }
 
     private void init() {
-        String[] authors = StringUtils.split(mAboutModel.getAuthors(), ";");
+        var authors = StringUtils.split(mAboutModel.getAuthors(), ";");
+        var builder = new StringBuilder();
 
-        StringBuilder builder = new StringBuilder();
-        for (String author : authors) {
+        for (var author : authors) {
             builder.append(LIST_SIGN).append(author).append("\n");
         }
 
         editorPane.setText(builder.toString());
+        reset();
     }
 }

@@ -41,22 +41,23 @@ public class LibrariesTab extends BaseListTab {
         String java = "%s %s".formatted(javaName, javaVersion);
         mLibraries.add(java);
 
-        ArrayList<String> libraries = new ArrayList<>();
+        var libraries = new ArrayList<String>();
         libraries.add("Almond-Util");
 
         if (mAboutModel.getLibraries() != null) {
-            String[] libs = StringUtils.split(mAboutModel.getLibraries(), ";");
+            var libs = StringUtils.split(mAboutModel.getLibraries(), ";");
             libraries.addAll(Arrays.asList(libs));
         }
 
         libraries.sort((String o1, String o2) -> o1.compareToIgnoreCase(o2));
         mLibraries.addAll(libraries);
 
-        StringBuilder builder = new StringBuilder();
-        mLibraries.forEach((library) -> {
+        var builder = new StringBuilder();
+        mLibraries.forEach(library -> {
             builder.append(LIST_SIGN).append(library).append("\n");
         });
 
         editorPane.setText(builder.toString());
+        reset();
     }
 }

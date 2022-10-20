@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -33,13 +33,14 @@ public class ThanksToTab extends BaseListTab {
     }
 
     private void init() {
-        String[] thanksTo = StringUtils.split(mAboutModel.getThanksTo(), ";");
+        var thanksTo = StringUtils.split(mAboutModel.getThanksTo(), ";");
 
-        StringBuilder builder = new StringBuilder();
-        for (String thanks : thanksTo) {
+        var builder = new StringBuilder();
+        for (var thanks : thanksTo) {
             builder.append(LIST_SIGN).append(thanks).append("\n");
         }
 
         editorPane.setText(builder.toString());
+        reset();
     }
 }

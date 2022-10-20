@@ -15,12 +15,10 @@
  */
 package se.trixon.almond.util.fx.dialogs.about;
 
-import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.ImageView;
@@ -43,21 +41,21 @@ public class AboutPane extends TabPane {
     private final AboutModel mAboutModel;
 
     public static Action getAction(Stage stage, AboutModel aboutModel) {
-        AboutPane aboutPane = new AboutPane(aboutModel);
+        var aboutPane = new AboutPane(aboutModel);
 
-        Action action = new Action(Dict.ABOUT.toString(), (ActionEvent event) -> {
+        var action = new Action(Dict.ABOUT.toString(), actionEvent -> {
             aboutPane.reset();
-            Alert alert = new Alert(Alert.AlertType.NONE);
+            var alert = new Alert(Alert.AlertType.NONE);
             alert.initOwner(stage);
             alert.setTitle(Dict.ABOUT_S.toString().formatted(aboutModel.getAppName()));
 
-            ButtonType closeButtonType = new ButtonType(Dict.CLOSE.toString(), ButtonData.OK_DONE);
+            var closeButtonType = new ButtonType(Dict.CLOSE.toString(), ButtonData.OK_DONE);
             alert.getButtonTypes().setAll(closeButtonType);
             alert.setGraphic((ImageView) aboutModel.getLogo());
             alert.setHeaderText(" ");
             alert.setResizable(true);
 
-            DialogPane dialogPane = alert.getDialogPane();
+            var dialogPane = alert.getDialogPane();
             dialogPane.setContent(aboutPane);
             double scale = SwingHelper.getUIScale();
             dialogPane.setPrefSize(520 * scale, 400 * scale);
@@ -91,7 +89,7 @@ public class AboutPane extends TabPane {
     }
 
     public void reset() {
-        getTabs().stream().filter((tab) -> (tab instanceof ResetableTab)).forEachOrdered((tab) -> {
+        getTabs().stream().filter(tab -> (tab instanceof ResetableTab)).forEachOrdered(tab -> {
             ((ResetableTab) tab).reset();
         });
 
