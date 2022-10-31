@@ -61,6 +61,20 @@ public class GraphicsHelper {
         return maskedColor;
     }
 
+    public static Color colorFromInt(int colorValue) {
+        String hexString = StringUtils.leftPad(Integer.toHexString(colorValue), 6, "0");
+
+        hexString = "#%s%s%s".formatted(
+                StringUtils.right(hexString, 2),
+                StringUtils.mid(hexString, 2, 2),
+                StringUtils.left(hexString, 2)
+        );
+
+        var color = Color.decode(hexString);
+
+        return color;
+    }
+
     public static String colorToAABBGGRR(Color color, String... prefixSuffix) {
         String rr = StringUtils.leftPad(Integer.toHexString(color.getRed()), 2, "0");
         String gg = StringUtils.leftPad(Integer.toHexString(color.getGreen()), 2, "0");
