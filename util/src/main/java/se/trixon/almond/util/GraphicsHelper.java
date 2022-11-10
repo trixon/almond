@@ -56,9 +56,17 @@ public class GraphicsHelper {
         int baseColor = GraphicsHelper.colorToHexInt(color);
         Integer activeColorValue = baseColor & mask;
 
-        Color maskedColor = Color.decode("#" + Integer.toHexString(activeColorValue.intValue()));
+        var maskedColor = Color.decode("#" + Integer.toHexString(activeColorValue.intValue()));
+        maskedColor = colorAddAlpha(maskedColor, color.getAlpha());
 
         return maskedColor;
+    }
+
+    public static Color colorFromAARRGGBB(String string) {
+        var color = Color.decode("#" + StringUtils.substring(string, 2));
+        color = colorAddAlpha(color, Integer.parseInt(StringUtils.left(string, 2), 16));
+
+        return color;
     }
 
     public static Color colorFromInt(int colorValue) {
@@ -87,6 +95,26 @@ public class GraphicsHelper {
         }
 
         builder.append(aa).append(bb).append(gg).append(rr);
+
+        if (prefixSuffix.length > 1) {
+            builder.append(prefixSuffix[1]);
+        }
+
+        return builder.toString();
+    }
+
+    public static String colorToAARRGGBB(Color color, String... prefixSuffix) {
+        String rr = StringUtils.leftPad(Integer.toHexString(color.getRed()), 2, "0");
+        String gg = StringUtils.leftPad(Integer.toHexString(color.getGreen()), 2, "0");
+        String bb = StringUtils.leftPad(Integer.toHexString(color.getBlue()), 2, "0");
+        String aa = StringUtils.leftPad(Integer.toHexString(color.getAlpha()), 2, "0");
+        StringBuilder builder = new StringBuilder();
+
+        if (prefixSuffix.length > 0) {
+            builder.append(prefixSuffix[0]);
+        }
+
+        builder.append(aa).append(rr).append(gg).append(bb);
 
         if (prefixSuffix.length > 1) {
             builder.append(prefixSuffix[1]);
