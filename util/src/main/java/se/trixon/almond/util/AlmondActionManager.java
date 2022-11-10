@@ -39,6 +39,7 @@ public abstract class AlmondActionManager {
     public static final String CLEAR = "clear";
     public static final String CLONE = "clone";
     public static final String CLOSE = "close";
+    public static final String FULLSCREEN = "fullScreen";
     public static final String HELP = "help";
     public static final String MENU = "menu";
     public static final String NEW = "new";
@@ -100,6 +101,7 @@ public abstract class AlmondActionManager {
     }
 
     protected void initAction(AlmondAction action, String key, KeyStroke keyStroke, Enum iconEnum, boolean baseAction) {
+        action.putValue(AlmondAction.ALMOND_KEY, key);
         action.putValue(Action.ACCELERATOR_KEY, keyStroke);
         String shortDescription = (String) action.getValue(Action.NAME);
 

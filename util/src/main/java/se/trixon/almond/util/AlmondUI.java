@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,6 +22,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.PreferenceChangeEvent;
+import java.util.prefs.Preferences;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIDefaults;
@@ -77,13 +78,13 @@ public class AlmondUI extends AlmondGui {
         mAlmondOptionsWatchers.add(almondOptionsWatcher);
     }
 
-    public void addWindowWatcher(JFrame frame) {
+    public void addWindowWatcher(Preferences preferences, JFrame frame) {
         mFrame = frame;
 
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                SwingHelper.frameStateSave(frame);
+                SwingHelper.frameStateSave(preferences, frame);
             }
 
             @Override
@@ -97,7 +98,7 @@ public class AlmondUI extends AlmondGui {
         });
 
         try {
-            SwingHelper.frameStateRestore(frame, DEFAULT_FRAME_WIDTH, DEFAULT_FRAME_HEIGHT);
+            SwingHelper.frameStateRestore(preferences, frame, DEFAULT_FRAME_WIDTH, DEFAULT_FRAME_HEIGHT);
         } catch (BackingStoreException ex) {
             Logger.getLogger(AlmondUI.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -117,10 +118,10 @@ public class AlmondUI extends AlmondGui {
         }
     }
 
-    public void initoptions() {
-        for (AlmondOptionsEvent optionsEvent : AlmondOptionsEvent.values()) {
-            initClientOption(optionsEvent);
-            notifyOptionWatchers(optionsEvent);
+    public void initOptions() {
+        for (var almondOptionsEvent : AlmondOptionsEvent.values()) {
+            initClientOption(almondOptionsEvent);
+            notifyOptionWatchers(almondOptionsEvent);
         }
     }
 

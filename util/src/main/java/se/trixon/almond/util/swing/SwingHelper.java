@@ -120,21 +120,18 @@ public class SwingHelper {
         }
     }
 
-    public static void frameStateRestore(JFrame frame, int defaultWidth, int defaultHeight) throws BackingStoreException {
-        Class<? extends JFrame> c = frame.getClass();
-        Preferences p = Preferences.userNodeForPackage(c);
-
-        if (PrefsHelper.keyExists(p, FRAME_X) && PrefsHelper.keyExists(p, FRAME_Y) && PrefsHelper.keyExists(p, FRAME_H) && PrefsHelper.keyExists(p, FRAME_W)) {
-            int x = p.getInt(FRAME_X, -1);
-            int y = p.getInt(FRAME_Y, -1);
+    public static void frameStateRestore(Preferences preferences, JFrame frame, int defaultWidth, int defaultHeight) throws BackingStoreException {
+        if (PrefsHelper.keyExists(preferences, FRAME_X) && PrefsHelper.keyExists(preferences, FRAME_Y) && PrefsHelper.keyExists(preferences, FRAME_H) && PrefsHelper.keyExists(preferences, FRAME_W)) {
+            int x = preferences.getInt(FRAME_X, -1);
+            int y = preferences.getInt(FRAME_Y, -1);
             frame.setLocation(x, y);
 
-            int h = p.getInt(FRAME_H, -1);
-            int w = p.getInt(FRAME_W, -1);
+            int h = preferences.getInt(FRAME_H, -1);
+            int w = preferences.getInt(FRAME_W, -1);
             frame.setSize(w, h);
 
-            if (PrefsHelper.keyExists(p, FRAME_STATE)) {
-                frame.setExtendedState(p.getInt(FRAME_STATE, -1));
+            if (PrefsHelper.keyExists(preferences, FRAME_STATE)) {
+                frame.setExtendedState(preferences.getInt(FRAME_STATE, -1));
             }
         } else {
             frame.setSize(defaultWidth, defaultHeight);
@@ -142,15 +139,12 @@ public class SwingHelper {
         }
     }
 
-    public static void frameStateSave(JFrame frame) {
-        Class<? extends JFrame> c = frame.getClass();
-        Preferences p = Preferences.userNodeForPackage(c);
-
-        p.putInt(FRAME_H, frame.getHeight());
-        p.putInt(FRAME_W, frame.getWidth());
-        p.putInt(FRAME_X, frame.getX());
-        p.putInt(FRAME_Y, frame.getY());
-        p.putInt(FRAME_STATE, frame.getExtendedState());
+    public static void frameStateSave(Preferences preferences, JFrame frame) {
+        preferences.putInt(FRAME_H, frame.getHeight());
+        preferences.putInt(FRAME_W, frame.getWidth());
+        preferences.putInt(FRAME_X, frame.getX());
+        preferences.putInt(FRAME_Y, frame.getY());
+        preferences.putInt(FRAME_STATE, frame.getExtendedState());
     }
 
     public static String getLookAndFeelClassName(String name) {

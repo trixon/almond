@@ -27,6 +27,7 @@ import se.trixon.almond.util.icons.material.swing.MaterialIcon.IconGetter;
  */
 public abstract class AlmondAction extends AbstractAction {
 
+    public static final String ALMOND_KEY = "almond_key";
     public static final String ALMOND_SMALL_ICON_KEY = "almond_small_icon";
 
     private Enum mIconEnum = null;
