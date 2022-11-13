@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,6 +16,7 @@
 package se.trixon.almond.util.swing.dialogs;
 
 import javax.swing.JEditorPane;
+import javax.swing.JScrollPane;
 
 /**
  *
@@ -39,6 +40,10 @@ public class HtmlPanel extends javax.swing.JPanel {
 
     public JEditorPane getEditorPane() {
         return editorPane;
+    }
+
+    public JScrollPane getScrollPane() {
+        return scrollPane;
     }
 
     public void setHtml(String html) {

@@ -16,7 +16,6 @@
 package se.trixon.almond.util;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,8 +33,8 @@ public class PomInfo {
     private String mVersion = NOT_SET;
 
     public PomInfo(Class c, String groupId, String artifactId) {
-        InputStream inputStream = c.getResourceAsStream("/META-INF/maven/%s/%s/pom.properties".formatted(groupId, artifactId));
-        Properties p = new Properties();
+        var inputStream = c.getResourceAsStream("/META-INF/maven/%s/%s/pom.properties".formatted(groupId, artifactId));
+        var p = new Properties();
 
         if (inputStream != null) {
             try {
@@ -61,27 +60,4 @@ public class PomInfo {
     public String getVersion() {
         return mVersion;
     }
-
-//    public void load(Properties p) {
-//        mArtifactId = p.getProperty("artifactId");
-//        mGroupId = p.getProperty("groupId");
-//        mVersion = p.getProperty("version");
-//    }
-//
-//    public static PomInfo getPomInfo(Class c, String groupId, String artifactId) {
-//        InputStream inputStream = c.getResourceAsStream(String.format("/META-INF/maven/%s/%s/pom.properties", groupId, artifactId));
-//        Properties p = new Properties();
-//        PomInfo pomInfo = new PomInfo();
-//        if (inputStream != null) {
-//            try {
-//
-//                p.load(inputStream);
-//                return new PomInfo(p);
-//            } catch (IOException | NullPointerException ex) {
-//                Logger.getLogger(SystemHelper.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
-//
-//        return pomInfo;
-//    }
 }

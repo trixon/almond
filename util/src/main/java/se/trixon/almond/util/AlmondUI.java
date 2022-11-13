@@ -85,6 +85,11 @@ public class AlmondUI extends AlmondGui {
             @Override
             public void windowClosing(WindowEvent e) {
                 SwingHelper.frameStateSave(preferences, frame);
+                try {
+                    preferences.sync();
+                } catch (BackingStoreException ex) {
+                    Logger.getLogger(AlmondUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
 
             @Override
@@ -128,6 +133,10 @@ public class AlmondUI extends AlmondGui {
     public void installFlatLaf() {
         UIManager.installLookAndFeel("FlatLaf Dark", "com.formdev.flatlaf.FlatDarkLaf");
         UIManager.installLookAndFeel("FlatLaf Light", "com.formdev.flatlaf.FlatLightLaf");
+    }
+
+    public void setFrame(JFrame frame) {
+        mFrame = frame;
     }
 
     private void initClientOption(AlmondOptionsEvent almondOptionsEvent) {

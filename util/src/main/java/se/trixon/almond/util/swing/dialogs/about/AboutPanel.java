@@ -74,6 +74,7 @@ public class AboutPanel extends javax.swing.JPanel {
         initComponents();
         mAboutModel = aboutModel;
         init();
+        setPreferredSize(SwingHelper.getUIScaledDim(700, 400));
     }
 
     private void addLastComponent() {

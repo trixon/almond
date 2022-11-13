@@ -21,8 +21,10 @@ import java.awt.Container;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GraphicsEnvironment;
 import java.awt.Insets;
 import java.awt.Robot;
+import java.awt.Window;
 import java.awt.event.InputEvent;
 import java.util.Arrays;
 import java.util.Enumeration;
@@ -145,6 +147,12 @@ public class SwingHelper {
         preferences.putInt(FRAME_X, frame.getX());
         preferences.putInt(FRAME_Y, frame.getY());
         preferences.putInt(FRAME_STATE, frame.getExtendedState());
+
+        try {
+            preferences.sync();
+        } catch (BackingStoreException ex) {
+            Logger.getLogger(SwingHelper.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public static String getLookAndFeelClassName(String name) {
@@ -301,6 +309,14 @@ public class SwingHelper {
             if (component instanceof JMenu menu) {
                 setComponentsFont(menu, font);
             }
+        }
+    }
+
+    public static void setFullScreen(Window window) {
+        var graphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        var graphicsDevice = graphicsEnvironment.getDefaultScreenDevice();
+        if (graphicsDevice.isFullScreenSupported()) {
+            graphicsDevice.setFullScreenWindow(window);
         }
     }
 }
