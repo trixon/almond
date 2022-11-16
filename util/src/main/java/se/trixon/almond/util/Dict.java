@@ -656,6 +656,7 @@ public enum Dict {
         NUMBER_OF_PLAYERS,
         PLAYER,
         PLAYERS,
+        RESULT,
         SCORECARD,
         SELECT_PLAYER,
         SHUFFLE,
