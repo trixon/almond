@@ -276,6 +276,19 @@ public class SwingHelper {
         }
     }
 
+    public static void runAndWait(long delay, Runnable r) {
+        SwingUtilities.invokeLater(() -> {
+            SwingUtilities.invokeLater(r);
+        });
+
+        try {
+            Thread.sleep(delay);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(SwingHelper.class.getName()).log(Level.SEVERE, null, ex);
+            Thread.currentThread().interrupt();
+        }
+    }
+
     /**
      * Run r now if isEventDispatchThread, else invokeLater
      *
