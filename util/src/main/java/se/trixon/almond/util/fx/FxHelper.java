@@ -60,8 +60,8 @@ import org.controlsfx.control.MaskerPane;
 import org.controlsfx.control.NotificationPane;
 import org.controlsfx.control.action.Action;
 import se.trixon.almond.util.PrefsHelper;
+import se.trixon.almond.util.SystemHelper;
 import se.trixon.almond.util.icons.material.MaterialIcon;
-import se.trixon.almond.util.swing.SwingHelper;
 
 /**
  *
@@ -99,6 +99,12 @@ public class FxHelper {
                 .forEachOrdered(buttonBase -> {
                     buttonBase.setPrefWidth(prefWidth);
                 });
+    }
+
+    public static void applyFontScale(Scene scene) {
+        runLater(() -> {
+            scene.getRoot().setStyle("-fx-font-size: %dpx;".formatted((int) getScaledFontSize()));
+        });
     }
 
     public static void autoCommitSpinner(Spinner spinner) {
@@ -303,7 +309,7 @@ public class FxHelper {
     }
 
     public static double getScaledFontSize() {
-        return Font.getDefault().getSize() * SwingHelper.getUIScale();
+        return Font.getDefault().getSize() * SystemHelper.getUIScale();
     }
 
     public static Tooltip getTooltip(String text, KeyCodeCombination keyCodeCombination) {
@@ -311,23 +317,23 @@ public class FxHelper {
     }
 
     public static double getUIScaled(double value) {
-        return value * SwingHelper.getUIScale();
+        return value * SystemHelper.getUIScale();
     }
 
     public static int getUIScaled(int value) {
-        return (int) (value * SwingHelper.getUIScale());
+        return (int) (value * SystemHelper.getUIScale());
     }
 
     public static Insets getUIScaledInsets(double topRightBottomLeft) {
-        return new Insets(topRightBottomLeft * SwingHelper.getUIScale());
+        return new Insets(topRightBottomLeft * SystemHelper.getUIScale());
     }
 
     public static Insets getUIScaledInsets(double top, double right, double bottom, double left) {
         return new Insets(
-                top * SwingHelper.getUIScale(),
-                right * SwingHelper.getUIScale(),
-                bottom * SwingHelper.getUIScale(),
-                left * SwingHelper.getUIScale()
+                top * SystemHelper.getUIScale(),
+                right * SystemHelper.getUIScale(),
+                bottom * SystemHelper.getUIScale(),
+                left * SystemHelper.getUIScale()
         );
     }
 
@@ -348,7 +354,7 @@ public class FxHelper {
             if (isDarkThemeEnabled()) {
                 scene.getStylesheets().add(FxHelper.class.getResource(DARCULA).toExternalForm());
             }
-            scene.getRoot().setStyle("-fx-font-size: %dpx;".formatted((int) getScaledFontSize()));
+            applyFontScale(scene);
         });
     }
 

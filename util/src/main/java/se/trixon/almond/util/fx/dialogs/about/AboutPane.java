@@ -30,7 +30,6 @@ import org.controlsfx.control.action.Action;
 import se.trixon.almond.util.AboutModel;
 import se.trixon.almond.util.Dict;
 import se.trixon.almond.util.fx.FxHelper;
-import se.trixon.almond.util.swing.SwingHelper;
 
 /**
  *
@@ -57,8 +56,7 @@ public class AboutPane extends TabPane {
 
             var dialogPane = alert.getDialogPane();
             dialogPane.setContent(aboutPane);
-            double scale = SwingHelper.getUIScale();
-            dialogPane.setPrefSize(520 * scale, 400 * scale);
+            dialogPane.setPrefSize(FxHelper.getUIScaled(520), FxHelper.getUIScaled(400));
 
             for (var node : dialogPane.getChildren()) {
                 if (node instanceof GridPane gridPane) {
@@ -77,6 +75,7 @@ public class AboutPane extends TabPane {
                 }
             }
 
+            FxHelper.applyFontScale(dialogPane.getScene());
             FxHelper.showAndWait(alert, stage);
         });
 
@@ -98,7 +97,6 @@ public class AboutPane extends TabPane {
 
     private void init() {
         setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
-
         getTabs().add(new AboutTab(mAboutModel));
         getTabs().add(new LibrariesTab(mAboutModel));
 

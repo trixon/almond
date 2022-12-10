@@ -50,6 +50,7 @@ import org.apache.commons.lang3.SystemUtils;
 public class SystemHelper {
 
     private static final Logger LOGGER = Logger.getLogger(SystemHelper.class.getName());
+    private static final double UI_SCALE;
     private static Consumer<String> sDesktopBrowser;
 
     static {
@@ -60,6 +61,22 @@ public class SystemHelper {
                 LOGGER.log(Level.SEVERE, null, ex);
             }
         }).start();
+
+        var sunJavaCommand = System.getProperties().get("sun.java.command").toString();
+        System.out.println(sunJavaCommand);
+        if (sunJavaCommand.contains("--fontsize ")) {
+            var remainder = StringUtils.substringAfter(sunJavaCommand, "--fontsize ");
+            var sizeString = StringUtils.substringBefore(remainder, " ");
+
+            if (StringUtils.isNumeric(sizeString)) {
+                double size = Double.parseDouble(sizeString);
+                UI_SCALE = size / 12.0;
+            } else {
+                UI_SCALE = 1.0;
+            }
+        } else {
+            UI_SCALE = 1.0;
+        }
     }
 
     /**
@@ -259,6 +276,10 @@ public class SystemHelper {
         }
 
         return sb.toString();
+    }
+
+    public static double getUIScale() {
+        return UI_SCALE;
     }
 
     public static String getUserCountry() {
