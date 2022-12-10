@@ -30,6 +30,8 @@
 
     /* color of non-focused yet selected elements */
     -fx-selection-bar-non-focused: #3c3f41;
+    
+    -fx-box-border: rgb(128, 128, 128);
 }
 
 .notification-bar > .pane .title {
