@@ -457,6 +457,7 @@ public enum Dict {
     TIME_SEC,
     TIME_SECONDS,
     TO,
+    TOGGLE_FULL_SCREEN,
     TOOLBARS,
     TOOLBOX,
     TOOLS,
