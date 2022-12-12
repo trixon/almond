@@ -62,21 +62,23 @@ public class SystemHelper {
             }
         }).start();
 
-        var sunJavaCommand = System.getProperties().get("sun.java.command").toString();
-        System.out.println(sunJavaCommand);
-        if (sunJavaCommand.contains("--fontsize ")) {
-            var remainder = StringUtils.substringAfter(sunJavaCommand, "--fontsize ");
-            var sizeString = StringUtils.substringBefore(remainder, " ");
-
-            if (StringUtils.isNumeric(sizeString)) {
-                double size = Double.parseDouble(sizeString);
-                UI_SCALE = size / 12.0;
-            } else {
-                UI_SCALE = 1.0;
-            }
+        //TODO Fix this for NBP & FX
+        var sizeString = "12";
+        if (System.getProperties().containsKey("fontsize")) {
+            sizeString = System.getProperties().getProperty("fontsize");
         } else {
-            UI_SCALE = 1.0;
+            var sunJavaCommand = System.getProperties().getOrDefault("sun.java.command", "").toString();
+            if (sunJavaCommand.contains("--fontsize ")) {
+                var remainder = StringUtils.substringAfter(sunJavaCommand, "--fontsize ");
+                var string = StringUtils.substringBefore(remainder, " ");
+                if (StringUtils.isNumeric(string)) {
+                    sizeString = string;
+                }
+            }
         }
+
+        double size = Double.parseDouble(sizeString);
+        UI_SCALE = size / 12.0;
     }
 
     /**

@@ -60,8 +60,8 @@ import org.controlsfx.control.MaskerPane;
 import org.controlsfx.control.NotificationPane;
 import org.controlsfx.control.action.Action;
 import se.trixon.almond.util.PrefsHelper;
-import se.trixon.almond.util.SystemHelper;
 import se.trixon.almond.util.icons.material.MaterialIcon;
+import se.trixon.almond.util.swing.SwingHelper;
 
 /**
  *
@@ -309,7 +309,7 @@ public class FxHelper {
     }
 
     public static double getScaledFontSize() {
-        return Font.getDefault().getSize() * SystemHelper.getUIScale();
+        return Font.getDefault().getSize() * SwingHelper.getUIScale();
     }
 
     public static Tooltip getTooltip(String text, KeyCodeCombination keyCodeCombination) {
@@ -317,23 +317,23 @@ public class FxHelper {
     }
 
     public static double getUIScaled(double value) {
-        return value * SystemHelper.getUIScale();
+        return value * SwingHelper.getUIScale();
     }
 
     public static int getUIScaled(int value) {
-        return (int) (value * SystemHelper.getUIScale());
+        return (int) (value * SwingHelper.getUIScale());
     }
 
     public static Insets getUIScaledInsets(double topRightBottomLeft) {
-        return new Insets(topRightBottomLeft * SystemHelper.getUIScale());
+        return new Insets(topRightBottomLeft * SwingHelper.getUIScale());
     }
 
     public static Insets getUIScaledInsets(double top, double right, double bottom, double left) {
         return new Insets(
-                top * SystemHelper.getUIScale(),
-                right * SystemHelper.getUIScale(),
-                bottom * SystemHelper.getUIScale(),
-                left * SystemHelper.getUIScale()
+                top * SwingHelper.getUIScale(),
+                right * SwingHelper.getUIScale(),
+                bottom * SwingHelper.getUIScale(),
+                left * SwingHelper.getUIScale()
         );
     }
 

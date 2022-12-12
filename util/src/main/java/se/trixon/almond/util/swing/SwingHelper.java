@@ -42,7 +42,6 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import org.apache.commons.lang3.ArrayUtils;
 import se.trixon.almond.util.PrefsHelper;
-import se.trixon.almond.util.SystemHelper;
 
 /**
  *
@@ -207,11 +206,11 @@ public class SwingHelper {
     }
 
     public static double getUIScale() {
-//        double defaultFontSize = 12.0;
-//        Integer fontSize = (Integer) UIManager.get("customFontSize");
-//
-//        return fontSize == null ? 1.0 : fontSize / defaultFontSize;
-        return SystemHelper.getUIScale();
+        double defaultFontSize = 12.0;
+        Integer fontSize = (Integer) UIManager.get("customFontSize");
+
+        return fontSize == null ? 1.0 : fontSize / defaultFontSize;
+//        return SystemHelper.getUIScale();
     }
 
     public static double getUIScaled(double value) {
