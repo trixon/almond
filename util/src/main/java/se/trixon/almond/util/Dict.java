@@ -510,6 +510,7 @@ public enum Dict {
     }
 
     public enum Dialog {
+        ACTION_CANT_BE_UNDONE,
         ERROR,
         ERRORS,
         ERROR_CANT_OPEN_DIRECTORY,
@@ -572,10 +573,12 @@ public enum Dict {
         TITLE_REMOVE_DIRS,
         TITLE_REMOVE_FILE,
         TITLE_REMOVE_FILES,
+        TITLE_REMOVE_ALL_S,
         TITLE_REMOVE_S,
         TITLE_RESTART_REQUIRED,
         TITLE_ROWS_NOT_SELECTED,
-        TITLE_SELECT_COLOR;
+        TITLE_SELECT_COLOR,
+        YOU_ARE_ABOUT_TO_S;
         private final ResourceBundle mResourceBundle = ResourceBundle.getBundle(SystemHelper.getPackageAsPath(Dict.class) + "DictDialog", Locale.getDefault());
 
         @Override
