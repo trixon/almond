@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -79,6 +79,14 @@ public class FileChooserPane extends BorderPane {
         mTitle = title;
         setSelectionMode(selectionMode);
         setObjectMode(objectMode);
+    }
+
+    public FileChooserPane(String title, ObjectMode objectMode, SelectionMode selectionMode, String checkBoxText) {
+        init();
+        mTitle = title;
+        setSelectionMode(selectionMode);
+        setObjectMode(objectMode);
+        setHeaderCheckBoxText(checkBoxText);
     }
 
     public FileChooserPane(String title, String headerLabelText, ObjectMode objectMode, SelectionMode selectionMode) {
@@ -198,6 +206,8 @@ public class FileChooserPane extends BorderPane {
     public void setHeaderCheckBoxText(String value) {
         setTop(mCheckBox);
         mCheckBox.setText(value);
+        mTextField.disableProperty().bind(mCheckBox.selectedProperty().not());
+        mButton.disableProperty().bind(mCheckBox.selectedProperty().not());
     }
 
     public void setHeaderLabelText(String value) {
@@ -333,16 +343,14 @@ public class FileChooserPane extends BorderPane {
 
         });
 
-        mCheckBox.setOnAction((ActionEvent event) -> {
-            final boolean state = !mCheckBox.isSelected();
-            mTextField.setDisable(state);
-            mButton.setDisable(state);
+        mCheckBox.setOnAction(actionEvent -> {
             try {
                 mFileChooserListener.onFileChooserCheckBoxChange(this, mCheckBox.isSelected());
             } catch (Exception e) {
             }
-
         });
+
+        FxHelper.setPadding(FxHelper.getUIScaledInsets(0, 0, 4, 0), mLabel, mCheckBox);
     }
 
     private void populateValidatedFileList(List<File> files) {

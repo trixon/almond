@@ -83,6 +83,7 @@ public class FxHelper {
     private static final String STAGE_W = "AlmondStage_Width";
     private static final String STAGE_X = "AlmondStage_X";
     private static final String STAGE_Y = "AlmondStage_Y";
+    private static double UI_SCALE = SwingHelper.getUIScale();//FIXME Use this for now
     private static Color sDarkColor = Color.web("#3c3f41");
 
     public static void adjustButtonHeight(Stream<Node> stream, double prefHeight) {
@@ -125,12 +126,21 @@ public class FxHelper {
         gridPane.getColumnConstraints().clear();
 
         for (int i = 0; i < columnCount; i++) {
-            ColumnConstraints columnConstraints = new ColumnConstraints();
+            var columnConstraints = new ColumnConstraints();
             columnConstraints.setPercentWidth(100.0 / columnCount);
             gridPane.getColumnConstraints().add(columnConstraints);
         }
     }
 
+//    public static void autoSizeRow(GridPane gridPane, int rowCount) {
+//        gridPane.getRowConstraints().clear();
+//
+//        for (int i = 0; i < rowCount; i++) {
+//            var columnConstraints = new RowConstraints();
+//            columnConstraints.setPercentHeight(100.0 / rowCount);
+//            gridPane.getRowConstraints().add(columnConstraints);
+//        }
+//    }
     @Deprecated
     public static void autoSizeRegion(Region... regions) {
         autoSizeRegionHorizontal(regions);
@@ -309,31 +319,35 @@ public class FxHelper {
     }
 
     public static double getScaledFontSize() {
-        return Font.getDefault().getSize() * SwingHelper.getUIScale();
+        return Font.getDefault().getSize() * getUIScale();
     }
 
     public static Tooltip getTooltip(String text, KeyCodeCombination keyCodeCombination) {
         return new Tooltip(FORMAT_TITLE_DESC.formatted(text, keyCodeCombination.getDisplayText()));
     }
 
+    public static double getUIScale() {
+        return UI_SCALE;
+    }
+
     public static double getUIScaled(double value) {
-        return value * SwingHelper.getUIScale();
+        return value * getUIScale();
     }
 
     public static int getUIScaled(int value) {
-        return (int) (value * SwingHelper.getUIScale());
+        return (int) (value * getUIScale());
     }
 
     public static Insets getUIScaledInsets(double topRightBottomLeft) {
-        return new Insets(topRightBottomLeft * SwingHelper.getUIScale());
+        return new Insets(topRightBottomLeft * getUIScale());
     }
 
     public static Insets getUIScaledInsets(double top, double right, double bottom, double left) {
         return new Insets(
-                top * SwingHelper.getUIScale(),
-                right * SwingHelper.getUIScale(),
-                bottom * SwingHelper.getUIScale(),
-                left * SwingHelper.getUIScale()
+                top * getUIScale(),
+                right * getUIScale(),
+                bottom * getUIScale(),
+                left * getUIScale()
         );
     }
 
@@ -504,6 +518,10 @@ public class FxHelper {
 
     public static void setTooltip(Action action, KeyCodeCombination keyCodeCombination) {
         action.setLongText(FORMAT_TITLE_DESC.formatted(action.getText(), keyCodeCombination.getDisplayText()));
+    }
+
+    public static void setUIScale(double scale) {
+        UI_SCALE = scale;
     }
 
     public static void setValignment(VPos value, Node... nodes) {
