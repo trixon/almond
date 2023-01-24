@@ -19,7 +19,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -27,14 +26,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
-import javafx.stage.Window;
 import org.apache.commons.lang3.StringUtils;
 import org.controlsfx.glyphfont.FontAwesome;
 import org.controlsfx.glyphfont.Glyph;
@@ -50,6 +46,7 @@ public class FileChooserPane extends BorderPane {
     private final Button mButton = new Button(null, new Glyph("FontAwesome", FontAwesome.Glyph.FOLDER_OPEN_ALT).size(FxHelper.getScaledFontSize() * 1.5));
     private final CheckBox mCheckBox = new CheckBox();
     private final DirectoryChooser mDirectoryChooser = new DirectoryChooser();
+    private boolean mEnabledPathExpander = true;
     private final FileChooser mFileChooser = new FileChooser();
     private FileChooserListener mFileChooserListener;
     private final List<File> mFiles = new ArrayList<>();
@@ -186,6 +183,14 @@ public class FileChooserPane extends BorderPane {
         return mTitle;
     }
 
+    public boolean isEnabledPathExpander() {
+        return mEnabledPathExpander;
+    }
+
+    public void setEnabledPathExpander(boolean enabledPathExpander) {
+        mEnabledPathExpander = enabledPathExpander;
+    }
+
     public void setFileChooserListener(FileChooserListener fileChooserListener) {
         mFileChooserListener = fileChooserListener;
     }
@@ -257,29 +262,29 @@ public class FileChooserPane extends BorderPane {
         FxHelper.undecorateButton(mButton);
         mButton.setTooltip(new Tooltip(Dict.SELECT.toString()));
 
-        mTextField.setOnAction(
-                (ActionEvent event) -> {
-                    File file = new File(mTextField.getText().trim());
-                    setPath(file.getAbsolutePath());
+        mTextField.setOnAction(actionEvent -> {
+            if (mEnabledPathExpander) {
+                var file = new File(mTextField.getText().trim());
+                setPath(file.getAbsolutePath());
 
-                    //if (file.exists() && file.isDirectory()) {
-                    try {
-                        mFileChooserListener.onFileChooserOk(this, file);
-                    } catch (Exception e) {
-                    }
-                    //}
+                //if (file.exists() && file.isDirectory()) {
+                try {
+                    mFileChooserListener.onFileChooserOk(this, file);
+                } catch (Exception e) {
                 }
-        );
-
-        setOnDragOver((DragEvent event) -> {
-            Dragboard board = event.getDragboard();
-            if (board.hasFiles()) {
-                event.acceptTransferModes(TransferMode.COPY);
+                //}
             }
         });
 
-        setOnDragDropped((DragEvent event) -> {
-            populateValidatedFileList(event.getDragboard().getFiles());
+        setOnDragOver(dragEvent -> {
+            var dragboard = dragEvent.getDragboard();
+            if (dragboard.hasFiles()) {
+                dragEvent.acceptTransferModes(TransferMode.COPY);
+            }
+        });
+
+        setOnDragDropped(dragEvent -> {
+            populateValidatedFileList(dragEvent.getDragboard().getFiles());
             try {
                 if (!mFiles.isEmpty()) {
                     if (mSelectionMode == SelectionMode.MULTIPLE) {
@@ -293,19 +298,19 @@ public class FileChooserPane extends BorderPane {
             }
         });
 
-        mButton.setOnAction((ActionEvent event) -> {
+        mButton.setOnAction(actionEvent -> {
             try {
                 mFileChooserListener.onFileChooserPreSelect(this);
             } catch (Exception e) {
             }
 
-            Window window = mButton.getScene().getWindow();
+            var window = mButton.getScene().getWindow();
             boolean cancelled = true;
 
             if (mObjectMode == ObjectMode.DIRECTORY) {
                 mDirectoryChooser.setTitle(mTitle);
                 setInitialDirectory(mDirectoryChooser);
-                File file = mDirectoryChooser.showDialog(window);
+                var file = mDirectoryChooser.showDialog(window);
                 if (file != null) {
                     populateValidatedFileList(Arrays.asList(file));
                 }
@@ -314,13 +319,13 @@ public class FileChooserPane extends BorderPane {
                 mFileChooser.setTitle(mTitle);
                 setInitialDirectory(mFileChooser);
                 if (mSelectionMode == SelectionMode.MULTIPLE) {
-                    final List<File> files = mFileChooser.showOpenMultipleDialog(window);
+                    var files = mFileChooser.showOpenMultipleDialog(window);
                     cancelled = files == null;
                     if (!cancelled) {
                         populateValidatedFileList(files);
                     }
                 } else {
-                    File file = mFileChooser.showOpenDialog(window);
+                    var file = mFileChooser.showOpenDialog(window);
                     if (file != null) {
                         populateValidatedFileList(Arrays.asList(file));
                     }
