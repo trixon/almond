@@ -44,12 +44,14 @@ public class ExceptionDialogDisplayerHandler extends Handler {
     @Override
     public void publish(LogRecord logRecord) {
         if (logRecord.getThrown() != null) {
-            var exceptionDialog = new ExceptionDialog(logRecord.getThrown());
-            exceptionDialog.initOwner(mStage);
+            FxHelper.runLater(() -> {
+                var exceptionDialog = new ExceptionDialog(logRecord.getThrown());
+                exceptionDialog.initOwner(mStage);
 
-            var dialogPane = exceptionDialog.getDialogPane();
-            FxHelper.applyFontScale(dialogPane.getScene());
-            FxHelper.showAndWait(exceptionDialog, mStage);
+                var dialogPane = exceptionDialog.getDialogPane();
+                FxHelper.applyFontScale(dialogPane.getScene());
+                FxHelper.showAndWait(exceptionDialog, mStage);
+            });
         }
     }
 }
