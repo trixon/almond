@@ -61,7 +61,7 @@ import org.controlsfx.control.NotificationPane;
 import org.controlsfx.control.action.Action;
 import se.trixon.almond.util.PrefsHelper;
 import se.trixon.almond.util.icons.material.MaterialIcon;
-import se.trixon.almond.util.swing.SwingHelper;
+import static se.trixon.almond.util.swing.SwingHelper.getUIScale;
 
 /**
  *
@@ -83,7 +83,7 @@ public class FxHelper {
     private static final String STAGE_W = "AlmondStage_Width";
     private static final String STAGE_X = "AlmondStage_X";
     private static final String STAGE_Y = "AlmondStage_Y";
-    private static double UI_SCALE = SwingHelper.getUIScale();//FIXME Use this for now
+    private static double UI_SCALE = 1.0;
     private static Color sDarkColor = Color.web("#3c3f41");
 
     public static void adjustButtonHeight(Stream<Node> stream, double prefHeight) {
@@ -326,7 +326,7 @@ public class FxHelper {
         return new Tooltip(FORMAT_TITLE_DESC.formatted(text, keyCodeCombination.getDisplayText()));
     }
 
-    public static double getUIScale() {
+    public static double getUIScaleX() {
         return UI_SCALE;
     }
 
