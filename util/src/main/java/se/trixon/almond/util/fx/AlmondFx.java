@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2022 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -37,6 +37,7 @@ public class AlmondFx extends AlmondGui {
     private AlmondFx() {
     }
 
+    @Deprecated(forRemoval = true)
     public void addStageWatcher(Stage stage, Class c) {
         mStage = stage;
         stage.setOnCloseRequest(windowEvent -> {

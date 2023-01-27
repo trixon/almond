@@ -567,6 +567,7 @@ public class FxHelper {
         });
     }
 
+    @Deprecated(forRemoval = true)
     public static void windowStateRestore(Stage stage, double defaultWidth, double defaultHeight, Class c) throws BackingStoreException {
         Preferences p = Preferences.userNodeForPackage(c);
 
@@ -587,6 +588,7 @@ public class FxHelper {
         }
     }
 
+    @Deprecated(forRemoval = true)
     public static void windowStateSave(Stage stage, Class c) {
         Preferences p = Preferences.userNodeForPackage(c);
 
