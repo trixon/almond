@@ -15,6 +15,7 @@
  */
 package se.trixon.almond.util.io;
 
+import java.awt.geom.IllegalPathStateException;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -23,6 +24,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -50,14 +52,12 @@ public class Geo extends CoordinateFile {
     }
 
     public void addPoint(GeoPoint geoPoint) {
-        try {
-            if (mPoints.isEmpty()) {
-                mPath2D.moveTo(geoPoint.getY(), geoPoint.getX());
-            } else {
+        if (ObjectUtils.allNotNull(geoPoint, geoPoint.getX(), geoPoint.getY())) {
+            try {
                 mPath2D.lineTo(geoPoint.getY(), geoPoint.getX());
+            } catch (IllegalPathStateException e) {
+                mPath2D.moveTo(geoPoint.getY(), geoPoint.getX());
             }
-        } catch (NullPointerException e) {
-            //nvm
         }
 
         mPoints.add(geoPoint);
