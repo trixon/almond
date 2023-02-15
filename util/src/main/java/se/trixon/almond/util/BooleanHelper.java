@@ -27,11 +27,19 @@ public class BooleanHelper {
     private static final ResourceBundle sBundle = ResourceBundle.getBundle(SystemHelper.getPackageAsPath(Dict.class) + "BooleanBundle", Locale.getDefault());
 
     public static String asCheckBox(boolean value) {
-        return value ? "☑" : "☐";
+        return asCheckBox(value, "☑", "☐");
+    }
+
+    public static String asCheckBox(boolean value, String selected, String unselected) {
+        return value ? selected : unselected;
     }
 
     public static String asCheckBox(boolean value, String text) {
-        return (value ? "☑" : "☐") + " " + text;
+        return asCheckBox(value) + " " + text;
+    }
+
+    public static String asCheckBox(boolean value, String text, String selected, String unselected) {
+        return asCheckBox(value, selected, unselected) + " " + text;
     }
 
     public static String asLocalized(boolean value) {
