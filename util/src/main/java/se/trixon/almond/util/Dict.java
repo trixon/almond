@@ -107,6 +107,8 @@ public enum Dict {
     COORDINATE_FILES,
     COORDINATE_LIST,
     COPY,
+    COPY_ALL,
+    COPY_SELECTION,
     COPYRIGHT,
     CREDIT,
     CUSTOMIZE,
