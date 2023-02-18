@@ -33,6 +33,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ButtonBase;
 import javafx.scene.control.Control;
 import javafx.scene.control.Dialog;
+import javafx.scene.control.Labeled;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.ToolBar;
@@ -53,6 +54,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import org.apache.commons.lang3.ArrayUtils;
@@ -147,7 +149,7 @@ public class FxHelper {
     }
 
     public static void autoSizeRegionHorizontal(Region... regions) {
-        for (Region region : regions) {
+        for (var region : regions) {
             GridPane.setHgrow(region, Priority.ALWAYS);
             GridPane.setFillWidth(region, true);
             region.setMaxWidth(Double.MAX_VALUE);
@@ -155,10 +157,22 @@ public class FxHelper {
     }
 
     public static void autoSizeRegionVertical(Region... regions) {
-        for (Region region : regions) {
+        for (var region : regions) {
             GridPane.setVgrow(region, Priority.ALWAYS);
             GridPane.setFillHeight(region, true);
             region.setMaxHeight(Double.MAX_VALUE);
+        }
+    }
+
+    public static void clearText(Text... texts) {
+        for (var text : texts) {
+            text.setText("");
+        }
+    }
+
+    public static void clearLabel(Labeled... labels) {
+        for (var label : labels) {
+            label.setText("");
         }
     }
 
@@ -493,25 +507,25 @@ public class FxHelper {
     }
 
     public static void setEditable(boolean editable, Spinner... spinners) {
-        for (Spinner spinner : spinners) {
+        for (var spinner : spinners) {
             spinner.setEditable(editable);
         }
     }
 
     public static void setMargin(Insets insets, Region... regions) {
-        for (Region region : regions) {
+        for (var region : regions) {
             GridPane.setMargin(region, insets);
         }
     }
 
     public static void setPadding(Insets insets, Region... regions) {
-        for (Region region : regions) {
+        for (var region : regions) {
             region.setPadding(insets);
         }
     }
 
     public static void setPrefWidth(double width, Region... regions) {
-        for (Region region : regions) {
+        for (var region : regions) {
             region.setPrefWidth(width);
         }
     }
@@ -531,7 +545,7 @@ public class FxHelper {
     }
 
     public static Optional showAndWait(Dialog dialog, Stage stage) {
-        Stage alertStage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        var alertStage = (Stage) dialog.getDialogPane().getScene().getWindow();
         if (stage != null) {
             alertStage.setAlwaysOnTop(stage.isAlwaysOnTop());
         }

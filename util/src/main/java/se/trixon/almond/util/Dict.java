@@ -91,6 +91,8 @@ public enum Dict {
     COLLAPSE,
     COLOR,
     COMMAND,
+    COMMAND_NOT_FOUND,
+    COMMAND_NOT_FOUND_S,
     COMMANDS,
     COMMENT,
     COMPARE,
