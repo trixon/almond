@@ -404,7 +404,7 @@ public class FileChooserPane extends BorderPane {
                 chooser.setInitialDirectory(f.getParentFile());
                 chooser.setInitialFileName(f.getName());
             }
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
             //nvm
         }
     }
