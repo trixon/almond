@@ -112,7 +112,7 @@ public class MathHelper {
 
     public static boolean isInteger(String s) {
         try {
-            Integer.parseInt(s);
+            Integer.valueOf(s);
             return true;
         } catch (NullPointerException | NumberFormatException e) {
             return false;
@@ -128,12 +128,18 @@ public class MathHelper {
         return p.y * d.width + p.x;
     }
 
-    public static int round(double value) {
-        return (int) Math.round(value);
+    public static int round(Double value) {
+        if (value == null) {
+            return 0;
+        } else {
+            return (int) Math.round(value);
+        }
     }
 
-    public static double round(double value, int places) {
-        if (places < 0) {
+    public static Double round(Double value, int places) {
+        if (value == null) {
+            return null;
+        } else if (places < 0) {
             throw new IllegalArgumentException();
         }
 
