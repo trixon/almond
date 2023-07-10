@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2023 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -217,11 +217,17 @@ public class StringHelper {
         return Arrays.copyOf(arrayList.toArray(), arrayList.toArray().length, String[].class);
     }
 
+    public static String joinLines(String s) {
+        return StringUtils.replace(s, "\n", "\\n");
+    }
+
     /**
      * @param searchIn the string to search in
      * @param glob the glob pattern
-     * @param ignoreCase <code>true</code> if the match is case insensitive, else <code>false</code>.
-     * @param autoWrap <code>true</code> if two * should wrap the @param glob, else <code>false</code>.
+     * @param ignoreCase <code>true</code> if the match is case insensitive,
+     * else <code>false</code>.
+     * @param autoWrap <code>true</code> if two * should wrap the @param glob,
+     * else <code>false</code>.
      * @return The result of the match
      */
     public static boolean matchesSimpleGlob(String searchIn, String glob, boolean ignoreCase, boolean autoWrap) {
