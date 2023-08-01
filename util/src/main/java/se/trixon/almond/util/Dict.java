@@ -229,6 +229,8 @@ public enum Dict {
     INVALID_SETTING,
     INVALID_SETTINGS,
     INVALID_SOURCE,
+    ITEM,
+    ITEMS,
     JOB,
     JOBS,
     JOB_ALREADY_RUNNING,

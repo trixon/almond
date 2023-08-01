@@ -20,6 +20,7 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import org.apache.commons.io.FilenameUtils;
+import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
 import se.trixon.almond.util.Dict;
@@ -43,6 +44,21 @@ public class NbSimpleDialog {
 
     public static void clearFilters() {
         sFileChooser.resetChoosableFileFilters();
+    }
+
+    public static boolean confirm(String title, String header, String content, String buttonText) {
+        var d = new DialogDescriptor(
+                "%s\n%s".formatted(header, content),
+                title,
+                true,
+                new Object[]{Dict.CANCEL.toString(), buttonText},
+                buttonText,
+                0,
+                null,
+                null
+        );
+
+        return buttonText == DialogDisplayer.getDefault().notify(d);
     }
 
     public static FileNameExtensionFilter getFilter() {

@@ -1,0 +1,47 @@
+/*
+ * Copyright 2023 Patrik Karlström <patrik@trixon.se>.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package se.trixon.almond.nbp.fx;
+
+import se.trixon.almond.nbp.dialogs.NbSimpleDialog;
+import se.trixon.almond.util.fx.control.editable_list.EditableList;
+import se.trixon.almond.util.fx.control.editable_list.EditableListItem;
+
+/**
+ *
+ * @author Patrik Karlström <patrik@trixon.se>
+ * @param <T>
+ */
+public class NbEditableList<T extends EditableListItem> extends EditableList<T> {
+
+    public NbEditableList(Builder builder) {
+        super(builder);
+    }
+
+    @Override
+    protected boolean confirm(String title, String header, String content, String buttonText) {
+        return NbSimpleDialog.confirm(title, header, content, buttonText);
+    }
+
+    public static class Builder<T extends EditableListItem> extends EditableList.Builder<T> {
+
+        @Override
+        public NbEditableList<T> build() {
+            return new NbEditableList<>(this);
+        }
+
+    }
+
+}
