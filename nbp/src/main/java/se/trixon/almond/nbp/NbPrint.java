@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2023 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,8 +17,8 @@ package se.trixon.almond.nbp;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 import javax.swing.SwingUtilities;
-import org.apache.commons.lang3.StringUtils;
 import org.openide.windows.IOProvider;
 import org.openide.windows.InputOutput;
 import org.openide.windows.OutputWriter;
@@ -37,9 +37,9 @@ public class NbPrint {
 
     public void err(String x) {
         SwingUtilities.invokeLater(() -> {
-            try ( OutputWriter outputWriter = mInputOutput.getErr()) {
+            try (OutputWriter outputWriter = mInputOutput.getErr()) {
                 printDate(outputWriter);
-                outputWriter.println(StringUtils.defaultString(x, "NULL"));
+                outputWriter.println(Objects.toString(x, "NULL"));
             }
         });
     }
@@ -58,9 +58,9 @@ public class NbPrint {
 
     public void out(String x) {
         SwingUtilities.invokeLater(() -> {
-            try ( OutputWriter outputWriter = mInputOutput.getOut()) {
+            try (OutputWriter outputWriter = mInputOutput.getOut()) {
                 printDate(outputWriter);
-                outputWriter.println(StringUtils.defaultString(x, "NULL"));
+                outputWriter.println(Objects.toString(x, "NULL"));
             }
         });
     }

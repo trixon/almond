@@ -17,6 +17,7 @@ package se.trixon.almond.nbp;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 import javax.swing.SwingUtilities;
 import org.apache.commons.lang3.StringUtils;
 import org.openide.windows.IOProvider;
@@ -52,7 +53,7 @@ public class NbLog {
 
     public synchronized static void a(String tag, String msg) {
         if (sActive && sLevel <= ASSERT) {
-            printErr("ASSERT", getMessage(getTag(tag), StringUtils.defaultString(msg, "NULL")));
+            printErr("ASSERT", getMessage(getTag(tag), Objects.toString(msg, "NULL")));
         }
     }
 
@@ -62,7 +63,7 @@ public class NbLog {
 
     public synchronized static void d(String tag, String msg) {
         if (sActive && sLevel <= DEBUG) {
-            print("DEBUG", getMessage(getTag(tag), StringUtils.defaultString(msg, "NULL")));
+            print("DEBUG", getMessage(getTag(tag), Objects.toString(msg, "NULL")));
         }
     }
 
@@ -72,7 +73,7 @@ public class NbLog {
 
     public synchronized static void e(String tag, String msg) {
         if (sActive && sLevel <= ERROR) {
-            printErr("ERROR", getMessage(getTag(tag), StringUtils.defaultString(msg, "NULL")));
+            printErr("ERROR", getMessage(getTag(tag), Objects.toString(msg, "NULL")));
         }
     }
 
@@ -90,7 +91,7 @@ public class NbLog {
 
     public synchronized static void i(String tag, String msg) {
         if (sActive && sLevel <= INFO) {
-            print("INFO", getMessage(getTag(tag), StringUtils.defaultString(msg, "NULL")));
+            print("INFO", getMessage(getTag(tag), Objects.toString(msg, "NULL")));
         }
     }
 
@@ -140,7 +141,7 @@ public class NbLog {
 
     public synchronized static void v(String tag, String msg) {
         if (sActive && sLevel <= VERBOSE) {
-            print("VERBOSE", getMessage(getTag(tag), StringUtils.defaultString(msg, "NULL")));
+            print("VERBOSE", getMessage(getTag(tag), Objects.toString(msg, "NULL")));
         }
     }
 
@@ -150,7 +151,7 @@ public class NbLog {
 
     public synchronized static void w(String tag, String msg) {
         if (sActive && sLevel <= WARN) {
-            printErr("WARNING", getMessage(getTag(tag), StringUtils.defaultString(msg, "NULL")));
+            printErr("WARNING", getMessage(getTag(tag), Objects.toString(msg, "NULL")));
         }
     }
 
@@ -180,7 +181,7 @@ public class NbLog {
 
     private static void print(String levelClass, String message) {
         SwingUtilities.invokeLater(() -> {
-            try ( OutputWriter outputWriter = sInputOutput.getOut()) {
+            try (OutputWriter outputWriter = sInputOutput.getOut()) {
                 printDate(outputWriter);
                 outputWriter.print(levelClass + " ");
                 outputWriter.println(message);
@@ -196,7 +197,7 @@ public class NbLog {
 
     private static void printErr(String levelClass, String message) {
         SwingUtilities.invokeLater(() -> {
-            try ( OutputWriter outputWriter = sInputOutput.getErr()) {
+            try (OutputWriter outputWriter = sInputOutput.getErr()) {
                 printDate(outputWriter);
                 outputWriter.print(levelClass + " ");
                 outputWriter.println(message);

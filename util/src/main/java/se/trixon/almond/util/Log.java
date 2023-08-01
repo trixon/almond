@@ -17,7 +17,7 @@ package se.trixon.almond.util;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import org.apache.commons.lang3.StringUtils;
+import java.util.Objects;
 
 /**
  *
@@ -58,7 +58,7 @@ public class Log {
 
     public synchronized void a(String tag, String msg) {
         if (mActive && mLevel <= ASSERT) {
-            printErr("ASSERT", getMessage(getTag(tag), StringUtils.defaultString(msg, "NULL")));
+            printErr("ASSERT", getMessage(getTag(tag), Objects.toString(msg, "NULL")));
         }
     }
 
@@ -68,7 +68,7 @@ public class Log {
 
     public synchronized void d(String tag, String msg) {
         if (mActive && mLevel <= DEBUG) {
-            print("DEBUG", getMessage(getTag(tag), StringUtils.defaultString(msg, "NULL")));
+            print("DEBUG", getMessage(getTag(tag), Objects.toString(msg, "NULL")));
         }
     }
 
@@ -78,7 +78,7 @@ public class Log {
 
     public synchronized void e(String tag, String msg) {
         if (mActive && mLevel <= ERROR) {
-            printErr("ERROR", getMessage(getTag(tag), StringUtils.defaultString(msg, "NULL")));
+            printErr("ERROR", getMessage(getTag(tag), Objects.toString(msg, "NULL")));
         }
     }
 
@@ -100,7 +100,7 @@ public class Log {
 
     public synchronized void i(String tag, String msg) {
         if (mActive && mLevel <= INFO) {
-            print("INFO", getMessage(getTag(tag), StringUtils.defaultString(msg, "NULL")));
+            print("INFO", getMessage(getTag(tag), Objects.toString(msg, "NULL")));
         }
     }
 
@@ -162,7 +162,7 @@ public class Log {
 
     public synchronized void v(String tag, String msg) {
         if (mActive && mLevel <= VERBOSE) {
-            print("VERBOSE", getMessage(getTag(tag), StringUtils.defaultString(msg, "NULL")));
+            print("VERBOSE", getMessage(getTag(tag), Objects.toString(msg, "NULL")));
         }
     }
 
@@ -172,7 +172,7 @@ public class Log {
 
     public synchronized void w(String tag, String msg) {
         if (mActive && mLevel <= WARN) {
-            printErr("WARNING", getMessage(getTag(tag), StringUtils.defaultString(msg, "NULL")));
+            printErr("WARNING", getMessage(getTag(tag), Objects.toString(msg, "NULL")));
         }
     }
 

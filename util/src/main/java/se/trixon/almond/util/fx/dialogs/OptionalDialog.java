@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2023 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,6 +15,7 @@
  */
 package se.trixon.almond.util.fx.dialogs;
 
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
@@ -27,7 +28,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Window;
-import org.apache.commons.lang3.StringUtils;
 import se.trixon.almond.util.Dict;
 import se.trixon.almond.util.OptionsBase;
 import se.trixon.almond.util.fx.FxHelper;
@@ -55,7 +55,7 @@ public class OptionalDialog {
             label.prefHeightProperty().bind(borderPane.heightProperty());
             label.prefWidthProperty().bind(borderPane.widthProperty());
 
-            var checkBox = new CheckBox(StringUtils.defaultString(checkBoxText, Dict.SHOW_THIS_AGAIN.toString()));
+            var checkBox = new CheckBox(Objects.toString(checkBoxText, Dict.SHOW_THIS_AGAIN.toString()));
             checkBox.setSelected(true);
             FxHelper.setPadding(new Insets(16, 0, 0, 16), checkBox);
             borderPane.setBottom(checkBox);

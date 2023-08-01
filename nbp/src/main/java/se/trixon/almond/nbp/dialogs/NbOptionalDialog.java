@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2023 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,12 +15,12 @@
  */
 package se.trixon.almond.nbp.dialogs;
 
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 import javax.swing.JCheckBox;
-import org.apache.commons.lang3.StringUtils;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
 import org.openide.util.NbPreferences;
@@ -39,7 +39,7 @@ public class NbOptionalDialog {
         String key = cls.getName() + "_" + id;
 
         if (sOptions.is(key, true)) {
-            var checkBox = new JCheckBox(StringUtils.defaultString(checkBoxText, Dict.SHOW_THIS_AGAIN.toString()));
+            var checkBox = new JCheckBox(Objects.toString(checkBoxText, Dict.SHOW_THIS_AGAIN.toString()));
             checkBox.setSelected(true);
 
             String[] options = new String[]{Dict.CLOSE.toString()};
