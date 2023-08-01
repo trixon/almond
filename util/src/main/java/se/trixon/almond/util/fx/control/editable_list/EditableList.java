@@ -23,8 +23,12 @@ import java.util.function.Function;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
+import org.apache.commons.lang3.StringUtils;
 import org.controlsfx.control.action.Action;
 import org.controlsfx.control.action.ActionUtils;
 import se.trixon.almond.util.Dict;
@@ -41,6 +45,8 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
     private List<Action> mActions;
     private final Builder mBuilder;
     private final ListView<T> mListView = new ListView<>();
+    private final Label mTitleLabel = new Label();
+    private ToolBar mToolBar;
     private Action remAllAction;
 
     public EditableList(Builder builder) {
@@ -56,6 +62,19 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
 
     public ListView<T> getListView() {
         return mListView;
+    }
+
+    public Label getTitleLabel() {
+        return mTitleLabel;
+    }
+
+    public ToolBar getToolBar() {
+        return mToolBar;
+    }
+
+    public void postEdit(T t) {
+        mListView.getSelectionModel().select(t);
+        mListView.requestFocus();
     }
 
     protected boolean confirm(String title, String header, String content, String buttonText) {
@@ -127,17 +146,17 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
         cloneAction.disabledProperty().bind(nullSelectionBooleanBinding);
         remAction.disabledProperty().bind(nullSelectionBooleanBinding);
 
-        var toolBar = ActionUtils.createToolBar(mActions, ActionUtils.ActionTextBehavior.HIDE);
-        FxHelper.undecorateButtons(toolBar.getItems().stream());
-        FxHelper.slimToolBar(toolBar);
+        mToolBar = ActionUtils.createToolBar(mActions, ActionUtils.ActionTextBehavior.HIDE);
+        FxHelper.undecorateButtons(mToolBar.getItems().stream());
+        FxHelper.slimToolBar(mToolBar);
 
-        setTop(toolBar);
+        var vbox = new VBox(mToolBar);
+        if (StringUtils.isNotBlank(mBuilder.getTitle())) {
+            mTitleLabel.setText(mBuilder.getTitle());
+            vbox.getChildren().add(0, mTitleLabel);
+        }
+        setTop(vbox);
         setCenter(mListView);
-    }
-
-    public void postEdit(T t) {
-        mListView.getSelectionModel().select(t);
-        mListView.requestFocus();
     }
 
     private void edit(T item) {
@@ -172,6 +191,7 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
         };
         private Runnable mOnRemoveAll = () -> {
         };
+        private String mTitle;
 
         public EditableList<T> build() {
             return new EditableList<>(this);
@@ -208,6 +228,10 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
             return mOnRemoveAll;
         }
 
+        public String getTitle() {
+            return mTitle;
+        }
+
         public ObjectProperty<ObservableList<T>> itemsProperty() {
             return mItemsProperty;
         }
@@ -228,7 +252,7 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
         }
 
         public Builder<T> setItemsProperty(ObjectProperty<ObservableList<T>> itemsProperty) {
-            this.mItemsProperty = itemsProperty;
+            mItemsProperty = itemsProperty;
             return this;
         }
 
@@ -242,7 +266,7 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
         }
 
         public Builder<T> setOnEdit(BiConsumer<String, T> onEdit) {
-            this.mOnEdit = onEdit;
+            mOnEdit = onEdit;
             return this;
         }
 
@@ -253,6 +277,11 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
 
         public Builder<T> setOnRemoveAll(Runnable onRemoveAll) {
             mOnRemoveAll = onRemoveAll;
+            return this;
+        }
+
+        public Builder<T> setTitle(String title) {
+            mTitle = title;
             return this;
         }
     }
