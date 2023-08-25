@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2023 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,6 +17,7 @@ package se.trixon.almond.util;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import org.apache.commons.lang3.ObjectUtils;
 
 /**
  *
@@ -86,5 +87,45 @@ public class DateHelper {
      */
     public static Timestamp getMin(Timestamp t1, Timestamp t2) {
         return t1.before(t2) ? t1 : t2;
+    }
+
+    public static boolean isAfterOrEqual(LocalDate value, LocalDate reference) {
+        if (ObjectUtils.anyNull(value, reference)) {
+            return true;
+        } else {
+            return value.isEqual(reference) || value.isAfter(reference);
+        }
+    }
+
+    public static boolean isBeforeOrEqual(LocalDate value, LocalDate reference) {
+        if (ObjectUtils.anyNull(value, reference)) {
+            return true;
+        } else {
+            return value.isEqual(reference) || value.isBefore(reference);
+        }
+    }
+
+    public static boolean isBetween(LocalDate ld1, LocalDate ld2, LocalDate value) {
+        if (ObjectUtils.allNull(ld1, ld2)) {
+            return true;
+        }
+
+        if (ObjectUtils.allNotNull(ld1, ld2)) {
+            if (value == null) {
+                return true;
+            } else {
+                return isAfterOrEqual(value, ld1) && isAfterOrEqual(value, ld2);
+            }
+        }
+
+        if (ld1 != null) {
+            return isAfterOrEqual(value, ld1);
+        }
+
+        if (ld2 != null) {
+            return isBeforeOrEqual(value, ld2);
+        }
+
+        throw new UnsupportedOperationException();
     }
 }
