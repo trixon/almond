@@ -221,6 +221,16 @@ public class StringHelper {
         return StringUtils.replace(s, "\n", "\\n");
     }
 
+    public static boolean matchesSimpleGlob(String glob, boolean ignoreCase, boolean autoWrap, String... searchIn) {
+        for (var s : searchIn) {
+            if (matchesSimpleGlob(s, glob, ignoreCase, autoWrap)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     /**
      * @param searchIn the string to search in
      * @param glob the glob pattern
