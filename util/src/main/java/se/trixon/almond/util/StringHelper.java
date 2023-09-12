@@ -243,6 +243,9 @@ public class StringHelper {
     public static boolean matchesSimpleGlob(String searchIn, String glob, boolean ignoreCase, boolean autoWrap) {
         searchIn = StringUtils.defaultString(searchIn);
         glob = StringUtils.defaultString(glob);
+        if (ignoreCase) {
+            glob = glob.toLowerCase();
+        }
 
         if (autoWrap && !StringUtils.contains(glob, "*")) {
             glob = "*" + glob + "*";
@@ -258,6 +261,18 @@ public class StringHelper {
         } catch (PatternSyntaxException e) {
             return false;
         }
+    }
+
+    public static boolean matchesSimpleGlobByWord(String glob, boolean ignoreCase, boolean autoWrap, String... searchIn) {
+        for (var globPart : StringUtils.split(glob)) {
+            for (var s : searchIn) {
+                if (matchesSimpleGlob(s, globPart, ignoreCase, autoWrap)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     private static class BlockItem {
