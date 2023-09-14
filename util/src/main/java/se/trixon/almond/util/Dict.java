@@ -110,6 +110,7 @@ public enum Dict {
     COORDINATE_LIST,
     COPY,
     COPY_ALL,
+    COPY_NAMES,
     COPY_SELECTION,
     COPYRIGHT,
     CREDIT,
@@ -193,6 +194,7 @@ public enum Dict {
     FONT,
     FOREGROUND,
     FROM,
+    FREQUENCY,
     FULL_SCREEN,
     GENERAL,
     GENERATING_FILELIST,
@@ -620,6 +622,16 @@ public enum Dict {
         SURFACE,
         WIDTH;
         private final ResourceBundle mResourceBundle = ResourceBundle.getBundle(SystemHelper.getPackageAsPath(Dict.class) + "DictGeometry", Locale.getDefault());
+
+        @Override
+        public String toString() {
+            return getString(mResourceBundle, name().toLowerCase());
+        }
+    }
+
+    public enum Survey {
+        DIMENSION;
+        private final ResourceBundle mResourceBundle = ResourceBundle.getBundle(SystemHelper.getPackageAsPath(Dict.class) + "DictSurvey", Locale.getDefault());
 
         @Override
         public String toString() {

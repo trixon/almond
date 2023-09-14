@@ -16,8 +16,10 @@
 package se.trixon.almond.util;
 
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.TreeSet;
 import java.util.regex.PatternSyntaxException;
@@ -182,6 +184,14 @@ public class StringHelper {
         return out;
     }
 
+    public static String getJoinedUnique(String separator, String... strings) {
+        var set = new LinkedHashSet<String>();
+        set.addAll(Arrays.asList(strings));
+        set.remove("");
+
+        return String.join(separator, set);
+    }
+
     public static String getTheOtherOne(String s, String s1, String s2) {
         if (s == null) {
             return null;
@@ -273,6 +283,14 @@ public class StringHelper {
         }
 
         return false;
+    }
+
+    public static String toString(LocalDate localDate, String defaultValue) {
+        return localDate == null ? defaultValue : localDate.toString();
+    }
+
+    public static String toString(LocalDate localDate) {
+        return toString(localDate, "");
     }
 
     private static class BlockItem {
