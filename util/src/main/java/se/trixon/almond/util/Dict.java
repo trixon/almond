@@ -42,6 +42,8 @@ public enum Dict {
     ADMINISTRATOR,
     ADVANCED,
     AFTER,
+    ALARM,
+    ALARMS,
     ALL,
     ALL_FILES,
     ALTITUDE,
@@ -643,14 +645,22 @@ public enum Dict {
         CURRENT,
         DATE,
         DAY,
+        DAYS,
         HOUR,
+        HOURS,
+        MAX_AGE,
         MINUTE,
+        MINUTES,
         MONTH,
+        MONTHS,
         SECOND,
+        SECONDS,
         TIME,
         TODAY,
         WEEK,
-        YEAR;
+        WEEKS,
+        YEAR,
+        YEARS;
         private final ResourceBundle mResourceBundle = ResourceBundle.getBundle(SystemHelper.getPackageAsPath(Dict.class) + "DictTime", Locale.getDefault());
 
         @Override
