@@ -87,7 +87,7 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
     }
 
     private void createUI() {
-        final int size = mBuilder.getIconSize();
+        final int size = FxHelper.getUIScaled(mBuilder.getIconSize());
 
         var addAction = new Action(Dict.ADD.toString(), actionEvent -> {
             edit(null);
