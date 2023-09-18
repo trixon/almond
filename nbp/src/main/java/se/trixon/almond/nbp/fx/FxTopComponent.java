@@ -33,22 +33,36 @@ import se.trixon.almond.util.swing.SwingHelper;
  */
 public abstract class FxTopComponent extends TopComponent {
 
-    private static int FX_DELAY_LONG = 0;
-    private static int FX_DELAY_SHORT = 0;
+    private static final int FX_DELAY_LONG = 0;
+    private static final int FX_DELAY_SHORT = 0;
     private static final WindowManager WINDOW_MANAGER = WindowManager.getDefault();
     private transient ResourceBundle mBundle;
-    private boolean mComponentOpenedFirstTime = true;
     private final JFXPanel mFxPanel;
     private transient Scene mScene;
 
     public FxTopComponent() {
         mFxPanel = new JFXPanel();
         setLayout(new BorderLayout());
-        JProgressBar progressBar = new JProgressBar();
+        var progressBar = new JProgressBar();
         progressBar.setIndeterminate(true);
         add(progressBar, BorderLayout.NORTH);
         repaint();
         revalidate();
+
+        FxHelper.runLaterDelayed(50, () -> {
+            initFX();
+            mFxPanel.setScene(mScene);
+
+            SwingHelper.runLaterDelayed(50, () -> {
+                removeAll();
+                add(mFxPanel, BorderLayout.CENTER);
+                repaint();
+                revalidate();
+                FxHelper.runLaterDelayed(100, () -> {
+                    fxPostConstructor();
+                });
+            });
+        });
     }
 
     public ResourceBundle getBundle() {
@@ -137,23 +151,7 @@ public abstract class FxTopComponent extends TopComponent {
     @Override
     protected void componentOpened() {
         super.componentOpened();
-        FxHelper.runLaterDelayed(50, () -> {
-            if (mComponentOpenedFirstTime) {
-                mComponentOpenedFirstTime = false;
-                initFX();
-                mFxPanel.setScene(mScene);
-
-                SwingHelper.runLaterDelayed(0, () -> {
-                    removeAll();
-                    add(mFxPanel, BorderLayout.CENTER);
-                    repaint();
-                    revalidate();
-                    FxHelper.runLaterDelayed(100, () -> {
-                        fxPostConstructor();
-                    });
-                });
-            }
-
+        FxHelper.runLaterDelayed(FX_DELAY_SHORT, () -> {
             fxComponentOpened();
         });
     }
