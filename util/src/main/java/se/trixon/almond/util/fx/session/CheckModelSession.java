@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package se.trixon.almond.util.fx;
+package se.trixon.almond.util.fx.session;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ListChangeListener;
@@ -53,13 +53,6 @@ public class CheckModelSession {
     private void initListeners() {
         mCheckedStringProperty.addListener((p, o, n) -> {
             load();
-//            var indicesTemp = StringUtils.split(n, ",");
-//            var indices = new int[indicesTemp.length];
-//            for (int i = 0; i < indices.length; i++) {
-//                indices[i] = Integer.parseInt(indicesTemp[i]);
-//            }
-//
-//            mCheckModel.checkIndices(indices);
         });
 
         mCheckModel.getCheckedIndices().addListener((ListChangeListener.Change c) -> {
