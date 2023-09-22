@@ -42,8 +42,6 @@ public enum Dict {
     ADMINISTRATOR,
     ADVANCED,
     AFTER,
-    ALARM,
-    ALARMS,
     ALL,
     ALL_FILES,
     ALTITUDE,
@@ -196,7 +194,6 @@ public enum Dict {
     FONT,
     FOREGROUND,
     FROM,
-    FREQUENCY,
     FULL_SCREEN,
     GENERAL,
     GENERATING_FILELIST,
@@ -248,7 +245,6 @@ public enum Dict {
     KILOMETERS,
     LABEL,
     LAST,
-    LATEST,
     LATITUDE,
     LAYER,
     LAYERS,
@@ -289,6 +285,8 @@ public enum Dict {
     MENU,
     MESSAGE,
     MESSAGES,
+    META,
+    METADATA,
     METADATA_FILE,
     METADATA_FILES,
     METERS,
@@ -323,7 +321,6 @@ public enum Dict {
     OPERATION,
     OPERATION_COMPLETED,
     OPERATION_INTERRUPTED,
-    OPERATOR,
     OPTIONS,
     ORGANIZATION,
     ORIGINAL,
@@ -627,16 +624,6 @@ public enum Dict {
         SURFACE,
         WIDTH;
         private final ResourceBundle mResourceBundle = ResourceBundle.getBundle(SystemHelper.getPackageAsPath(Dict.class) + "DictGeometry", Locale.getDefault());
-
-        @Override
-        public String toString() {
-            return getString(mResourceBundle, name().toLowerCase());
-        }
-    }
-
-    public enum Survey {
-        DIMENSION;
-        private final ResourceBundle mResourceBundle = ResourceBundle.getBundle(SystemHelper.getPackageAsPath(Dict.class) + "DictSurvey", Locale.getDefault());
 
         @Override
         public String toString() {
