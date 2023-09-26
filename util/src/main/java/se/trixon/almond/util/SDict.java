@@ -23,6 +23,8 @@ public enum SDict {
     IS_INVALID,
     IS_VALID,
     LATEST,
+    MEASUREMENT,
+    MEASUREMENTS,
     OPERATOR,
     POINT,
     POINTS,

@@ -310,6 +310,7 @@ public enum Dict {
     NOTE,
     NOTES,
     NO_BOOKMARKS,
+    NUM_OF_S,
     OBJECT,
     OBJECT_PROPERTIES,
     OK,
