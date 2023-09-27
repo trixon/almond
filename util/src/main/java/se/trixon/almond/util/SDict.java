@@ -28,9 +28,11 @@ public enum SDict {
     OPERATOR,
     POINT,
     POINTS,
+    ROLLING,
     VALID_FROM,
     VALID_FROM_TO,
-    VALID_TO;
+    VALID_TO,
+    ZERO;
     private final ResourceBundle mResourceBundle = ResourceBundle.getBundle(SystemHelper.getPackageAsPath(SDict.class) + "SDict", Locale.getDefault());
 
     private static String getString(ResourceBundle bundle, String key) {

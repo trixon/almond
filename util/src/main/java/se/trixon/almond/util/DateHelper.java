@@ -17,6 +17,7 @@ package se.trixon.almond.util;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import org.apache.commons.lang3.ObjectUtils;
 
 /**
@@ -127,5 +128,13 @@ public class DateHelper {
         }
 
         throw new UnsupportedOperationException();
+    }
+
+    public static String toDateString(LocalDateTime localDateTime) {
+        return localDateTime == null ? null : toDateString(localDateTime.toLocalDate());
+    }
+
+    public static String toDateString(LocalDate localDate) {
+        return localDate == null ? null : localDate.toString();
     }
 }
