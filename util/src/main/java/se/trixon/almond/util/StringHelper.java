@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
+import java.util.Objects;
 import java.util.TreeSet;
 import java.util.regex.PatternSyntaxException;
 import org.apache.commons.lang3.StringUtils;
@@ -225,6 +226,10 @@ public class StringHelper {
         }
 
         return Arrays.copyOf(arrayList.toArray(), arrayList.toArray().length, String[].class);
+    }
+
+    public static String join(String separator, String defaultValue, String... values) {
+        return String.join(separator, Arrays.stream(values).map(s -> Objects.toString(s, defaultValue)).toList());
     }
 
     public static String joinLines(String s) {

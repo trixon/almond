@@ -515,9 +515,17 @@ public enum Dict {
         }
     }
 
+    public String toLower() {
+        return toString().toLowerCase(Locale.ROOT);
+    }
+
     @Override
     public String toString() {
-        return getString(mResourceBundle, name().toLowerCase());
+        return getString(mResourceBundle, name().toLowerCase(Locale.ROOT));
+    }
+
+    public String toUpper() {
+        return toString().toUpperCase(Locale.ROOT);
     }
 
     public enum Dialog {
@@ -592,9 +600,17 @@ public enum Dict {
         YOU_ARE_ABOUT_TO_S;
         private final ResourceBundle mResourceBundle = ResourceBundle.getBundle(SystemHelper.getPackageAsPath(Dict.class) + "DictDialog", Locale.getDefault());
 
+        public String toLower() {
+            return toString().toLowerCase(Locale.ROOT);
+        }
+
         @Override
         public String toString() {
-            return getString(mResourceBundle, name().toLowerCase());
+            return getString(mResourceBundle, name().toLowerCase(Locale.ROOT));
+        }
+
+        public String toUpper() {
+            return toString().toUpperCase(Locale.ROOT);
         }
     }
 
@@ -626,9 +642,17 @@ public enum Dict {
         WIDTH;
         private final ResourceBundle mResourceBundle = ResourceBundle.getBundle(SystemHelper.getPackageAsPath(Dict.class) + "DictGeometry", Locale.getDefault());
 
+        public String toLower() {
+            return toString().toLowerCase(Locale.ROOT);
+        }
+
         @Override
         public String toString() {
-            return getString(mResourceBundle, name().toLowerCase());
+            return getString(mResourceBundle, name().toLowerCase(Locale.ROOT));
+        }
+
+        public String toUpper() {
+            return toString().toUpperCase(Locale.ROOT);
         }
     }
 
@@ -654,9 +678,17 @@ public enum Dict {
         YEARS;
         private final ResourceBundle mResourceBundle = ResourceBundle.getBundle(SystemHelper.getPackageAsPath(Dict.class) + "DictTime", Locale.getDefault());
 
+        public String toLower() {
+            return toString().toLowerCase(Locale.ROOT);
+        }
+
         @Override
         public String toString() {
-            return getString(mResourceBundle, name().toLowerCase());
+            return getString(mResourceBundle, name().toLowerCase(Locale.ROOT));
+        }
+
+        public String toUpper() {
+            return toString().toUpperCase(Locale.ROOT);
         }
     }
 
@@ -689,9 +721,17 @@ public enum Dict {
         VARIANT;
         private final ResourceBundle mResourceBundle = ResourceBundle.getBundle(SystemHelper.getPackageAsPath(Dict.class) + "DictGame", Locale.getDefault());
 
+        public String toLower() {
+            return toString().toLowerCase(Locale.ROOT);
+        }
+
         @Override
         public String toString() {
-            return getString(mResourceBundle, name().toLowerCase());
+            return getString(mResourceBundle, name().toLowerCase(Locale.ROOT));
+        }
+
+        public String toUpper() {
+            return toString().toUpperCase(Locale.ROOT);
         }
     }
 }

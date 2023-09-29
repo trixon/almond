@@ -23,12 +23,15 @@ public enum SDict {
     IS_INVALID,
     IS_VALID,
     LATEST,
+    LATEST_S,
     MEASUREMENT,
     MEASUREMENTS,
     OPERATOR,
     POINT,
     POINTS,
     ROLLING,
+    SURVEYOR,
+    SURVEYORS,
     VALID_FROM,
     VALID_FROM_TO,
     VALID_TO,
@@ -43,9 +46,17 @@ public enum SDict {
         }
     }
 
+    public String toLower() {
+        return toString().toLowerCase(Locale.ROOT);
+    }
+
     @Override
     public String toString() {
-        return getString(mResourceBundle, name().toLowerCase());
+        return getString(mResourceBundle, name().toLowerCase(Locale.ROOT));
+    }
+
+    public String toUpper() {
+        return toString().toUpperCase(Locale.ROOT);
     }
 
 }
