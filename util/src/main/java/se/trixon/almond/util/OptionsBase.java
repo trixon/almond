@@ -15,6 +15,9 @@
  */
 package se.trixon.almond.util;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
 /**
@@ -23,10 +26,11 @@ import java.util.prefs.Preferences;
  */
 public abstract class OptionsBase {
 
+    public static final boolean DEFAULT_FULL_SCREEN = false;
+
     public static final String KEY_APP_FIRST_RUN = "app.first_run";
     public static final String KEY_APP_START_COUNTER = "app.start_counter";
     public static final String KEY_FULL_SCREEN = "fullscreen";
-    public static final boolean DEFAULT_FULL_SCREEN = false;
 
     protected Preferences mPreferences;
 
@@ -89,4 +93,11 @@ public abstract class OptionsBase {
         mPreferences = preferences;
     }
 
+    public void sync() {
+        try {
+            mPreferences.sync();
+        } catch (BackingStoreException ex) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
