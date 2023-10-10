@@ -17,7 +17,9 @@ package se.trixon.almond.util.fx.session;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import org.apache.commons.lang3.StringUtils;
+import org.controlsfx.control.CheckComboBox;
 import org.controlsfx.control.IndexedCheckModel;
 
 /**
@@ -26,12 +28,18 @@ import org.controlsfx.control.IndexedCheckModel;
  */
 public class CheckModelSession {
 
+    private final ObservableList mAllItems;
     private final IndexedCheckModel mCheckModel;
     private final SimpleStringProperty mCheckedStringProperty = new SimpleStringProperty();
 
-    public CheckModelSession(IndexedCheckModel checkModel) {
+    public CheckModelSession(IndexedCheckModel checkModel, ObservableList allItems) {
         mCheckModel = checkModel;
+        mAllItems = allItems;
         initListeners();
+    }
+
+    public CheckModelSession(CheckComboBox checkComboBox) {
+        this(checkComboBox.getCheckModel(), checkComboBox.getItems());
     }
 
     public SimpleStringProperty checkedStringProperty() {
@@ -39,14 +47,16 @@ public class CheckModelSession {
     }
 
     public void load() {
-        var indicesTemp = StringUtils.split(mCheckedStringProperty.get(), ",");
-        if (indicesTemp != null) {
-            var indices = new int[indicesTemp.length];
-            for (int i = 0; i < indices.length; i++) {
-                indices[i] = Integer.parseInt(indicesTemp[i]);
+        var storedItems = StringUtils.split(mCheckedStringProperty.get(), ":::");
+        if (storedItems != null) {
+            for (var storedItem : storedItems) {
+                for (var listItem : mAllItems) {
+                    if (StringUtils.equals(storedItem, listItem.toString())) {
+                        mCheckModel.check(listItem);
+                        break;
+                    }
+                }
             }
-
-            mCheckModel.checkIndices(indices);
         }
     }
 
@@ -55,9 +65,9 @@ public class CheckModelSession {
             load();
         });
 
-        mCheckModel.getCheckedIndices().addListener((ListChangeListener.Change c) -> {
-            var indices = String.join(",", c.getList().stream().map(i -> String.valueOf(i)).toList());
-            mCheckedStringProperty.set(indices);
+        mCheckModel.getCheckedItems().addListener((ListChangeListener.Change c) -> {
+            var items = String.join(":::", c.getList().stream().map(o -> o.toString()).toList());
+            mCheckedStringProperty.set(items);
         });
     }
 
