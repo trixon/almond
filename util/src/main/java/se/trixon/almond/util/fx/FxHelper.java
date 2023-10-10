@@ -15,6 +15,7 @@
  */
 package se.trixon.almond.util.fx;
 
+import impl.org.controlsfx.skin.CheckComboBoxSkin;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
@@ -31,6 +32,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ButtonBase;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Labeled;
@@ -58,6 +60,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import org.apache.commons.lang3.ArrayUtils;
+import org.controlsfx.control.CheckComboBox;
 import org.controlsfx.control.MaskerPane;
 import org.controlsfx.control.NotificationPane;
 import org.controlsfx.control.action.Action;
@@ -164,15 +167,15 @@ public class FxHelper {
         }
     }
 
-    public static void clearText(Text... texts) {
-        for (var text : texts) {
-            text.setText("");
-        }
-    }
-
     public static void clearLabel(Labeled... labels) {
         for (var label : labels) {
             label.setText("");
+        }
+    }
+
+    public static void clearText(Text... texts) {
+        for (var text : texts) {
+            text.setText("");
         }
     }
 
@@ -323,6 +326,21 @@ public class FxHelper {
                     return buttonBase;
                 }
             }
+        }
+
+        return null;
+    }
+
+    public static ComboBox getComboBox(CheckComboBox checkComboBox) {
+        try {
+            var comboboxField = CheckComboBoxSkin.class.getDeclaredField("comboBox");
+            comboboxField.setAccessible(true);
+            var skin = (CheckComboBoxSkin) checkComboBox.getSkin();
+            var comboBox = (ComboBox) comboboxField.get(skin);
+
+            return comboBox;
+        } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
+            Logger.getLogger(FxHelper.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return null;
