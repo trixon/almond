@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2023 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,6 +18,7 @@ package se.trixon.almond.util.fx.dialogs;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import se.trixon.almond.util.fx.FxHelper;
@@ -34,6 +35,18 @@ public class Message {
 
     public static void error(Node node, String title, String headerText, String contentText) {
         display(AlertType.ERROR, node, title, headerText, contentText);
+    }
+
+    public static void html(Window owner, String title, String contentText) {
+        var webView = new WebView();
+        webView.getEngine().loadContent(contentText);
+        display(AlertType.INFORMATION, owner, title, null, webView);
+    }
+
+    public static void html(Node node, String title, String contentText) {
+        var webView = new WebView();
+        webView.getEngine().loadContent(contentText);
+        display(AlertType.INFORMATION, node, title, null, webView);
     }
 
     public static void information(Node node, String title, String headerText, String contentText) {
@@ -60,7 +73,7 @@ public class Message {
         display(AlertType.WARNING, owner, title, headerText, contentText);
     }
 
-    private static void display(AlertType alertType, Node node, String title, String headerText, String contentText) {
+    private static void display(AlertType alertType, Node node, String title, String headerText, Object content) {
         Window owner = null;
 
         try {
@@ -69,17 +82,26 @@ public class Message {
             //nvm
         }
 
-        display(alertType, owner, title, headerText, contentText);
+        display(alertType, owner, title, headerText, content);
     }
 
-    private static void display(AlertType alertType, Window owner, String title, String headerText, String contentText) {
-        Alert alert = new Alert(alertType);
+    private static void display(AlertType alertType, Window owner, String title, String headerText, Object content) {
+        var alert = new Alert(alertType);
         alert.initOwner(owner);
         if (title != null) {
             alert.setTitle(title);
         }
-        alert.setHeaderText(headerText);
-        alert.setContentText(contentText);
+
+        if (content instanceof String s) {
+            alert.setHeaderText(headerText);
+            alert.setContentText(s);
+        } else if (content instanceof Node node) {
+            alert.setHeaderText(null);
+            alert.setContentText(null);
+            alert.setGraphic(null);
+            alert.setResizable(true);
+            alert.getDialogPane().setContent(node);
+        }
 
         FxHelper.showAndWait(alert, (Stage) owner);
     }
