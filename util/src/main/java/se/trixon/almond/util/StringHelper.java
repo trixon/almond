@@ -236,6 +236,10 @@ public class StringHelper {
         return StringUtils.replace(s, "\n", "\\n");
     }
 
+    public static String joinNonNulls(String separator, String... values) {
+        return String.join(separator, Arrays.stream(values).filter(s -> s != null).toList());
+    }
+
     public static boolean matchesSimpleGlob(String glob, boolean ignoreCase, boolean autoWrap, String... searchIn) {
         for (var s : searchIn) {
             if (matchesSimpleGlob(s, glob, ignoreCase, autoWrap)) {
@@ -288,6 +292,19 @@ public class StringHelper {
         }
 
         return false;
+    }
+
+    public static String round(Double value, int decimals) {
+        return round(value, decimals, "", "");
+    }
+
+    public static String round(Double value, int decimals, String prefix, String postfix) {
+        if (value == null) {
+            return null;
+        } else {
+            var format = "%s%%.%df%s".formatted(prefix, decimals, postfix);
+            return format.formatted(value);
+        }
     }
 
     public static String toString(LocalDate localDate, String defaultValue) {
