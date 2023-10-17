@@ -295,14 +295,14 @@ public class StringHelper {
     }
 
     public static String round(Double value, int decimals) {
-        return round(value, decimals, "", "");
+        return round(value, decimals, "", "", false);
     }
 
-    public static String round(Double value, int decimals, String prefix, String postfix) {
+    public static String round(Double value, int decimals, String prefix, String postfix, boolean sign) {
         if (value == null) {
             return null;
         } else {
-            var format = "%s%%.%df%s".formatted(prefix, decimals, postfix);
+            var format = "%s%%%s.%df%s".formatted(prefix, sign ? "+" : "", decimals, postfix);
             return format.formatted(value);
         }
     }
