@@ -24,10 +24,10 @@ import javafx.scene.control.SingleSelectionModel;
  */
 public class SelectionModelSession {
 
-    private final SingleSelectionModel<String> mSelectionModel;
+    private final SingleSelectionModel<? extends Object> mSelectionModel;
     private final SimpleIntegerProperty mSelectedIndexProperty = new SimpleIntegerProperty();
 
-    public SelectionModelSession(SingleSelectionModel<String> selectionModel) {
+    public SelectionModelSession(SingleSelectionModel<? extends Object> selectionModel) {
         mSelectionModel = selectionModel;
         initListeners();
     }

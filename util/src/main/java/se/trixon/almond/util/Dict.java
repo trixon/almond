@@ -56,6 +56,7 @@ public enum Dict {
     APPLY,
     ARCHIVE,
     AUTHORS,
+    AUTOMATIC,
     AUTOMATIC_UPDATING,
     AVAILABLE,
     BACKGROUND,
