@@ -98,6 +98,7 @@ public enum Dict {
     COMMANDS,
     COMMENT,
     COMPARE,
+    COMPONENT,
     CONFIGURATION,
     CONNECT,
     CONNECTION,
@@ -247,6 +248,7 @@ public enum Dict {
     KILOMETERS,
     LABEL,
     LAST,
+    LATEST,
     LATITUDE,
     LAYER,
     LAYERS,
@@ -368,6 +370,7 @@ public enum Dict {
     READ_ONLY,
     RECURSIVE,
     REDO,
+    REFERENCE,
     REFRESH,
     REGENERATE,
     RELATIVE,
@@ -523,6 +526,7 @@ public enum Dict {
     }
 
     @Override
+
     public String toString() {
         return getString(mResourceBundle, name().toLowerCase(Locale.ROOT));
     }

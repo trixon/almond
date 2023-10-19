@@ -28,6 +28,34 @@ import javafx.geometry.Point2D;
  */
 public class MathHelper {
 
+    public static double bearingCW(double dX, double dY) {
+        var b = Math.tan(dX / dY);
+
+        var posT = dX > 0;
+        var posN = dY > 0;
+        var offset = 0.0;
+
+        if ((posT && !posN) || (!posT && !posN)) {
+            offset = Math.PI;
+        } else if (!posT && posN) {
+            offset = 2 * Math.PI;
+        }
+
+        return b + offset;
+    }
+
+    public static double bearingCW(double x1, double y1, double x2, double y2) {
+        return MathHelper.bearingCW(y2 - y1, x2 - x1);
+    }
+
+    public static double bearingCWInDegrees(double dX, double dY) {
+        return Math.toDegrees(MathHelper.bearingCW(dX, dY));
+    }
+
+    public static double bearingCWInDegrees(double x1, double y1, double x2, double y2) {
+        return Math.toDegrees(bearingCW(x1, y1, x2, y2));
+    }
+
     /**
      * Calculates circle center from two points and a radius. A negative radius
      * returns the other center.
