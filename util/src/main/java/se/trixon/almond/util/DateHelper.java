@@ -18,6 +18,9 @@ package se.trixon.almond.util;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.Date;
 import org.apache.commons.lang3.ObjectUtils;
 
 /**
@@ -25,6 +28,16 @@ import org.apache.commons.lang3.ObjectUtils;
  * @author Patrik Karlström
  */
 public class DateHelper {
+
+    public static Date convertToDate(LocalDateTime ldt) {
+        var zonedDateTime = ZonedDateTime.of(ldt, ZoneId.systemDefault());
+
+        return new Date(zonedDateTime.toInstant().toEpochMilli());
+    }
+
+    public static Date convertToDate(LocalDate ld) {
+        return convertToDate(ld.atStartOfDay());
+    }
 
     /**
      *
