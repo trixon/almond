@@ -90,6 +90,7 @@ public class FxHelper {
     private static final String STAGE_Y = "AlmondStage_Y";
     private static double UI_SCALE = 1.0;
     private static Color sDarkColor = Color.web("#3c3f41");
+    private static Color sFillColorForDarkTheme = Color.web("#D3D3D3");
 
     public static void adjustButtonHeight(Stream<Node> stream, double prefHeight) {
         stream.filter(item -> (item instanceof ButtonBase))
@@ -97,6 +98,10 @@ public class FxHelper {
                 .forEachOrdered(buttonBase -> {
                     buttonBase.setPrefHeight(prefHeight);
                 });
+    }
+
+    public static Color getFillColorForDarkTheme() {
+        return sFillColorForDarkTheme;
     }
 
     public static void adjustButtonWidth(Stream<Node> stream, double prefWidth) {

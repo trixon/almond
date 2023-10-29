@@ -133,18 +133,26 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
         });
         cloneAction.setGraphic(MaterialIcon._Content.CONTENT_COPY.getImageView(size));
 
+        var startAction = new Action(Dict.RUN.toString(), actionEvent -> {
+            mBuilder.getOnStart().accept(getSelected());
+        });
+        startAction.setGraphic(MaterialIcon._Av.PLAY_ARROW.getImageView(size));
+
         mActions = List.of(
                 addAction,
                 remAction,
                 editAction,
                 cloneAction,
-                remAllAction
+                remAllAction,
+                ActionUtils.ACTION_SPAN,
+                startAction
         );
 
         var nullSelectionBooleanBinding = mListView.getSelectionModel().selectedItemProperty().isNull();
         editAction.disabledProperty().bind(nullSelectionBooleanBinding);
         cloneAction.disabledProperty().bind(nullSelectionBooleanBinding);
         remAction.disabledProperty().bind(nullSelectionBooleanBinding);
+        startAction.disabledProperty().bind(nullSelectionBooleanBinding);
 
         mToolBar = ActionUtils.createToolBar(mActions, ActionUtils.ActionTextBehavior.HIDE);
         FxHelper.undecorateButtons(mToolBar.getItems().stream());
@@ -191,6 +199,8 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
         };
         private Runnable mOnRemoveAll = () -> {
         };
+        private Consumer<T> mOnStart = t -> {
+        };
         private String mTitle;
 
         public EditableList<T> build() {
@@ -226,6 +236,10 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
 
         public Runnable getOnRemoveAll() {
             return mOnRemoveAll;
+        }
+
+        public Consumer<T> getOnStart() {
+            return mOnStart;
         }
 
         public String getTitle() {
@@ -277,6 +291,11 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
 
         public Builder<T> setOnRemoveAll(Runnable onRemoveAll) {
             mOnRemoveAll = onRemoveAll;
+            return this;
+        }
+
+        public Builder<T> setOnStart(Consumer<T> onStart) {
+            mOnStart = onStart;
             return this;
         }
 

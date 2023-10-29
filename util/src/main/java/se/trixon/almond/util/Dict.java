@@ -604,6 +604,7 @@ public enum Dict {
         TITLE_RESTART_REQUIRED,
         TITLE_ROWS_NOT_SELECTED,
         TITLE_SELECT_COLOR,
+        TITLE_TASK_RUN_S,
         YOU_ARE_ABOUT_TO_S;
         private final ResourceBundle mResourceBundle = ResourceBundle.getBundle(SystemHelper.getPackageAsPath(Dict.class) + "DictDialog", Locale.getDefault());
 
