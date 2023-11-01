@@ -36,6 +36,7 @@ public enum SDict {
     LATEST,
     LATEST_S,
     MEASUREMENT,
+    MEASUREMENT_NEED,
     MEASUREMENTS,
     OPERATOR,
     POINT,

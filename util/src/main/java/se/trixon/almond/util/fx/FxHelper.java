@@ -33,6 +33,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ButtonBase;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ComboBoxBase;
 import javafx.scene.control.Control;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Labeled;
@@ -98,10 +99,6 @@ public class FxHelper {
                 .forEachOrdered(buttonBase -> {
                     buttonBase.setPrefHeight(prefHeight);
                 });
-    }
-
-    public static Color getFillColorForDarkTheme() {
-        return sFillColorForDarkTheme;
     }
 
     public static void adjustButtonWidth(Stream<Node> stream, double prefWidth) {
@@ -355,6 +352,10 @@ public class FxHelper {
         return sDarkColor;
     }
 
+    public static Color getFillColorForDarkTheme() {
+        return sFillColorForDarkTheme;
+    }
+
     public static double getScaledFontSize() {
         return Font.getDefault().getSize() * getUIScale();
     }
@@ -532,6 +533,12 @@ public class FxHelper {
     public static void setEditable(boolean editable, Spinner... spinners) {
         for (var spinner : spinners) {
             spinner.setEditable(editable);
+        }
+    }
+
+    public static void setEditable(boolean editable, ComboBoxBase... comboBoxBases) {
+        for (var comboBoxBase : comboBoxBases) {
+            comboBoxBase.setEditable(editable);
         }
     }
 
