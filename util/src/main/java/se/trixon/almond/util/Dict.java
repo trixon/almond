@@ -499,6 +499,7 @@ public enum Dict {
     UPPER,
     USER,
     USERNAME,
+    VALID,
     VALUE,
     VERIFY,
     VERSION,
