@@ -274,6 +274,7 @@ public enum Dict {
     MADE_BY,
     MADE_IN,
     MADE_WITH,
+    MAINTENANCE,
     MANUAL,
     MAP,
     MAP_TYPE_HYBRID,
