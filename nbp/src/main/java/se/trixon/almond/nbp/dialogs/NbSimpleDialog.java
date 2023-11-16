@@ -17,6 +17,7 @@ package se.trixon.almond.nbp.dialogs;
 
 import java.awt.Component;
 import java.io.File;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import org.apache.commons.io.FilenameUtils;
@@ -24,6 +25,7 @@ import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
 import se.trixon.almond.util.Dict;
+import se.trixon.almond.util.swing.SwingHelper;
 
 /**
  *
@@ -47,18 +49,21 @@ public class NbSimpleDialog {
     }
 
     public static boolean confirm(String title, String header, String content, String buttonText) {
+        var button = new JButton(buttonText);
         var d = new DialogDescriptor(
                 "%s\n%s".formatted(header, content),
                 title,
                 true,
-                new Object[]{Dict.CANCEL.toString(), buttonText},
-                buttonText,
+                new Object[]{Dict.CANCEL.toString(), button},
+                button,
                 0,
                 null,
                 null
         );
 
-        return buttonText == DialogDisplayer.getDefault().notify(d);
+        SwingHelper.runLaterDelayed(50, () -> button.requestFocus());//Workaround for FlatLaf bug.
+
+        return button == DialogDisplayer.getDefault().notify(d);
     }
 
     public static FileNameExtensionFilter getFilter() {
