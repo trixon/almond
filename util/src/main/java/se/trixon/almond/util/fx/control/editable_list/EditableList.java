@@ -15,6 +15,7 @@
  */
 package se.trixon.almond.util.fx.control.editable_list;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.function.BiConsumer;
@@ -50,11 +51,6 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
     private Action remAllAction;
 
     public EditableList(Builder builder) {
-        //TODO
-//        iconsize as property?
-//      confirmfx
-//      bindings
-//      edit
         mBuilder = builder;
         createUI();
         applyConfiguration();
@@ -75,6 +71,12 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
     public void postEdit(T t) {
         mListView.getSelectionModel().select(t);
         mListView.requestFocus();
+    }
+
+    public void selected(T t) {
+        mListView.requestFocus();
+        mListView.getSelectionModel().select(t);
+        FxHelper.scrollToItemIfNotVisible(mListView, t);
     }
 
     protected boolean confirm(String title, String header, String content, String buttonText) {
@@ -138,15 +140,27 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
         });
         startAction.setGraphic(MaterialIcon._Av.PLAY_ARROW.getImageView(size));
 
-        mActions = List.of(
-                addAction,
-                remAction,
-                editAction,
-                cloneAction,
-                remAllAction,
-                ActionUtils.ACTION_SPAN,
-                startAction
-        );
+        mActions = new ArrayList<>();
+
+        if (mBuilder.getOnEdit() != null) {
+            mActions.add(addAction);
+        }
+        if (mBuilder.getOnRemove() != null) {
+            mActions.add(remAction);
+        }
+        if (mBuilder.getOnEdit() != null) {
+            mActions.add(editAction);
+        }
+        if (mBuilder.getOnClone() != null) {
+            mActions.add(cloneAction);
+        }
+        if (mBuilder.getOnRemoveAll() != null) {
+            mActions.add(remAllAction);
+        }
+        if (mBuilder.getOnStart() != null) {
+            mActions.add(ActionUtils.ACTION_SPAN);
+            mActions.add(startAction);
+        }
 
         var nullSelectionBooleanBinding = mListView.getSelectionModel().selectedItemProperty().isNull();
         editAction.disabledProperty().bind(nullSelectionBooleanBinding);
@@ -189,18 +203,11 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
         private String mItemPlural = Dict.ITEMS.toString();
         private String mItemSingular = Dict.ITEM.toString();
         private ObjectProperty<ObservableList<T>> mItemsProperty;
-        //private ListEditorCell<T> mListCell;
-        private Function<T, T> mOnClone = t -> {
-            return null;
-        };
-        private BiConsumer<String, T> mOnEdit = (title, item) -> {
-        };
-        private Consumer<T> mOnRemove = t -> {
-        };
-        private Runnable mOnRemoveAll = () -> {
-        };
-        private Consumer<T> mOnStart = t -> {
-        };
+        private Function<T, T> mOnClone;
+        private BiConsumer<String, T> mOnEdit;
+        private Consumer<T> mOnRemove;
+        private Runnable mOnRemoveAll;
+        private Consumer<T> mOnStart;
         private String mTitle;
 
         public EditableList<T> build() {
@@ -219,9 +226,6 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
             return mItemSingular;
         }
 
-//        public ListEditorCell<T> getListCell() {
-//            return mListCell;
-//        }
         public Function<T, T> getOnClone() {
             return mOnClone;
         }
@@ -270,10 +274,6 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
             return this;
         }
 
-//        public Builder<T> setListCell(ListEditorCell<T> listCell) {
-//            mListCell = listCell;
-//            return this;
-//        }
         public Builder<T> setOnClone(Function<T, T> onClone) {
             mOnClone = onClone;
             return this;
