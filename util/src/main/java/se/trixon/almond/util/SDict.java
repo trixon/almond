@@ -23,6 +23,7 @@ import java.util.ResourceBundle;
  * @author Patrik Karlström
  */
 public enum SDict {
+    ACOUSTIC,
     ALARM,
     ALARMS,
     ALARM_HEIGHT,
@@ -30,8 +31,10 @@ public enum SDict {
     ALARM_PLANE,
     DIMENSION,
     FREQUENCY,
+    GROUNDWATER,
     HAS_VALID_FROM,
     HAS_VALID_TO,
+    HYDROGEOLOGY,
     IS_INVALID,
     IS_VALID,
     LATEST,
@@ -46,6 +49,7 @@ public enum SDict {
     ROLLING,
     SURVEYOR,
     SURVEYORS,
+    TOPOGRAPHY,
     TRACE,
     TRACE_1D,
     TRACE_2D,
@@ -57,6 +61,8 @@ public enum SDict {
     VECTOR_1D,
     VECTOR_2D,
     VECTOR_3D,
+    WITHOUT_VALID_FROM,
+    WITHOUT_VALID_TO,
     ZERO;
     private final ResourceBundle mResourceBundle = ResourceBundle.getBundle(SystemHelper.getPackageAsPath(SDict.class) + "SDict", Locale.getDefault());
 
