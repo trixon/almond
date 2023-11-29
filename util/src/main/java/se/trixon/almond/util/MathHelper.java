@@ -114,6 +114,20 @@ public class MathHelper {
         return convertDoubleToString(Locale.getDefault(), d);
     }
 
+    public static String convertDoubleToStringWithSign(Locale locale, Double d, int decimals) {
+        if (d == null) {
+            return "";
+        } else {
+            String format = "%%+.%df".formatted(decimals);
+
+            return String.format(locale, format, d);
+        }
+    }
+
+    public static String convertDoubleToStringWithSign(Double d, int decimals) {
+        return convertDoubleToStringWithSign(Locale.getDefault(), d, decimals);
+    }
+
     public static Integer convertIntegerToInteger(Integer i) {
         return i == null ? 0 : i;
     }
@@ -150,6 +164,8 @@ public class MathHelper {
     public static void main(String[] args) {
         System.out.println(pointToIndex(new Point(3, 1), new Dimension(5, 3)));
         System.out.println(indexToPoint(14, new Dimension(5, 3)));
+        System.out.println(convertDoubleToStringWithSign(Math.PI, 4));
+        System.out.println(convertDoubleToStringWithSign(-Math.PI, 4));
     }
 
     public static int pointToIndex(Point p, Dimension d) {
