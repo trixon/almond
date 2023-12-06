@@ -17,11 +17,13 @@ package se.trixon.almond.util.fx;
 
 import impl.org.controlsfx.skin.CheckComboBoxSkin;
 import java.util.Optional;
+import java.util.TreeSet;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -66,6 +68,7 @@ import org.controlsfx.control.MaskerPane;
 import org.controlsfx.control.NotificationPane;
 import org.controlsfx.control.action.Action;
 import se.trixon.almond.util.PrefsHelper;
+import se.trixon.almond.util.fx.session.CheckModelSession;
 import se.trixon.almond.util.icons.material.MaterialIcon;
 import static se.trixon.almond.util.swing.SwingHelper.getUIScale;
 
@@ -401,6 +404,17 @@ public class FxHelper {
         return Preferences.userNodeForPackage(c).getBoolean(STAGE_FULL_SCREEN, false);
     }
 
+    public static void loadAndRestoreCheckItems(CheckComboBox<String> checkComboBox, CheckModelSession checkModelSession, Stream<String> stream) {
+        var checkModel = checkComboBox.getCheckModel();
+        var checkedItems = checkModel.getCheckedItems();
+        var allItems = new TreeSet<>(stream.collect(Collectors.toSet()));
+
+        checkComboBox.getItems().setAll(allItems);
+        checkedItems.stream().forEach(s -> checkModel.check(s));
+
+        checkModelSession.load();
+    }
+
     public static void loadDarkTheme(Scene scene) {
         runLater(() -> {
             if (isDarkThemeEnabled()) {
@@ -560,6 +574,12 @@ public class FxHelper {
         }
     }
 
+    public static void setShowCheckedCount(boolean show, CheckComboBox... checkComboBoxes) {
+        for (var checkComboBox : checkComboBoxes) {
+            checkComboBox.setShowCheckedCount(show);
+        }
+    }
+
     public static void setTooltip(Action action, KeyCodeCombination keyCodeCombination) {
         action.setLongText(FORMAT_TITLE_DESC.formatted(action.getText(), keyCodeCombination.getDisplayText()));
     }
@@ -571,6 +591,12 @@ public class FxHelper {
     public static void setValignment(VPos value, Node... nodes) {
         for (var node : nodes) {
             GridPane.setValignment(node, value);
+        }
+    }
+
+    public static void setVisibleRowCount(int visibleRowCount, CheckComboBox... checkComboBoxes) {
+        for (var checkComboBox : checkComboBoxes) {
+            FxHelper.getComboBox(checkComboBox).setVisibleRowCount(visibleRowCount);
         }
     }
 
