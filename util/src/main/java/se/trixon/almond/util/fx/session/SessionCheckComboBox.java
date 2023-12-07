@@ -27,22 +27,26 @@ import org.controlsfx.control.CheckComboBox;
  */
 public class SessionCheckComboBox<T> extends CheckComboBox<T> {
 
-    private final CheckModelSession mCheckModelSession;
+    private final CheckModelSession mSession;
 
     public SessionCheckComboBox() {
-        mCheckModelSession = new CheckModelSession(this);
+        mSession = new CheckModelSession(this);
     }
 
     public SimpleStringProperty checkedStringProperty() {
-        return mCheckModelSession.checkedStringProperty();
+        return mSession.checkedStringProperty();
     }
 
     public void clearChecks() {
         getCheckModel().clearChecks();
     }
 
-    public CheckModelSession getCheckModelSession() {
-        return mCheckModelSession;
+    public CheckModelSession getSession() {
+        return mSession;
+    }
+
+    public void loadAndRestoreCheckItems() {
+        loadAndRestoreCheckItems(getItems().stream());
     }
 
     public void loadAndRestoreCheckItems(Stream<T> stream) {
@@ -52,7 +56,7 @@ public class SessionCheckComboBox<T> extends CheckComboBox<T> {
         getItems().setAll(new TreeSet<>(stream.collect(Collectors.toSet())));
         checkedItems.stream().forEach(s -> checkModel.check(s));
 
-        mCheckModelSession.load();
+        mSession.load();
     }
 
 }
