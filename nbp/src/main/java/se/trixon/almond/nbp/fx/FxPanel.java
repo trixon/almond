@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2023 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -28,6 +28,10 @@ public abstract class FxPanel extends JFXPanel {
 
     public FxPanel() {
         setPreferredSize(new Dimension(200, 200));
+    }
+
+    public void initFx() {
+        initFx(null);
     }
 
     public void initFx(Runnable runnable) {
