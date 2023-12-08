@@ -202,6 +202,7 @@ public enum Dict {
     GENERATING_FILELIST,
     GLOBAL,
     GLOBAL_OPTIONS,
+    GRAPHICS,
     GROUP,
     HELP,
     HIDE,
