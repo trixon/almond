@@ -23,6 +23,8 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -125,6 +127,11 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
         });
         remAllAction.setGraphic(MaterialIcon._Content.CLEAR.getImageView(size));
 
+        var saveAction = new Action(Dict.SAVE.toString(), actionEvent -> {
+//            save(getSelected());
+        });
+        saveAction.setGraphic(MaterialIcon._Content.SAVE.getImageView(size));
+
         var editAction = new Action(Dict.EDIT.toString(), actionEvent -> {
             edit(getSelected());
         });
@@ -147,6 +154,9 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
         }
         if (mBuilder.getOnRemove() != null) {
             mActions.add(remAction);
+        }
+        if (mBuilder.getOnSave() != null) {
+            mActions.add(saveAction);
         }
         if (mBuilder.getOnEdit() != null) {
             mActions.add(editAction);
@@ -202,13 +212,18 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
         private int mIconSize = 32;
         private String mItemPlural = Dict.ITEMS.toString();
         private String mItemSingular = Dict.ITEM.toString();
-        private ObjectProperty<ObservableList<T>> mItemsProperty;
+        private ObjectProperty<ObservableList<T>> mItemsProperty = new SimpleObjectProperty<>();
         private Function<T, T> mOnClone;
         private BiConsumer<String, T> mOnEdit;
         private Consumer<T> mOnRemove;
         private Runnable mOnRemoveAll;
+        private Function<T, T> mOnSave;
         private Consumer<T> mOnStart;
         private String mTitle;
+
+        public Builder() {
+            mItemsProperty.setValue(FXCollections.observableArrayList());
+        }
 
         public EditableList<T> build() {
             return new EditableList<>(this);
@@ -240,6 +255,10 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
 
         public Runnable getOnRemoveAll() {
             return mOnRemoveAll;
+        }
+
+        public Function<T, T> getOnSave() {
+            return mOnSave;
         }
 
         public Consumer<T> getOnStart() {
@@ -291,6 +310,11 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
 
         public Builder<T> setOnRemoveAll(Runnable onRemoveAll) {
             mOnRemoveAll = onRemoveAll;
+            return this;
+        }
+
+        public Builder<T> setOnSave(Function<T, T> onSave) {
+            mOnSave = onSave;
             return this;
         }
 
