@@ -28,8 +28,14 @@ import org.controlsfx.control.CheckComboBox;
 public class SessionCheckComboBox<T> extends CheckComboBox<T> {
 
     private final CheckModelSession mSession;
+    private boolean mStaticContent = false;
 
     public SessionCheckComboBox() {
+        mSession = new CheckModelSession(this);
+    }
+
+    public SessionCheckComboBox(boolean staticContent) {
+        mStaticContent = staticContent;
         mSession = new CheckModelSession(this);
     }
 
@@ -52,8 +58,9 @@ public class SessionCheckComboBox<T> extends CheckComboBox<T> {
     public void loadAndRestoreCheckItems(Stream<T> stream) {
         var checkModel = getCheckModel();
         var checkedItems = checkModel.getCheckedItems();
-
-        getItems().setAll(new TreeSet<>(stream.collect(Collectors.toSet())));
+        if (!mStaticContent) {
+            getItems().setAll(new TreeSet<>(stream.collect(Collectors.toSet())));
+        }
         checkedItems.stream().forEach(s -> checkModel.check(s));
 
         mSession.load();
