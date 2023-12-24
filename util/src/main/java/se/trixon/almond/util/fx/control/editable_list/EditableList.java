@@ -31,6 +31,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import org.apache.commons.lang3.StringUtils;
 import org.controlsfx.control.action.Action;
 import org.controlsfx.control.action.ActionUtils;
@@ -186,6 +187,8 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
         if (StringUtils.isNotBlank(mBuilder.getTitle())) {
             mTitleLabel.setText(mBuilder.getTitle());
             vbox.getChildren().add(0, mTitleLabel);
+            mTitleLabel.setFont(Font.font(FxHelper.getScaledFontSize() * 1.2));
+            FxHelper.setPadding(FxHelper.getUIScaledInsets(5, 0, 0, 10), mTitleLabel);
         }
         setTop(vbox);
         setCenter(mListView);
