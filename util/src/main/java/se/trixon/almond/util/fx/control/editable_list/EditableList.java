@@ -195,7 +195,7 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
     }
 
     private void edit(T item) {
-        var title = item == null ? Dict.ADD.toString() : Dict.EDIT.toString();
+        var title = "%s %s".formatted(item == null ? Dict.ADD.toString() : Dict.EDIT.toString(), mBuilder.mItemSingular);
         mBuilder.getOnEdit().accept(title, item);
     }
 
