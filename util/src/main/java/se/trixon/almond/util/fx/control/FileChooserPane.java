@@ -135,6 +135,10 @@ public class FileChooserPane extends BorderPane {
         return mFileChooser;
     }
 
+    public FileChooserListener getFileChooserListener() {
+        return mFileChooserListener;
+    }
+
     /**
      * Applies only to file object mode
      *
@@ -383,16 +387,14 @@ public class FileChooserPane extends BorderPane {
     }
 
     private void setInitialDirectory(DirectoryChooser chooser) {
-        try {
-            String firstPath = StringUtils.split(mTextField.getText(), File.pathSeparatorChar)[0];
-            File f = new File(firstPath);
+        if (!StringUtils.isBlank(mTextField.getText())) {
+            var firstPath = StringUtils.split(mTextField.getText(), File.pathSeparatorChar)[0];
+            var f = new File(firstPath);
             if (f.isDirectory()) {
                 chooser.setInitialDirectory(f);
             } else if (f.isFile()) {
                 chooser.setInitialDirectory(f.getParentFile());
             }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            //nvm
         }
     }
 
