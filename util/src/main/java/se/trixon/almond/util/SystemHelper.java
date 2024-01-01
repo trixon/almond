@@ -32,7 +32,6 @@ import java.nio.charset.StandardCharsets;
 import java.security.CodeSource;
 import java.util.LinkedHashMap;
 import java.util.Locale;
-import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 import java.util.function.Consumer;
@@ -237,7 +236,11 @@ public class SystemHelper {
     }
 
     public static String getSystemInfo() {
-        LinkedHashMap<String, String> map = new LinkedHashMap<>();
+        return getSystemInfo("");
+    }
+
+    public static String getSystemInfo(String indent) {
+        var map = new LinkedHashMap<String, String>();
         map.put("Operating System", "%s version %s running on %s".formatted(
                 System.getProperty("os.name"),
                 System.getProperty("os.version"),
@@ -264,17 +267,17 @@ public class SystemHelper {
         }
 
         int max = Integer.MIN_VALUE;
-        for (Map.Entry<String, String> entry : map.entrySet()) {
+        for (var entry : map.entrySet()) {
             max = Math.max(max, entry.getKey().length());
         }
 
-        StringBuilder sb = new StringBuilder("\n");
+        var sb = new StringBuilder("\n");
         String separator = " = ";
 
-        for (Map.Entry<String, String> entry : map.entrySet()) {
+        for (var entry : map.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
-            sb.append("  ").append(StringUtils.rightPad(key, max)).append(separator).append(value).append("\n");
+            sb.append(indent).append(StringUtils.rightPad(key, max)).append(separator).append(value).append("\n");
         }
 
         return sb.toString();

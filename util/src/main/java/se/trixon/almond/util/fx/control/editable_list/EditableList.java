@@ -59,6 +59,14 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
         applyConfiguration();
     }
 
+    public Builder getBuilder() {
+        return mBuilder;
+    }
+
+    public String getDialogTitleEdit(T item) {
+        return "%s %s".formatted(item == null ? Dict.ADD.toString() : Dict.EDIT.toString(), mBuilder.mItemSingular.toLowerCase(Locale.ROOT));
+    }
+
     public ListView<T> getListView() {
         return mListView;
     }
@@ -195,8 +203,7 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
     }
 
     private void edit(T item) {
-        var title = "%s %s".formatted(item == null ? Dict.ADD.toString() : Dict.EDIT.toString(), mBuilder.mItemSingular);
-        mBuilder.getOnEdit().accept(title, item);
+        mBuilder.getOnEdit().accept(getDialogTitleEdit(item), item);
     }
 
     private T getSelected() {
