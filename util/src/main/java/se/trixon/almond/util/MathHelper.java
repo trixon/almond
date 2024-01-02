@@ -28,11 +28,13 @@ import javafx.geometry.Point2D;
  */
 public class MathHelper {
 
-    public static double bearingCW(double dX, double dY) {
-        var b = Math.tan(dX / dY);
+    private static final double DEGREES_TO_GON = 200 / 180;
+    private static final double RADIANS_TO_GON = 200 / Math.PI;
 
-        var posT = dX > 0;
-        var posN = dY > 0;
+    public static double azimuth(double dX, double dY) {
+        var b = Math.atan(dY / dX);
+        var posT = dY >= 0;
+        var posN = dX >= 0;
         var offset = 0.0;
 
         if ((posT && !posN) || (!posT && !posN)) {
@@ -44,16 +46,24 @@ public class MathHelper {
         return b + offset;
     }
 
-    public static double bearingCW(double x1, double y1, double x2, double y2) {
-        return MathHelper.bearingCW(y2 - y1, x2 - x1);
+    public static double azimuth(double x1, double y1, double x2, double y2) {
+        return azimuth(x2 - x1, y2 - y1);
     }
 
-    public static double bearingCWInDegrees(double dX, double dY) {
-        return Math.toDegrees(MathHelper.bearingCW(dX, dY));
+    public static double azimuthToDegrees(double dX, double dY) {
+        return Math.toDegrees(azimuth(dX, dY));
     }
 
-    public static double bearingCWInDegrees(double x1, double y1, double x2, double y2) {
-        return Math.toDegrees(bearingCW(x1, y1, x2, y2));
+    public static double azimuthToDegrees(double x1, double y1, double x2, double y2) {
+        return Math.toDegrees(azimuth(x1, y1, x2, y2));
+    }
+
+    public static double azimuthToGon(double dX, double dY) {
+        return azimuth(dX, dY) * RADIANS_TO_GON;
+    }
+
+    public static double azimuthToGon(double x1, double y1, double x2, double y2) {
+        return azimuth(x1, y1, x2, y2) * RADIANS_TO_GON;
     }
 
     /**
