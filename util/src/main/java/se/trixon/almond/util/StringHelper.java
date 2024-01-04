@@ -294,6 +294,21 @@ public class StringHelper {
         return false;
     }
 
+    public static boolean matchesSimpleGlobByWordNegatable(String glob, boolean ignoreCase, boolean autoWrap, String... searchIn) {
+        var negate = StringUtils.startsWith(glob, "!");
+        glob = StringUtils.removeStart(glob, "!");
+
+        for (var globPart : StringUtils.split(glob)) {
+            for (var s : searchIn) {
+                if (StringHelper.matchesSimpleGlob(s, globPart, ignoreCase, autoWrap)) {
+                    return !negate;
+                }
+            }
+        }
+
+        return negate;
+    }
+
     public static String round(Double value, int decimals) {
         return round(value, decimals, "", "", false);
     }
