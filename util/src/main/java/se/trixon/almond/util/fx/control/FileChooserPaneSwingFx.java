@@ -42,22 +42,22 @@ public class FileChooserPaneSwingFx extends FileChooserPane {
         super(title, headerLabelText);
     }
 
-    public FileChooserPaneSwingFx(String title, Component parent, int fileSelectionMode, SelectionMode selectionMode) {
-        super(title, ObjectMode.DIRECTORY, selectionMode);
+    public FileChooserPaneSwingFx(String title, Component parent, int fileSelectionMode) {
+        super(title, ObjectMode.DIRECTORY, SelectionMode.SINGLE);
         mParent = parent;
         mFileSelectionMode = fileSelectionMode;
         initSwing();
     }
 
-    public FileChooserPaneSwingFx(String title, Component parent, int fileSelectionMode, SelectionMode selectionMode, String checkBoxText) {
-        super(title, ObjectMode.DIRECTORY, selectionMode, checkBoxText);
+    public FileChooserPaneSwingFx(String title, Component parent, int fileSelectionMode, String checkBoxText) {
+        super(title, ObjectMode.DIRECTORY, SelectionMode.SINGLE, checkBoxText);
         mParent = parent;
         mFileSelectionMode = fileSelectionMode;
         initSwing();
     }
 
-    public FileChooserPaneSwingFx(String title, String headerLabelText, Component parent, int fileSelectionMode, SelectionMode selectionMode) {
-        super(title, headerLabelText, ObjectMode.DIRECTORY, selectionMode);
+    public FileChooserPaneSwingFx(String title, String headerLabelText, Component parent, int fileSelectionMode) {
+        super(title, headerLabelText, ObjectMode.DIRECTORY, SelectionMode.SINGLE);
         mParent = parent;
         mFileSelectionMode = fileSelectionMode;
         initSwing();
