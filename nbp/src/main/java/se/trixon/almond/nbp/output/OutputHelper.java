@@ -35,10 +35,12 @@ import se.trixon.almond.util.Dict;
  */
 public class OutputHelper {
 
+    private static final DateTimeFormatter sDateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH.mm.ss");
     private final boolean mDryRun;
     private final InputOutput mInputOutput;
+    private int mMargin = 3;
     private final String mName;
-    private String mPadString = "-";
+    private char mPadChar = '-';
     private int mRowWidth = 80;
     private LocalDateTime mStartTime;
 
@@ -59,14 +61,18 @@ public class OutputHelper {
         return millisToDateTime(System.currentTimeMillis());
     }
 
+    public static String prependTimestamp(String s) {
+        return "%s %s".formatted(LocalDateTime.now().format(sDateTimeFormatter), s);
+    }
+
     public OutputHelper(String name, InputOutput inputOutput, boolean dryRun) {
         mName = name;
         mInputOutput = inputOutput;
         mDryRun = dryRun;
     }
 
-    public String getPadString() {
-        return mPadString;
+    public char getPadChar() {
+        return mPadChar;
     }
 
     public int getRowWidth() {
@@ -77,21 +83,38 @@ public class OutputHelper {
         return LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH.mm.ss"));
     }
 
-    public void printSectionHeader(OutputLineMode outputLineMode, String action, String type, String id) {
-        var text = "----   %s %s %s '%s'   ".formatted(OutputHelper.nowToDateTime(), action, type, id);
-        var paddedText = StringUtils.rightPad(text, mRowWidth, mPadString);
+    public void printSectionHeader(OutputLineMode outputLineMode, String action, String type, String name, String... extras) {
+        var begEndPad = Character.toString(mPadChar).repeat(mMargin + 1);
+        var begEndMargin = " ".repeat(mMargin);
+        var sb = new StringBuilder().append(begEndPad).append(begEndMargin).append(OutputHelper.nowToDateTime());
+
+        if (StringUtils.isNotBlank(action)) {
+            sb.append(" ").append(action);
+        }
+        if (StringUtils.isNotBlank(type)) {
+            sb.append(" ").append(type);
+        }
+        if (StringUtils.isNotBlank(name)) {
+            sb.append(" ").append("'").append(name).append("'");
+        }
+        if (extras != null && extras.length > 0) {
+            sb.append(" ").append(String.join(" ", extras));
+        }
+        sb.append(begEndMargin);
+
+        var paddedText = StringUtils.rightPad(sb.toString(), mRowWidth, mPadChar);
 
         println(outputLineMode, "-".repeat(mRowWidth));
         println(outputLineMode, paddedText);
         println(outputLineMode, "-".repeat(mRowWidth));
     }
 
-    public void printSummary(OutputLineMode outputLineMode, String type) {
+    public void printSummary(OutputLineMode outputLineMode, String action, String type) {
         var millis = ChronoUnit.MILLIS.between(mStartTime, LocalDateTime.now());
         var minSec = OutputHelper.millisToMinSec(millis);
-        var details = String.format("%s (%d %s, %d %s)", mName, minSec[0], Dict.TIME_MIN.toString(), minSec[1], Dict.TIME_SEC.toString());
+        var details = String.format("(%d %s, %d %s)", minSec[0], Dict.TIME_MIN.toString(), minSec[1], Dict.TIME_SEC.toString());
 
-        printSectionHeader(outputLineMode, Dict.DONE.toString(), type, details);
+        printSectionHeader(outputLineMode, action, type, mName, details);
 
         if (mDryRun) {
             println(OutputLineMode.WARNING, "DRY-RUN (performed a trial run with no changes made)");
@@ -110,12 +133,20 @@ public class OutputHelper {
         }
     }
 
+    public void reset() {
+        try {
+            mInputOutput.getOut().reset();
+        } catch (IOException ex) {
+            Exceptions.printStackTrace(ex);
+        }
+    }
+
     public void resetStartTime() {
         mStartTime = LocalDateTime.now();
     }
 
-    public void setPadString(String padString) {
-        mPadString = padString;
+    public void setPadChar(char padChar) {
+        mPadChar = padChar;
     }
 
     public void setRowWidth(int rowWidth) {
