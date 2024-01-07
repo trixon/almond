@@ -239,6 +239,8 @@ public enum Dict {
     JOB,
     JOBS,
     JOB_ALREADY_RUNNING,
+    JOB_CANCELLED_S,
+    TASK_CANCELLED_S,
     JOB_FAILED,
     JOB_FINISHED,
     JOB_INTERRUPTED,
@@ -524,12 +526,15 @@ public enum Dict {
         }
     }
 
+    public String formatted(Object... args) {
+        return toString().formatted(args);
+    }
+
     public String toLower() {
         return toString().toLowerCase(Locale.ROOT);
     }
 
     @Override
-
     public String toString() {
         return getString(mResourceBundle, name().toLowerCase(Locale.ROOT));
     }
