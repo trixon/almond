@@ -63,6 +63,10 @@ public class FileChooserPaneSwingFx extends FileChooserPane {
         initSwing();
     }
 
+    public JFileChooser getFileChooserSwing() {
+        return mFileChooser;
+    }
+
     private void initSwing() {
         mFileChooser.setFileSelectionMode(mFileSelectionMode);
 

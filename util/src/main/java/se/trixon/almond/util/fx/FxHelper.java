@@ -64,6 +64,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import org.apache.commons.lang3.ArrayUtils;
 import org.controlsfx.control.CheckComboBox;
+import org.controlsfx.control.IndexedCheckModel;
 import org.controlsfx.control.MaskerPane;
 import org.controlsfx.control.NotificationPane;
 import org.controlsfx.control.action.Action;
@@ -394,6 +395,16 @@ public class FxHelper {
 
     public static boolean isAlwaysOnTop(Class c) {
         return Preferences.userNodeForPackage(c).getBoolean(STAGE_ALWAYS_ON_TOP, false);
+    }
+
+    public static <T> boolean isAnyChecked(IndexedCheckModel<T> checkModel, T... itemsToAnalyze) {
+        for (T item : itemsToAnalyze) {
+            if (checkModel.isChecked(item)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public static boolean isDarkThemeEnabled() {

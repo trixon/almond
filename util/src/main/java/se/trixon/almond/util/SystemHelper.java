@@ -107,6 +107,20 @@ public class SystemHelper {
         }).start();
     }
 
+    public static void desktopOpenOrElseParent(File file) {
+        new Thread(() -> {
+            try {
+                Desktop.getDesktop().open(file);
+            } catch (IllegalArgumentException | IOException e1) {
+                try {
+                    Desktop.getDesktop().open(file.getParentFile());
+                } catch (IllegalArgumentException | IOException e2) {
+                    LOGGER.log(Level.SEVERE, null, e2);
+                }
+            }
+        }).start();
+    }
+
     public static void enableRmiServer() {
         System.setProperty("java.rmi.server.hostname", getHostname());
     }
