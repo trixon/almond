@@ -151,6 +151,11 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
         });
         cloneAction.setGraphic(MaterialIcon._Content.CONTENT_COPY.getImageView(size));
 
+        var infoAction = new Action(Dict.INFORMATION.toString(), actionEvent -> {
+            mBuilder.getOnInfo().accept(getSelected());
+        });
+        infoAction.setGraphic(MaterialIcon._Action.INFO_OUTLINE.getImageView(size));
+
         var startAction = new Action(Dict.RUN.toString(), actionEvent -> {
             mBuilder.getOnStart().accept(getSelected());
         });
@@ -176,8 +181,12 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
         if (mBuilder.getOnRemoveAll() != null) {
             mActions.add(remAllAction);
         }
+
+        mActions.add(ActionUtils.ACTION_SPAN);
+        if (mBuilder.getOnInfo() != null) {
+            mActions.add(infoAction);
+        }
         if (mBuilder.getOnStart() != null) {
-            mActions.add(ActionUtils.ACTION_SPAN);
             mActions.add(startAction);
         }
 
@@ -185,6 +194,7 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
         editAction.disabledProperty().bind(nullSelectionBooleanBinding);
         cloneAction.disabledProperty().bind(nullSelectionBooleanBinding);
         remAction.disabledProperty().bind(nullSelectionBooleanBinding);
+        infoAction.disabledProperty().bind(nullSelectionBooleanBinding);
         startAction.disabledProperty().bind(nullSelectionBooleanBinding);
 
         mToolBar = ActionUtils.createToolBar(mActions, ActionUtils.ActionTextBehavior.HIDE);
@@ -200,6 +210,12 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
         }
         setTop(vbox);
         setCenter(mListView);
+
+        if (mBuilder.mOnSelect != null) {
+            mListView.getSelectionModel().selectedItemProperty().addListener((p, o, n) -> {
+                mBuilder.mOnSelect.accept(o, n);
+            });
+        }
     }
 
     private void edit(T item) {
@@ -225,9 +241,11 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
         private ObjectProperty<ObservableList<T>> mItemsProperty = new SimpleObjectProperty<>();
         private Function<T, T> mOnClone;
         private BiConsumer<String, T> mOnEdit;
+        private Consumer<T> mOnInfo;
         private Consumer<T> mOnRemove;
         private Runnable mOnRemoveAll;
         private Function<T, T> mOnSave;
+        private BiConsumer<T, T> mOnSelect;
         private Consumer<T> mOnStart;
         private String mTitle;
 
@@ -259,6 +277,10 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
             return mOnEdit;
         }
 
+        public Consumer<T> getOnInfo() {
+            return mOnInfo;
+        }
+
         public Consumer<T> getOnRemove() {
             return mOnRemove;
         }
@@ -269,6 +291,10 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
 
         public Function<T, T> getOnSave() {
             return mOnSave;
+        }
+
+        public BiConsumer<T, T> getOnSelect() {
+            return mOnSelect;
         }
 
         public Consumer<T> getOnStart() {
@@ -313,6 +339,11 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
             return this;
         }
 
+        public Builder<T> setOnInfo(Consumer<T> onInfo) {
+            mOnInfo = onInfo;
+            return this;
+        }
+
         public Builder<T> setOnRemove(Consumer<T> onRemove) {
             mOnRemove = onRemove;
             return this;
@@ -325,6 +356,11 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
 
         public Builder<T> setOnSave(Function<T, T> onSave) {
             mOnSave = onSave;
+            return this;
+        }
+
+        public Builder<T> setOnSelect(BiConsumer<T, T> onSelect) {
+            mOnSelect = onSelect;
             return this;
         }
 

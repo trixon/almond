@@ -133,7 +133,7 @@ public class SimpleDialog {
         return result == JFileChooser.APPROVE_OPTION;
     }
 
-    @Deprecated
+    @Deprecated(forRemoval = true)
     public static boolean saveFile(String... extensions) {
         return saveFile();
     }
@@ -143,7 +143,7 @@ public class SimpleDialog {
             return false;
         }
 
-        File file = sFileChooser.getSelectedFile();
+        var file = sFileChooser.getSelectedFile();
 
         if (!sFileChooser.getFileFilter().accept(file)) {
             var fileNameExtensionFilter = (FileNameExtensionFilter) sFileChooser.getFileFilter();
