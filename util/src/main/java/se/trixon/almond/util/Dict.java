@@ -216,6 +216,7 @@ public enum Dict {
     ICON,
     ICONS,
     IMAGE,
+    IMAGES,
     IMAGE_DIRECTORY,
     IMAGE_SIZE,
     IMPORT,
