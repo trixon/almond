@@ -34,6 +34,7 @@ public enum SDict {
     GROUNDWATER,
     HAS_VALID_FROM,
     HAS_VALID_TO,
+    HEAT_MAP,
     HYDROGEOLOGY,
     IS_INVALID,
     IS_VALID,
