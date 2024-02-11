@@ -152,7 +152,7 @@ public class FxHelper {
 //            gridPane.getRowConstraints().add(columnConstraints);
 //        }
 //    }
-    @Deprecated
+    @Deprecated(forRemoval = true)
     public static void autoSizeRegion(Region... regions) {
         autoSizeRegionHorizontal(regions);
     }

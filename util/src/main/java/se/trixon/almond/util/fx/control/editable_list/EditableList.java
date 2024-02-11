@@ -26,12 +26,16 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 import org.apache.commons.lang3.StringUtils;
 import org.controlsfx.control.action.Action;
 import org.controlsfx.control.action.ActionUtils;
@@ -47,11 +51,18 @@ import se.trixon.almond.util.icons.material.MaterialIcon;
 public class EditableList<T extends EditableListItem> extends BorderPane {
 
     private List<Action> mActions;
+    private Action mAddAction;
     private final Builder mBuilder;
+    private Action mCloneAction;
+    private Action mEditAction;
+    private Action mInfoAction;
     private final ListView<T> mListView = new ListView<>();
+    private Action mRemAction;
+    private Action mRemAllAction;
+    private Action mSaveAction;
+    private Action mStartAction;
     private final Label mTitleLabel = new Label();
     private ToolBar mToolBar;
-    private Action remAllAction;
 
     public EditableList(Builder builder) {
         mBuilder = builder;
@@ -84,30 +95,49 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
         mListView.requestFocus();
     }
 
-    public void selected(T t) {
+    public void refreshIcons() {
+        var size = FxHelper.getUIScaled(mBuilder.getIconSize());
+        mAddAction.setGraphic(MaterialIcon._Content.ADD.getImageView(size));
+        mRemAction.setGraphic(MaterialIcon._Content.REMOVE.getImageView(size));
+        mRemAllAction.setGraphic(MaterialIcon._Content.CLEAR.getImageView(size));
+        mSaveAction.setGraphic(MaterialIcon._Content.SAVE.getImageView(size));
+        mEditAction.setGraphic(MaterialIcon._Editor.MODE_EDIT.getImageView(size));
+        mCloneAction.setGraphic(MaterialIcon._Content.CONTENT_COPY.getImageView(size));
+        mInfoAction.setGraphic(MaterialIcon._Action.INFO_OUTLINE.getImageView(size));
+        mStartAction.setGraphic(MaterialIcon._Av.PLAY_ARROW.getImageView(size));
+
+    }
+
+    public void select(T t) {
         mListView.requestFocus();
         mListView.getSelectionModel().select(t);
         FxHelper.scrollToItemIfNotVisible(mListView, t);
     }
 
     protected boolean confirm(String title, String header, String content, String buttonText) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        var alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.initOwner(getScene().getWindow());
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+
+        ((Button) alert.getDialogPane().lookupButton(ButtonType.OK)).setText(buttonText);
+
+        var result = FxHelper.showAndWait(alert, (Stage) getScene().getWindow());
+        return result.get() == ButtonType.OK;
     }
 
     private void applyConfiguration() {
-        remAllAction.disabledProperty().bind(Bindings.isEmpty((ObservableList<T>) mBuilder.itemsProperty().get()));
+        mRemAllAction.disabledProperty().bind(Bindings.isEmpty((ObservableList<T>) mBuilder.itemsProperty().get()));
         mListView.itemsProperty().bind(mBuilder.itemsProperty());
     }
 
     private void createUI() {
-        final int size = FxHelper.getUIScaled(mBuilder.getIconSize());
-
-        var addAction = new Action(Dict.ADD.toString(), actionEvent -> {
+        mAddAction = new Action(toolTipTextSingular(Dict.ADD.toString()), actionEvent -> {
             edit(null);
         });
-        addAction.setGraphic(MaterialIcon._Content.ADD.getImageView(size));
 
-        var remAction = new Action(Dict.REMOVE.toString(), actionEvent -> {
+        mRemAction = new Action(toolTipTextSingular(Dict.REMOVE.toString()), actionEvent -> {
             var baseTitle = Dict.Dialog.TITLE_REMOVE_S.toString().formatted(mBuilder.getItemSingular().toLowerCase(Locale.ENGLISH));
             var action = Dict.Dialog.TITLE_REMOVE_S.toString().formatted("'%s'".formatted(getSelected().getName()));
             var baseHeader = Dict.Dialog.YOU_ARE_ABOUT_TO_S.toString().formatted(action.toLowerCase(Locale.ENGLISH));
@@ -119,9 +149,8 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
                 mBuilder.getOnRemove().accept(getSelected());
             }
         });
-        remAction.setGraphic(MaterialIcon._Content.REMOVE.getImageView(size));
 
-        remAllAction = new Action(Dict.REMOVE_ALL.toString(), actionEvent -> {
+        mRemAllAction = new Action(toolTipTextPlural(Dict.REMOVE_ALL.toString()), actionEvent -> {
             var baseTitle = Dict.Dialog.TITLE_REMOVE_ALL_S.toString().formatted(mBuilder.getItemPlural().toLowerCase(Locale.ENGLISH));
             var action = Dict.Dialog.TITLE_REMOVE_ALL_S.toString().formatted(mBuilder.getItemPlural().toLowerCase(Locale.ENGLISH));
             var baseHeader = Dict.Dialog.YOU_ARE_ABOUT_TO_S.toString().formatted(action.toLowerCase(Locale.ENGLISH));
@@ -134,68 +163,62 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
                 mBuilder.getOnRemoveAll().run();
             }
         });
-        remAllAction.setGraphic(MaterialIcon._Content.CLEAR.getImageView(size));
 
-        var saveAction = new Action(Dict.SAVE.toString(), actionEvent -> {
+        mSaveAction = new Action(Dict.SAVE.toString(), actionEvent -> {
 //            save(getSelected());
         });
-        saveAction.setGraphic(MaterialIcon._Content.SAVE.getImageView(size));
 
-        var editAction = new Action(Dict.EDIT.toString(), actionEvent -> {
+        mEditAction = new Action(toolTipTextSingular(Dict.EDIT.toString()), actionEvent -> {
             edit(getSelected());
         });
-        editAction.setGraphic(MaterialIcon._Editor.MODE_EDIT.getImageView(size));
 
-        var cloneAction = new Action(Dict.CLONE.toString(), actionEvent -> {
+        mCloneAction = new Action(toolTipTextSingular(Dict.CLONE.toString()), actionEvent -> {
             onClone();
         });
-        cloneAction.setGraphic(MaterialIcon._Content.CONTENT_COPY.getImageView(size));
 
-        var infoAction = new Action(Dict.INFORMATION.toString(), actionEvent -> {
+        mInfoAction = new Action(toolTipTextSingular(Dict.INFORMATION.toString()), actionEvent -> {
             mBuilder.getOnInfo().accept(getSelected());
         });
-        infoAction.setGraphic(MaterialIcon._Action.INFO_OUTLINE.getImageView(size));
 
-        var startAction = new Action(Dict.RUN.toString(), actionEvent -> {
+        mStartAction = new Action(toolTipTextSingular(Dict.RUN.toString()), actionEvent -> {
             mBuilder.getOnStart().accept(getSelected());
         });
-        startAction.setGraphic(MaterialIcon._Av.PLAY_ARROW.getImageView(size));
 
         mActions = new ArrayList<>();
 
         if (mBuilder.getOnEdit() != null) {
-            mActions.add(addAction);
+            mActions.add(mAddAction);
         }
         if (mBuilder.getOnRemove() != null) {
-            mActions.add(remAction);
+            mActions.add(mRemAction);
         }
         if (mBuilder.getOnSave() != null) {
-            mActions.add(saveAction);
+            mActions.add(mSaveAction);
         }
         if (mBuilder.getOnEdit() != null) {
-            mActions.add(editAction);
+            mActions.add(mEditAction);
         }
         if (mBuilder.getOnClone() != null) {
-            mActions.add(cloneAction);
+            mActions.add(mCloneAction);
         }
         if (mBuilder.getOnRemoveAll() != null) {
-            mActions.add(remAllAction);
+            mActions.add(mRemAllAction);
         }
 
         mActions.add(ActionUtils.ACTION_SPAN);
         if (mBuilder.getOnInfo() != null) {
-            mActions.add(infoAction);
+            mActions.add(mInfoAction);
         }
         if (mBuilder.getOnStart() != null) {
-            mActions.add(startAction);
+            mActions.add(mStartAction);
         }
 
         var nullSelectionBooleanBinding = mListView.getSelectionModel().selectedItemProperty().isNull();
-        editAction.disabledProperty().bind(nullSelectionBooleanBinding);
-        cloneAction.disabledProperty().bind(nullSelectionBooleanBinding);
-        remAction.disabledProperty().bind(nullSelectionBooleanBinding);
-        infoAction.disabledProperty().bind(nullSelectionBooleanBinding);
-        startAction.disabledProperty().bind(nullSelectionBooleanBinding);
+        mEditAction.disabledProperty().bind(nullSelectionBooleanBinding);
+        mCloneAction.disabledProperty().bind(nullSelectionBooleanBinding);
+        mRemAction.disabledProperty().bind(nullSelectionBooleanBinding);
+        mInfoAction.disabledProperty().bind(nullSelectionBooleanBinding);
+        mStartAction.disabledProperty().bind(nullSelectionBooleanBinding);
 
         mToolBar = ActionUtils.createToolBar(mActions, ActionUtils.ActionTextBehavior.HIDE);
         FxHelper.undecorateButtons(mToolBar.getItems().stream());
@@ -216,6 +239,8 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
                 mBuilder.mOnSelect.accept(o, n);
             });
         }
+
+        refreshIcons();
     }
 
     private void edit(T item) {
@@ -231,6 +256,14 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
         mListView.getSelectionModel().select(newItem);
         mListView.requestFocus();
         edit(getSelected());
+    }
+
+    private String toolTipTextPlural(String s) {
+        return "%s %s".formatted(s, mBuilder.mItemPlural.toLowerCase(Locale.ROOT));
+    }
+
+    private String toolTipTextSingular(String s) {
+        return "%s %s".formatted(s, mBuilder.mItemSingular.toLowerCase(Locale.ROOT));
     }
 
     public static class Builder<T extends EditableListItem> {
