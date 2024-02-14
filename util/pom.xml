@@ -52,6 +52,12 @@
             <version>2.10.1</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.dlsc.gemsfx</groupId>
+            <artifactId>gemsfx</artifactId>
+            <version>1.97.0</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
