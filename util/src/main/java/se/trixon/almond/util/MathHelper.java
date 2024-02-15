@@ -21,6 +21,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Locale;
 import javafx.geometry.Point2D;
+import org.apache.commons.lang3.ObjectUtils;
 
 /**
  *
@@ -160,6 +161,17 @@ public class MathHelper {
 
     public static Point indexToPoint(int index, Dimension d) {
         return new Point(index % d.width, index / d.width);
+    }
+
+    public static boolean isBetween(Double limit1inclusive, Double limit2inclusive, Double value) {
+        if (ObjectUtils.anyNull(limit1inclusive, limit2inclusive, value)) {
+            return true;
+        }
+
+        var min = Math.min(limit1inclusive, limit2inclusive);
+        var max = Math.max(limit1inclusive, limit2inclusive);
+
+        return value >= min && value <= max;
     }
 
     public static boolean isInteger(String s) {
