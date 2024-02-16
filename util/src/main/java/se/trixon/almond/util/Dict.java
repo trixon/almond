@@ -657,6 +657,7 @@ public enum Dict {
         GEOMETRIES,
         GEOMETRY,
         HEIGHT,
+        HORIZONTAL,
         LENGTH,
         LINE,
         PATH,
@@ -671,6 +672,7 @@ public enum Dict {
         SHAPE,
         SQUARE,
         SURFACE,
+        VERTICAL,
         WIDTH;
         private final ResourceBundle mResourceBundle = ResourceBundle.getBundle(SystemHelper.getPackageAsPath(Dict.class) + "DictGeometry", Locale.getDefault());
 
