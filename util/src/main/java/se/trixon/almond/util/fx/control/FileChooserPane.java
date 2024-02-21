@@ -157,7 +157,11 @@ public class FileChooserPane extends BorderPane {
     }
 
     public File getPath() {
-        return new File(getPathAsString());
+        if (StringUtils.isBlank(getPathAsString())) {
+            return null;
+        } else {
+            return new File(getPathAsString());
+        }
     }
 
     public String getPathAsString() {
@@ -359,7 +363,7 @@ public class FileChooserPane extends BorderPane {
             }
         });
 
-        FxHelper.setPadding(FxHelper.getUIScaledInsets(0, 0, 4, 0), mLabel, mCheckBox);
+        FxHelper.setPadding(FxHelper.getUIScaledInsets(0, 0, 2, 0), mLabel, mCheckBox);
     }
 
     private void populateValidatedFileList(List<File> files) {
