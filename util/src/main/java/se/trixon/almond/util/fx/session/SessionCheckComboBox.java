@@ -57,10 +57,13 @@ public class SessionCheckComboBox<T> extends CheckComboBox<T> {
 
     public void loadAndRestoreCheckItems(Stream<T> stream) {
         var checkModel = getCheckModel();
-        var checkedItems = checkModel.getCheckedItems();
+        var checkedItems = checkModel.getCheckedItems().stream().toList();
+
         if (!mStaticContent) {
             getItems().setAll(new TreeSet<>(stream.collect(Collectors.toSet())));
         }
+
+        checkModel.clearChecks();
         checkedItems.stream().forEach(s -> checkModel.check(s));
 
         mSession.load();
