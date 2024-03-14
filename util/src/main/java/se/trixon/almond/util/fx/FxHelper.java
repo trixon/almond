@@ -173,6 +173,23 @@ public class FxHelper {
         }
     }
 
+    public static void bindWidthForChildrens(Pane... panes) {
+        for (var pane : panes) {
+            pane.getChildren().stream()
+                    .filter(node -> node instanceof Region)
+                    .map(node -> (Region) node)
+                    .forEachOrdered(region -> {
+                        region.prefWidthProperty().bind(pane.widthProperty());
+                    });
+        }
+    }
+
+    public static void bindWidthForRegions(Pane pane, Region... regions) {
+        for (var region : regions) {
+            region.prefWidthProperty().bind(pane.widthProperty());
+        }
+    }
+
     public static void clearLabel(Labeled... labels) {
         for (var label : labels) {
             label.setText("");

@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2023 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,7 +18,7 @@ package se.trixon.almond.util.fx.control;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ObservableValue;
+import javafx.beans.property.SimpleStringProperty;
 import org.apache.commons.lang3.ObjectUtils;
 import org.controlsfx.control.RangeSlider;
 
@@ -29,7 +29,9 @@ import org.controlsfx.control.RangeSlider;
 public class DateRangeSlider extends RangeSlider {
 
     private final SimpleObjectProperty<LocalDate> mHighDateProperty = new SimpleObjectProperty<>();
+    private final SimpleStringProperty mHighStringProperty = new SimpleStringProperty();
     private final SimpleObjectProperty<LocalDate> mLowDateProperty = new SimpleObjectProperty<>();
+    private final SimpleStringProperty mLowStringProperty = new SimpleStringProperty();
     private final SimpleObjectProperty<LocalDate> mMaxDateProperty = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<LocalDate> mMinDateProperty = new SimpleObjectProperty<>();
 
@@ -58,8 +60,16 @@ public class DateRangeSlider extends RangeSlider {
         return mHighDateProperty;
     }
 
+    public SimpleStringProperty highStringProperty() {
+        return mHighStringProperty;
+    }
+
     public SimpleObjectProperty<LocalDate> lowDateProperty() {
         return mLowDateProperty;
+    }
+
+    public SimpleStringProperty lowStringProperty() {
+        return mLowStringProperty;
     }
 
     public SimpleObjectProperty<LocalDate> maxDateProperty() {
@@ -70,12 +80,27 @@ public class DateRangeSlider extends RangeSlider {
         return mMinDateProperty;
     }
 
+    public void reset() {
+        setLowDate(getMinDate());
+        setHighDate(getMaxDate());
+    }
+
     public void setHighDate(LocalDate localDate) {
         mHighDateProperty.setValue(localDate);
     }
 
     public void setLowDate(LocalDate localDate) {
         mLowDateProperty.setValue(localDate);
+    }
+
+    public void setLowHighDate(LocalDate lowDate, LocalDate highDate) {
+        if (lowDate.isAfter(getHighDate())) {
+            setHighDate(highDate);
+            setLowDate(lowDate);
+        } else {
+            setLowDate(lowDate);
+            setHighDate(highDate);
+        }
     }
 
     public void setMaxDate(LocalDate localDate) {
@@ -109,28 +134,44 @@ public class DateRangeSlider extends RangeSlider {
     }
 
     private void initListeners() {
-        lowValueProperty().addListener((ObservableValue<? extends Number> ov, Number t, Number t1) -> {
+        lowValueProperty().addListener((p, o, n) -> {
             if (getMinDate() != null) {
-                lowDateProperty().setValue(getMinDate().plusDays(t1.intValue()));
+                lowDateProperty().setValue(getMinDate().plusDays(n.intValue()));
             }
         });
 
-        highValueProperty().addListener((ObservableValue<? extends Number> ov, Number t, Number t1) -> {
+        highValueProperty().addListener((p, o, n) -> {
             if (getMinDate() != null) {
-                highDateProperty().setValue(getMinDate().plusDays(t1.intValue()));
+                highDateProperty().setValue(getMinDate().plusDays(n.intValue()));
             }
         });
 
-        lowDateProperty().addListener((ObservableValue<? extends LocalDate> ov, LocalDate t, LocalDate t1) -> {
+        lowDateProperty().addListener((p, o, n) -> {
             if (getMinDate() != null) {
-                setLowValue(ChronoUnit.DAYS.between(getMinDate(), t1));
+                setLowValue(ChronoUnit.DAYS.between(getMinDate(), n));
             }
         });
 
-        highDateProperty().addListener((ObservableValue<? extends LocalDate> ov, LocalDate t, LocalDate t1) -> {
+        highDateProperty().addListener((p, o, n) -> {
             if (getMaxDate() != null) {
-                setHighValue(ChronoUnit.DAYS.between(getMinDate(), t1));
+                setHighValue(ChronoUnit.DAYS.between(getMinDate(), n));
             }
+        });
+
+        mLowDateProperty.addListener((p, o, n) -> {
+            mLowStringProperty.set(n.toString());
+        });
+
+        mLowStringProperty.addListener((p, o, n) -> {
+            mLowDateProperty.set(LocalDate.parse(n));
+        });
+
+        mHighDateProperty.addListener((p, o, n) -> {
+            mHighStringProperty.set(n.toString());
+        });
+
+        mHighStringProperty.addListener((p, o, n) -> {
+            mHighDateProperty.set(LocalDate.parse(n));
         });
     }
 }

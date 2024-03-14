@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2023 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -65,6 +65,10 @@ public class DatePane extends GridPane {
         return mToDatePicker;
     }
 
+    public void reset() {
+        mDateRangeSlider.reset();
+    }
+
     public void setDateSelectionMode(DateSelectionMode dateSelectionMode) {
         mDateSelectionMode = dateSelectionMode;
         getChildren().removeAll(mDateSlider, mDateRangeSlider);
@@ -114,13 +118,13 @@ public class DatePane extends GridPane {
 
         mFromDatePicker = new DatePicker();
         mFromDatePicker.setValue(LocalDate.of(1900, 1, 1));
-        mFromDatePicker.setEditable(false);
+        mFromDatePicker.setEditable(true);
         GridPane.setFillWidth(mFromDatePicker, true);
         GridPane.setHgrow(mFromDatePicker, Priority.ALWAYS);
 
         mToDatePicker = new DatePicker();
         mToDatePicker.setValue(LocalDate.of(2099, 12, 31));
-        mToDatePicker.setEditable(false);
+        mToDatePicker.setEditable(true);
         GridPane.setFillWidth(mToDatePicker, true);
         GridPane.setHgrow(mToDatePicker, Priority.ALWAYS);
 
