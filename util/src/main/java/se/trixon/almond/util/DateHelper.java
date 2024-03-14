@@ -128,7 +128,7 @@ public class DateHelper {
             if (value == null) {
                 return true;
             } else {
-                return isAfterOrEqual(value, ld1) && isAfterOrEqual(value, ld2);
+                return isAfterOrEqual(value, ld1) && isBeforeOrEqual(value, ld2);
             }
         }
 
