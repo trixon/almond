@@ -66,6 +66,10 @@ public class CheckModelSession {
         });
 
         mCheckModel.getCheckedItems().addListener((ListChangeListener.Change c) -> {
+            mCheckModel.getCheckedItems().forEach(i -> {
+                //For some reason, this solves a strange behavior
+            });
+
             var items = String.join(":::", c.getList().stream().map(o -> o.toString()).toList());
             mCheckedStringProperty.set(items);
         });
