@@ -131,7 +131,7 @@ public class DatePane extends GridPane {
         FxHelper.setMargin(new Insets(8, 0, 0, 0), mFromDatePicker);
         FxHelper.setMargin(new Insets(8, 0, 0, 8), mToDatePicker);
 
-        setPadding(new Insets(8));
+        setPadding(FxHelper.getUIScaledInsets(8));
         addRow(1, mFromDatePicker, mToDatePicker);
 
         setDateSelectionMode(DateSelectionMode.INTERVAL);
