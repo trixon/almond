@@ -211,4 +211,8 @@ public class MathHelper {
 
         return BigDecimal.valueOf(value).setScale(places, RoundingMode.HALF_UP).doubleValue();
     }
+
+    public static int sign(double value) {
+        return value < 0 ? -1 : 1;
+    }
 }
