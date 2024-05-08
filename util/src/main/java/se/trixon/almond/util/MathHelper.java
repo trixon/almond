@@ -183,6 +183,10 @@ public class MathHelper {
         }
     }
 
+    public static double limit(double value, double lowerBound, double upperBound) {
+        return Math.min(Math.max(value, lowerBound), upperBound);
+    }
+
     public static void main(String[] args) {
         System.out.println(pointToIndex(new Point(3, 1), new Dimension(5, 3)));
         System.out.println(indexToPoint(14, new Dimension(5, 3)));
