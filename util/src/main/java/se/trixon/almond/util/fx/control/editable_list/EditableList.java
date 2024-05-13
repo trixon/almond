@@ -165,7 +165,7 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
         });
 
         mSaveAction = new Action(Dict.SAVE.toString(), actionEvent -> {
-//            save(getSelected());
+            save(getSelected());
         });
 
         mEditAction = new Action(toolTipTextSingular(Dict.EDIT.toString()), actionEvent -> {
@@ -186,14 +186,14 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
 
         mActions = new ArrayList<>();
 
-        if (mBuilder.getOnEdit() != null) {
+        if (mBuilder.getOnSave() != null) {
+            mActions.add(mSaveAction);
+        }
+        if (mBuilder.getOnEdit() != null && !mBuilder.mEditOnly) {
             mActions.add(mAddAction);
         }
         if (mBuilder.getOnRemove() != null) {
             mActions.add(mRemAction);
-        }
-        if (mBuilder.getOnSave() != null) {
-            mActions.add(mSaveAction);
         }
         if (mBuilder.getOnEdit() != null) {
             mActions.add(mEditAction);
@@ -247,6 +247,10 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
         mBuilder.getOnEdit().accept(getDialogTitleEdit(item), item);
     }
 
+    private void save(T item) {
+        mBuilder.getOnSave().apply(item);
+    }
+
     private T getSelected() {
         return mListView.getSelectionModel().getSelectedItem();
     }
@@ -267,6 +271,8 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
     }
 
     public static class Builder<T extends EditableListItem> {
+
+        private boolean mEditOnly;
 
         private int mIconSize = 32;
         private String mItemPlural = Dict.ITEMS.toString();
@@ -369,6 +375,12 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
 
         public Builder<T> setOnEdit(BiConsumer<String, T> onEdit) {
             mOnEdit = onEdit;
+            return this;
+        }
+
+        public Builder<T> setOnEditEditOnly(BiConsumer<String, T> onEdit) {
+            mOnEdit = onEdit;
+            mEditOnly = true;
             return this;
         }
 

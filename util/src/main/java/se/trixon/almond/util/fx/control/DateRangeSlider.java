@@ -159,7 +159,9 @@ public class DateRangeSlider extends RangeSlider {
         });
 
         mLowDateProperty.addListener((p, o, n) -> {
-            mLowStringProperty.set(n.toString());
+            if (n != null) {
+                mLowStringProperty.set(n.toString());
+            }
         });
 
         mLowStringProperty.addListener((p, o, n) -> {
@@ -167,7 +169,9 @@ public class DateRangeSlider extends RangeSlider {
         });
 
         mHighDateProperty.addListener((p, o, n) -> {
-            mHighStringProperty.set(n.toString());
+            if (n != null) {
+                mHighStringProperty.set(n.toString());
+            }
         });
 
         mHighStringProperty.addListener((p, o, n) -> {
