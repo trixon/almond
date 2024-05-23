@@ -432,6 +432,7 @@ public enum Dict {
     SOURCE,
     SOURCES,
     SOURCE_AND_DEST,
+    SPEED,
     SPLIT_BY,
     START,
     STARTED,
