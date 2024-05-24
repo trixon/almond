@@ -47,6 +47,7 @@ public enum SDict {
     OPERATOR,
     POINT,
     POINTS,
+    REACHED_LIMIT_VALUE,
     ROLLING,
     SURVEYOR,
     SURVEYORS,
