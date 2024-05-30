@@ -30,6 +30,12 @@ public class SessionCheckComboBox<T> extends CheckComboBox<T> {
     private final CheckModelSession mSession;
     private boolean mStaticContent = false;
 
+    public static void clearChecks(SessionCheckComboBox... sccbs) {
+        for (var sccb : sccbs) {
+            sccb.getCheckModel().clearChecks();
+        }
+    }
+
     public SessionCheckComboBox() {
         mSession = new CheckModelSession(this);
     }
