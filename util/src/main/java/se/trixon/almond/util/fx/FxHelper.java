@@ -34,6 +34,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ButtonBase;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ComboBoxBase;
 import javafx.scene.control.Control;
@@ -599,6 +600,12 @@ public class FxHelper {
     public static void setPrefWidth(double width, Region... regions) {
         for (var region : regions) {
             region.setPrefWidth(width);
+        }
+    }
+
+    public static void setSelected(boolean selected, CheckBox... checkBoxes) {
+        for (var checkBox : checkBoxes) {
+            checkBox.setSelected(selected);
         }
     }
 
