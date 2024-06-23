@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2023 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -38,9 +38,9 @@ public class LocaleComboBox extends ComboBox<Locale> {
     private void init() {
         ObservableList<Locale> data = FXCollections.observableArrayList();
         var locales = new ArrayList<>(Arrays.asList(Locale.getAvailableLocales()));
-        locales.sort((Locale o1, Locale o2) -> o1.getDisplayName().compareTo(o2.getDisplayName()));
+        locales.sort((o1, o2) -> o1.getDisplayName().toLowerCase(Locale.getDefault()).compareTo(o2.getDisplayName().toLowerCase(Locale.getDefault())));
 
-        HashMap<String, Locale> displayNameToLocale = new HashMap<>();
+        var displayNameToLocale = new HashMap<String, Locale>();
         locales.forEach((locale) -> {
             data.add(locale);
             displayNameToLocale.put(locale.getDisplayName(), locale);
@@ -49,7 +49,7 @@ public class LocaleComboBox extends ComboBox<Locale> {
         setItems(data);
         setValue(Locale.getDefault());
 
-        StringConverter<Locale> converter = new StringConverter<Locale>() {
+        var converter = new StringConverter<Locale>() {
             @Override
             public Locale fromString(String string) {
                 return displayNameToLocale.get(string);
