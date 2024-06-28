@@ -429,6 +429,10 @@ public class FxHelper {
         return Boolean.getBoolean("trixon.almond.fx.dark");
     }
 
+    public static boolean isFocusedNodeOfType(Scene scene, Class c) {
+        return c.isInstance(scene.getFocusOwner());
+    }
+
     public static boolean isFullScreen(Class c) {
         return Preferences.userNodeForPackage(c).getBoolean(STAGE_FULL_SCREEN, false);
     }
