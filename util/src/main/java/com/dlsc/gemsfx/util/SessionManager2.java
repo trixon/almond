@@ -1,9 +1,12 @@
 package com.dlsc.gemsfx.util;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.logging.Logger;
 import java.util.prefs.Preferences;
 import javafx.beans.property.*;
+import javafx.beans.value.ChangeListener;
 
 /**
  * A manager for storing observable values in the user preferences.
@@ -12,6 +15,7 @@ public class SessionManager2 {
 
     private static final Logger LOG = Logger.getLogger(SessionManager2.class.getSimpleName());
     private final Preferences preferences;
+    private final HashMap<Property, ArrayList<ChangeListener>> propertyToListeners = new HashMap<>();
 
     /**
      * Constructs a new session manager that will use the passed in preferences.
@@ -45,13 +49,14 @@ public class SessionManager2 {
     public void register(String path, DoubleProperty property) {
         LOG.fine("registering double property at path " + path);
         property.set(preferences.getDouble(path, property.get()));
-        property.addListener((it, oldValue, newValue) -> {
+        var listener = (ChangeListener<Number>) (it, oldValue, newValue) -> {
             if (newValue != null) {
                 preferences.putDouble(path, newValue.doubleValue());
             } else {
                 preferences.remove(path);
             }
-        });
+        };
+        addListener(property, listener);
     }
 
     /**
@@ -68,13 +73,14 @@ public class SessionManager2 {
     public void register(String path, IntegerProperty property) {
         LOG.fine("registering integer property at path " + path);
         property.set(preferences.getInt(path, property.get()));
-        property.addListener((it, oldValue, newValue) -> {
+        var listener = (ChangeListener<Number>) (it, oldValue, newValue) -> {
             if (newValue != null) {
                 preferences.putInt(path, newValue.intValue());
             } else {
                 preferences.remove(path);
             }
-        });
+        };
+        addListener(property, listener);
     }
 
     /**
@@ -91,13 +97,14 @@ public class SessionManager2 {
     public void register(String path, FloatProperty property) {
         LOG.fine("registering float property at path " + path);
         property.set(preferences.getFloat(path, property.get()));
-        property.addListener((it, oldValue, newValue) -> {
+        var listener = (ChangeListener<Number>) (it, oldValue, newValue) -> {
             if (newValue != null) {
                 preferences.putFloat(path, newValue.floatValue());
             } else {
                 preferences.remove(path);
             }
-        });
+        };
+        addListener(property, listener);
     }
 
     /**
@@ -114,13 +121,14 @@ public class SessionManager2 {
     public void register(String path, LongProperty property) {
         LOG.fine("registering long property at path " + path);
         property.set(preferences.getLong(path, property.get()));
-        property.addListener((it, oldValue, newValue) -> {
+        var listener = (ChangeListener<Number>) (it, oldValue, newValue) -> {
             if (newValue != null) {
                 preferences.putLong(path, newValue.longValue());
             } else {
                 preferences.remove(path);
             }
-        });
+        };
+        addListener(property, listener);
     }
 
     /**
@@ -137,13 +145,14 @@ public class SessionManager2 {
     public void register(String path, BooleanProperty property) {
         LOG.fine("registering boolean property at path " + path);
         property.set(preferences.getBoolean(path, property.get()));
-        property.addListener((it, oldValue, newValue) -> {
+        var listener = (ChangeListener<Boolean>) (it, oldValue, newValue) -> {
             if (newValue != null) {
                 preferences.putBoolean(path, newValue);
             } else {
                 preferences.remove(path);
             }
-        });
+        };
+        addListener(property, listener);
     }
 
     /**
@@ -160,12 +169,35 @@ public class SessionManager2 {
     public void register(String path, StringProperty property) {
         LOG.fine("registering string property at path " + path);
         property.set(preferences.get(path, property.get()));
-        property.addListener((it, oldValue, newValue) -> {
+        var listener = (ChangeListener<String>) (it, oldValue, newValue) -> {
             if (newValue != null) {
                 preferences.put(path, newValue);
             } else {
                 preferences.remove(path);
             }
-        });
+        };
+        addListener(property, listener);
+    }
+
+    public void unregister(Property property) {
+        var listeners = propertyToListeners.get(property);
+        if (listeners != null) {
+            listeners.forEach(listener -> property.removeListener(listener));
+            listeners.clear();
+            propertyToListeners.remove(property);
+        }
+    }
+
+    public void unregisterAll() {
+        for (var entry : propertyToListeners.entrySet()) {
+            entry.getValue().forEach(listener -> entry.getKey().removeListener(listener));
+            entry.getValue().clear();
+        }
+        propertyToListeners.clear();
+    }
+
+    private void addListener(Property property, ChangeListener listener) {
+        property.addListener(listener);
+        propertyToListeners.computeIfAbsent(property, k -> new ArrayList<>()).add(listener);
     }
 }
