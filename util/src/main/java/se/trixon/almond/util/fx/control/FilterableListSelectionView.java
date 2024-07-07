@@ -16,7 +16,6 @@
 package se.trixon.almond.util.fx.control;
 
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.function.Predicate;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -43,21 +42,12 @@ public class FilterableListSelectionView<T> extends ListSelectionView<T> {
     private final FilterSection mTargetFilterSection = new FilterSection(FilterMode.TARGET);
 
     public FilterableListSelectionView() {
-        getSourceItems().addListener((ListChangeListener.Change<? extends T> c) -> {
-            while (c.next()) {
-                mTargetFilterSection.mUnfilteredItems.removeAll(c.getAddedSubList());
-            }
-        });
+        ListChangeListener<T> listener = (ListChangeListener.Change<? extends T> c) -> {
+            handleListSourceTargetChange(c);
+        };
 
-        getTargetItems().addListener((ListChangeListener.Change<? extends T> c) -> {
-            while (c.next()) {
-                c.getAddedSubList().stream().forEachOrdered(t -> {
-                    if (!mTargetFilterSection.mUnfilteredItems.contains(t)) {
-                        mTargetFilterSection.mUnfilteredItems.add(t);
-                    }
-                });
-            }
-        });
+        getSourceItems().addListener(listener);
+        getTargetItems().addListener(listener);
     }
 
     public void filterLoad(ObservableList<T> sourceItems, ObservableList<T> targetItems) {
@@ -111,16 +101,42 @@ public class FilterableListSelectionView<T> extends ListSelectionView<T> {
         mTargetFilterSection.updateList();
     }
 
+    private synchronized void handleListSourceTargetChange(ListChangeListener.Change<? extends T> c) {
+        while (c.next()) {
+            if (c.wasPermutated() || c.wasUpdated()) {
+                continue;
+            }
+
+            ObservableList<T> primaryUnfilteredItems;
+            ObservableList<T> secondaryUnfilteredItems;
+
+            if (c.getList() == getSourceItems()) {
+                primaryUnfilteredItems = mSourceFilterSection.mUnfilteredItems;
+                secondaryUnfilteredItems = mTargetFilterSection.mUnfilteredItems;
+            } else {
+                primaryUnfilteredItems = mTargetFilterSection.mUnfilteredItems;
+                secondaryUnfilteredItems = mSourceFilterSection.mUnfilteredItems;
+            }
+
+            secondaryUnfilteredItems.removeAll(c.getAddedSubList());
+            c.getAddedSubList().forEach(t -> {
+                if (!primaryUnfilteredItems.contains(t)) {
+                    primaryUnfilteredItems.add(t);
+                }
+            });
+        }
+    }
+
     public enum FilterMode {
         SOURCE, TARGET;
     }
 
     public class FilterSection extends VBox {
 
+        private final DelayedResetRunner mDelayedResetRunner;
         private final FilterMode mFilterMode;
         private final TextField mFilterTextField = TextFields.createClearableTextField();
         private final ObservableList<T> mUnfilteredItems = FXCollections.observableArrayList();
-        private final DelayedResetRunner mDelayedResetRunner;
 
         public FilterSection(FilterMode filterMode) {
             mFilterMode = filterMode;
@@ -151,17 +167,15 @@ public class FilterableListSelectionView<T> extends ListSelectionView<T> {
         }
 
         private void updateList() {
-            var theOtherSideAsSet = new HashSet(mFilterMode == FilterMode.SOURCE ? getUnfilteredTargetItems() : getUnfilteredSourceItems());
+            var theOtherSideList = mFilterMode == FilterMode.SOURCE ? getUnfilteredTargetItems() : getUnfilteredSourceItems();
+            var filterPredicate = mFilterMode == FilterMode.SOURCE ? mFilterSourcePredicate : mFilterTargetPredicate;
+            var items = mFilterMode == FilterMode.SOURCE ? getSourceItems() : getTargetItems();
             var filteredItems = mUnfilteredItems.stream()
-                    .filter(mFilterMode == FilterMode.SOURCE ? mFilterSourcePredicate : mFilterTargetPredicate)
-                    .filter(t -> !theOtherSideAsSet.contains(t))
+                    .filter(filterPredicate)
+                    .filter(t -> !theOtherSideList.contains(t))
+                    .sorted(mComparator == null ? (o1, o2) -> 0 : mComparator)
                     .toList();
 
-            if (mComparator != null) {
-                filteredItems = filteredItems.stream().sorted(mComparator).toList();
-            }
-
-            var items = mFilterMode == FilterMode.SOURCE ? getSourceItems() : getTargetItems();
             items.setAll(filteredItems);
         }
     }
