@@ -130,6 +130,9 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
     private void applyConfiguration() {
         mRemAllAction.disabledProperty().bind(Bindings.isEmpty((ObservableList<T>) mBuilder.itemsProperty().get()));
         mListView.itemsProperty().bind(mBuilder.itemsProperty());
+        var label = new Label("<%s>".formatted(mBuilder.mItemPlural));
+        label.setDisable(true);
+        mListView.setPlaceholder(label);
     }
 
     private void createUI() {
