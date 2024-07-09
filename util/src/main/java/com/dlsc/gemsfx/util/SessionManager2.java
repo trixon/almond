@@ -49,6 +49,7 @@ public class SessionManager2 {
     public void register(String path, DoubleProperty property) {
         LOG.fine("registering double property at path " + path);
         property.set(preferences.getDouble(path, property.get()));
+        initializePreferences(path, property);
         var listener = (ChangeListener<Number>) (it, oldValue, newValue) -> {
             if (newValue != null) {
                 preferences.putDouble(path, newValue.doubleValue());
@@ -73,6 +74,7 @@ public class SessionManager2 {
     public void register(String path, IntegerProperty property) {
         LOG.fine("registering integer property at path " + path);
         property.set(preferences.getInt(path, property.get()));
+        initializePreferences(path, property);
         var listener = (ChangeListener<Number>) (it, oldValue, newValue) -> {
             if (newValue != null) {
                 preferences.putInt(path, newValue.intValue());
@@ -97,6 +99,7 @@ public class SessionManager2 {
     public void register(String path, FloatProperty property) {
         LOG.fine("registering float property at path " + path);
         property.set(preferences.getFloat(path, property.get()));
+        initializePreferences(path, property);
         var listener = (ChangeListener<Number>) (it, oldValue, newValue) -> {
             if (newValue != null) {
                 preferences.putFloat(path, newValue.floatValue());
@@ -121,6 +124,7 @@ public class SessionManager2 {
     public void register(String path, LongProperty property) {
         LOG.fine("registering long property at path " + path);
         property.set(preferences.getLong(path, property.get()));
+        initializePreferences(path, property);
         var listener = (ChangeListener<Number>) (it, oldValue, newValue) -> {
             if (newValue != null) {
                 preferences.putLong(path, newValue.longValue());
@@ -145,6 +149,7 @@ public class SessionManager2 {
     public void register(String path, BooleanProperty property) {
         LOG.fine("registering boolean property at path " + path);
         property.set(preferences.getBoolean(path, property.get()));
+        initializePreferences(path, property);
         var listener = (ChangeListener<Boolean>) (it, oldValue, newValue) -> {
             if (newValue != null) {
                 preferences.putBoolean(path, newValue);
@@ -169,6 +174,7 @@ public class SessionManager2 {
     public void register(String path, StringProperty property) {
         LOG.fine("registering string property at path " + path);
         property.set(preferences.get(path, property.get()));
+        initializePreferences(path, property);
         var listener = (ChangeListener<String>) (it, oldValue, newValue) -> {
             if (newValue != null) {
                 preferences.put(path, newValue);
@@ -199,5 +205,27 @@ public class SessionManager2 {
     private void addListener(Property property, ChangeListener listener) {
         property.addListener(listener);
         propertyToListeners.computeIfAbsent(property, k -> new ArrayList<>()).add(listener);
+    }
+
+    private void initializePreferences(String path, Property property) {
+        switch (property.getValue()) {
+            case null -> {
+                return;
+            }
+            case Boolean b ->
+                preferences.putBoolean(path, b);
+            case Double d ->
+                preferences.putDouble(path, d);
+            case Float f ->
+                preferences.putFloat(path, f);
+            case Integer i ->
+                preferences.putInt(path, i);
+            case Long l ->
+                preferences.putLong(path, l);
+            case String s ->
+                preferences.put(path, s);
+            default -> {
+            }
+        }
     }
 }
