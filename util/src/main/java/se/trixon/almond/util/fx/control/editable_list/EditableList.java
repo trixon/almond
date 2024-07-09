@@ -96,7 +96,7 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
     }
 
     public void refreshIcons() {
-        var size = FxHelper.getUIScaled(mBuilder.getIconSize());
+        var size = mBuilder.getIconSize();
         mAddAction.setGraphic(MaterialIcon._Content.ADD.getImageView(size));
         mRemAction.setGraphic(MaterialIcon._Content.REMOVE.getImageView(size));
         mRemAllAction.setGraphic(MaterialIcon._Content.CLEAR.getImageView(size));
@@ -137,7 +137,11 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
 
     private void createUI() {
         mAddAction = new Action(toolTipTextSingular(Dict.ADD.toString()), actionEvent -> {
-            edit(null);
+            if (mBuilder.getOnAdd() != null) {
+                mBuilder.getOnAdd().accept(getDialogTitleEdit(null), null);
+            } else {
+                edit(null);
+            }
         });
 
         mRemAction = new Action(toolTipTextSingular(Dict.REMOVE.toString()), actionEvent -> {
@@ -192,7 +196,7 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
         if (mBuilder.getOnSave() != null) {
             mActions.add(mSaveAction);
         }
-        if (mBuilder.getOnEdit() != null && !mBuilder.mEditOnly) {
+        if (mBuilder.getOnAdd() != null || (mBuilder.getOnEdit() != null && !mBuilder.mEditOnly)) {
             mActions.add(mAddAction);
         }
         if (mBuilder.getOnRemove() != null) {
@@ -276,11 +280,11 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
     public static class Builder<T extends EditableListItem> {
 
         private boolean mEditOnly;
-
         private int mIconSize = 32;
         private String mItemPlural = Dict.ITEMS.toString();
         private String mItemSingular = Dict.ITEM.toString();
         private ObjectProperty<ObservableList<T>> mItemsProperty = new SimpleObjectProperty<>();
+        private BiConsumer<String, T> mOnAdd;
         private Function<T, T> mOnClone;
         private BiConsumer<String, T> mOnEdit;
         private Consumer<T> mOnInfo;
@@ -309,6 +313,10 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
 
         public String getItemSingular() {
             return mItemSingular;
+        }
+
+        public BiConsumer<String, T> getOnAdd() {
+            return mOnAdd;
         }
 
         public Function<T, T> getOnClone() {
@@ -368,6 +376,11 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
 
         public Builder<T> setItemsProperty(ObjectProperty<ObservableList<T>> itemsProperty) {
             mItemsProperty = itemsProperty;
+            return this;
+        }
+
+        public Builder<T> setOnAdd(BiConsumer<String, T> onAdd) {
+            mOnAdd = onAdd;
             return this;
         }
 
