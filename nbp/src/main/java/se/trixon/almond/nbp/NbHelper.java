@@ -15,12 +15,15 @@
  */
 package se.trixon.almond.nbp;
 
+import java.util.Optional;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
+import org.netbeans.CLIHandler;
 import org.netbeans.api.progress.ProgressHandle;
 import org.openide.util.Exceptions;
+import org.openide.util.Lookup;
 import org.openide.util.NbPreferences;
 import se.trixon.almond.nbp.output.OutputLineMode;
 import se.trixon.almond.util.PrefsHelper;
@@ -33,6 +36,7 @@ import se.trixon.almond.util.icons.material.MaterialIcon;
  */
 public class NbHelper {
 
+    private static Optional<Boolean> sGuiOptional = Optional.empty();
     private static final Preferences sLafPreferences = NbPreferences.root().node("laf");
 
     public static ProgressHandle createAndStartProgressHandle(String displayName, boolean indeterminate) {
@@ -49,10 +53,6 @@ public class NbHelper {
         return sLafPreferences;
     }
 
-    public static boolean isNightMode() {
-        return StringUtils.containsIgnoreCase(sLafPreferences.get("laf", ""), "dark");
-    }
-
     public static void initNightModeIfNeeded() {
         if (isNightMode()) {
             FxHelper.setDarkThemeEnabled(true);
@@ -63,6 +63,28 @@ public class NbHelper {
             OutputLineMode.setNightMode(true);
         }
 
+    }
+
+    public static Optional<Boolean> isGui() {
+        Lookup.getDefault().lookupAll(CLIHandler.class).stream()
+                .filter(handler -> StringUtils.equalsIgnoreCase(handler.getClass().getName(), "org.netbeans.core.startup.CLIOptions"))
+                .findFirst()
+                .ifPresent(handler -> {
+                    var c = handler.getClass();
+                    try {
+                        var field = c.getDeclaredField("gui");
+                        field.setAccessible(true);
+                        sGuiOptional = Optional.of(field.getBoolean(null));
+                    } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
+                        System.out.println(ex);
+                    }
+                });
+
+        return sGuiOptional;
+    }
+
+    public static boolean isNightMode() {
+        return StringUtils.containsIgnoreCase(sLafPreferences.get("laf", ""), "dark");
     }
 
     public static void setLafAccentColor(String color) {
