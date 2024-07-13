@@ -15,6 +15,7 @@
  */
 package se.trixon.almond.nbp;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
@@ -25,6 +26,7 @@ import org.netbeans.api.progress.ProgressHandle;
 import org.openide.util.Exceptions;
 import org.openide.util.Lookup;
 import org.openide.util.NbPreferences;
+import org.openide.windows.IOProvider;
 import se.trixon.almond.nbp.output.OutputLineMode;
 import se.trixon.almond.util.PrefsHelper;
 import se.trixon.almond.util.fx.FxHelper;
@@ -47,6 +49,38 @@ public class NbHelper {
         }
 
         return progressHandle;
+    }
+
+    public static void disableGui() {
+        Lookup.getDefault().lookupAll(CLIHandler.class).stream()
+                .filter(handler -> StringUtils.equalsIgnoreCase(handler.getClass().getName(), "org.netbeans.core.startup.CLIOptions"))
+                .findFirst()
+                .ifPresent(handler -> {
+                    var c = handler.getClass();
+                    try {
+                        var field = c.getDeclaredField("gui");
+                        field.setAccessible(true);
+                        field.setBoolean(handler, false);
+                    } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
+                        System.out.println(ex);
+                    }
+                });
+    }
+
+    public static IOProvider getDefaultOrTrivialIOProvider() {
+        if (Boolean.TRUE.equals(NbHelper.isGui().get())) {
+            return IOProvider.getDefault();
+        } else {
+            try {
+                var trivialClass = Class.forName("org.openide.windows.IOProvider$Trivial");
+                var constructor = trivialClass.getDeclaredConstructor();
+                constructor.setAccessible(true);
+                return (IOProvider) constructor.newInstance();
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException ex) {
+                Exceptions.printStackTrace(ex);
+                return IOProvider.getDefault();
+            }
+        }
     }
 
     public static Preferences getLafPreferences() {

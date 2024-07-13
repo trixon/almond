@@ -27,6 +27,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.openide.util.Exceptions;
 import org.openide.windows.IOColorLines;
 import org.openide.windows.InputOutput;
+import se.trixon.almond.nbp.NbHelper;
 import se.trixon.almond.util.Dict;
 
 /**
@@ -43,6 +44,7 @@ public class OutputHelper {
     private char mPadChar = '-';
     private int mRowWidth = 80;
     private LocalDateTime mStartTime;
+    private Boolean mGui = NbHelper.isGui().get();
 
     public static String millisToDateTime(long timestamp) {
         var date = new Date(timestamp);
@@ -126,10 +128,14 @@ public class OutputHelper {
     }
 
     public void println(Color color, String line) {
-        try {
-            IOColorLines.println(mInputOutput, line, color);
-        } catch (IOException ex) {
-            Exceptions.printStackTrace(ex);
+        if (mGui == Boolean.TRUE) {
+            try {
+                IOColorLines.println(mInputOutput, line, color);
+            } catch (IOException ex) {
+                Exceptions.printStackTrace(ex);
+            }
+        } else {
+            System.out.println(line);
         }
     }
 
