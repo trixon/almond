@@ -704,6 +704,8 @@ public enum Dict {
         DATE,
         DAY,
         DAYS,
+        DAYS_OF_MONTH,
+        DAYS_OF_WEEK,
         END_DATE,
         HOUR,
         HOURS,
