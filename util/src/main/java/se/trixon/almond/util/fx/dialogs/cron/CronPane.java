@@ -24,7 +24,6 @@ import javafx.scene.layout.VBox;
 import se.trixon.almond.util.Dict;
 import se.trixon.almond.util.SystemHelper;
 import se.trixon.almond.util.fx.FxHelper;
-import se.trixon.almond.util.fx.control.editable_list.DefaultEditableListItem;
 
 /**
  *
@@ -50,12 +49,12 @@ public class CronPane extends GridPane {
         return mCronProperty.get();
     }
 
-    public void load(DefaultEditableListItem item) {
+    public void load(CronItem cronItem) {
         String cronString;
-        if (item == null || item.getName() == null) {
+        if (cronItem == null || cronItem.getName() == null) {
             cronString = "0 * * * *";
         } else {
-            cronString = item.getName();
+            cronString = cronItem.getName();
         }
 
         var cronItems = cronString.split(" ");
@@ -88,7 +87,7 @@ public class CronPane extends GridPane {
 
     private void initListeners() {
         mPresetComboBox.getSelectionModel().selectedItemProperty().addListener((p, o, n) -> {
-            load(new DefaultEditableListItem(n.pattern()));
+            load(new CronItem(n.pattern()));
         });
 
         for (var cronSection : mCronSections) {

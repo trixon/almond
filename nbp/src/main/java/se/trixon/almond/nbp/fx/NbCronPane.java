@@ -25,9 +25,10 @@ import javax.swing.SwingUtilities;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
 import org.openide.NotificationLineSupport;
+import se.trixon.almond.util.Dict;
 import se.trixon.almond.util.fx.FxHelper;
-import se.trixon.almond.util.fx.control.editable_list.DefaultEditableListItem;
 import se.trixon.almond.util.fx.control.editable_list.EditableList;
+import se.trixon.almond.util.fx.dialogs.cron.CronItem;
 import se.trixon.almond.util.fx.dialogs.cron.CronPane;
 import se.trixon.almond.util.swing.SwingHelper;
 
@@ -37,9 +38,9 @@ import se.trixon.almond.util.swing.SwingHelper;
  */
 public class NbCronPane {
 
-    private EditableList<DefaultEditableListItem> mEditableList;
+    private EditableList<CronItem> mEditableList;
     private final int mIconSize;
-    private final ObjectProperty<ObservableList<DefaultEditableListItem>> mItemsProperty = new SimpleObjectProperty<>();
+    private final ObjectProperty<ObservableList<CronItem>> mItemsProperty = new SimpleObjectProperty<>();
     private NotificationLineSupport mNotificationLineSupport;
 
     public NbCronPane(int iconSize) {
@@ -48,21 +49,23 @@ public class NbCronPane {
         createUI();
     }
 
-    public EditableList<DefaultEditableListItem> getEditableList() {
+    public EditableList<CronItem> getEditableList() {
         return mEditableList;
     }
 
-    public final ObservableList<DefaultEditableListItem> getItems() {
+    public final ObservableList<CronItem> getItems() {
         return mItemsProperty.get();
     }
 
-    public ObjectProperty<ObservableList<DefaultEditableListItem>> itemsProperty() {
+    public ObjectProperty<ObservableList<CronItem>> itemsProperty() {
         return mItemsProperty;
     }
 
     private void createUI() {
-        mEditableList = new NbEditableList.Builder<DefaultEditableListItem>()
+        mEditableList = new NbEditableList.Builder<CronItem>()
                 .setIconSize(mIconSize)
+                .setItemSingular(Dict.SCHEDULE_TRIGGER.toString())
+                .setItemPlural(Dict.SCHEDULE_TRIGGERS.toString())
                 .setOnEdit((title, item) -> {
                     edit(title, item);
                     mEditableList.getListView().refresh();
@@ -74,7 +77,7 @@ public class NbCronPane {
                     getItems().remove(item);
                 })
                 .setOnClone(item -> {
-                    var clone = new DefaultEditableListItem(item.getName());
+                    var clone = new CronItem(item.getName());
                     getItems().add(clone);
                     mEditableList.getListView().refresh();
                     return clone;
@@ -83,7 +86,7 @@ public class NbCronPane {
                 .build();
     }
 
-    private void edit(String title, DefaultEditableListItem item) {
+    private void edit(String title, CronItem cronItem) {
         var cronPane = new CronPane();
         cronPane.cronProperty().addListener((p, o, n) -> {
             mNotificationLineSupport.setInformationMessage(n);
@@ -96,24 +99,24 @@ public class NbCronPane {
                 setScene(scene);
             }
         };
-        dialogPanel.setPreferredSize(SwingHelper.getUIScaledDim(800, 500));
+        dialogPanel.setPreferredSize(SwingHelper.getUIScaledDim(800, 530));
 
         SwingUtilities.invokeLater(() -> {
             var d = new DialogDescriptor(dialogPanel, title);
             mNotificationLineSupport = d.createNotificationLineSupport();
             dialogPanel.setNotifyDescriptor(d);
             dialogPanel.initFx(() -> {
-                cronPane.load(item);
+                cronPane.load(cronItem);
                 mNotificationLineSupport.setInformationMessage(cronPane.getCron());
             });
 
             if (DialogDescriptor.OK_OPTION == DialogDisplayer.getDefault().notify(d)) {
                 Platform.runLater(() -> {
-                    if (item == null) {
-                        var newItem = new DefaultEditableListItem(cronPane.getCron());
+                    if (cronItem == null) {
+                        var newItem = new CronItem(cronPane.getCron());
                         getItems().add(newItem);
                     } else {
-                        item.setName(cronPane.getCron());
+                        cronItem.setName(cronPane.getCron());
                     }
                 });
             }

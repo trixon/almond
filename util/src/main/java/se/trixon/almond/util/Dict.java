@@ -415,6 +415,8 @@ public enum Dict {
     SAVING,
     SCALE,
     SCHEDULE,
+    SCHEDULE_TRIGGER,
+    SCHEDULE_TRIGGERS,
     SCHEDULER,
     SEARCH,
     SEARCHING_IN,
