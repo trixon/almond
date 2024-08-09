@@ -313,6 +313,24 @@ public class SystemHelper {
         return System.getProperty("user.name");
     }
 
+    public static boolean isPackageAppImage() {
+        var env = System.getenv();
+
+        return env.containsKey("APPIMAGE") && env.containsKey("APPDIR");
+    }
+
+    public static boolean isPackageFlatPak() {
+        var env = System.getenv();
+
+        return env.containsKey("FLATPAK_SYSTEM_DIR");
+    }
+
+    public static boolean isPackageSnap() {
+        var env = System.getenv();
+
+        return env.containsKey("SNAP_ARCH") && env.containsKey("SNAP_INSTANCE_NAME");
+    }
+
     /**
      *
      * @param host

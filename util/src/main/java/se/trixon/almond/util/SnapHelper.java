@@ -31,6 +31,12 @@ public class SnapHelper {
         return 0 == process.waitFor();
     }
 
+    /**
+     *
+     * @return isSnap
+     * @deprecated Use SystemHelper.isPackageSnap()
+     */
+    @Deprecated(forRemoval = true)
     public static boolean isSnap() {
         var env = System.getenv();
 
