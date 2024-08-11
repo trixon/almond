@@ -60,6 +60,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -311,6 +312,19 @@ public class FxHelper {
                         CornerRadii.EMPTY,
                         Insets.EMPTY
                 ));
+    }
+
+    public static String createFontStyle(Double scaleFactor, FontWeight fontWeight) {
+        return FxHelper.createFontStyle(scaleFactor, fontWeight.name());
+    }
+
+    public static String createFontStyle(Double scaleFactor, String weight) {
+        var fontStyle = "-fx-font-size: %.0fpx; -fx-font-weight: %s;";
+
+        return fontStyle.formatted(
+                getScaledFontSize() * (scaleFactor == null ? 1.0 : scaleFactor),
+                weight
+        );
     }
 
     public static String createKeyCodeDisplayText(KeyCode code, KeyCombination.Modifier... modifiers) {

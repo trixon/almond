@@ -68,8 +68,7 @@ public enum OutputLineMode {
             if (sNightMode) {
                 return Color.YELLOW;
             } else {
-                return Color.YELLOW.darker();
-//            return Color.MAGENTA;
+                return Color.YELLOW.darker().darker();
             }
         }
 
