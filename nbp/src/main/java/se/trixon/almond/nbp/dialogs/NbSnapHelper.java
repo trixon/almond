@@ -21,6 +21,7 @@ import java.util.logging.Logger;
 import org.openide.NotifyDescriptor;
 import se.trixon.almond.util.Dict;
 import se.trixon.almond.util.SnapHelper;
+import se.trixon.almond.util.SystemHelper;
 
 /**
  *
@@ -30,7 +31,7 @@ public class NbSnapHelper {
 
     public static void checkSnapStatus(Class cls, String id, String snapName, String... plugsAndSlots) {
         try {
-            if (SnapHelper.isSnap()) {
+            if (SystemHelper.isPackageSnap()) {
                 StringBuilder sb = new StringBuilder();
                 for (String plugsAndSlot : plugsAndSlots) {
                     if (!SnapHelper.isConnected(plugsAndSlot)) {
