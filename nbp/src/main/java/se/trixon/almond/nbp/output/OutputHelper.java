@@ -17,18 +17,16 @@ package se.trixon.almond.nbp.output;
 
 import java.awt.Color;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
 import org.apache.commons.lang3.StringUtils;
 import org.openide.util.Exceptions;
 import org.openide.windows.IOColorLines;
 import org.openide.windows.InputOutput;
 import se.trixon.almond.nbp.NbHelper;
 import se.trixon.almond.util.Dict;
+import se.trixon.almond.util.TimeHelper;
 
 /**
  *
@@ -45,23 +43,6 @@ public class OutputHelper {
     private int mRowWidth = 80;
     private LocalDateTime mStartTime;
     private Boolean mGui = NbHelper.isGui().get();
-
-    public static String millisToDateTime(long timestamp) {
-        var date = new Date(timestamp);
-        return new SimpleDateFormat("yyyy-MM-dd HH.mm.ss").format(date);
-    }
-
-    public static Long[] millisToMinSec(long millis) {
-        long min = TimeUnit.MILLISECONDS.toMinutes(millis);
-        long sec = TimeUnit.MILLISECONDS.toSeconds(millis)
-                - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis));
-
-        return new Long[]{min, sec};
-    }
-
-    public static String nowToDateTime() {
-        return millisToDateTime(System.currentTimeMillis());
-    }
 
     public static String prependTimestamp(String s) {
         return "%s %s".formatted(LocalDateTime.now().format(sDateTimeFormatter), s);
@@ -88,7 +69,7 @@ public class OutputHelper {
     public void printSectionHeader(OutputLineMode outputLineMode, String action, String type, String name, String... extras) {
         var begEndPad = Character.toString(mPadChar).repeat(mMargin + 1);
         var begEndMargin = " ".repeat(mMargin);
-        var sb = new StringBuilder().append(begEndPad).append(begEndMargin).append(OutputHelper.nowToDateTime());
+        var sb = new StringBuilder().append(begEndPad).append(begEndMargin).append(TimeHelper.nowToDateTime());
 
         if (StringUtils.isNotBlank(action)) {
             sb.append(" ").append(action);
@@ -113,7 +94,7 @@ public class OutputHelper {
 
     public void printSummary(OutputLineMode outputLineMode, String action, String type) {
         var millis = ChronoUnit.MILLIS.between(mStartTime, LocalDateTime.now());
-        var minSec = OutputHelper.millisToMinSec(millis);
+        var minSec = TimeHelper.millisToMinSec(millis);
         var details = String.format("(%d %s, %d %s)", minSec[0], Dict.TIME_MIN.toString(), minSec[1], Dict.TIME_SEC.toString());
 
         printSectionHeader(outputLineMode, action, type, mName, details);

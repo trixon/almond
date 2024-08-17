@@ -20,6 +20,7 @@ import java.util.function.Predicate;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -42,6 +43,7 @@ public class FilterableListSelectionView<T> extends ListSelectionView<T> {
     private final FilterSection mTargetFilterSection = new FilterSection(FilterMode.TARGET);
 
     public FilterableListSelectionView() {
+        setPadding(Insets.EMPTY);
         ListChangeListener<T> listener = (ListChangeListener.Change<? extends T> c) -> {
             handleListSourceTargetChange(c);
         };
