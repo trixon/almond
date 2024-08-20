@@ -480,6 +480,7 @@ public enum Dict {
     TASKS,
     TASKS_ACTIVE,
     TASKS_AVAILABLE,
+    TASK_FAILED,
     TASKS_FAILED,
     TASKS_SELECTED,
     TASK_ABORTED,

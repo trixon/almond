@@ -65,27 +65,15 @@ public enum OutputLineMode {
     public class Colors {
 
         public static Color alert() {
-            if (sNightMode) {
-                return Color.YELLOW;
-            } else {
-                return Color.YELLOW.darker().darker();
-            }
+            return sNightMode ? Color.YELLOW : Color.YELLOW.darker();
         }
 
         public static Color error() {
-            if (sNightMode) {
-                return Color.RED;
-            } else {
-                return Color.RED;
-            }
+            return sNightMode ? Color.decode("#FF4040") : Color.decode("#BF0000");
         }
 
         public static Color info() {
-            if (sNightMode) {
-                return Color.CYAN;
-            } else {
-                return Color.BLUE;
-            }
+            return sNightMode ? Color.CYAN : Color.BLUE;
         }
 
         public static boolean isNightMode() {
@@ -93,27 +81,15 @@ public enum OutputLineMode {
         }
 
         public static Color standard() {
-            if (sNightMode) {
-                return Color.LIGHT_GRAY;
-            } else {
-                return Color.BLACK;
-            }
+            return sNightMode ? Color.LIGHT_GRAY : Color.BLACK;
         }
 
         public static Color ok() {
-            if (sNightMode) {
-                return Color.GREEN;
-            } else {
-                return Color.GREEN.darker();
-            }
+            return sNightMode ? Color.decode("#A8C023") : Color.decode("#007C00");
         }
 
         public static Color warning() {
-            if (sNightMode) {
-                return Color.ORANGE;
-            } else {
-                return Color.ORANGE;
-            }
+            return sNightMode ? Color.decode("#FFC66D") : Color.ORANGE;
         }
     }
 }
