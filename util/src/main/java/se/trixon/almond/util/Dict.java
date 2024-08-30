@@ -123,6 +123,7 @@ public enum Dict {
     CUSTOM_TEXT,
     CUSTOM_TIME_ZONE,
     DARK,
+    DASHBOARD,
     DATABASE,
     DATA_SOURCES,
     DATE,
