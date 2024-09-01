@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2023 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,8 +32,7 @@ import org.openide.util.NbBundle.Messages;
         displayName = "#CTL_QuitAction"
 )
 @ActionReferences({
-    @ActionReference(path = "Menu/File", position = 2700)
-    ,
+    @ActionReference(path = "Menu/File", position = 2700),
     @ActionReference(path = "Shortcuts", name = "D-Q")
 })
 @Messages("CTL_QuitAction=Quit")
@@ -41,6 +40,6 @@ public final class QuitAction implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        LifecycleManager.getDefault().exit();
+        new Thread(() -> LifecycleManager.getDefault().exit()).start();
     }
 }
