@@ -44,7 +44,27 @@ public class DateHelper {
      * returns max of t1 and t2, if equal; t2
      */
     public static LocalDate getMax(LocalDate t1, LocalDate t2) {
-        return t1.isAfter(t2) ? t1 : t2;
+        if (ObjectUtils.allNotNull(t1, t2)) {
+            return t1.isAfter(t2) ? t1 : t2;
+        } else if (t1 == null) {
+            return t2;
+        } else {
+            return t1;
+        }
+    }
+
+    /**
+     *
+     * returns max of t1 and t2, if equal; t2
+     */
+    public static LocalDateTime getMax(LocalDateTime t1, LocalDateTime t2) {
+        if (ObjectUtils.allNotNull(t1, t2)) {
+            return t1.isAfter(t2) ? t1 : t2;
+        } else if (t1 == null) {
+            return t2;
+        } else {
+            return t1;
+        }
     }
 
     /**
