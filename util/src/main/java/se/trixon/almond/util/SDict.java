@@ -49,6 +49,7 @@ public enum SDict {
     POINTS,
     REACHED_LIMIT_VALUE,
     ROLLING,
+    STRUCTURAL,
     SURVEYOR,
     SURVEYORS,
     TOPOGRAPHY,
