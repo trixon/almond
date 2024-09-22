@@ -61,6 +61,11 @@ public abstract class OptionsBase {
         return mPreferences;
     }
 
+    public boolean invert(String key) {
+        put(key, !is(key));
+        return is(key);
+    }
+
     public boolean is(String key, boolean... def) {
         return mPreferences.getBoolean(key, def == null || def.length == 0 ? true : def[0]);
     }
