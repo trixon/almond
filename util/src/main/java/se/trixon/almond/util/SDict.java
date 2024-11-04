@@ -45,6 +45,7 @@ public enum SDict {
     MEASUREMENT,
     MEASUREMENT_NEED,
     MEASUREMENTS,
+    NOISE,
     OPERATOR,
     POINT,
     POINTS,
