@@ -95,6 +95,27 @@ public class MathHelper {
         return new Point2D(x, y);
     }
 
+    /**
+     *
+     * @param degree
+     * @return
+     */
+    public static double convertCcwDegreeToCw(double degree) {
+        if (degree < 0) {
+            degree += 360;
+        }
+
+        if (degree <= 90) {
+            return 90 - degree;
+        } else if (degree <= 180) {
+            return 360 - degree + 90;
+        } else if (degree <= 270) {
+            return 360 + 90 - degree;
+        } else {
+            return 360 - degree + 90;
+        }
+    }
+
     public static double convertDoubleToDouble(Double d) {
         return d == null ? 0 : d;
     }
