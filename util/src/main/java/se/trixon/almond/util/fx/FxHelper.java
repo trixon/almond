@@ -377,8 +377,8 @@ public class FxHelper {
             var comboBox = (ComboBox) comboboxField.get(skin);
 
             return comboBox;
-        } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
-            Logger.getLogger(FxHelper.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NullPointerException | NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
+            //Logger.getLogger(FxHelper.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return null;
