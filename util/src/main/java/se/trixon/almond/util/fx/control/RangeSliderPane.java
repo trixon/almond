@@ -42,6 +42,17 @@ public class RangeSliderPane extends GridPane {
     private final double mMinValue;
     private final BooleanProperty mSelectedProperty = new SimpleBooleanProperty();
     private RangeSlider mSlider;
+    private boolean mWithSpinners = true;
+
+    public RangeSliderPane(String title, double minValue, double maxValue, boolean withSpinners) {
+        super(FxHelper.getUIScaled(8), FxHelper.getUIScaled(2));
+        mMinValue = minValue;
+        mMaxValue = maxValue;
+        mCheckBox.setText(title);
+        mWithSpinners = withSpinners;
+
+        createUI();
+    }
 
     public RangeSliderPane(String title, double minValue, double maxValue) {
         super(FxHelper.getUIScaled(8), FxHelper.getUIScaled(2));
@@ -89,9 +100,13 @@ public class RangeSliderPane extends GridPane {
         mMaxSpinner = new Spinner<>(mMinValue, mMaxValue, mMaxValue, 0.1);
 
         add(mCheckBox, 0, 0, GridPane.REMAINING, 1);
-        add(mMinSpinner, 0, 1);
+        if (mWithSpinners) {
+            add(mMinSpinner, 0, 1);
+        }
         add(mSlider, 1, 1);
-        add(mMaxSpinner, 2, 1);
+        if (mWithSpinners) {
+            add(mMaxSpinner, 2, 1);
+        }
 
         mSlider.disableProperty().bind(mCheckBox.selectedProperty().not());
         mMinSpinner.disableProperty().bind(mCheckBox.selectedProperty().not());
