@@ -46,7 +46,11 @@ public class BooleanHelper {
         return sBundle.getString(value ? "true" : "false");
     }
 
-    public static String asYesNo(boolean value) {
-        return sBundle.getString(value ? "yes" : "no");
+    public static String asYesNo(Boolean value) {
+        if (value == null) {
+            return "UNSET";
+        } else {
+            return sBundle.getString(value ? "yes" : "no");
+        }
     }
 }
