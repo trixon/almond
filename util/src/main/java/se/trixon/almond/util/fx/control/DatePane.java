@@ -21,8 +21,8 @@ import javafx.geometry.Insets;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
 import javafx.util.Callback;
+import org.controlsfx.control.PlusMinusSlider;
 import se.trixon.almond.util.fx.FxHelper;
 
 /**
@@ -35,10 +35,13 @@ public class DatePane extends GridPane {
     private DateSelectionMode mDateSelectionMode;
     private DateSlider mDateSlider;
     private DatePicker mFromDatePicker;
+    private final PlusMinusSlider mFromSlider = new PlusMinusSlider();
     private DatePicker mToDatePicker;
+    private final PlusMinusSlider mToSlider = new PlusMinusSlider();
 
     public DatePane() {
         createUI();
+        initListeners();
     }
 
     public void addFromDatePickerListener(ChangeListener<Object> changeListener) {
@@ -119,21 +122,37 @@ public class DatePane extends GridPane {
         mFromDatePicker = new DatePicker();
         mFromDatePicker.setValue(LocalDate.of(1900, 1, 1));
         mFromDatePicker.setEditable(true);
-        GridPane.setFillWidth(mFromDatePicker, true);
-        GridPane.setHgrow(mFromDatePicker, Priority.ALWAYS);
 
         mToDatePicker = new DatePicker();
         mToDatePicker.setValue(LocalDate.of(2099, 12, 31));
         mToDatePicker.setEditable(true);
-        GridPane.setFillWidth(mToDatePicker, true);
-        GridPane.setHgrow(mToDatePicker, Priority.ALWAYS);
 
         FxHelper.setMargin(new Insets(8, 0, 0, 0), mFromDatePicker);
         FxHelper.setMargin(new Insets(8, 0, 0, 8), mToDatePicker);
 
-        setPadding(FxHelper.getUIScaledInsets(8));
+        setPadding(FxHelper.getUIScaledInsets(0, 8, 8, 8));
         addRow(1, mFromDatePicker, mToDatePicker);
+        addRow(2, mFromSlider, mToSlider);
 
         setDateSelectionMode(DateSelectionMode.INTERVAL);
+        FxHelper.autoSizeRegionHorizontal(mFromDatePicker, mFromSlider, mToDatePicker, mToSlider);
+    }
+
+    private void initListeners() {
+        mFromSlider.setOnValueChanged(pme -> {
+            jog(mFromDatePicker, pme.getValue());
+        });
+
+        mToSlider.setOnValueChanged(pme -> {
+            jog(mToDatePicker, pme.getValue());
+        });
+    }
+
+    private void jog(DatePicker datePicker, double value) {
+        long days = (long) Math.min(value * 7, 3);
+        var date = datePicker.getValue().plusDays(days);
+        if (mDateRangeSlider.isValid(date)) {
+            datePicker.setValue(date);
+        }
     }
 }

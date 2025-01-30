@@ -21,6 +21,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import org.apache.commons.lang3.ObjectUtils;
 import org.controlsfx.control.RangeSlider;
+import se.trixon.almond.util.DateHelper;
 
 /**
  *
@@ -62,6 +63,10 @@ public class DateRangeSlider extends RangeSlider {
 
     public SimpleStringProperty highStringProperty() {
         return mHighStringProperty;
+    }
+
+    public boolean isValid(LocalDate localDate) {
+        return DateHelper.isBetween(getMinDate(), getMaxDate(), localDate);
     }
 
     public SimpleObjectProperty<LocalDate> lowDateProperty() {
