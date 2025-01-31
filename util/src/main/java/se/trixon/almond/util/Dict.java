@@ -666,6 +666,7 @@ public enum Dict {
         BEARING,
         CENTER,
         CIRCLE,
+        CIRCLES,
         DIAMETER,
         DIRECTION,
         DIRECTION_C,
@@ -700,6 +701,7 @@ public enum Dict {
         SQUARE,
         SURFACE,
         VERTICAL,
+        WEDGE,
         WIDTH;
         private final ResourceBundle mResourceBundle = ResourceBundle.getBundle(SystemHelper.getPackageAsPath(Dict.class) + "DictGeometry", Locale.getDefault());
 
