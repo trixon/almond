@@ -22,6 +22,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import org.controlsfx.control.RangeSlider;
@@ -36,10 +37,10 @@ public class RangeSliderPane extends GridPane {
     private final CheckBox mCheckBox = new CheckBox();
     private final DoubleProperty mMaxProperty = new SimpleDoubleProperty();
     private Spinner<Double> mMaxSpinner;
-    private final double mMaxValue;
+    private double mMaxValue;
     private final DoubleProperty mMinProperty = new SimpleDoubleProperty();
     private Spinner<Double> mMinSpinner;
-    private final double mMinValue;
+    private double mMinValue;
     private final BooleanProperty mSelectedProperty = new SimpleBooleanProperty();
     private RangeSlider mSlider;
     private boolean mWithSpinners = true;
@@ -86,6 +87,18 @@ public class RangeSliderPane extends GridPane {
 
     public BooleanProperty selectedProperty() {
         return mSelectedProperty;
+    }
+
+    public void setMinMaxValue(double minValue, double maxValue) {
+        mMinValue = minValue;
+        mMaxValue = maxValue;
+        mSlider.setMin(minValue);
+        mSlider.setMax(maxValue);
+
+        var minValueFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(minValue, maxValue, mMinSpinner.getValue());
+        mMinSpinner.setValueFactory(minValueFactory);
+        var maxValueFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(minValue, maxValue, mMaxSpinner.getValue());
+        mMaxSpinner.setValueFactory(maxValueFactory);
     }
 
     private void createUI() {
