@@ -136,6 +136,7 @@ public class DatePane extends GridPane {
 
         setDateSelectionMode(DateSelectionMode.INTERVAL);
         FxHelper.autoSizeRegionHorizontal(mFromDatePicker, mFromSlider, mToDatePicker, mToSlider);
+        setMinWidth(FxHelper.getUIScaled(250));
     }
 
     private void initListeners() {
