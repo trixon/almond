@@ -65,6 +65,22 @@ public class DateRangeSlider extends RangeSlider {
         return mHighStringProperty;
     }
 
+    public boolean isSelectedFromStart() {
+        try {
+            return mLowDateProperty.get().equals(mMinDateProperty.get());
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isSelectedToEnd() {
+        try {
+            return mHighDateProperty.get().equals(mMaxDateProperty.get());
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     public boolean isValid(LocalDate localDate) {
         return DateHelper.isBetween(getMinDate(), getMaxDate(), localDate);
     }
