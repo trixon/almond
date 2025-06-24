@@ -71,6 +71,12 @@ public class PrefsHelper {
         }
     }
 
+    public static void removeIfPresent(Preferences preferences, String key) {
+        if (keyExists(preferences, key)) {
+            preferences.remove(key);
+        }
+    }
+
     public static void replaceIfPresent(Preferences preferences, String key, String oldValue, String newValue) {
         if (keyExists(preferences, key) && StringUtils.equals(preferences.get(key, null), oldValue)) {
             preferences.put(key, newValue);
