@@ -268,6 +268,7 @@ public enum Dict {
     LATEST,
     LATITUDE,
     LAYER,
+    LAYER_PROPERTIES,
     LAYERS,
     LAYER_SEARCH,
     LIBRARIES,
