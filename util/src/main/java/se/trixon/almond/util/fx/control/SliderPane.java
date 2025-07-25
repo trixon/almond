@@ -34,6 +34,7 @@ import se.trixon.almond.util.fx.FxHelper;
 public class SliderPane extends GridPane {
 
     private final CheckBox mCheckBox = new CheckBox();
+    private final boolean mDisplaySpinner;
     private final double mMaxValue;
     private final BooleanProperty mSelectedProperty = new SimpleBooleanProperty();
     private Slider mSlider;
@@ -41,10 +42,14 @@ public class SliderPane extends GridPane {
     private final DoubleProperty mValueProperty = new SimpleDoubleProperty();
 
     public SliderPane(String title, double maxValue) {
+        this(title, maxValue, true);
+    }
+
+    public SliderPane(String title, double maxValue, boolean displayspinner) {
         super(FxHelper.getUIScaled(8), FxHelper.getUIScaled(2));
         mMaxValue = maxValue;
         mCheckBox.setText(title);
-
+        mDisplaySpinner = displayspinner;
         createUI();
     }
 
@@ -78,7 +83,9 @@ public class SliderPane extends GridPane {
         mSpinner = new Spinner<>(0, mMaxValue, 0, 0.1);
 
         add(mCheckBox, 0, 0, GridPane.REMAINING, 1);
-        add(mSpinner, 0, 1);
+        if (mDisplaySpinner) {
+            add(mSpinner, 0, 1);
+        }
         add(mSlider, 1, 1);
 
         mSlider.disableProperty().bind(mCheckBox.selectedProperty().not());
