@@ -76,7 +76,7 @@ public class AutoCloseCheckComboBox<T> extends CheckComboBox<T> {
 
     public class AutoCloseCheckComboBoxSkin extends CheckComboBoxSkin {
 
-        public AutoCloseCheckComboBoxSkin(CheckComboBox control) {
+        public AutoCloseCheckComboBoxSkin(CheckComboBox<T> control) {
             super(control);
 
             try {

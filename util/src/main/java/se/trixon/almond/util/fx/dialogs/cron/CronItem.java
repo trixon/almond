@@ -15,7 +15,7 @@
  */
 package se.trixon.almond.util.fx.dialogs.cron;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import se.trixon.almond.util.fx.control.editable_list.DefaultEditableListItem;
 
 /**
@@ -33,7 +33,7 @@ public class CronItem extends DefaultEditableListItem implements Comparable<Cron
 
     @Override
     public int compareTo(CronItem o) {
-        return StringUtils.compare(getName(), o.getName());
+        return Strings.CS.compare(getName(), o.getName());
     }
 
 }

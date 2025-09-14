@@ -20,6 +20,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 
 /**
  *
@@ -50,7 +51,7 @@ public class GeoHelper {
         boolean hitSection = false;
 
         for (var line : lines) {
-            if (hitSection && StringUtils.startsWithIgnoreCase(line.trim(), sectionHeader)) {
+            if (hitSection && Strings.CI.startsWith(line.trim(), sectionHeader)) {
                 break;
             }
             rowCounter++;
@@ -62,10 +63,10 @@ public class GeoHelper {
                     open--;
                 }
 
-                if (open < 1 || StringUtils.startsWithIgnoreCase(line.stripTrailing(), nextSectionHeader) && hitSection) {
+                if (open < 1 || Strings.CI.startsWith(line.stripTrailing(), nextSectionHeader) && hitSection) {
                     break;
                 }
-            } else if (StringUtils.startsWithIgnoreCase(line.strip(), sectionHeader)) {
+            } else if (Strings.CI.startsWith(line.strip(), sectionHeader)) {
                 hitSection = true;
             }
         }
@@ -74,7 +75,7 @@ public class GeoHelper {
         }
         boolean addEmptyBlock = false;
         var section = new LinkedList<>(lines.subList(0, rowCounter));
-        if (StringUtils.startsWith(section.peekLast(), nextSectionHeader)) {
+        if (Strings.CS.startsWith(section.peekLast(), nextSectionHeader)) {
             lines.addFirst(section.pollLast());
             addEmptyBlock = true;
         } else if (rowCounter == 1) {
@@ -103,9 +104,9 @@ public class GeoHelper {
             stripWrapper(section);
 
             for (var line : section) {
-                line = StringUtils.removeStart(line.trim(), "Attribute");
+                line = Strings.CS.removeStart(line.trim(), "Attribute");
                 String[] segments = StringUtils.splitPreserveAllTokens(line.trim(), ",");
-                attributes.put(StringUtils.remove(segments[0], "\""), StringUtils.remove(segments[1], "\""));
+                attributes.put(Strings.CS.remove(segments[0], "\""), Strings.CS.remove(segments[1], "\""));
             }
         }
 
@@ -156,8 +157,8 @@ public class GeoHelper {
                 if (geoLine != null) {
                     if (!pointSection.peekLast().trim().equalsIgnoreCase(KEY_END)) {
                         String s = String.join("\n", pointSection);
-                        if (StringUtils.containsIgnoreCase(s, "AttributeList")
-                                && StringUtils.containsIgnoreCase(s, KEY_BEGIN)) {
+                        if (Strings.CI.contains(s, "AttributeList")
+                                && Strings.CI.contains(s, KEY_BEGIN)) {
                             pointSection.add(KEY_END);
                         }
                     }

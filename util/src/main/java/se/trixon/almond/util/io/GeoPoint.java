@@ -18,6 +18,7 @@ package se.trixon.almond.util.io;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 
 /**
  *
@@ -54,7 +55,7 @@ public class GeoPoint extends CoordinatePoint {
     }
 
     public GeoPoint(String row) throws NumberFormatException {
-        row = StringUtils.removeStart(row.trim(), "Point");
+        row = Strings.CS.removeStart(row.trim(), "Point");
         var elements = getFirstItem(row);
         setPointId(elements[0]);
         var parts = StringUtils.splitPreserveAllTokens(elements[1], ",");
@@ -141,9 +142,9 @@ public class GeoPoint extends CoordinatePoint {
         String segment;
         String remaining;
         input = input.strip();
-        if (StringUtils.startsWith(input, ",")) {
+        if (Strings.CS.startsWith(input, ",")) {
             segment = "";
-            remaining = StringUtils.removeStart(input, ",");
+            remaining = Strings.CS.removeStart(input, ",");
         } else {
             int begin = StringUtils.ordinalIndexOf(input, "\"", 1) + 1;
             int end = StringUtils.ordinalIndexOf(input, "\"", 2);

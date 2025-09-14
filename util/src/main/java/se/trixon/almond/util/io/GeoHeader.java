@@ -17,7 +17,7 @@ package se.trixon.almond.util.io;
 
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 
 /**
  *
@@ -47,7 +47,7 @@ public class GeoHeader {
     public GeoHeader(LinkedList<String> lines) {
         mFileHeader = lines.get(0);
         for (var line : lines) {
-            if (StringUtils.startsWithIgnoreCase(line, "FileHeader") || StringUtils.equalsAny(line.trim(), "begin", "end")) {
+            if (Strings.CI.startsWith(line, "FileHeader") || Strings.CS.equalsAny(line.trim(), "begin", "end")) {
                 continue;
             }
 

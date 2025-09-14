@@ -27,7 +27,7 @@ public class SpinnerDoubleSession {
     private final Spinner<Double> mSpinner;
     private final SimpleDoubleProperty mValueProperty = new SimpleDoubleProperty();
 
-    public SpinnerDoubleSession(Spinner spinner) {
+    public SpinnerDoubleSession(Spinner<Double> spinner) {
         mSpinner = spinner;
         initListeners();
         mValueProperty.set(mSpinner.getValue());

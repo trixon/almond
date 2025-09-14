@@ -19,6 +19,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import org.controlsfx.control.CheckComboBox;
 import org.controlsfx.control.IndexedCheckModel;
 
@@ -51,7 +52,7 @@ public class CheckModelSession {
         if (storedItems != null) {
             for (var storedItem : storedItems) {
                 for (var listItem : mAllItems) {
-                    if (StringUtils.equals(storedItem, listItem.toString())) {
+                    if (Strings.CS.equals(storedItem, listItem.toString())) {
                         mCheckModel.check(listItem);
                         break;
                     }

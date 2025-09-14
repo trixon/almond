@@ -26,6 +26,7 @@ import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 
 /**
  *
@@ -91,7 +92,7 @@ public class Geo extends CoordinateFile {
     public void read(File file) throws IOException {
         mRawLines = new LinkedList<>(FileUtils.readLines(file, mCharset));
         var elements = StringUtils.split(mRawLines.peek(), ",");
-        if (elements.length < 3 || !StringUtils.containsIgnoreCase(elements[2], "UTF-8")) {
+        if (elements.length < 3 || !Strings.CI.contains(elements[2], "UTF-8")) {
             mCharset = StandardCharsets.ISO_8859_1;
             mRawLines = new LinkedList<>(FileUtils.readLines(file, mCharset));
         }

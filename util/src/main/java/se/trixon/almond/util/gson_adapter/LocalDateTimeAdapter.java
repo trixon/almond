@@ -23,7 +23,7 @@ import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 
 /**
  *
@@ -39,7 +39,7 @@ public class LocalDateTimeAdapter implements JsonSerializer<LocalDateTime>, Json
     @Override
     public LocalDateTime deserialize(JsonElement je, Type type, JsonDeserializationContext jdc) throws JsonParseException {
         var ldtString = je.getAsString();
-        return LocalDateTime.parse(StringUtils.replace(ldtString, " ", "T"));
+        return LocalDateTime.parse(Strings.CS.replace(ldtString, " ", "T"));
     }
 
 }

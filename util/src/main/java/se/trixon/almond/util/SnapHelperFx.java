@@ -30,7 +30,7 @@ public class SnapHelperFx {
 
     public static void checkSnapStatus(Class cls, String id, Window window, String snapName, String... plugsAndSlots) {
         try {
-            if (SnapHelper.isSnap()) {
+            if (SystemHelper.isPackageSnap()) {
                 StringBuilder sb = new StringBuilder();
                 for (String plugsAndSlot : plugsAndSlots) {
                     if (!SnapHelper.isConnected(plugsAndSlot)) {

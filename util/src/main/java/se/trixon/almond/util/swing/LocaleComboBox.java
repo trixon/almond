@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2023 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,7 +20,7 @@ import java.util.Arrays;
 import java.util.Locale;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 
 /**
  *
@@ -34,7 +34,7 @@ public class LocaleComboBox extends JComboBox<String> {
 
     public Locale getSelectedLocale() {
         for (Locale locale : Locale.getAvailableLocales()) {
-            if (StringUtils.equals((String) getSelectedItem(), locale.getDisplayName())) {
+            if (Strings.CS.equals((String) getSelectedItem(), locale.getDisplayName())) {
                 return locale;
             }
         }

@@ -22,7 +22,7 @@ import javax.swing.Action;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
 import javax.swing.KeyStroke;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.text.WordUtils;
 
@@ -107,8 +107,8 @@ public abstract class AlmondActionManager {
 
         if (keyStroke != null) {
             String shortcut = WordUtils.capitalizeFully(keyStroke.toString());
-            shortcut = StringUtils.replace(shortcut, " Pressed ", "+");
-            shortcut = StringUtils.replace(shortcut, "Pressed ", "");
+            shortcut = Strings.CS.replace(shortcut, " Pressed ", "+");
+            shortcut = Strings.CS.replace(shortcut, "Pressed ", "");
 
             shortDescription = "%s (%s)".formatted(
                     shortDescription,

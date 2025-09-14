@@ -25,6 +25,7 @@ import java.util.Objects;
 import java.util.TreeSet;
 import java.util.regex.PatternSyntaxException;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 
 /**
  *
@@ -196,9 +197,9 @@ public class StringHelper {
     public static String getTheOtherOne(String s, String s1, String s2) {
         if (s == null) {
             return null;
-        } else if (StringUtils.equals(s, s1)) {
+        } else if (Strings.CS.equals(s, s1)) {
             return s2;
-        } else if (StringUtils.equals(s, s2)) {
+        } else if (Strings.CS.equals(s, s2)) {
             return s1;
         } else {
             return null;
@@ -233,7 +234,7 @@ public class StringHelper {
     }
 
     public static String joinLines(String s) {
-        return StringUtils.replace(s, "\n", "\\n");
+        return Strings.CS.replace(s, "\n", "\\n");
     }
 
     public static String joinNonNulls(String separator, String... values) {
@@ -266,7 +267,7 @@ public class StringHelper {
             glob = glob.toLowerCase();
         }
 
-        if (autoWrap && !StringUtils.contains(glob, "*")) {
+        if (autoWrap && !Strings.CS.contains(glob, "*")) {
             glob = "*" + glob + "*";
         }
         String regex = createRegexFromGlob(glob);
@@ -295,8 +296,8 @@ public class StringHelper {
     }
 
     public static boolean matchesSimpleGlobByWordNegatable(String glob, boolean ignoreCase, boolean autoWrap, String... searchIn) {
-        var negate = StringUtils.startsWith(glob, "!");
-        glob = StringUtils.removeStart(glob, "!");
+        var negate = Strings.CS.startsWith(glob, "!");
+        glob = Strings.CS.removeStart(glob, "!");
 
         for (var globPart : StringUtils.split(glob)) {
             for (var s : searchIn) {

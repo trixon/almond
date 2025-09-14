@@ -27,7 +27,7 @@ public class SpinnerIntegerSession {
     private final Spinner<Integer> mSpinner;
     private final SimpleIntegerProperty mValueProperty = new SimpleIntegerProperty();
 
-    public SpinnerIntegerSession(Spinner spinner) {
+    public SpinnerIntegerSession(Spinner<Integer> spinner) {
         mSpinner = spinner;
         initListeners();
         mValueProperty.set(mSpinner.getValue());

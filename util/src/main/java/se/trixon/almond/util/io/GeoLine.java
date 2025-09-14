@@ -19,6 +19,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 
 /**
  *
@@ -50,11 +51,11 @@ public class GeoLine {
     }
 
     public GeoLine(String line) {
-        line = StringUtils.removeStart(line.trim(), "Line");
+        line = Strings.CS.removeStart(line.trim(), "Line");
         var segments = StringUtils.splitPreserveAllTokens(line.trim(), ",");
-        mLineNumber = StringUtils.remove(segments[0], "\"");
+        mLineNumber = Strings.CS.remove(segments[0], "\"");
         mClosedPolygon = StringUtils.trim(segments[1]);
-        mCode = StringUtils.remove(segments[2], "\"");
+        mCode = Strings.CS.remove(segments[2], "\"");
     }
 
     public LinkedHashMap<String, String> getAttributes() {
