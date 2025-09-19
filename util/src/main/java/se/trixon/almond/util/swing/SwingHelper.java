@@ -63,6 +63,15 @@ public class SwingHelper {
         }
     }
 
+    public static javafx.scene.paint.Color colorToColor(java.awt.Color awtColor) {
+        return new javafx.scene.paint.Color(
+                awtColor.getRed() / 255.0,
+                awtColor.getGreen() / 255.0,
+                awtColor.getBlue() / 255.0,
+                awtColor.getAlpha() / 255.0
+        );
+    }
+
     public static void clearText(Container container) {
         for (var component : container.getComponents()) {
             if (component instanceof AbstractButton abstractButton) {
@@ -250,7 +259,7 @@ public class SwingHelper {
 
     /**
      * Tries to activate a window and excute a runnable after that.
-     *
+     * <p>
      * Usually needed when using drag and drop
      *
      *
