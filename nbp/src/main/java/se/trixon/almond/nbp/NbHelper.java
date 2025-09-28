@@ -19,7 +19,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import org.apache.commons.lang3.SystemUtils;
 import org.netbeans.CLIHandler;
 import org.netbeans.api.progress.ProgressHandle;
@@ -53,7 +53,7 @@ public class NbHelper {
 
     public static void disableGui() {
         Lookup.getDefault().lookupAll(CLIHandler.class).stream()
-                .filter(handler -> StringUtils.equalsIgnoreCase(handler.getClass().getName(), "org.netbeans.core.startup.CLIOptions"))
+                .filter(handler -> Strings.CI.equals(handler.getClass().getName(), "org.netbeans.core.startup.CLIOptions"))
                 .findFirst()
                 .ifPresent(handler -> {
                     var c = handler.getClass();
@@ -101,7 +101,7 @@ public class NbHelper {
 
     public static Optional<Boolean> isGui() {
         Lookup.getDefault().lookupAll(CLIHandler.class).stream()
-                .filter(handler -> StringUtils.equalsIgnoreCase(handler.getClass().getName(), "org.netbeans.core.startup.CLIOptions"))
+                .filter(handler -> Strings.CI.equals(handler.getClass().getName(), "org.netbeans.core.startup.CLIOptions"))
                 .findFirst()
                 .ifPresent(handler -> {
                     var c = handler.getClass();
@@ -118,7 +118,7 @@ public class NbHelper {
     }
 
     public static boolean isNightMode() {
-        return StringUtils.containsIgnoreCase(sLafPreferences.get("laf", ""), "dark");
+        return Strings.CI.contains(sLafPreferences.get("laf", ""), "dark");
     }
 
     public static void setLafAccentColor(String color) {

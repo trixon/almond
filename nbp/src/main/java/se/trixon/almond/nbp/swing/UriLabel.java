@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2023 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,7 +26,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import javax.swing.Icon;
 import javax.swing.JLabel;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import se.trixon.almond.nbp.NbLog;
 import se.trixon.almond.util.MailHelper;
 import se.trixon.almond.util.SystemHelper;
@@ -95,7 +95,7 @@ public class UriLabel extends JLabel {
     private void launchURI(MouseEvent evt) {
         if (mUri != null && Desktop.isDesktopSupported()) {
             try {
-                if (StringUtils.startsWith(mUri.getScheme(), "http")) {
+                if (Strings.CS.startsWith(mUri.getScheme(), "http")) {
                     SystemHelper.desktopBrowse(mUri.toString());
                 } else {
                     MailHelper.mail(mUri);

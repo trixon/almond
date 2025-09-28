@@ -21,6 +21,7 @@ import java.util.HashMap;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import org.apache.commons.lang3.StringUtils;
 import org.openide.filesystems.FileChooserBuilder.SelectionApprover;
 import se.trixon.almond.util.Dict;
 
@@ -31,6 +32,57 @@ import se.trixon.almond.util.Dict;
 public class FileChooserHelper {
 
     private static final HashMap<String, FileNameExtensionFilter> sExtensionFilters = new HashMap<>();
+
+    public static File addExtIfMissing(File file, String ext) {
+        if (file == null) {
+            return file;
+        }
+        var dotExt = "." + ext;
+
+        if (!StringUtils.endsWithIgnoreCase(file.getName(), dotExt)) {
+            String suffix;
+
+            if (file.getName().endsWith(".")) {
+                suffix = ext;
+            } else {
+                suffix = dotExt;
+            }
+
+            file = new File(file.getAbsolutePath() + suffix);
+        }
+
+        return file;
+    }
+
+    public static HashMap<String, FileNameExtensionFilter> getExtensionFilters() {
+        return sExtensionFilters;
+    }
+
+    public static SelectionApprover getFileExistOpenSelectionApprover(Component parentComponent) {
+        SelectionApprover selectionApprover = (File[] selection) -> {
+            return selection != null
+                    && selection.length > 0
+                    && selection[0].isFile();
+        };
+
+        return selectionApprover;
+    }
+
+    public static SelectionApprover getFileExistSelectionApprover(Component parentComponent) {
+        SelectionApprover selectionApprover = files -> {
+            return confirmFileReplace(files[0], parentComponent);
+        };
+
+        return selectionApprover;
+    }
+
+    public static SelectionApprover getFileExistSelectionApprover(Component parentComponent, String ext) {
+        SelectionApprover selectionApprover = files -> {
+            return confirmFileReplace(addExtIfMissing(files[0], ext), parentComponent);
+        };
+
+        return selectionApprover;
+    }
 
     public static File getFileWithProperExt(JFileChooser fileChooser) {
         var file = fileChooser.getSelectedFile();
@@ -53,35 +105,16 @@ public class FileChooserHelper {
         }
     }
 
-    public static HashMap<String, FileNameExtensionFilter> getExtensionFilters() {
-        return sExtensionFilters;
-    }
+    private static boolean confirmFileReplace(File file, Component parentComponent) {
+        if (file.exists()) {
+            var result = JOptionPane.showConfirmDialog(parentComponent,
+                    Dict.Dialog.MESSAGE_FILE_EXISTS.toString().formatted(file.getAbsolutePath()),
+                    Dict.Dialog.TITLE_FILE_EXISTS.toString(),
+                    JOptionPane.YES_NO_OPTION);
 
-    public static SelectionApprover getFileExistOpenSelectionApprover(Component parentComponent) {
-        SelectionApprover selectionApprover = (File[] selection) -> {
-            return selection != null
-                    && selection.length > 0
-                    && selection[0].isFile();
-        };
-
-        return selectionApprover;
-    }
-
-    public static SelectionApprover getFileExistSelectionApprover(Component parentComponent) {
-        SelectionApprover selectionApprover = (File[] selection) -> {
-            var file = selection[0];
-            if (file.exists()) {
-                var result = JOptionPane.showConfirmDialog(parentComponent,
-                        Dict.Dialog.MESSAGE_FILE_EXISTS.toString().formatted(file.getAbsolutePath()),
-                        Dict.Dialog.TITLE_FILE_EXISTS.toString(),
-                        JOptionPane.YES_NO_OPTION);
-
-                return result != JOptionPane.NO_OPTION;
-            } else {
-                return true;
-            }
-        };
-
-        return selectionApprover;
+            return result != JOptionPane.NO_OPTION;
+        } else {
+            return true;
+        }
     }
 }

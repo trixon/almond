@@ -65,7 +65,7 @@ public enum OutputLineMode {
     public class Colors {
 
         public static Color alert() {
-            return sNightMode ? Color.YELLOW : Color.YELLOW.darker();
+            return sNightMode ? Color.YELLOW : Color.ORANGE.darker();
         }
 
         public static Color error() {
