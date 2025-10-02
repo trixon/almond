@@ -4,12 +4,12 @@
     <parent>
         <groupId>se.trixon.netbeans-platform</groupId>
         <artifactId>parent</artifactId>
-        <version>0.1-SNAPSHOT</version>
+        <version>27</version>
     </parent>
 
     <groupId>se.trixon.almond</groupId>
     <artifactId>almond-parent</artifactId>
-    <version>21.0.0-SNAPSHOT</version>
+    <version>25.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>almond-parent</name>
@@ -99,7 +99,7 @@
             <dependency>
                 <groupId>se.trixon.almond</groupId>
                 <artifactId>almond-util</artifactId>
-                <version>21.0.0-SNAPSHOT</version>
+                <version>${almond.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
