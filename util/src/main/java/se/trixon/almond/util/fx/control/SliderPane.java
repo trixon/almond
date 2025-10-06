@@ -34,11 +34,14 @@ import se.trixon.almond.util.fx.FxHelper;
 public class SliderPane extends GridPane {
 
     private final CheckBox mCheckBox = new CheckBox();
+    private final boolean mDisplayCheckBox;
     private final boolean mDisplaySpinner;
     private final double mMaxValue;
+    private double mMinValue;
     private final BooleanProperty mSelectedProperty = new SimpleBooleanProperty();
     private Slider mSlider;
     private Spinner<Double> mSpinner;
+    private final double mStep;
     private final DoubleProperty mValueProperty = new SimpleDoubleProperty();
 
     public SliderPane(String title, double maxValue) {
@@ -46,10 +49,25 @@ public class SliderPane extends GridPane {
     }
 
     public SliderPane(String title, double maxValue, boolean displayspinner) {
+        this(title, maxValue, displayspinner, 0.1);
+    }
+
+    public SliderPane(String title, double maxValue, boolean displayspinner, double step) {
+        this(title, maxValue, displayspinner, true, step);
+    }
+
+    public SliderPane(String title, double maxValue, boolean displaySpinner, boolean displayCheckBox, double step) {
+        this(title, 0, maxValue, displaySpinner, displayCheckBox, step);
+    }
+
+    public SliderPane(String title, double minValue, double maxValue, boolean displaySpinner, boolean displayCheckBox, double step) {
         super(FxHelper.getUIScaled(8), FxHelper.getUIScaled(2));
+        mStep = step;
+        mMinValue = minValue;
         mMaxValue = maxValue;
         mCheckBox.setText(title);
-        mDisplaySpinner = displayspinner;
+        mDisplaySpinner = displaySpinner;
+        mDisplayCheckBox = displayCheckBox;
         createUI();
     }
 
@@ -64,8 +82,20 @@ public class SliderPane extends GridPane {
         sessionManager.register(key + "value", mSlider.valueProperty());
     }
 
+    public boolean isSelected() {
+        return mSelectedProperty.get();
+    }
+
     public BooleanProperty selectedProperty() {
         return mSelectedProperty;
+    }
+
+    public void setSelected(boolean selected) {
+        mCheckBox.setSelected(selected);
+    }
+
+    public void setTitle(String title) {
+        mCheckBox.setText(title);
     }
 
     public DoubleProperty valueProperty() {
@@ -76,13 +106,14 @@ public class SliderPane extends GridPane {
         var sliderWidth = FxHelper.getUIScaled(275.0);
         var spinnerWidth = FxHelper.getUIScaled(65.0);
 
-        mSlider = new Slider(0, mMaxValue, 0.1);
+        mSlider = new Slider(mMinValue, mMaxValue, 0.1);
         mSlider.setBlockIncrement(1.0);
         mSlider.setShowTickLabels(true);
         mSlider.setShowTickMarks(true);
-        mSpinner = new Spinner<>(0, mMaxValue, 0, 0.1);
-
-        add(mCheckBox, 0, 0, GridPane.REMAINING, 1);
+        mSpinner = new Spinner<>(mMinValue, mMaxValue, 0, mStep);
+        if (mDisplayCheckBox) {
+            add(mCheckBox, 0, 0, GridPane.REMAINING, 1);
+        }
         if (mDisplaySpinner) {
             add(mSpinner, 0, 1);
         }

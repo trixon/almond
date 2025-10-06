@@ -22,6 +22,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Date;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.Strings;
 
 /**
  *
@@ -165,6 +166,10 @@ public class DateHelper {
 
     public static String toDateString(LocalDateTime localDateTime) {
         return localDateTime == null ? null : toDateString(localDateTime.toLocalDate());
+    }
+
+    public static String toDateTimeString(LocalDateTime localDateTime) {
+        return localDateTime == null ? null : Strings.CS.replace(localDateTime.toString(), "T", " ");
     }
 
     public static String toDateString(LocalDate localDate) {
