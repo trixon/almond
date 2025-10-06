@@ -20,21 +20,33 @@ package se.trixon.almond.util;
  * @author Patrik Karlström
  */
 public enum Direction {
-    NORTH(0, Dict.Geometry.DIRECTION_N.toString()),
-    NORTH_EAST(45, Dict.Geometry.DIRECTION_NE.toString()),
-    EAST(90, Dict.Geometry.DIRECTION_E.toString()),
-    SOUTH_EAST(135, Dict.Geometry.DIRECTION_SE.toString()),
-    SOUTH(180, Dict.Geometry.DIRECTION_S.toString()),
-    SOUTH_WEST(225, Dict.Geometry.DIRECTION_SW.toString()),
-    WEST(270, Dict.Geometry.DIRECTION_W.toString()),
-    NORTH_WEST(315, Dict.Geometry.DIRECTION_NW.toString()),
-    CENTER(-1, Dict.Geometry.DIRECTION_C.toString());
+    NORTH(0, Dict.Geometry.DIRECTION_N.toString(), "N"),
+    NORTH_EAST(45, Dict.Geometry.DIRECTION_NE.toString(), "NE"),
+    EAST(90, Dict.Geometry.DIRECTION_E.toString(), "E"),
+    SOUTH_EAST(135, Dict.Geometry.DIRECTION_SE.toString(), "SE"),
+    SOUTH(180, Dict.Geometry.DIRECTION_S.toString(), "S"),
+    SOUTH_WEST(225, Dict.Geometry.DIRECTION_SW.toString(), "SW"),
+    WEST(270, Dict.Geometry.DIRECTION_W.toString(), "W"),
+    NORTH_WEST(315, Dict.Geometry.DIRECTION_NW.toString(), "NW"),
+    CENTER(-1, Dict.Geometry.DIRECTION_C.toString(), "C");
     private final int mAzimuth;
     private final String mName;
+    private final String mShortName;
 
-    private Direction(int azimuth, String name) {
+    public static Direction fromAzimuth(int azimuth) {
+        var margin = 360d / 16d;
+        for (var direction : values()) {
+            if (MathHelper.isBetween(direction.getAzimuth() - margin, direction.getAzimuth() + margin, azimuth * 1.0)) {
+                return direction;
+            }
+        }
+        return CENTER;
+    }
+
+    private Direction(int azimuth, String name, String shortName) {
         mAzimuth = azimuth;
         mName = name;
+        mShortName = shortName;
     }
 
     public int getAzimuth() {
@@ -43,5 +55,9 @@ public enum Direction {
 
     public String getName() {
         return mName;
+    }
+
+    public String getShortName() {
+        return mShortName;
     }
 }

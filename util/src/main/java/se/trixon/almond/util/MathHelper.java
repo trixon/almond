@@ -194,6 +194,16 @@ public class MathHelper {
 
         return value >= min && value <= max;
     }
+    public static boolean isBetween(Integer limit1inclusive, Integer limit2inclusive, Integer value) {
+        if (ObjectUtils.anyNull(limit1inclusive, limit2inclusive, value)) {
+            return true;
+        }
+
+        var min = Math.min(limit1inclusive, limit2inclusive);
+        var max = Math.max(limit1inclusive, limit2inclusive);
+
+        return value >= min && value <= max;
+    }
 
     public static boolean isInteger(String s) {
         try {
