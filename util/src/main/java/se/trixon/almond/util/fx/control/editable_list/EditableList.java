@@ -31,6 +31,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -39,7 +40,9 @@ import javafx.stage.Stage;
 import org.apache.commons.lang3.StringUtils;
 import org.controlsfx.control.action.Action;
 import org.controlsfx.control.action.ActionUtils;
+import org.controlsfx.control.textfield.TextFields;
 import se.trixon.almond.util.Dict;
+import se.trixon.almond.util.fx.DelayedResetRunner;
 import se.trixon.almond.util.fx.FxHelper;
 import se.trixon.almond.util.icons.material.MaterialIcon;
 
@@ -55,6 +58,7 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
     private final Builder mBuilder;
     private Action mCloneAction;
     private Action mEditAction;
+    private TextField mFilterTextField;
     private Action mInfoAction;
     private final ListView<T> mListView = new ListView<>();
     private Action mRemAction;
@@ -105,7 +109,6 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
         mCloneAction.setGraphic(MaterialIcon._Content.CONTENT_COPY.getImageView(size));
         mInfoAction.setGraphic(MaterialIcon._Action.INFO_OUTLINE.getImageView(size));
         mStartAction.setGraphic(MaterialIcon._Av.PLAY_ARROW.getImageView(size));
-
     }
 
     public void select(T t) {
@@ -188,6 +191,14 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
             mBuilder.getOnStart().accept(getSelected());
         });
 
+        var delayedResetRunner = new DelayedResetRunner(300, () -> {
+            mBuilder.getOnFilter().accept(mFilterTextField.getText());
+        });
+        mFilterTextField = TextFields.createClearableTextField();
+        mFilterTextField.textProperty().addListener((p, o, n) -> {
+            delayedResetRunner.reset();
+        });
+
         mActions = new ArrayList<>();
 
         if (mBuilder.getOnSave() != null) {
@@ -229,6 +240,9 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
         FxHelper.slimToolBar(mToolBar);
 
         var vbox = new VBox(mToolBar);
+        if (mBuilder.getOnFilter() != null) {
+            vbox.getChildren().add(mFilterTextField);
+        }
         if (StringUtils.isNotBlank(mBuilder.getTitle())) {
             mTitleLabel.setText(mBuilder.getTitle());
             vbox.getChildren().add(0, mTitleLabel);
@@ -251,10 +265,6 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
         mBuilder.getOnEdit().accept(getDialogTitleEdit(item), item);
     }
 
-    private void save(T item) {
-        mBuilder.getOnSave().apply(item);
-    }
-
     private T getSelected() {
         return mListView.getSelectionModel().getSelectedItem();
     }
@@ -264,6 +274,10 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
         mListView.getSelectionModel().select(newItem);
         mListView.requestFocus();
         edit(getSelected());
+    }
+
+    private void save(T item) {
+        mBuilder.getOnSave().apply(item);
     }
 
     private String toolTipTextPlural(String s) {
@@ -284,6 +298,7 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
         private BiConsumer<String, T> mOnAdd;
         private Function<T, T> mOnClone;
         private BiConsumer<String, T> mOnEdit;
+        private Consumer<String> mOnFilter;
         private Consumer<T> mOnInfo;
         private Consumer<T> mOnRemove;
         private Runnable mOnRemoveAll;
@@ -322,6 +337,10 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
 
         public BiConsumer<String, T> getOnEdit() {
             return mOnEdit;
+        }
+
+        public Consumer<String> getOnFilter() {
+            return mOnFilter;
         }
 
         public Consumer<T> getOnInfo() {
@@ -394,6 +413,11 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
         public Builder<T> setOnEditEditOnly(BiConsumer<String, T> onEdit) {
             mOnEdit = onEdit;
             mEditOnly = true;
+            return this;
+        }
+
+        public Builder<T> setOnFilter(Consumer<String> onFilter) {
+            mOnFilter = onFilter;
             return this;
         }
 
