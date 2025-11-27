@@ -23,15 +23,14 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Slider;
 import javafx.scene.control.Spinner;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
+import javafx.scene.layout.BorderPane;
 import se.trixon.almond.util.fx.FxHelper;
 
 /**
  *
  * @author Patrik Karlström
  */
-public class SliderPane extends GridPane {
+public class SliderPane extends BorderPane {
 
     private final CheckBox mCheckBox = new CheckBox();
     private final boolean mDisplayCheckBox;
@@ -61,7 +60,6 @@ public class SliderPane extends GridPane {
     }
 
     public SliderPane(String title, double minValue, double maxValue, boolean displaySpinner, boolean displayCheckBox, double step) {
-        super(FxHelper.getUIScaled(8), FxHelper.getUIScaled(2));
         mStep = step;
         mMinValue = minValue;
         mMaxValue = maxValue;
@@ -103,7 +101,6 @@ public class SliderPane extends GridPane {
     }
 
     private void createUI() {
-        var sliderWidth = FxHelper.getUIScaled(275.0);
         var spinnerWidth = FxHelper.getUIScaled(65.0);
 
         mSlider = new Slider(mMinValue, mMaxValue, 0.1);
@@ -112,22 +109,20 @@ public class SliderPane extends GridPane {
         mSlider.setShowTickMarks(true);
         mSpinner = new Spinner<>(mMinValue, mMaxValue, 0, mStep);
         if (mDisplayCheckBox) {
-            add(mCheckBox, 0, 0, GridPane.REMAINING, 1);
+            mCheckBox.setPadding(FxHelper.getUIScaledInsets(0, 0, 2, 0));
+            setTop(mCheckBox);
         }
         if (mDisplaySpinner) {
-            add(mSpinner, 0, 1);
+            var leftBorderPane = new BorderPane(mSpinner);
+            leftBorderPane.setPadding(FxHelper.getUIScaledInsets(0, 8, 0, 0));
+            setLeft(leftBorderPane);
         }
-        add(mSlider, 1, 1);
+        setCenter(mSlider);
 
         mSlider.disableProperty().bind(mCheckBox.selectedProperty().not());
         mSpinner.disableProperty().bind(mCheckBox.selectedProperty().not());
 
-        GridPane.setFillWidth(mSlider, true);
-        GridPane.setHgrow(mSlider, Priority.ALWAYS);
         mSpinner.setPrefWidth(spinnerWidth);
-        mSlider.setPrefWidth(sliderWidth);
-        mSlider.setMinWidth(sliderWidth);
-
         mSlider.valueProperty().addListener((p, o, n) -> {
             mSpinner.getValueFactory().setValue(n.doubleValue());
         });
