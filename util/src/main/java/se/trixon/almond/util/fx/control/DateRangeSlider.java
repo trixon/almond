@@ -115,12 +115,16 @@ public class DateRangeSlider extends RangeSlider {
     }
 
     public void setLowHighDate(LocalDate lowDate, LocalDate highDate) {
-        if (lowDate.isAfter(getHighDate())) {
-            setHighDate(highDate);
-            setLowDate(lowDate);
-        } else {
-            setLowDate(lowDate);
-            setHighDate(highDate);
+        try {
+            if (lowDate.isAfter(getHighDate())) {
+                setHighDate(highDate);
+                setLowDate(lowDate);
+            } else {
+                setLowDate(lowDate);
+                setHighDate(highDate);
+            }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
         }
     }
 
