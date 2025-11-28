@@ -19,13 +19,11 @@ import java.time.LocalDate;
 import javafx.beans.value.ChangeListener;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.util.Callback;
-import org.apache.commons.lang3.Strings;
 import org.controlsfx.control.PlusMinusSlider;
 import se.trixon.almond.util.fx.FxHelper;
 
@@ -116,17 +114,15 @@ public class DatePane extends GridPane {
     private EventHandler<MouseEvent> createPlusMinusMouseHandler(DatePicker datePicker) {
         return mouseEvent -> {
             //System.out.println(mouseEvent);
-            if (mouseEvent.getTarget() instanceof Node node) {
-                var styleClass = node.getStyleClass().toString();
-                LocalDate newDate = null;
-                if (Strings.CI.contains(styleClass, "adjust-minus")) {
-                    newDate = datePicker.getValue().minusDays(1);
-                } else if (Strings.CI.contains(styleClass, "adjust-plus")) {
-                    newDate = datePicker.getValue().plusDays(1);
-                }
-                if (newDate != null && mDateRangeSlider.isValid(newDate)) {
-                    datePicker.setValue(newDate);
-                }
+            var minus = mouseEvent.getX() < datePicker.getWidth() / 2;
+            LocalDate newDate;
+            if (minus) {
+                newDate = datePicker.getValue().minusDays(1);
+            } else {
+                newDate = datePicker.getValue().plusDays(1);
+            }
+            if (newDate != null && mDateRangeSlider.isValid(newDate)) {
+                datePicker.setValue(newDate);
             }
         };
     }
