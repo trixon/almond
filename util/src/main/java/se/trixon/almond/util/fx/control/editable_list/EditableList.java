@@ -191,13 +191,15 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
             mBuilder.getOnStart().accept(getSelected());
         });
 
-        var delayedResetRunner = new DelayedResetRunner(300, () -> {
-            mBuilder.getOnFilter().accept(mFilterTextField.getText());
-        });
-        mFilterTextField = TextFields.createClearableTextField();
-        mFilterTextField.textProperty().addListener((p, o, n) -> {
-            delayedResetRunner.reset();
-        });
+        if (mBuilder.getOnFilter() != null) {
+            var delayedResetRunner = new DelayedResetRunner(300, () -> {
+                mBuilder.getOnFilter().accept(mFilterTextField.getText());
+            });
+            mFilterTextField = TextFields.createClearableTextField();
+            mFilterTextField.textProperty().addListener((p, o, n) -> {
+                delayedResetRunner.reset();
+            });
+        }
 
         mActions = new ArrayList<>();
 
