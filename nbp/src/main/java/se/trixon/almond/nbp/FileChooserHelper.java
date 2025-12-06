@@ -21,7 +21,7 @@ import java.util.HashMap;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import org.openide.filesystems.FileChooserBuilder.SelectionApprover;
 import se.trixon.almond.util.Dict;
 
@@ -39,7 +39,7 @@ public class FileChooserHelper {
         }
         var dotExt = "." + ext;
 
-        if (!StringUtils.endsWithIgnoreCase(file.getName(), dotExt)) {
+        if (!Strings.CI.endsWith(file.getName(), dotExt)) {
             String suffix;
 
             if (file.getName().endsWith(".")) {
