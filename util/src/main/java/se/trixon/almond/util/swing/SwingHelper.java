@@ -63,15 +63,6 @@ public class SwingHelper {
         }
     }
 
-    public static javafx.scene.paint.Color colorToColor(java.awt.Color awtColor) {
-        return new javafx.scene.paint.Color(
-                awtColor.getRed() / 255.0,
-                awtColor.getGreen() / 255.0,
-                awtColor.getBlue() / 255.0,
-                awtColor.getAlpha() / 255.0
-        );
-    }
-
     public static void clearText(Container container) {
         for (var component : container.getComponents()) {
             if (component instanceof AbstractButton abstractButton) {
@@ -106,6 +97,15 @@ public class SwingHelper {
                 clearToolTipText(container2);
             }
         }
+    }
+
+    public static javafx.scene.paint.Color colorToColor(java.awt.Color awtColor) {
+        return new javafx.scene.paint.Color(
+                awtColor.getRed() / 255.0,
+                awtColor.getGreen() / 255.0,
+                awtColor.getBlue() / 255.0,
+                awtColor.getAlpha() / 255.0
+        );
     }
 
     public static String comboBoxModelToString(ComboBoxModel model) {
@@ -313,7 +313,7 @@ public class SwingHelper {
     }
 
     public static void runLaterDelayed(long delay, Runnable r) {
-        new Thread(() -> {
+        Thread.ofVirtual().name(r.getClass().getName()).start(() -> {
             try {
                 Thread.sleep(delay);
                 SwingUtilities.invokeLater(r);
@@ -321,7 +321,7 @@ public class SwingHelper {
                 Logger.getLogger(SwingHelper.class.getName()).log(Level.SEVERE, null, ex);
                 Thread.currentThread().interrupt();
             }
-        }).start();
+        });
     }
 
     public static void setComponentsFont(Container container, Font font) {

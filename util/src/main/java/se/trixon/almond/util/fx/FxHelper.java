@@ -557,7 +557,7 @@ public class FxHelper {
     }
 
     public static void runLaterDelayed(long delay, Runnable r) {
-        new Thread(() -> {
+        Thread.ofVirtual().name(r.getClass().getName()).start(() -> {
             try {
                 Thread.sleep(delay);
                 runLater(r);
@@ -565,7 +565,7 @@ public class FxHelper {
                 Logger.getLogger(FxHelper.class.getName()).log(Level.SEVERE, null, ex);
                 Thread.currentThread().interrupt();
             }
-        }).start();
+        });
     }
 
     public static void scrollToItemIfNotVisible(ListView<?> listview, Object item) {

@@ -301,7 +301,7 @@ public class StringHelper {
 
         for (var globPart : StringUtils.split(glob)) {
             for (var s : searchIn) {
-                if (StringHelper.matchesSimpleGlob(s, globPart, ignoreCase, autoWrap)) {
+                if (s != null && StringHelper.matchesSimpleGlob(s, globPart, ignoreCase, autoWrap)) {
                     return !negate;
                 }
             }

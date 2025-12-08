@@ -359,8 +359,19 @@ public class SystemHelper {
         }
     }
 
+    public static void runGcDelayed(long delay) {
+        Thread.ofVirtual().name("GC").start(() -> {
+            try {
+                Thread.sleep(delay);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(SystemHelper.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            System.gc();
+        });
+    }
+
     public static void runLaterDelayed(long delay, Runnable r) {
-        new Thread(() -> {
+        Thread.ofVirtual().name(r.getClass().getName()).start(() -> {
             try {
                 Thread.sleep(delay);
                 r.run();
@@ -368,7 +379,7 @@ public class SystemHelper {
                 Logger.getLogger(SystemHelper.class.getName()).log(Level.SEVERE, null, ex);
                 Thread.currentThread().interrupt();
             }
-        }, r.getClass().getName()).start();
+        });
     }
 
     public static void setDesktopBrowser(Consumer<String> desktopBrowser) {
