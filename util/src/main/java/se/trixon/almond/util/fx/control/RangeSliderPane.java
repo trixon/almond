@@ -70,11 +70,10 @@ public class RangeSliderPane extends GridPane {
         mSlider.setHighValue(mMaxValue);
     }
 
-    public void initSession(String prefix, SessionManager sessionManager) {
-        var key = "filter.%s.".formatted(prefix);
-        sessionManager.register(key + "enabled", mCheckBox.selectedProperty());
-        sessionManager.register(key + "min", mSlider.lowValueProperty());
-        sessionManager.register(key + "max", mSlider.highValueProperty());
+    public void initSession(String key, SessionManager sessionManager) {
+        sessionManager.register(key + ".enabled", mCheckBox.selectedProperty());
+        sessionManager.register(key + ".min", mSlider.lowValueProperty());
+        sessionManager.register(key + ".max", mSlider.highValueProperty());
     }
 
     public DoubleProperty maxProperty() {

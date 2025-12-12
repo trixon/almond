@@ -74,10 +74,9 @@ public class SliderPane extends BorderPane {
         mSlider.setValue(0);
     }
 
-    public void initSession(String prefix, SessionManager sessionManager) {
-        var key = "filter.%s.".formatted(prefix);
-        sessionManager.register(key + "enabled", mCheckBox.selectedProperty());
-        sessionManager.register(key + "value", mSlider.valueProperty());
+    public void initSession(String key, SessionManager sessionManager) {
+        sessionManager.register(key + ".enabled", mCheckBox.selectedProperty());
+        sessionManager.register(key + ".value", mSlider.valueProperty());
     }
 
     public boolean isSelected() {
