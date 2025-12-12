@@ -52,6 +52,7 @@ public enum SDict {
     POINT,
     POINTS,
     REACHED_LIMIT_VALUE,
+    ROCK_MECHANICS,
     ROLLING,
     STRUCTURAL,
     SURVEYOR,
