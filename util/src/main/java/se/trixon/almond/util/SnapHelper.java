@@ -26,20 +26,8 @@ public class SnapHelper {
 
     public static boolean isConnected(String plugOrSlot) throws IOException, InterruptedException {
         var processBuilder = new ProcessBuilder(StringUtils.split("snapctl is-connected %s".formatted(plugOrSlot)));
-        var process = processBuilder.start();
 
-        return 0 == process.waitFor();
+        return 0 == processBuilder.start().waitFor();
     }
 
-    /**
-     *
-     * @return isSnap
-     * @deprecated Use SystemHelper.isPackageSnap()
-     */
-    @Deprecated(forRemoval = true)
-    public static boolean isSnap() {
-        var env = System.getenv();
-
-        return env.containsKey("SNAP_ARCH") && env.containsKey("SNAP_INSTANCE_NAME");
-    }
 }

@@ -50,10 +50,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
@@ -122,9 +120,13 @@ public class FxHelper {
     }
 
     public static void autoCommitSpinner(Spinner spinner) {
-        spinner.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue) {
-                spinner.increment(0);
+        spinner.focusedProperty().addListener((p, o, n) -> {
+            if (!n) {
+                try {
+                    spinner.increment(0);
+                } catch (NullPointerException e) {
+                    //nvm
+                }
             }
         });
     }
@@ -175,21 +177,19 @@ public class FxHelper {
         }
     }
 
-    public static void bindWidthForChildrens(Pane... panes) {
-        for (var pane : panes) {
-            pane.getChildren().stream()
-                    .filter(node -> node instanceof Region)
-                    .map(node -> (Region) node)
-                    .forEachOrdered(region -> {
-                        region.prefWidthProperty().bind(pane.widthProperty());
-                    });
-        }
+    @Deprecated(forRemoval = true)
+    public static void bindCheckBoxEnablement(CheckBox checkBox, Node... nodes) {
+        BindingHelper.bindCheckBoxEnablement(checkBox, nodes);
     }
 
+    @Deprecated(forRemoval = true)
+    public static void bindWidthForChildrens(Pane... panes) {
+        BindingHelper.bindWidthForChildrens(panes);
+    }
+
+    @Deprecated(forRemoval = true)
     public static void bindWidthForRegions(Pane pane, Region... regions) {
-        for (var region : regions) {
-            region.prefWidthProperty().bind(pane.widthProperty());
-        }
+        BindingHelper.bindWidthForRegions(pane, regions);
     }
 
     public static void clearLabel(Labeled... labels) {
@@ -307,11 +307,7 @@ public class FxHelper {
     }
 
     public static Background createBackground(Color color) {
-        return new Background(
-                new BackgroundFill(color,
-                        CornerRadii.EMPTY,
-                        Insets.EMPTY
-                ));
+        return Background.fill(color);
     }
 
     public static String createFontStyle(Double scaleFactor, FontWeight fontWeight) {
