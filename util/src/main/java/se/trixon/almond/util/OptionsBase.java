@@ -15,6 +15,7 @@
  */
 package se.trixon.almond.util;
 
+import com.dlsc.gemsfx.util.SessionManager;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
@@ -31,8 +32,8 @@ public abstract class OptionsBase {
     public static final String KEY_APP_FIRST_RUN = "app.first_run";
     public static final String KEY_APP_START_COUNTER = "app.start_counter";
     public static final String KEY_FULL_SCREEN = "fullscreen";
-
     protected Preferences mPreferences;
+    private SessionManager mSessionManager;
 
     public OptionsBase() {
     }
@@ -59,6 +60,20 @@ public abstract class OptionsBase {
 
     public Preferences getPreferences() {
         return mPreferences;
+    }
+
+    public SessionManager getSessionManager() {
+        return mSessionManager;
+    }
+
+    public SessionManager initSession(Preferences preferences) {
+        var sessionManager = new SessionManager(preferences);
+        initSession(sessionManager);
+
+        return sessionManager;
+    }
+
+    public void initSession(SessionManager sessionManager) {
     }
 
     public boolean invert(String key, boolean def) {
@@ -96,6 +111,8 @@ public abstract class OptionsBase {
 
     public void setPreferences(Preferences preferences) {
         mPreferences = preferences;
+        mSessionManager = new SessionManager(preferences);
+        initSession(mSessionManager);
     }
 
     public void sync() {
