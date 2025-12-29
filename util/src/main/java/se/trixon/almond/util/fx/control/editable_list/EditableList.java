@@ -24,6 +24,7 @@ import java.util.function.Function;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
@@ -44,6 +45,7 @@ import org.controlsfx.control.textfield.TextFields;
 import se.trixon.almond.util.Dict;
 import se.trixon.almond.util.fx.DelayedResetRunner;
 import se.trixon.almond.util.fx.FxHelper;
+import se.trixon.almond.util.fx.control.ListItemCountLabel;
 import se.trixon.almond.util.icons.material.MaterialIcon;
 
 /**
@@ -60,6 +62,7 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
     private Action mEditAction;
     private TextField mFilterTextField;
     private Action mInfoAction;
+    private ListItemCountLabel mListItemCountLabel;
     private final ListView<T> mListView = new ListView<>();
     private Action mRemAction;
     private Action mRemAllAction;
@@ -72,6 +75,10 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
         mBuilder = builder;
         createUI();
         applyConfiguration();
+    }
+
+    public StringProperty filterTextProperty() {
+        return mFilterTextField.textProperty();
     }
 
     public Builder getBuilder() {
@@ -254,6 +261,13 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
         setTop(vbox);
         setCenter(mListView);
 
+        if (mBuilder.mWithFooter) {
+            mListItemCountLabel = new ListItemCountLabel();
+            setBottom(mListItemCountLabel);
+            mListItemCountLabel.prefWidthProperty().bind(widthProperty());
+            mListItemCountLabel.init(mListView, (ObservableList) mBuilder.itemsProperty().get(), mBuilder.mItemsRaw);
+        }
+
         if (mBuilder.mOnSelect != null) {
             mListView.getSelectionModel().selectedItemProperty().addListener((p, o, n) -> {
                 mBuilder.mOnSelect.accept(o, n);
@@ -297,6 +311,7 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
         private String mItemPlural = Dict.ITEMS.toString();
         private String mItemSingular = Dict.ITEM.toString();
         private ObjectProperty<ObservableList<T>> mItemsProperty = new SimpleObjectProperty<>();
+        private ObservableList<DefaultEditableListItem> mItemsRaw;
         private BiConsumer<String, T> mOnAdd;
         private Function<T, T> mOnClone;
         private BiConsumer<String, T> mOnEdit;
@@ -308,6 +323,7 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
         private BiConsumer<T, T> mOnSelect;
         private Consumer<T> mOnStart;
         private String mTitle;
+        private boolean mWithFooter;
 
         public Builder() {
             mItemsProperty.setValue(FXCollections.observableArrayList());
@@ -455,6 +471,12 @@ public class EditableList<T extends EditableListItem> extends BorderPane {
 
         public Builder<T> setTitle(String title) {
             mTitle = title;
+            return this;
+        }
+
+        public Builder<T> setWithFooter(boolean withFooter, ObservableList<DefaultEditableListItem> itemsRaw) {
+            mWithFooter = withFooter;
+            mItemsRaw = itemsRaw;
             return this;
         }
     }
