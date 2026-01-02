@@ -19,6 +19,7 @@ import java.util.TreeSet;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javafx.beans.property.SimpleStringProperty;
+import org.apache.commons.lang3.StringUtils;
 import org.controlsfx.control.CheckComboBox;
 
 /**
@@ -32,17 +33,19 @@ public class SessionCheckComboBox<T> extends CheckComboBox<T> {
 
     public static void clearChecks(SessionCheckComboBox... sccbs) {
         for (var sccb : sccbs) {
-            sccb.getCheckModel().clearChecks();
+            sccb.clearChecks();
         }
     }
 
     public SessionCheckComboBox() {
         mSession = new CheckModelSession(this);
+        initListeners();
     }
 
     public SessionCheckComboBox(boolean staticContent) {
         mStaticContent = staticContent;
         mSession = new CheckModelSession(this);
+        initListeners();
     }
 
     public SimpleStringProperty checkedStringProperty() {
@@ -73,6 +76,14 @@ public class SessionCheckComboBox<T> extends CheckComboBox<T> {
         checkedItems.stream().forEach(s -> checkModel.check(s));
 
         mSession.load();
+    }
+
+    private void initListeners() {
+        checkedStringProperty().addListener((p, o, n) -> {
+            if (!getCheckModel().isEmpty() && StringUtils.isBlank(n)) {
+                clearChecks();
+            }
+        });
     }
 
 }

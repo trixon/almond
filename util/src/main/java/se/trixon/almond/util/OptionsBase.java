@@ -54,6 +54,26 @@ public abstract class OptionsBase {
         return mPreferences.getInt(key, def == null || def.length == 0 ? 0 : def[0]);
     }
 
+    /**
+     *
+     * <p>
+     * @param key
+     * @return a key with simple class name as prefix
+     */
+    public String getKey(String key) {
+        return "%s.%s".formatted(getClass().getSimpleName(), key);
+    }
+
+    /**
+     *
+     * <p>
+     * @param key
+     * @return a key with simple class name and options as prefix
+     */
+    public String getKeyOptions(String key) {
+        return "options.%s.%s".formatted(getClass().getSimpleName(), key);
+    }
+
     public long getLong(String key, Long... def) {
         return mPreferences.getLong(key, def == null || def.length == 0 ? 0 : def[0]);
     }

@@ -18,7 +18,6 @@ package se.trixon.almond.util.fx.control;
 import com.dlsc.gemsfx.util.SessionManager;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Slider;
@@ -37,7 +36,6 @@ public class SliderPane extends BorderPane {
     private final boolean mDisplaySpinner;
     private final double mMaxValue;
     private double mMinValue;
-    private final BooleanProperty mSelectedProperty = new SimpleBooleanProperty();
     private Slider mSlider;
     private Spinner<Double> mSpinner;
     private final double mStep;
@@ -80,11 +78,11 @@ public class SliderPane extends BorderPane {
     }
 
     public boolean isSelected() {
-        return mSelectedProperty.get();
+        return mCheckBox.isSelected();
     }
 
     public BooleanProperty selectedProperty() {
-        return mSelectedProperty;
+        return mCheckBox.selectedProperty();
     }
 
     public void setSelected(boolean selected) {
@@ -132,8 +130,7 @@ public class SliderPane extends BorderPane {
         FxHelper.setEditable(true, mSpinner);
         FxHelper.autoCommitSpinners(mSpinner);
 
-        mSelectedProperty.bind(mCheckBox.selectedProperty());
-        mValueProperty.bind(mSlider.valueProperty());
+        mValueProperty.bindBidirectional(mSlider.valueProperty());
     }
 
 }
