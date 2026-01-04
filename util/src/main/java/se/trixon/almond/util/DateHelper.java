@@ -16,6 +16,7 @@
 package se.trixon.almond.util;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -38,6 +39,12 @@ public class DateHelper {
 
     public static Date convertToDate(LocalDate ld) {
         return convertToDate(ld.atStartOfDay());
+    }
+
+    public static LocalDateTime convertUtcMillisToLocalDateTime(long utcMillis, ZoneId zoneId) {
+        var instant = Instant.ofEpochMilli(utcMillis);
+
+        return LocalDateTime.ofInstant(instant, zoneId);
     }
 
     /**
@@ -168,11 +175,11 @@ public class DateHelper {
         return localDateTime == null ? null : toDateString(localDateTime.toLocalDate());
     }
 
-    public static String toDateTimeString(LocalDateTime localDateTime) {
-        return localDateTime == null ? null : Strings.CS.replace(localDateTime.toString(), "T", " ");
-    }
-
     public static String toDateString(LocalDate localDate) {
         return localDate == null ? null : localDate.toString();
+    }
+
+    public static String toDateTimeString(LocalDateTime localDateTime) {
+        return localDateTime == null ? null : Strings.CS.replace(localDateTime.toString(), "T", " ");
     }
 }
