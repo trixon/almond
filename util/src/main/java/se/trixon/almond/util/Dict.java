@@ -368,6 +368,7 @@ public enum Dict {
     PHOTO,
     PHOTOS,
     PIN,
+    PLACE,
     PLACEMARK,
     PLACE_NAME,
     PLACE_NAMES,
