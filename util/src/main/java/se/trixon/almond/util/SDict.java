@@ -43,6 +43,7 @@ public enum SDict {
     LATEST,
     LATEST_S,
     LEVEL,
+    MAGNITUDE,
     MEASUREMENT,
     MEASUREMENT_NEED,
     MEASUREMENTS,
