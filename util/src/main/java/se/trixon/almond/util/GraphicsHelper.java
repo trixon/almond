@@ -45,6 +45,15 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class GraphicsHelper {
 
+    public static Color brighten(Color color, double fraction) {
+        int r = (int) Math.round(Math.min(255, color.getRed() + 255 * fraction));
+        int g = (int) Math.round(Math.min(255, color.getGreen() + 255 * fraction));
+        int b = (int) Math.round(Math.min(255, color.getBlue() + 255 * fraction));
+        int a = color.getAlpha();
+
+        return new Color(r, g, b, a);
+    }
+
     public static Color colorAddAlpha(Color color, int alpha) {
         return new Color(color.getRed(), color.getGreen(), color.getBlue(), alpha);
     }

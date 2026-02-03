@@ -220,6 +220,30 @@ public class FxHelper {
         }
     }
 
+    public static java.awt.Color colorToAwtColor(Color color) {
+        if (color == null) {
+            return java.awt.Color.BLACK;
+        } else {
+            return new java.awt.Color(
+                    (float) color.getRed(),
+                    (float) color.getGreen(),
+                    (float) color.getBlue(),
+                    (float) color.getOpacity());
+        }
+    }
+
+    public static javafx.scene.paint.Color colorToFxColor(java.awt.Color color) {
+        if (color == null) {
+            return javafx.scene.paint.Color.BLACK;
+        } else {
+            return new javafx.scene.paint.Color(
+                    (float) color.getRed(),
+                    (float) color.getGreen(),
+                    (float) color.getBlue(),
+                    (float) color.getAlpha());
+        }
+    }
+
     @Deprecated
     public static String colorToHex(Color color) {
         return FORMAT_HEX_3.formatted(
