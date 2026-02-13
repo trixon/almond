@@ -86,6 +86,7 @@ public enum Dict {
     CHANGED,
     CHANGE_TO,
     CHART,
+    CHART_PROPERTIES,
     CLEAR,
     CLEAR_COMMENTS,
     CLEAR_SELECTION,
