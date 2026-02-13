@@ -182,4 +182,20 @@ public class DateHelper {
     public static String toDateTimeString(LocalDateTime localDateTime) {
         return localDateTime == null ? null : Strings.CS.replace(localDateTime.toString(), "T", " ");
     }
+
+    public static LocalDate toLocalDate(LocalDateTime ldt) {
+        if (ldt == null) {
+            return null;
+        } else {
+            return ldt.toLocalDate();
+        }
+    }
+
+    public static LocalDateTime toLocalDateTime(LocalDate ld) {
+        if (ld == null) {
+            return null;
+        } else {
+            return ld.atStartOfDay();
+        }
+    }
 }
