@@ -20,6 +20,7 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.BorderPane;
@@ -64,12 +65,23 @@ public class SliderPane extends BorderPane {
         mCheckBox.setText(title);
         mDisplaySpinner = displaySpinner;
         mDisplayCheckBox = displayCheckBox;
+        if (!displayCheckBox) {
+            setSelected(true);
+        }
         createUI();
     }
 
     public void clear() {
         mCheckBox.setSelected(false);
         mSlider.setValue(0);
+    }
+
+    public CheckBox getCheckBox() {
+        return mCheckBox;
+    }
+
+    public Double getValue() {
+        return mValueProperty.getValue();
     }
 
     public void initSession(String key, SessionManager sessionManager) {
@@ -93,6 +105,10 @@ public class SliderPane extends BorderPane {
         mCheckBox.setText(title);
     }
 
+    public void setValue(double value) {
+        mValueProperty.setValue(value);
+    }
+
     public DoubleProperty valueProperty() {
         return mValueProperty;
     }
@@ -108,6 +124,8 @@ public class SliderPane extends BorderPane {
         if (mDisplayCheckBox) {
             mCheckBox.setPadding(FxHelper.getUIScaledInsets(0, 0, 2, 0));
             setTop(mCheckBox);
+        } else {
+            setTop(new Label(mCheckBox.getText()));
         }
         if (mDisplaySpinner) {
             var leftBorderPane = new BorderPane(mSpinner);
