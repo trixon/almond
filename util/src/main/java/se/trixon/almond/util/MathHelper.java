@@ -100,7 +100,10 @@ public class MathHelper {
      * @param degree
      * @return
      */
-    public static double convertCcwDegreeToCw(double degree) {
+    public static double convertCcwDegreeToCw(Double degree) {
+        if (degree == null) {
+            return 0;
+        }
         if (degree < 0) {
             degree += 360;
         }
@@ -194,6 +197,7 @@ public class MathHelper {
 
         return value >= min && value <= max;
     }
+
     public static boolean isBetween(Integer limit1inclusive, Integer limit2inclusive, Integer value) {
         if (ObjectUtils.anyNull(limit1inclusive, limit2inclusive, value)) {
             return true;
