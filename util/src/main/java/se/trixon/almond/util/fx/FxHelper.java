@@ -177,21 +177,6 @@ public class FxHelper {
         }
     }
 
-    @Deprecated(forRemoval = true)
-    public static void bindCheckBoxEnablement(CheckBox checkBox, Node... nodes) {
-        BindingHelper.bindCheckBoxEnablement(checkBox, nodes);
-    }
-
-    @Deprecated(forRemoval = true)
-    public static void bindWidthForChildrens(Pane... panes) {
-        BindingHelper.bindWidthForChildrens(panes);
-    }
-
-    @Deprecated(forRemoval = true)
-    public static void bindWidthForRegions(Pane pane, Region... regions) {
-        BindingHelper.bindWidthForRegions(pane, regions);
-    }
-
     public static void clearLabel(Labeled... labels) {
         for (var label : labels) {
             label.setText("");
@@ -237,10 +222,10 @@ public class FxHelper {
             return javafx.scene.paint.Color.BLACK;
         } else {
             return new javafx.scene.paint.Color(
-                    (float) color.getRed(),
-                    (float) color.getGreen(),
-                    (float) color.getBlue(),
-                    (float) color.getAlpha());
+                    (float) color.getRed() / 255,
+                    (float) color.getGreen() / 255,
+                    (float) color.getBlue() / 255,
+                    (float) color.getAlpha() / 255);
         }
     }
 
