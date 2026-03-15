@@ -15,7 +15,6 @@
  */
 package se.trixon.almond.util.fx;
 
-import java.util.function.Consumer;
 import javafx.event.ActionEvent;
 import javax.swing.SwingUtilities;
 import org.controlsfx.control.action.Action;
@@ -32,20 +31,5 @@ public class FxActionSwing extends Action {
         setEventHandler((ActionEvent t) -> {
             SwingUtilities.invokeLater(runnable);
         });
-    }
-
-    @Deprecated
-    public FxActionSwing(String text) {
-        super(text);
-    }
-
-    @Deprecated
-    public FxActionSwing(Consumer<ActionEvent> eventHandler) {
-        super(eventHandler);
-    }
-
-    @Deprecated
-    public FxActionSwing(String text, Consumer<ActionEvent> eventHandler) {
-        super(text, eventHandler);
     }
 }

@@ -15,8 +15,6 @@
  */
 package se.trixon.almond.util.fx;
 
-import java.util.function.Consumer;
-import javafx.event.ActionEvent;
 import javax.swing.SwingUtilities;
 import org.controlsfx.control.action.Action;
 import org.controlsfx.control.action.ActionCheck;
@@ -31,23 +29,8 @@ public class FxActionSwingCheck extends Action {
 
     public FxActionSwingCheck(String text, final Runnable runnable) {
         super(text);
-        setEventHandler((ActionEvent t) -> {
+        setEventHandler(ae -> {
             SwingUtilities.invokeLater(runnable);
         });
-    }
-
-    @Deprecated
-    public FxActionSwingCheck(String text) {
-        super(text);
-    }
-
-    @Deprecated
-    public FxActionSwingCheck(Consumer<ActionEvent> eventHandler) {
-        super(eventHandler);
-    }
-
-    @Deprecated
-    public FxActionSwingCheck(String text, Consumer<ActionEvent> eventHandler) {
-        super(text, eventHandler);
     }
 }

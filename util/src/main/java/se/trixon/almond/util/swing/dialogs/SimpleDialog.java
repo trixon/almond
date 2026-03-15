@@ -133,11 +133,6 @@ public class SimpleDialog {
         return result == JFileChooser.APPROVE_OPTION;
     }
 
-    @Deprecated(forRemoval = true)
-    public static boolean saveFile(String... extensions) {
-        return saveFile();
-    }
-
     public static boolean saveFile() {
         if (sFileChooser.showSaveDialog(sParent) != JFileChooser.APPROVE_OPTION) {
             return false;

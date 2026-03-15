@@ -147,20 +147,6 @@ public class FxHelper {
         }
     }
 
-//    public static void autoSizeRow(GridPane gridPane, int rowCount) {
-//        gridPane.getRowConstraints().clear();
-//
-//        for (int i = 0; i < rowCount; i++) {
-//            var columnConstraints = new RowConstraints();
-//            columnConstraints.setPercentHeight(100.0 / rowCount);
-//            gridPane.getRowConstraints().add(columnConstraints);
-//        }
-//    }
-    @Deprecated(forRemoval = true)
-    public static void autoSizeRegion(Region... regions) {
-        autoSizeRegionHorizontal(regions);
-    }
-
     public static void autoSizeRegionHorizontal(Region... regions) {
         for (var region : regions) {
             GridPane.setHgrow(region, Priority.ALWAYS);
