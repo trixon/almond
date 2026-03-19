@@ -24,6 +24,7 @@ import java.util.ResourceBundle;
  */
 public enum SDict {
     ACOUSTIC,
+    AIR_PREASURE,
     ALARM,
     ALARMS,
     ALARM_HEIGHT,
@@ -51,6 +52,7 @@ public enum SDict {
     MEASUREMENTS,
     MEASUREMENTS_FIRST_IS_ZERO,
     MEASUREMENTS_NUM_OF_REPLACEMENTS,
+    METEOROLOGY,
     NOISE,
     OPERATOR,
     POINT,
@@ -64,6 +66,7 @@ public enum SDict {
     STRAIN_GAUGES,
     SURVEYOR,
     SURVEYORS,
+    TEMPERATURE,
     TOPOGRAPHY,
     TRACE,
     TRACE_1D,
