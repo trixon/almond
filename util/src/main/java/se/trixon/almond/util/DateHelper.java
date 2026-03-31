@@ -139,6 +139,14 @@ public class DateHelper {
         }
     }
 
+    public static boolean isAfterOrEqual(LocalDateTime value, LocalDateTime reference) {
+        if (ObjectUtils.anyNull(value, reference)) {
+            return true;
+        } else {
+            return value.isEqual(reference) || value.isAfter(reference);
+        }
+    }
+
     public static boolean isBeforeOrEqual(LocalDate value, LocalDate reference) {
         if (ObjectUtils.anyNull(value, reference)) {
             return true;
@@ -147,7 +155,39 @@ public class DateHelper {
         }
     }
 
+    public static boolean isBeforeOrEqual(LocalDateTime value, LocalDateTime reference) {
+        if (ObjectUtils.anyNull(value, reference)) {
+            return true;
+        } else {
+            return value.isEqual(reference) || value.isBefore(reference);
+        }
+    }
+
     public static boolean isBetween(LocalDate ld1, LocalDate ld2, LocalDate value) {
+        if (ObjectUtils.allNull(ld1, ld2)) {
+            return true;
+        }
+
+        if (ObjectUtils.allNotNull(ld1, ld2)) {
+            if (value == null) {
+                return true;
+            } else {
+                return isAfterOrEqual(value, ld1) && isBeforeOrEqual(value, ld2);
+            }
+        }
+
+        if (ld1 != null) {
+            return isAfterOrEqual(value, ld1);
+        }
+
+        if (ld2 != null) {
+            return isBeforeOrEqual(value, ld2);
+        }
+
+        throw new UnsupportedOperationException();
+    }
+
+    public static boolean isBetween(LocalDateTime ld1, LocalDateTime ld2, LocalDateTime value) {
         if (ObjectUtils.allNull(ld1, ld2)) {
             return true;
         }
