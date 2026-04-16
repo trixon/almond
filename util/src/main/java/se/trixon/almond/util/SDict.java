@@ -37,6 +37,7 @@ public enum SDict {
     HAS_VALID_FROM,
     HAS_VALID_TO,
     HEAT_MAP,
+    HYDRO_METEO,
     HYDROGEOLOGY,
     INCLINATION,
     IS_INVALID,
