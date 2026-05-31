@@ -85,18 +85,6 @@
                 <version>11.2.3</version>
             </dependency>
             <dependency>
-                <groupId>com.dlsc.gemsfx</groupId>
-                <artifactId>gemsfx</artifactId>
-                <version>4.1.0</version>
-                <scope>provided</scope>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.openjfx</groupId>
-                        <artifactId>*</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
                 <groupId>se.trixon.almond</groupId>
                 <artifactId>almond-util</artifactId>
                 <version>${almond.version}</version>
