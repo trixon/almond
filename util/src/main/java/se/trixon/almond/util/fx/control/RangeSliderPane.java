@@ -102,7 +102,7 @@ public class RangeSliderPane extends GridPane {
 
     private void createUI() {
         var sliderWidth = FxHelper.getUIScaled(275.0);
-        var spinnerWidth = FxHelper.getUIScaled(65.0);
+        var spinnerWidth = FxHelper.getUIScaled(85.0);
 
         mSlider = new RangeSlider(mMinValue, mMaxValue, mMinValue, mMaxValue);
         mSlider.setBlockIncrement(1.0);
@@ -126,6 +126,8 @@ public class RangeSliderPane extends GridPane {
 
         GridPane.setFillWidth(mSlider, true);
         GridPane.setHgrow(mSlider, Priority.ALWAYS);
+        mMinSpinner.setMinWidth(spinnerWidth);
+        mMaxSpinner.setMinWidth(spinnerWidth);
         mMinSpinner.setPrefWidth(spinnerWidth);
         mMaxSpinner.setPrefWidth(spinnerWidth);
         mSlider.setPrefWidth(sliderWidth);

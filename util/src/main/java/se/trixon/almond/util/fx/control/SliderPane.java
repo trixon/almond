@@ -34,6 +34,7 @@ public class SliderPane extends BorderPane {
 
     private final CheckBox mCheckBox = new CheckBox();
     private final boolean mDisplayCheckBox;
+    private final boolean mDisplaySlider;
     private final boolean mDisplaySpinner;
     private final double mMaxValue;
     private double mMinValue;
@@ -59,12 +60,17 @@ public class SliderPane extends BorderPane {
     }
 
     public SliderPane(String title, double minValue, double maxValue, boolean displaySpinner, boolean displayCheckBox, double step) {
+        this(title, minValue, maxValue, displaySpinner, displayCheckBox, true, step);
+    }
+
+    public SliderPane(String title, double minValue, double maxValue, boolean displaySpinner, boolean displayCheckBox, boolean displaySlider, double step) {
         mStep = step;
         mMinValue = minValue;
         mMaxValue = maxValue;
         mCheckBox.setText(title);
         mDisplaySpinner = displaySpinner;
         mDisplayCheckBox = displayCheckBox;
+        mDisplaySlider = displaySlider;
         if (!displayCheckBox) {
             setSelected(true);
         }
@@ -78,6 +84,14 @@ public class SliderPane extends BorderPane {
 
     public CheckBox getCheckBox() {
         return mCheckBox;
+    }
+
+    public Slider getSlider() {
+        return mSlider;
+    }
+
+    public Spinner<Double> getSpinner() {
+        return mSpinner;
     }
 
     public Double getValue() {
@@ -132,7 +146,9 @@ public class SliderPane extends BorderPane {
             leftBorderPane.setPadding(FxHelper.getUIScaledInsets(0, 8, 0, 0));
             setLeft(leftBorderPane);
         }
-        setCenter(mSlider);
+        if (mDisplaySlider) {
+            setCenter(mSlider);
+        }
 
         mSlider.disableProperty().bind(mCheckBox.selectedProperty().not());
         mSpinner.disableProperty().bind(mCheckBox.selectedProperty().not());
