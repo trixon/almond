@@ -15,6 +15,8 @@
  */
 package se.trixon.almond.util;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import org.apache.commons.lang3.StringUtils;
 import oshi.SystemInfo;
@@ -67,6 +69,8 @@ public class SystemInformation {
         osItems.add(os.toString());
 
         var sb = new StringBuilder();
+        sb.append("\n:: ");
+        sb.append(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd, HH.mm.ss"))).append("\n\n");
         sb.append(">HARDWARE").append("\n");
         sb.append(String.join("\n", hwItems));
 
