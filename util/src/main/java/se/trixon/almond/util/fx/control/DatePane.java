@@ -18,7 +18,6 @@ package se.trixon.almond.util.fx.control;
 import java.time.LocalDate;
 import javafx.beans.value.ChangeListener;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.input.MouseEvent;
@@ -145,10 +144,9 @@ public class DatePane extends GridPane {
         mToDatePicker.setValue(LocalDate.of(2099, 12, 31));
         mToDatePicker.setEditable(true);
 
-        FxHelper.setMargin(new Insets(8, 0, 0, 0), mFromDatePicker);
-        FxHelper.setMargin(new Insets(8, 0, 0, 8), mToDatePicker);
-
-        setPadding(FxHelper.getUIScaledInsets(0, 8, 8, 8));
+        FxHelper.setMargin(FxHelper.getUIScaledInsets(8, 0, 0, 0), mFromDatePicker, mToDatePicker);
+        setHgap(FxHelper.getUIScaled(8));
+        setPadding(FxHelper.getUIScaledInsets(0, 0, 8, 0));
         addRow(1, mFromDatePicker, mToDatePicker);
         addRow(2, mFromSlider, mToSlider);
 
