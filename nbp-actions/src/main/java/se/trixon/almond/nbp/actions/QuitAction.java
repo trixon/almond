@@ -22,7 +22,6 @@ import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
 import org.openide.awt.ActionReferences;
 import org.openide.awt.ActionRegistration;
-import org.openide.util.NbBundle.Messages;
 
 @ActionID(
         category = "File",
@@ -35,7 +34,6 @@ import org.openide.util.NbBundle.Messages;
     @ActionReference(path = "Menu/File", position = 2700),
     @ActionReference(path = "Shortcuts", name = "D-Q")
 })
-@Messages("CTL_QuitAction=Quit")
 public final class QuitAction implements ActionListener {
 
     @Override

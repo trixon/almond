@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package se.trixon.almond.nbp.osx.actions;
+package se.trixon.almond.nbp.actions.osx;
 
 import java.awt.Window;
 import java.awt.event.ActionEvent;
@@ -23,16 +23,14 @@ import java.lang.reflect.Method;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionRegistration;
 import org.openide.util.Exceptions;
-import org.openide.util.NbBundle.Messages;
 
 @ActionID(
         category = "Almond",
-        id = "se.trixon.almond.nbp.osx.actions.ToggleFullScreenAction"
+        id = "se.trixon.almond.nbp.actions.osx.ToggleFullScreenAction"
 )
 @ActionRegistration(
         displayName = "#CTL_Fullscreen"
 )
-@Messages("CTL_Fullscreen=Toggle fullscreen")
 public final class ToggleFullScreenAction implements ActionListener {
 
     @Override

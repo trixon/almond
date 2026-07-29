@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2023 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,7 +21,6 @@ import javafx.scene.Scene;
 import javafx.scene.web.HTMLEditor;
 import org.netbeans.api.settings.ConvertAsProperties;
 import org.openide.awt.ActionID;
-import org.openide.util.NbBundle.Messages;
 import org.openide.util.NbPreferences;
 import org.openide.windows.TopComponent;
 import se.trixon.almond.util.Dict;
@@ -44,9 +43,6 @@ import se.trixon.almond.util.Dict;
         displayName = "#CTL_NotesHtmlAction",
         preferredID = "NotesHtmlTopComponent"
 )
-@Messages({
-    "CTL_NotesHtmlAction=Notes"
-})
 public final class NotesHtmlTopComponent extends FxTopComponent {
 
     private static final String KEY_NOTES_HTML = "noteshtml";
