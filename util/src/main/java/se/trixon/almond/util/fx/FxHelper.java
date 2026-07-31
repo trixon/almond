@@ -29,6 +29,7 @@ import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Point3D;
+import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -113,6 +114,18 @@ public class FxHelper {
                 });
     }
 
+    public static void adjustButtonWidthMax(Stream<Node> stream, double defaultWidth) {
+        var list = stream.toList();
+        var prefWidth = list.stream().filter(item -> (item instanceof ButtonBase))
+                .map(item -> (ButtonBase) item)
+                .mapToDouble(buttonBase -> buttonBase.getWidth())
+                .max()
+                .orElse(getUIScaled(defaultWidth));
+        prefWidth = Math.max(prefWidth, defaultWidth);
+
+        adjustButtonWidth(list.stream(), prefWidth);
+    }
+
     public static void applyFontScale(Scene scene) {
         runLater(() -> {
             scene.getRoot().setStyle("-fx-font-size: %dpx;".formatted((int) getScaledFontSize()));
@@ -179,7 +192,7 @@ public class FxHelper {
         return Color.web(rgba);
     }
 
-    public static java.awt.Color colorToColor(Color color) {
+    public static java.awt.Color colorToAwtColor(Color color) {
         if (color == null) {
             return java.awt.Color.BLACK;
         } else {
@@ -191,7 +204,7 @@ public class FxHelper {
         }
     }
 
-    public static java.awt.Color colorToAwtColor(Color color) {
+    public static java.awt.Color colorToColor(Color color) {
         if (color == null) {
             return java.awt.Color.BLACK;
         } else {
@@ -572,6 +585,14 @@ public class FxHelper {
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }
+    }
+
+    public static void setAlignment(Stream<Node> stream, Pos pos) {
+        stream.filter(item -> (item instanceof ButtonBase))
+                .map(item -> (Labeled) item)
+                .forEach(button -> {
+                    button.setAlignment(pos);
+                });
     }
 
     public static void setDarkColor(Color darkColor) {
