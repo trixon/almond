@@ -49,16 +49,16 @@ public abstract class FxTopComponent extends TopComponent {
         repaint();
         revalidate();
 
-        FxHelper.runLaterDelayed(1, () -> {
+        FxHelper.runLaterDelayed(50, () -> {
             initFX();
             mFxPanel.setScene(mScene);
 
-            SwingHelper.runLaterDelayed(1, () -> {
+            SwingHelper.runLaterDelayed(100, () -> {
                 removeAll();
                 add(mFxPanel, BorderLayout.CENTER);
                 repaint();
                 revalidate();
-                FxHelper.runLaterDelayed(1, () -> {
+                FxHelper.runLaterDelayed(50, () -> {
                     fxPostConstructor();
                 });
             });
