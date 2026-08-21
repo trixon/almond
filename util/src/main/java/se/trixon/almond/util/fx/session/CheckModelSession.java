@@ -48,7 +48,7 @@ public class CheckModelSession {
     }
 
     public void load() {
-        var storedItems = StringUtils.split(mCheckedStringProperty.get(), ":::");
+        var storedItems = StringUtils.splitPreserveAllTokens(mCheckedStringProperty.get(), ":::");
         if (storedItems != null) {
             for (var storedItem : storedItems) {
                 for (var listItem : mAllItems) {
