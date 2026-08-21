@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2023 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,23 +25,19 @@ import javax.swing.Timer;
  */
 public class DelayedResetRunner {
 
-    private Timer mTimer;
-    private long mStart = System.currentTimeMillis();
+    private final Timer mTimer;
 
     public DelayedResetRunner(int delay, Runnable r) {
         ActionListener actionListener = (ActionEvent e) -> {
-            if (System.currentTimeMillis() - mStart >= delay) {
-                r.run();
-                mTimer.stop();
-            }
+            r.run();
         };
 
         mTimer = new Timer(delay, actionListener);
-        mTimer.start();
+
+        mTimer.setRepeats(false);
     }
 
     public void reset() {
-        mStart = System.currentTimeMillis();
         mTimer.restart();
     }
 }

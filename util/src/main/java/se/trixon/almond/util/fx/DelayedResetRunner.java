@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2023 Patrik Karlström.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,7 +15,6 @@
  */
 package se.trixon.almond.util.fx;
 
-import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
@@ -26,23 +25,18 @@ import javafx.util.Duration;
  */
 public class DelayedResetRunner {
 
-    private long mStart = System.currentTimeMillis();
-    private Timeline mTimeline;
+    private final Timeline mTimeline;
 
     public DelayedResetRunner(int delay, Runnable r) {
         mTimeline = new Timeline(new KeyFrame(Duration.millis(delay), ae -> {
-            if (System.currentTimeMillis() - mStart >= delay) {
-                r.run();
-                mTimeline.stop();
-            }
+            r.run();
         }));
 
-        mTimeline.setCycleCount(Animation.INDEFINITE);
-        mTimeline.play();
+        mTimeline.setCycleCount(1);
     }
 
     public void reset() {
-        mStart = System.currentTimeMillis();
-        mTimeline.playFromStart();
+        mTimeline.stop();
+        mTimeline.play();
     }
 }
