@@ -101,6 +101,7 @@
 
     <properties>
         <netbeans.hint.license>apache20</netbeans.hint.license>
+        <netbeans.hint.jdkPlatform>JDK_FX</netbeans.hint.jdkPlatform>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 </project>
