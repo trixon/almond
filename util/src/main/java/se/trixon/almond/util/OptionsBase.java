@@ -130,9 +130,15 @@ public abstract class OptionsBase {
     }
 
     public void setPreferences(Preferences preferences) {
+        setPreferences(preferences, true);
+    }
+
+    public void setPreferences(Preferences preferences, boolean enableSessionManager) {
         mPreferences = preferences;
-        mSessionManager = new SessionManager(preferences);
-        initSession(mSessionManager);
+        if (enableSessionManager) {
+            mSessionManager = new SessionManager(preferences);
+            initSession(mSessionManager);
+        }
     }
 
     public void sync() {

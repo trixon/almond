@@ -192,6 +192,15 @@ public class GraphicsHelper {
         return borderedImage;
     }
 
+    public static Color darken(Color color, double fraction) {
+        int r = (int) Math.round(Math.max(0, color.getRed() - 255 * fraction));
+        int g = (int) Math.round(Math.max(0, color.getGreen() - 255 * fraction));
+        int b = (int) Math.round(Math.max(0, color.getBlue() - 255 * fraction));
+        int a = color.getAlpha();
+
+        return new Color(r, g, b, a);
+    }
+
     public static void drawCircle(int x, int y, int radius, Graphics2D graphics2D) {
         graphics2D.drawOval(x - radius, y - radius, radius * 2, radius * 2);
     }
@@ -271,6 +280,22 @@ public class GraphicsHelper {
         }
 
         return null;
+    }
+
+    public static Color getZebraStripe(Color color) {
+        if (isDark(color)) {
+            return brighten(color, 0.04);
+        } else {
+            return darken(color, 0.04);
+        }
+    }
+
+    public static boolean isDark(Color color) {
+        var brightness = (0.2126 * color.getRed())
+                + (0.7152 * color.getGreen())
+                + (0.0722 * color.getBlue());
+
+        return brightness < 128.0;
     }
 
     public static BufferedImage rotate(BufferedImage bufferedImage, int orientation) {
@@ -354,4 +379,5 @@ public class GraphicsHelper {
 
         return bufferedImage;
     }
+
 }
