@@ -75,11 +75,17 @@ public class DatePane extends GridPane {
 
     public void setDateSelectionMode(DateSelectionMode dateSelectionMode) {
         mDateSelectionMode = dateSelectionMode;
-        getChildren().removeAll(mDateSlider, mDateRangeSlider);
-        addRow(0, dateSelectionMode == DateSelectionMode.INTERVAL ? mDateRangeSlider : mDateSlider);
+        boolean isInterval = dateSelectionMode == DateSelectionMode.INTERVAL;
+
+        mDateRangeSlider.setVisible(isInterval);
+        mDateRangeSlider.setManaged(isInterval);
+
+        mDateSlider.setVisible(!isInterval);
+        mDateSlider.setManaged(!isInterval);
+
         mToDatePicker.setDisable(dateSelectionMode == DateSelectionMode.POINT_IN_TIME);
 
-        if (dateSelectionMode == DateSelectionMode.INTERVAL) {
+        if (isInterval) {
             mDateSlider.dateProperty().unbindBidirectional(mFromDatePicker.valueProperty());
             mDateSlider.dateProperty().unbindBidirectional(mToDatePicker.valueProperty());
 
@@ -128,12 +134,9 @@ public class DatePane extends GridPane {
 
     private void createUI() {
         mDateRangeSlider = new DateRangeSlider();
-        mDateRangeSlider.prefWidthProperty().bind(widthProperty());
         GridPane.setColumnSpan(mDateRangeSlider, GridPane.REMAINING);
 
         mDateSlider = new DateSlider();
-        mDateSlider.prefWidthProperty().bind(widthProperty());
-
         GridPane.setColumnSpan(mDateSlider, GridPane.REMAINING);
 
         mFromDatePicker = new DatePicker();
@@ -147,12 +150,18 @@ public class DatePane extends GridPane {
         FxHelper.setMargin(FxHelper.getUIScaledInsets(8, 0, 0, 0), mFromDatePicker, mToDatePicker);
         setHgap(FxHelper.getUIScaled(8));
         setPadding(FxHelper.getUIScaledInsets(0, 0, 8, 0));
-        addRow(1, mFromDatePicker, mToDatePicker);
-        addRow(2, mFromSlider, mToSlider);
+        int row = 0;
+        addRow(row, mDateRangeSlider);//Same cell by design
+        addRow(row++, mDateSlider);//Same cell by design
+        addRow(row++, mFromDatePicker, mToDatePicker);
+        addRow(row++, mFromSlider, mToSlider);
 
+        mFromDatePicker.prefWidthProperty().bind(mFromSlider.widthProperty());
+        mToDatePicker.prefWidthProperty().bind(mToSlider.widthProperty());
         setDateSelectionMode(DateSelectionMode.INTERVAL);
-        FxHelper.autoSizeRegionHorizontal(mFromDatePicker, mFromSlider, mToDatePicker, mToSlider);
+        FxHelper.autoSizeRegionHorizontal(mFromSlider, mToSlider);
         setMinWidth(FxHelper.getUIScaled(250));
+        FxHelper.autoSizeColumn(this, 2);
     }
 
     private void initListeners() {
