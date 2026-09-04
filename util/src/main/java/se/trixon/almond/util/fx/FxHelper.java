@@ -54,6 +54,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -162,9 +163,14 @@ public class FxHelper {
 
     public static void autoSizeRegionHorizontal(Region... regions) {
         for (var region : regions) {
+            region.setMaxWidth(Double.MAX_VALUE);
             GridPane.setHgrow(region, Priority.ALWAYS);
             GridPane.setFillWidth(region, true);
-            region.setMaxWidth(Double.MAX_VALUE);
+            HBox.setHgrow(region, Priority.ALWAYS);
+
+            if (region instanceof Pane && region.getPrefWidth() == Region.USE_COMPUTED_SIZE) {
+                region.setPrefWidth(50);
+            }
         }
     }
 

@@ -39,21 +39,32 @@ public class BindingHelper {
         }
     }
 
+    /**
+     * Use FxHelper::autoSizeRegionHorizontal instead
+     *
+     * @param panes
+     * @deprecated
+     */
+    @Deprecated(forRemoval = true)
     public static void bindWidthForChildrens(Pane... panes) {
         for (var pane : panes) {
             pane.getChildren().stream()
-                    .filter(node -> node instanceof Region)
-                    .map(node -> (Region) node)
-                    .forEachOrdered(region -> {
-                        region.prefWidthProperty().bind(pane.widthProperty());
-                    });
+                    .filter(Region.class::isInstance)
+                    .map(Region.class::cast)
+                    .forEach(FxHelper::autoSizeRegionHorizontal);
         }
     }
 
+    /**
+     * Use FxHelper::autoSizeRegionHorizontal instead
+     *
+     * @param pane
+     * @param regions
+     * @deprecated
+     */
+    @Deprecated(forRemoval = true)
     public static void bindWidthForRegions(Pane pane, Region... regions) {
-        for (var region : regions) {
-            region.prefWidthProperty().bind(pane.widthProperty());
-        }
+        FxHelper.autoSizeRegionHorizontal(regions);
     }
 
     public static <E extends Enum<E>> StringProperty createStringEnumProxyProperty(ObjectProperty<E> objectProperty, Class<E> enumClass) {
