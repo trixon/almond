@@ -26,6 +26,7 @@ import java.util.prefs.Preferences;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javafx.application.Platform;
+import javafx.beans.property.DoubleProperty;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Point3D;
@@ -105,6 +106,10 @@ public class FxHelper {
                 .forEachOrdered(buttonBase -> {
                     buttonBase.setPrefHeight(prefHeight);
                 });
+    }
+
+    public static boolean inRange(double value, DoubleProperty minProperty, DoubleProperty maxProperty) {
+        return value >= minProperty.get() && value <= maxProperty.get();
     }
 
     public static void adjustButtonWidth(Stream<Node> stream, double prefWidth) {

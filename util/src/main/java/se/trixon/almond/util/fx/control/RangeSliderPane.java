@@ -88,6 +88,19 @@ public class RangeSliderPane extends GridPane {
         return mInvertCheckBox.isVisible();
     }
 
+    public boolean isValueValid(double value) {
+        if (selectedProperty().get()) {
+            var inRange = FxHelper.inRange(value, minProperty(), maxProperty());
+            if (isInvertIncluded() && invertedProperty().get()) {
+                return !inRange;
+            } else {
+                return inRange;
+            }
+        } else {
+            return true;
+        }
+    }
+
     public DoubleProperty maxProperty() {
         return mMaxProperty;
     }

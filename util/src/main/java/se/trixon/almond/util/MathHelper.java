@@ -202,6 +202,10 @@ public class MathHelper {
         return s == null || s.trim().isEmpty() ? null : Integer.valueOf(s.trim());
     }
 
+    public static boolean inRange(double value, double min, double max) {
+        return value >= min && value <= max;
+    }
+
     public static Point indexToPoint(int index, Dimension d) {
         return new Point(index % d.width, index / d.width);
     }
