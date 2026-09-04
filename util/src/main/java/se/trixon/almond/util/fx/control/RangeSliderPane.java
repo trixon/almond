@@ -15,15 +15,17 @@
  */
 package se.trixon.almond.util.fx.control;
 
+import com.dlsc.gemsfx.Spacer;
 import com.dlsc.gemsfx.util.SessionManager;
+import java.util.List;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import org.controlsfx.control.RangeSlider;
 import se.trixon.almond.util.fx.FxHelper;
@@ -35,13 +37,13 @@ import se.trixon.almond.util.fx.FxHelper;
 public class RangeSliderPane extends GridPane {
 
     private final CheckBox mCheckBox = new CheckBox();
+    private final CheckBox mInvertCheckBox = new CheckBox("Invertera");
     private final DoubleProperty mMaxProperty = new SimpleDoubleProperty();
     private Spinner<Double> mMaxSpinner;
     private double mMaxValue;
     private final DoubleProperty mMinProperty = new SimpleDoubleProperty();
     private Spinner<Double> mMinSpinner;
     private double mMinValue;
-    private final BooleanProperty mSelectedProperty = new SimpleBooleanProperty();
     private RangeSlider mSlider;
     private boolean mWithSpinners = true;
 
@@ -66,14 +68,24 @@ public class RangeSliderPane extends GridPane {
 
     public void clear() {
         mCheckBox.setSelected(false);
+        mInvertCheckBox.setSelected(false);
         mSlider.setLowValue(mMinValue);
         mSlider.setHighValue(mMaxValue);
     }
 
     public void initSession(String key, SessionManager sessionManager) {
         sessionManager.register(key + ".enabled", mCheckBox.selectedProperty());
+        sessionManager.register(key + ".inverted", mInvertCheckBox.selectedProperty());
         sessionManager.register(key + ".min", mSlider.lowValueProperty());
         sessionManager.register(key + ".max", mSlider.highValueProperty());
+    }
+
+    public BooleanProperty invertedProperty() {
+        return mInvertCheckBox.selectedProperty();
+    }
+
+    public boolean isInvertIncluded() {
+        return mInvertCheckBox.isVisible();
     }
 
     public DoubleProperty maxProperty() {
@@ -85,7 +97,12 @@ public class RangeSliderPane extends GridPane {
     }
 
     public BooleanProperty selectedProperty() {
-        return mSelectedProperty;
+        return mCheckBox.selectedProperty();
+    }
+
+    public void setInvertIncluded(boolean enabled) {
+        mInvertCheckBox.setVisible(enabled);
+        mInvertCheckBox.setManaged(enabled);
     }
 
     public void setMinMaxValue(double minValue, double maxValue) {
@@ -110,8 +127,11 @@ public class RangeSliderPane extends GridPane {
         mSlider.setShowTickMarks(true);
         mMinSpinner = new Spinner<>(mMinValue, mMaxValue, mMinValue, 0.1);
         mMaxSpinner = new Spinner<>(mMinValue, mMaxValue, mMaxValue, 0.1);
+        mInvertCheckBox.setVisible(false);
+        mInvertCheckBox.setManaged(false);
 
-        add(mCheckBox, 0, 0, GridPane.REMAINING, 1);
+        var checkBoxBox = new HBox(mCheckBox, new Spacer(), mInvertCheckBox);
+        add(checkBoxBox, 0, 0, GridPane.REMAINING, 1);
         if (mWithSpinners) {
             add(mMinSpinner, 0, 1);
         }
@@ -120,9 +140,8 @@ public class RangeSliderPane extends GridPane {
             add(mMaxSpinner, 2, 1);
         }
 
-        mSlider.disableProperty().bind(mCheckBox.selectedProperty().not());
-        mMinSpinner.disableProperty().bind(mCheckBox.selectedProperty().not());
-        mMaxSpinner.disableProperty().bind(mCheckBox.selectedProperty().not());
+        List.of(mInvertCheckBox, mSlider, mMinSpinner, mMaxSpinner)
+                .forEach(node -> node.disableProperty().bind(mCheckBox.selectedProperty().not()));
 
         GridPane.setFillWidth(mSlider, true);
         GridPane.setHgrow(mSlider, Priority.ALWAYS);
@@ -150,7 +169,6 @@ public class RangeSliderPane extends GridPane {
         FxHelper.setEditable(true, mMinSpinner, mMaxSpinner);
         FxHelper.autoCommitSpinners(mMinSpinner, mMaxSpinner);
 
-        mSelectedProperty.bind(mCheckBox.selectedProperty());
         mMinProperty.bind(mSlider.lowValueProperty());
         mMaxProperty.bind(mSlider.highValueProperty());
     }
