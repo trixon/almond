@@ -29,8 +29,8 @@ import org.apache.commons.lang3.ObjectUtils;
  */
 public class MathHelper {
 
-    private static final double DEGREES_TO_GON = 200 / 180;
-    private static final double RADIANS_TO_GON = 200 / Math.PI;
+    public static final double DEGREES_TO_GON = 200d / 180d;
+    public static final double RADIANS_TO_GON = 200d / Math.PI;
 
     public static double azimuth(double dX, double dY) {
         var b = Math.atan(dY / dX);
@@ -116,6 +116,25 @@ public class MathHelper {
             return 360 + 90 - degree;
         } else {
             return 360 - degree + 90;
+        }
+    }
+
+    public static double convertCcwGonToCw(Double gon) {
+        if (gon == null) {
+            return 0;
+        }
+        if (gon < 0) {
+            gon += 400;
+        }
+
+        if (gon <= 100) {
+            return 100 - gon;
+        } else if (gon <= 200) {
+            return 400 - gon + 100;
+        } else if (gon <= 300) {
+            return 400 + 100 - gon;
+        } else {
+            return 400 - gon + 100;
         }
     }
 
