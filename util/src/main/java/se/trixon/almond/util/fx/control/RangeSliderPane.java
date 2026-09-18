@@ -45,25 +45,25 @@ public class RangeSliderPane extends GridPane {
     private Spinner<Double> mMinSpinner;
     private double mMinValue;
     private RangeSlider mSlider;
+    private double mStep;
     private boolean mWithSpinners = true;
 
     public RangeSliderPane(String title, double minValue, double maxValue, boolean withSpinners) {
+        this(title, minValue, maxValue, withSpinners, 0.1);
+    }
+
+    public RangeSliderPane(String title, double minValue, double maxValue, boolean withSpinners, double step) {
         super(FxHelper.getUIScaled(8), FxHelper.getUIScaled(2));
         mMinValue = minValue;
         mMaxValue = maxValue;
         mCheckBox.setText(title);
         mWithSpinners = withSpinners;
-
+        mStep = step;
         createUI();
     }
 
     public RangeSliderPane(String title, double minValue, double maxValue) {
-        super(FxHelper.getUIScaled(8), FxHelper.getUIScaled(2));
-        mMinValue = minValue;
-        mMaxValue = maxValue;
-        mCheckBox.setText(title);
-
-        createUI();
+        this(title, minValue, maxValue, true);
     }
 
     public void clear() {
@@ -138,8 +138,8 @@ public class RangeSliderPane extends GridPane {
         mSlider.setBlockIncrement(1.0);
         mSlider.setShowTickLabels(true);
         mSlider.setShowTickMarks(true);
-        mMinSpinner = new Spinner<>(mMinValue, mMaxValue, mMinValue, 0.1);
-        mMaxSpinner = new Spinner<>(mMinValue, mMaxValue, mMaxValue, 0.1);
+        mMinSpinner = new Spinner<>(mMinValue, mMaxValue, mMinValue, mStep);
+        mMaxSpinner = new Spinner<>(mMinValue, mMaxValue, mMaxValue, mStep);
         mInvertCheckBox.setVisible(false);
         mInvertCheckBox.setManaged(false);
 
