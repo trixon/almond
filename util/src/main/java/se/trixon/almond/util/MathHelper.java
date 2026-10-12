@@ -142,6 +142,10 @@ public class MathHelper {
         return d == null ? 0 : d;
     }
 
+    public static double convertDoubleToDouble(double d) {
+        return Double.isNaN(d) ? 0 : d;
+    }
+
     public static String convertDoubleToString(Locale locale, Double d, int decimals) {
         if (d == null) {
             return "";
@@ -168,6 +172,32 @@ public class MathHelper {
         return convertDoubleToString(Locale.getDefault(), d);
     }
 
+    public static String convertDoubleToString(Locale locale, double d, int decimals) {
+        if (Double.isNaN(d)) {
+            return "";
+        } else {
+            String format = "%%.%df".formatted(decimals);
+
+            return String.format(locale, format, d);
+        }
+    }
+
+    public static String convertDoubleToString(Locale locale, double d) {
+        if (Double.isNaN(d)) {
+            return "";
+        } else {
+            return String.format(locale, "%f", d);
+        }
+    }
+
+    public static String convertDoubleToString(double d, int decimals) {
+        return convertDoubleToString(Locale.getDefault(), d, decimals);
+    }
+
+    public static String convertDoubleToString(double d) {
+        return convertDoubleToString(Locale.getDefault(), d);
+    }
+
     public static String convertDoubleToStringWithSign(Locale locale, Double d, int decimals) {
         if (d == null) {
             return "";
@@ -179,6 +209,20 @@ public class MathHelper {
     }
 
     public static String convertDoubleToStringWithSign(Double d, int decimals) {
+        return convertDoubleToStringWithSign(Locale.getDefault(), d, decimals);
+    }
+
+    public static String convertDoubleToStringWithSign(Locale locale, double d, int decimals) {
+        if (Double.isNaN(d)) {
+            return "";
+        } else {
+            String format = "%%+.%df".formatted(decimals);
+
+            return String.format(locale, format, d);
+        }
+    }
+
+    public static String convertDoubleToStringWithSign(double d, int decimals) {
         return convertDoubleToStringWithSign(Locale.getDefault(), d, decimals);
     }
 
@@ -256,7 +300,25 @@ public class MathHelper {
         return p.y * d.width + p.x;
     }
 
-    public static int round(Double value) {
+    public static int round(double value) {
+        if (Double.isNaN(value)) {
+            return 0;
+        } else {
+            return (int) Math.round(value);
+        }
+    }
+
+    public static double round(double value, int places) {
+        if (Double.isNaN(value)) {
+            return Double.NaN;
+        } else if (places < 0) {
+            throw new IllegalArgumentException();
+        }
+
+        return BigDecimal.valueOf(value).setScale(places, RoundingMode.HALF_UP).doubleValue();
+    }
+
+    public static int roundObjX(Double value) {
         if (value == null) {
             return 0;
         } else {
@@ -264,9 +326,19 @@ public class MathHelper {
         }
     }
 
-    public static Double round(Double value, int places) {
+    public static Double roundObjX(Double value, int places) {
         if (value == null) {
             return null;
+        } else if (places < 0) {
+            throw new IllegalArgumentException();
+        }
+
+        return BigDecimal.valueOf(value).setScale(places, RoundingMode.HALF_UP).doubleValue();
+    }
+
+    public static double roundToPrimitive(Double value, int places) {
+        if (value == null) {
+            return Double.NaN;
         } else if (places < 0) {
             throw new IllegalArgumentException();
         }
