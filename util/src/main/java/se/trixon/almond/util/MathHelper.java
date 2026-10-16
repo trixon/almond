@@ -47,6 +47,34 @@ public class MathHelper {
         return b + offset;
     }
 
+    public static double getIfNaN(double value, double defaultValue) {
+        return Double.isNaN(value) ? defaultValue : value;
+    }
+
+    public static boolean allNotNaN(double... doubles) {
+        if (doubles != null && doubles.length > 0) {
+            for (double d : doubles) {
+                if (Double.isNaN(d)) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    public static boolean anyNaN(double... doubles) {
+        if (doubles != null && doubles.length > 0) {
+            for (double d : doubles) {
+                if (Double.isNaN(d)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
     public static double azimuth(double x1, double y1, double x2, double y2) {
         return azimuth(x2 - x1, y2 - y1);
     }
@@ -136,6 +164,10 @@ public class MathHelper {
         } else {
             return 400 - gon + 100;
         }
+    }
+
+    public static double convertDoubleObjToDouble(Double d) {
+        return d == null ? Double.NaN : d;
     }
 
     public static double convertDoubleToDouble(Double d) {
@@ -259,6 +291,13 @@ public class MathHelper {
             return true;
         }
 
+        var min = Math.min(limit1inclusive, limit2inclusive);
+        var max = Math.max(limit1inclusive, limit2inclusive);
+
+        return value >= min && value <= max;
+    }
+
+    public static boolean isBetween(double limit1inclusive, double limit2inclusive, double value) {
         var min = Math.min(limit1inclusive, limit2inclusive);
         var max = Math.max(limit1inclusive, limit2inclusive);
 
