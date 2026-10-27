@@ -105,6 +105,17 @@ public class Almond {
         }
     }
 
+    public static void openTopComponents(String... ids) {
+        SwingUtilities.invokeLater(() -> {
+            try {
+                for (var id : ids) {
+                    WINDOW_MANAGER.findTopComponent(id).open();
+                }
+            } catch (Exception e) {
+            }
+        });
+    }
+
     public static synchronized boolean requestActive(String preferredID) {
         Runnable r = () -> {
             try {
