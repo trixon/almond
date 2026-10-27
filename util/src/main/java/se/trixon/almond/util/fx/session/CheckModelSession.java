@@ -15,6 +15,13 @@
  */
 package se.trixon.almond.util.fx.session;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -23,15 +30,14 @@ import org.apache.commons.lang3.Strings;
 import org.controlsfx.control.CheckComboBox;
 import org.controlsfx.control.IndexedCheckModel;
 
-/**
- *
- * @author Patrik Karlström
- */
 public class CheckModelSession {
+
+    private static final ObjectMapper MAPPER = new ObjectMapper();
 
     private final ObservableList mAllItems;
     private final IndexedCheckModel mCheckModel;
     private final SimpleStringProperty mCheckedStringProperty = new SimpleStringProperty();
+    private final AtomicInteger mInternalUpdateDepth = new AtomicInteger();
 
     public CheckModelSession(IndexedCheckModel checkModel, ObservableList allItems) {
         mCheckModel = checkModel;
@@ -48,9 +54,9 @@ public class CheckModelSession {
     }
 
     public void load() {
-        var storedItems = StringUtils.splitPreserveAllTokens(mCheckedStringProperty.get(), ":::");
-        if (storedItems != null) {
-            for (var storedItem : storedItems) {
+        runInternal(() -> {
+            mCheckModel.clearChecks();
+            for (var storedItem : deserialize(mCheckedStringProperty.get())) {
                 for (var listItem : mAllItems) {
                     if (Strings.CS.equals(storedItem, listItem.toString())) {
                         mCheckModel.check(listItem);
@@ -58,22 +64,84 @@ public class CheckModelSession {
                     }
                 }
             }
+        });
+    }
+
+    private List<String> deserialize(String value) {
+        if (value == null) {
+            return Collections.emptyList();
         }
+
+        value = value.trim();
+        if (value.startsWith("json:")) {
+            try {
+                return MAPPER.readValue(
+                        value.substring(5),
+                        new TypeReference<List<String>>() {
+                });
+            } catch (JsonProcessingException e) {
+                throw new IllegalStateException(
+                        "Failed to parse JSON selection state",
+                        e);
+            }
+        }
+
+        if (value.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        var tokens = StringUtils.splitPreserveAllTokens(value, ":::");
+
+        return tokens == null
+                ? Collections.emptyList()
+                : Arrays.asList(tokens);
     }
 
     private void initListeners() {
         mCheckedStringProperty.addListener((p, o, n) -> {
+            if (isInternalUpdate()) {
+                return;
+            }
+
             load();
         });
 
         mCheckModel.getCheckedItems().addListener((ListChangeListener.Change c) -> {
-            mCheckModel.getCheckedItems().forEach(i -> {
-                //For some reason, this solves a strange behavior
-            });
+            if (isInternalUpdate()) {
+                return;
+            }
 
-            var items = String.join(":::", c.getList().stream().map(o -> o.toString()).toList());
-            mCheckedStringProperty.set(items);
+            var json = serialize(
+                    mCheckModel.getCheckedItems()
+                            .stream()
+                            .map(String::valueOf)
+                            .toList());
+
+            runInternal(() -> mCheckedStringProperty.set(json));
         });
     }
 
+    private boolean isInternalUpdate() {
+        return mInternalUpdateDepth.get() > 0;
+    }
+
+    private void runInternal(Runnable runnable) {
+        mInternalUpdateDepth.incrementAndGet();
+
+        try {
+            runnable.run();
+        } finally {
+            mInternalUpdateDepth.decrementAndGet();
+        }
+    }
+
+    private String serialize(List<String> values) {
+        try {
+            return "json:" + MAPPER.writeValueAsString(values);
+        } catch (JsonProcessingException e) {
+            throw new IllegalStateException(
+                    "Failed to serialize selection state",
+                    e);
+        }
+    }
 }
