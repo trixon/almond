@@ -15,8 +15,13 @@
  */
 package se.trixon.almond.nbp;
 
+import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Frame;
+import java.awt.event.HierarchyEvent;
+import java.awt.event.HierarchyListener;
 import java.lang.reflect.InvocationTargetException;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import org.openide.util.Exceptions;
@@ -44,6 +49,20 @@ public class Almond {
         });
     }
 
+    public static void disableTabsForMode(Mode mode) {
+//        hideTabs(WindowManager.getDefault().findTopComponent(preferredID));
+        Container parent = (Container) mode;
+        hideTabDisplayer(parent);
+        parent.validate();
+        parent.repaint();
+
+    }
+
+    public static void disableTabsForMode(String modeId) {
+        var mode = WindowManager.getDefault().findMode(modeId);
+        disableTabsForMode(mode);
+    }
+
     public static Frame getFrame() {
         return sFrame;
     }
@@ -54,6 +73,39 @@ public class Almond {
 
     public static TopComponent getTopComponent(String id) {
         return getTopComponent(id, TopComponent.class);
+    }
+
+    public static void hideTabs(TopComponent tc) {
+        if (tc != null) {
+            var parent = tc.getParent();
+            if (parent == null || !tc.isOpened()) {
+                var hierarchyListener = new HierarchyListener() {
+                    @Override
+                    public void hierarchyChanged(HierarchyEvent e) {
+                        Almond.hideTabs(tc);
+                    }
+                };
+                tc.addHierarchyListener(hierarchyEvent -> {
+                    Almond.hideTabs(tc);
+                    tc.removeHierarchyListener(hierarchyListener);
+                });
+
+            } else {
+                while (parent != null) {
+                    if (parent.getClass().getName().contains("Mode")) {
+                        hideTabDisplayer(parent);
+                        parent.validate();
+                        parent.repaint();
+                        break;
+                    }
+                    parent = parent.getParent();
+                }
+            }
+        }
+    }
+
+    public static void hideTabs(String preferredID) {
+        hideTabs(WindowManager.getDefault().findTopComponent(preferredID));
     }
 
     public static boolean isSelected(String preferredID) {
@@ -147,4 +199,27 @@ public class Almond {
         SimpleDialog.setParent(frame);
         sFrame = frame;
     }
+
+    private static void hideTabDisplayer(Container container) {
+        for (var component : container.getComponents()) {
+            var className = component.getClass().getName();
+
+            if (className.contains("TabDisplayer") || className.contains("ButtonPopupDisplayer")) {
+                if (component instanceof JComponent tabControl) {
+                    if (tabControl.isVisible()) {
+                        var dimension = new Dimension(0, 0);
+                        tabControl.setPreferredSize(dimension);
+                        tabControl.setMinimumSize(dimension);
+                        tabControl.setMaximumSize(dimension);
+                        tabControl.setVisible(false);
+                    }
+                }
+            }
+
+            if (component instanceof Container) {
+                hideTabDisplayer((Container) component);
+            }
+        }
+    }
+
 }
