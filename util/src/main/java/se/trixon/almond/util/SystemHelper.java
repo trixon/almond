@@ -277,7 +277,10 @@ public class SystemHelper {
         ));
         map.put("Home Directory", System.getProperty("user.home"));
         if (System.getProperties().containsKey("netbeans.user")) {
-            map.put("User Directory", System.getProperty("netbeans.user"));
+            map.put("NB User Directory", System.getProperty("netbeans.user"));
+        }
+        if (System.getProperties().containsKey("netbeans.buildnumber")) {
+            map.put("NB Build", System.getProperty("netbeans.buildnumber"));
         }
 
         int max = Integer.MIN_VALUE;
