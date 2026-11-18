@@ -75,6 +75,12 @@
         <module>nbp-actions-osx</module>
         <module>nbp-core</module>
         <module>util</module>
+        <module>assets-dictionaries</module>
+        <module>assets-graphics</module>
+        <module>core</module>
+        <module>swing</module>
+        <module>fx</module>
+        <module>swingfx</module>
     </modules>
 
     <dependencyManagement>
@@ -89,6 +95,36 @@
                 <artifactId>almond-util</artifactId>
                 <version>${almond.version}</version>
             </dependency>
+            <dependency>
+                <groupId>se.trixon.almond</groupId>
+                <artifactId>almond-core</artifactId>
+                <version>${almond.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>se.trixon.almond</groupId>
+                <artifactId>almond-assets-dictionaries</artifactId>
+                <version>${almond.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>se.trixon.almond</groupId>
+                <artifactId>almond-assets-graphics</artifactId>
+                <version>${almond.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>se.trixon.almond</groupId>
+                <artifactId>almond-fx</artifactId>
+                <version>${almond.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>se.trixon.almond</groupId>
+                <artifactId>almond-swing</artifactId>
+                <version>${almond.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>se.trixon.almond</groupId>
+                <artifactId>almond-swingfx</artifactId>
+                <version>${almond.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -101,7 +137,6 @@
 
     <properties>
         <netbeans.hint.license>apache20</netbeans.hint.license>
-        <netbeans.hint.jdkPlatform>JDK_FX</netbeans.hint.jdkPlatform>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 </project>

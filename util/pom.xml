@@ -10,63 +10,37 @@
 
     <artifactId>almond-util</artifactId>
     <packaging>jar</packaging>
-    <description>Utility classes</description>
-
+    <name>[DEPRECATED] almond-util</name>
+    <description>DEPRECATED: Aggregation wrapper for backwards compatibility. Migrate to almond-core, almond-fx, almond-swing, and almond-swingfx.</description>
     <dependencies>
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
+            <groupId>se.trixon.almond</groupId>
+            <artifactId>almond-assets-dictionaries</artifactId>
         </dependency>
         <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>almond-assets-graphics</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-text</artifactId>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>almond-core</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-csv</artifactId>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>almond-swing</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.controlsfx</groupId>
-            <artifactId>controlsfx</artifactId>
-            <scope>provided</scope>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>almond-fx</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.github.oshi</groupId>
-            <artifactId>oshi-core</artifactId>
-            <version>7.7.3</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>2.15.0</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.23.0</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-            <version>2.23</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.dlsc.gemsfx</groupId>
-            <artifactId>gemsfx</artifactId>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>almond-swingfx</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 

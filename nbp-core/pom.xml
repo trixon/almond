@@ -52,7 +52,7 @@
         <!--Trixon-->
         <dependency>
             <groupId>se.trixon.almond</groupId>
-            <artifactId>almond-util</artifactId>
+            <artifactId>almond-core</artifactId>
             <exclusions>
                 <exclusion>
                     <groupId>*</groupId>
