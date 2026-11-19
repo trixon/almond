@@ -25,7 +25,7 @@ import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
 import org.openide.util.NbPreferences;
 import se.trixon.almond.util.Dict;
-import se.trixon.almond.util.OptionsBase;
+import se.trixon.almond.util.OptionsBaseCore;
 
 /**
  *
@@ -85,7 +85,7 @@ public class NbOptionalDialog {
         sOptions.setPreferences(preferences);
     }
 
-    public static class Options extends OptionsBase {
+    public static class Options extends OptionsBaseCore {
 
         public Options() {
             setPreferences(NbPreferences.forModule(NbOptionalDialog.class).node("optionalDialogState"));

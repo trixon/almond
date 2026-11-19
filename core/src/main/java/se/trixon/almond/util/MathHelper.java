@@ -20,7 +20,6 @@ import java.awt.Point;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Locale;
-import javafx.geometry.Point2D;
 import org.apache.commons.lang3.ObjectUtils;
 
 /**

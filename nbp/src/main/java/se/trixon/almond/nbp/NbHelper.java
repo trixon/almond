@@ -28,6 +28,7 @@ import org.openide.util.Lookup;
 import org.openide.util.NbPreferences;
 import org.openide.windows.IOProvider;
 import se.trixon.almond.nbp.output.OutputLineMode;
+import se.trixon.almond.swingfx.SwingFxHelper;
 import se.trixon.almond.util.PrefsHelper;
 import se.trixon.almond.util.fx.FxHelper;
 import se.trixon.almond.util.icons.material.MaterialIcon;
@@ -92,7 +93,7 @@ public class NbHelper {
             FxHelper.setDarkThemeEnabled(true);
             var color = FxHelper.getFillColorForDarkTheme();
             MaterialIcon.setDefaultColor(color);
-            se.trixon.almond.util.icons.material.swing.MaterialIcon.setDefaultColor(FxHelper.colorToColor(color));
+            se.trixon.almond.util.icons.material.swing.MaterialIcon.setDefaultColor(SwingFxHelper.colorToColor(color));
 
             OutputLineMode.setNightMode(true);
         }

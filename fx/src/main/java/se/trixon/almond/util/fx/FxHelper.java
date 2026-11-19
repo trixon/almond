@@ -71,6 +71,8 @@ import org.controlsfx.control.IndexedCheckModel;
 import org.controlsfx.control.MaskerPane;
 import org.controlsfx.control.NotificationPane;
 import org.controlsfx.control.action.Action;
+import static se.trixon.almond.core.AlmondConstants.FORMAT_HEX_3;
+import static se.trixon.almond.core.AlmondConstants.FORMAT_HEX_4;
 import se.trixon.almond.util.PrefsHelper;
 import se.trixon.almond.util.fx.session.CheckModelSession;
 import se.trixon.almond.util.icons.material.fx.MaterialIcon;
@@ -84,8 +86,6 @@ public class FxHelper {
     public static final String STYLE_HOVERED_BUTTON = "-fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;";
     public static final String STYLE_IDLE_BUTTON = "-fx-background-color: transparent;";
     private static final String DARCULA = "darcula.css";
-    private static final String FORMAT_HEX_3 = "%02X%02X%02X";
-    private static final String FORMAT_HEX_4 = "%02X%02X%02X%02X";
     private static final String FORMAT_TITLE_DESC = "%s (%s)";
 
     private static final String STAGE_ALWAYS_ON_TOP = "AlmondStage_AlwaysOnTop";
@@ -198,42 +198,6 @@ public class FxHelper {
         return Color.web(rgba);
     }
 
-    public static java.awt.Color colorToAwtColor(Color color) {
-        if (color == null) {
-            return java.awt.Color.BLACK;
-        } else {
-            return new java.awt.Color(
-                    (float) color.getRed(),
-                    (float) color.getGreen(),
-                    (float) color.getBlue(),
-                    (float) color.getOpacity());
-        }
-    }
-
-    public static java.awt.Color colorToColor(Color color) {
-        if (color == null) {
-            return java.awt.Color.BLACK;
-        } else {
-            return new java.awt.Color(
-                    (float) color.getRed(),
-                    (float) color.getGreen(),
-                    (float) color.getBlue(),
-                    (float) color.getOpacity());
-        }
-    }
-
-    public static javafx.scene.paint.Color colorToFxColor(java.awt.Color color) {
-        if (color == null) {
-            return javafx.scene.paint.Color.BLACK;
-        } else {
-            return new javafx.scene.paint.Color(
-                    (float) color.getRed() / 255,
-                    (float) color.getGreen() / 255,
-                    (float) color.getBlue() / 255,
-                    (float) color.getAlpha() / 255);
-        }
-    }
-
     @Deprecated
     public static String colorToHex(Color color) {
         return FORMAT_HEX_3.formatted(
@@ -250,26 +214,11 @@ public class FxHelper {
                 (int) (color.getRed() * 0xff));
     }
 
-    public static String colorToHexABGR(java.awt.Color color) {
-        return FORMAT_HEX_4.formatted(
-                color.getAlpha(),
-                color.getBlue(),
-                color.getGreen(),
-                color.getRed());
-    }
-
     public static String colorToHexBGR(Color color) {
         return FORMAT_HEX_3.formatted(
                 (int) (color.getBlue() * 0xff),
                 (int) (color.getGreen() * 0xff),
                 (int) (color.getRed() * 0xff));
-    }
-
-    public static String colorToHexBGR(java.awt.Color color) {
-        return FORMAT_HEX_3.formatted(
-                color.getBlue(),
-                color.getGreen(),
-                color.getRed());
     }
 
     public static int colorToHexInt(Color color) {
@@ -281,22 +230,6 @@ public class FxHelper {
                 (int) (color.getRed() * 0xff),
                 (int) (color.getGreen() * 0xff),
                 (int) (color.getBlue() * 0xff));
-    }
-
-    public static String colorToHexRGB(java.awt.Color color) {
-        return FORMAT_HEX_3.formatted(
-                color.getBlue(),
-                color.getGreen(),
-                color.getRed());
-    }
-
-    public static String colorToHexRGBA(java.awt.Color color) {
-        return FORMAT_HEX_4.formatted(
-                color.getRed(),
-                color.getGreen(),
-                color.getBlue(),
-                color.getAlpha()
-        );
     }
 
     public static String colorToHexRGBA(Color color) {
@@ -507,7 +440,6 @@ public class FxHelper {
     }
 
     public static void main(String[] args) {
-        System.out.println(colorToHexBGR(java.awt.Color.red));
     }
 
     public static void matrixRotateNode(Node node, double alf, double bet, double gam) {
